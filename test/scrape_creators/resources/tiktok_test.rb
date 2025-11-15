@@ -61,4 +61,50 @@ describe ScrapeCreators::Resources::Tiktok do
       end
     end
   end
+
+  describe "#audience" do
+    it "fetches audience demographics successfully" do
+      VCR.use_cassette("tiktok/audience_success") do
+        audience = tiktok.audience("somehandle")
+
+        assert_kind_of Hash, audience
+        assert_equal true, audience[:success]
+        assert audience.key?(:audienceLocations)
+
+        # Verify audience locations structure
+        locations = audience[:audienceLocations]
+        assert_kind_of Array, locations
+
+        unless locations.empty?
+          first_location = locations.first
+          assert first_location.key?(:country)
+          assert first_location.key?(:countryCode)
+          assert first_location.key?(:count)
+          assert first_location.key?(:percentage)
+        end
+      end
+    end
+
+    it "raises ArgumentError when handle is nil" do
+      error = assert_raises(ArgumentError) do
+        tiktok.audience(nil)
+      end
+      assert_match(/handle is required/, error.message)
+    end
+
+    it "raises ArgumentError when handle is empty" do
+      error = assert_raises(ArgumentError) do
+        tiktok.audience("")
+      end
+      assert_match(/handle is required/, error.message)
+    end
+
+    it "raises NotFoundError for non-existent profile" do
+      VCR.use_cassette("tiktok/audience_not_found") do
+        assert_raises(ScrapeCreators::NotFoundError) do
+          tiktok.audience("thisuserdoesnotexist123456789")
+        end
+      end
+    end
+  end
 end

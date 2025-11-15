@@ -53,6 +53,52 @@ module ScrapeCreators
 
         get("/v1/tiktok/profile", { handle: handle })
       end
+
+      # Get audience demographics for a TikTok user
+      #
+      # Returns the audience demographics including country distribution for a TikTok user.
+      # Currently only provides audience location data by country.
+      #
+      # @note This endpoint costs 26 credits per request
+      #
+      # @param handle [String] TikTok handle (username)
+      # @return [Hash] Audience demographics data with country distribution
+      # @raise [BadRequestError] If the handle parameter is missing or invalid
+      # @raise [NotFoundError] If the profile is not found
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Get audience demographics
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   audience = client.tiktok.audience("handle")
+      #   puts audience[:success]  # => true
+      #   puts audience[:audienceLocations].first[:country]  # => "Mexico"
+      #   puts audience[:audienceLocations].first[:percentage]  # => "15.96%"
+      #
+      # @example Response structure
+      #   {
+      #     success: true,
+      #     audienceLocations: [
+      #       {
+      #         country: "Mexico",
+      #         countryCode: "MX",
+      #         count: 83,
+      #         percentage: "15.96%"
+      #       },
+      #       {
+      #         country: "United States",
+      #         countryCode: "US",
+      #         count: 34,
+      #         percentage: "6.54%"
+      #       },
+      #       ...
+      #     ]
+      #   }
+      def audience(handle)
+        raise ArgumentError, "handle is required" if handle.nil? || handle.to_s.empty?
+
+        get("/v1/tiktok/user/audience", { handle: handle })
+      end
     end
   end
 end
