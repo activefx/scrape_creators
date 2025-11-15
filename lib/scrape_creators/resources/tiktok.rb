@@ -397,11 +397,11 @@ module ScrapeCreators
         response = get("/v1/tiktok/user/live", { handle: handle })
 
         # Normalize response: add :isLive based on liveRoomUserInfo presence
-        if response[:liveRoomUserInfo]
-          response[:isLive] = !response[:liveRoomUserInfo].empty? && response[:liveRoomUserInfo].keys.any?
-        else
-          response[:isLive] = false
-        end
+        response[:isLive] = if response[:liveRoomUserInfo]
+                              !response[:liveRoomUserInfo].empty? && response[:liveRoomUserInfo].keys.any?
+                            else
+                              false
+                            end
 
         response
       end

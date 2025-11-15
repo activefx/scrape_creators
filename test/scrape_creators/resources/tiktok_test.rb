@@ -18,14 +18,16 @@ describe ScrapeCreators::Resources::Tiktok do
 
         # Verify user data structure
         user = profile[:user]
+
         assert_equal "stoolpresidente", user[:uniqueId]
         assert_equal "Dave Portnoy", user[:nickname]
-        assert_equal true, user[:verified]
+        assert user[:verified]
 
         # Verify stats structure
         stats = profile[:stats]
-        assert stats[:followerCount] > 0
-        assert stats[:videoCount] > 0
+
+        assert_predicate stats[:followerCount], :positive?
+        assert_predicate stats[:videoCount], :positive?
       end
     end
 
@@ -73,6 +75,7 @@ describe ScrapeCreators::Resources::Tiktok do
 
         unless videos[:itemList].empty?
           first_video = videos[:itemList].first
+
           assert first_video.key?(:id)
           assert first_video.key?(:desc)
           assert first_video.key?(:createTime)
@@ -253,7 +256,7 @@ describe ScrapeCreators::Resources::Tiktok do
 
         assert_kind_of Hash, live
         assert live.key?(:isLive)
-        assert_equal false, live[:isLive]
+        refute live[:isLive]
       end
     end
 
@@ -283,6 +286,7 @@ describe ScrapeCreators::Resources::Tiktok do
 
         unless comments[:comments].empty?
           first_comment = comments[:comments].first
+
           assert first_comment.key?(:cid)
           assert first_comment.key?(:text)
           assert first_comment.key?(:user)
@@ -328,6 +332,7 @@ describe ScrapeCreators::Resources::Tiktok do
 
         unless following[:followings].empty?
           first_following = following[:followings].first
+
           assert first_following.key?(:uid)
           assert first_following.key?(:uniqueId)
           assert first_following.key?(:nickname)
@@ -337,7 +342,7 @@ describe ScrapeCreators::Resources::Tiktok do
 
     it "fetches user following with pagination" do
       VCR.use_cassette("tiktok/user_following_with_pagination") do
-        following = tiktok.user_following("stoolpresidente", min_time: 1694905758)
+        following = tiktok.user_following("stoolpresidente", min_time: 1_694_905_758)
 
         assert_kind_of Hash, following
         assert following.key?(:followings)
@@ -378,6 +383,7 @@ describe ScrapeCreators::Resources::Tiktok do
 
         unless followers[:followers].empty?
           first_follower = followers[:followers].first
+
           assert first_follower.key?(:uid)
           assert first_follower.key?(:uniqueId)
           assert first_follower.key?(:nickname)
@@ -397,7 +403,7 @@ describe ScrapeCreators::Resources::Tiktok do
 
     it "fetches user followers with pagination" do
       VCR.use_cassette("tiktok/user_followers_with_pagination") do
-        followers = tiktok.user_followers(handle: "stoolpresidente", min_time: 1737751140)
+        followers = tiktok.user_followers(handle: "stoolpresidente", min_time: 1_737_751_140)
 
         assert_kind_of Hash, followers
         assert followers.key?(:followers)

@@ -35,7 +35,7 @@ module ScrapeCreators
       # Start with default configuration values
       default_config = Configuration.new.to_h
       # Merge with global configuration if available
-      global_config = ScrapeCreators.configuration&.to_h || {}
+      global_config = ScrapeCreators.configuration.to_h
       # Merge with instance-specific options
       @config = default_config.merge(global_config).merge(options)
       @config[:api_key] = @api_key

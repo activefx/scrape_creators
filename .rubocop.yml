@@ -31,11 +31,30 @@ Metrics/ClassLength:
     - '**/*_test.rb'
 
 Metrics/MethodLength:
+  Max: 45  # Increased for API client methods with parameter handling and response parsing
   Exclude:
     - 'test/**/*'
     - '**/*_test.rb'
 
 Metrics/ModuleLength:
+  Exclude:
+    - 'test/**/*'
+    - '**/*_test.rb'
+
+Metrics/AbcSize:
+  Max: 50  # API methods often have higher ABC size due to parameter handling and response parsing
+  Exclude:
+    - 'test/**/*'
+    - '**/*_test.rb'
+
+Metrics/CyclomaticComplexity:
+  Max: 17  # API methods with conditional parameter handling
+  Exclude:
+    - 'test/**/*'
+    - '**/*_test.rb'
+
+Metrics/PerceivedComplexity:
+  Max: 17  # API methods with conditional parameter handling
   Exclude:
     - 'test/**/*'
     - '**/*_test.rb'
