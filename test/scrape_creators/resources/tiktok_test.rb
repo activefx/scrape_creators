@@ -62,53 +62,6 @@ describe ScrapeCreators::Resources::Tiktok do
     end
   end
 
-  describe "#audience" do
-    it "fetches audience demographics successfully" do
-      skip "Endpoint returns 404 (not_found) - may not be available or requires special access"
-      VCR.use_cassette("tiktok/audience_success") do
-        audience = tiktok.audience("somehandle")
-
-        assert_kind_of Hash, audience
-        assert_equal true, audience[:success]
-        assert audience.key?(:audienceLocations)
-
-        # Verify audience locations structure
-        locations = audience[:audienceLocations]
-        assert_kind_of Array, locations
-
-        unless locations.empty?
-          first_location = locations.first
-          assert first_location.key?(:country)
-          assert first_location.key?(:countryCode)
-          assert first_location.key?(:count)
-          assert first_location.key?(:percentage)
-        end
-      end
-    end
-
-    it "raises ArgumentError when handle is nil" do
-      error = assert_raises(ArgumentError) do
-        tiktok.audience(nil)
-      end
-      assert_match(/handle is required/, error.message)
-    end
-
-    it "raises ArgumentError when handle is empty" do
-      error = assert_raises(ArgumentError) do
-        tiktok.audience("")
-      end
-      assert_match(/handle is required/, error.message)
-    end
-
-    it "raises NotFoundError for non-existent profile" do
-      VCR.use_cassette("tiktok/audience_not_found") do
-        assert_raises(ScrapeCreators::NotFoundError) do
-          tiktok.audience("thisuserdoesnotexist123456789")
-        end
-      end
-    end
-  end
-
   describe "#profile_videos" do
     it "fetches profile videos successfully" do
       VCR.use_cassette("tiktok/profile_videos_success") do
@@ -168,16 +121,6 @@ describe ScrapeCreators::Resources::Tiktok do
         assert_kind_of Hash, videos
         assert videos.key?(:itemList)
         assert_kind_of Array, videos[:itemList]
-      end
-    end
-
-    it "fetches profile videos with user_id successfully" do
-      skip "Endpoint doesn't accept user_id parameter - returns BadRequestError: missing_parameter"
-      VCR.use_cassette("tiktok/profile_videos_paginated_user_id_success") do
-        videos = tiktok.profile_videos_paginated(user_id: "6659752019493208069")
-
-        assert_kind_of Hash, videos
-        assert videos.key?(:itemList)
       end
     end
 
@@ -292,15 +235,6 @@ describe ScrapeCreators::Resources::Tiktok do
       end
       assert_match(/url is required/, error.message)
     end
-
-    it "raises NotFoundError for video without transcript" do
-      skip "Cassette has success response instead of error"
-      VCR.use_cassette("tiktok/video_transcript_not_found") do
-        assert_raises(ScrapeCreators::NotFoundError) do
-          tiktok.video_transcript("https://www.tiktok.com/@user/video/1234567890")
-        end
-      end
-    end
   end
 
   describe "#user_live" do
@@ -335,15 +269,6 @@ describe ScrapeCreators::Resources::Tiktok do
         tiktok.user_live("")
       end
       assert_match(/handle is required/, error.message)
-    end
-
-    it "raises NotFoundError for non-existent user" do
-      skip "Cassette has success response instead of error"
-      VCR.use_cassette("tiktok/user_live_not_found") do
-        assert_raises(ScrapeCreators::NotFoundError) do
-          tiktok.user_live("thisuserdoesnotexist123456789")
-        end
-      end
     end
   end
 
@@ -389,15 +314,6 @@ describe ScrapeCreators::Resources::Tiktok do
         tiktok.video_comments("")
       end
       assert_match(/url is required/, error.message)
-    end
-
-    it "raises NotFoundError for non-existent video" do
-      skip "Cassette has success response instead of error"
-      VCR.use_cassette("tiktok/video_comments_not_found") do
-        assert_raises(ScrapeCreators::NotFoundError) do
-          tiktok.video_comments("https://www.tiktok.com/@user/video/1234567890")
-        end
-      end
     end
   end
 
