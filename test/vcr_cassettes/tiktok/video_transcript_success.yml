@@ -2,41 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://api.scrapecreators.com/v1/tiktok/video/transcript?url=https://www.tiktok.com/@stoolpresidente/video/7445883744370625822
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      X-Api-Key:
-      - "<API_KEY>"
-      Content-Type:
-      - application/json
-      Accept:
-      - application/json
-      User-Agent:
-      - Faraday v2.14.0
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-  response:
-    status:
-      code: 503
-      message: Service Unavailable
-    headers:
-      Content-Length:
-      - '216'
-      Content-Type:
-      - text/plain
-      Date:
-      - Sat, 15 Nov 2025 06:18:37 GMT
-    body:
-      encoding: UTF-8
-      string: 'upstream connect error or disconnect/reset before headers. reset reason:
-        remote connection failure, transport failure reason: TLS_error:|268435581:SSL
-        routines:OPENSSL_internal:CERTIFICATE_VERIFY_FAILED:TLS_error_end'
-  recorded_at: Sat, 15 Nov 2025 06:18:38 GMT
-- request:
-    method: get
-    uri: https://api.scrapecreators.com/v1/tiktok/video/transcript?url=https://www.tiktok.com/@stoolpresidente/video/7445883744370625822
+    uri: https://api.scrapecreators.com/v1/tiktok/video/transcript?url=https://www.tiktok.com/@programming_hub/video/7340627334321491205
     body:
       encoding: US-ASCII
       string: ''
@@ -57,15 +23,15 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sat, 15 Nov 2025 06:18:41 GMT
+      - Sat, 15 Nov 2025 06:33:46 GMT
       Content-Type:
       - application/json; charset=utf-8
       Access-Control-Allow-Origin:
       - "*"
       Etag:
-      - W/"77-Dl+8WArH1GsBPUZVyXYvQ3TxLFw"
+      - W/"19e-yEWJcp6v6zszQRQs7sCVW2PZWA0"
       Rndr-Id:
-      - f37e45ab-48ba-43b3
+      - 1717d2b6-3066-45f0
       Vary:
       - Accept-Encoding
       X-Powered-By:
@@ -77,13 +43,17 @@ http_interactions:
       Server:
       - cloudflare
       Cf-Ray:
-      - 99eca1ec086fe805-ORD
+      - 99ecb7fcef5d124c-ORD
       Alt-Svc:
       - h3=":443"; ma=86400
       Transfer-Encoding:
       - chunked
     body:
       encoding: ASCII-8BIT
-      string: '{"credits_remaining":24894,"url":"https://www.tiktok.com/@stoolpresidente/video/7445883744370625822","transcript":null}'
-  recorded_at: Sat, 15 Nov 2025 06:18:41 GMT
+      string: '{"credits_remaining":24834,"id":"7340627334321491205","url":"https://www.tiktok.com/@programming_hub/video/7340627334321491205","transcript":"WEBVTT\n\n\n00:00:00.840
+        --> 00:00:03.260\nWonderful app. We need more apps like this.\n\n00:00:03.360
+        --> 00:00:04.960\nHopefully you could make one for high school,\n\n00:00:04.961
+        --> 00:00:08.061\nprimary school, college and university so that we can learn
+        faster.\n"}'
+  recorded_at: Sat, 15 Nov 2025 06:33:46 GMT
 recorded_with: VCR 6.3.1

@@ -161,7 +161,21 @@ module ScrapeCreators
         params[:maxCursor] = max_cursor if max_cursor
         params[:trim] = trim unless trim.nil?
 
-        get("/v3/tiktok/profile/videos", params)
+        response = get("/v3/tiktok/profile/videos", params)
+
+        # Normalize response: add :itemList if only :aweme_list exists
+        response[:itemList] = response[:aweme_list] if response[:aweme_list] && !response[:itemList]
+
+        # Normalize each video item in the list
+        if response[:itemList].is_a?(Array)
+          response[:itemList].each do |item|
+            item[:id] = item[:aweme_id] if item[:aweme_id] && !item[:id]
+            item[:createTime] = item[:create_time] if item[:create_time] && !item[:createTime]
+            item[:stats] = item[:statistics] if item[:statistics] && !item[:stats]
+          end
+        end
+
+        response
       end
 
       # Get TikTok profile videos with automatic pagination
@@ -302,6 +316,11 @@ module ScrapeCreators
           )
         end
 
+        # Normalize response: add :id if only :aweme_id exists
+        aweme_detail[:id] = aweme_detail[:aweme_id] if aweme_detail[:aweme_id] && !aweme_detail[:id]
+        # Normalize response: add :stats if only :statistics exists
+        aweme_detail[:stats] = aweme_detail[:statistics] if aweme_detail[:statistics] && !aweme_detail[:stats]
+
         aweme_detail
       end
 
@@ -375,7 +394,16 @@ module ScrapeCreators
       def user_live(handle)
         raise ArgumentError, "handle is required" if handle.nil? || handle.to_s.empty?
 
-        get("/v1/tiktok/user/live", { handle: handle })
+        response = get("/v1/tiktok/user/live", { handle: handle })
+
+        # Normalize response: add :isLive based on liveRoomUserInfo presence
+        if response[:liveRoomUserInfo]
+          response[:isLive] = !response[:liveRoomUserInfo].empty? && response[:liveRoomUserInfo].keys.any?
+        else
+          response[:isLive] = false
+        end
+
+        response
       end
 
       # Get TikTok video comments
@@ -482,7 +510,16 @@ module ScrapeCreators
         params[:min_time] = min_time if min_time
         params[:trim] = trim unless trim.nil?
 
-        get("/v1/tiktok/user/following", params)
+        response = get("/v1/tiktok/user/following", params)
+
+        # Normalize each user in the followings list
+        if response[:followings].is_a?(Array)
+          response[:followings].each do |user|
+            user[:uniqueId] = user[:unique_id] if user[:unique_id] && !user[:uniqueId]
+          end
+        end
+
+        response
       end
 
       # Get TikTok user followers list
@@ -542,7 +579,16 @@ module ScrapeCreators
         params[:min_time] = min_time if min_time
         params[:trim] = trim unless trim.nil?
 
-        get("/v1/tiktok/user/followers", params)
+        response = get("/v1/tiktok/user/followers", params)
+
+        # Normalize each user in the followers list
+        if response[:followers].is_a?(Array)
+          response[:followers].each do |user|
+            user[:uniqueId] = user[:unique_id] if user[:unique_id] && !user[:uniqueId]
+          end
+        end
+
+        response
       end
     end
   end

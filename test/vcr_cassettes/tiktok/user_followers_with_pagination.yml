@@ -19,19 +19,87 @@ http_interactions:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
   response:
     status:
+      code: 503
+      message: Service Unavailable
+    headers:
+      Content-Length:
+      - '216'
+      Content-Type:
+      - text/plain
+      Date:
+      - Sat, 15 Nov 2025 06:41:40 GMT
+    body:
+      encoding: UTF-8
+      string: 'upstream connect error or disconnect/reset before headers. reset reason:
+        remote connection failure, transport failure reason: TLS_error:|268435581:SSL
+        routines:OPENSSL_internal:CERTIFICATE_VERIFY_FAILED:TLS_error_end'
+  recorded_at: Sat, 15 Nov 2025 06:41:40 GMT
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/tiktok/user/followers?handle=stoolpresidente&min_time=1737751140
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 503
+      message: Service Unavailable
+    headers:
+      Content-Length:
+      - '216'
+      Content-Type:
+      - text/plain
+      Date:
+      - Sat, 15 Nov 2025 06:41:41 GMT
+    body:
+      encoding: UTF-8
+      string: 'upstream connect error or disconnect/reset before headers. reset reason:
+        remote connection failure, transport failure reason: TLS_error:|268435581:SSL
+        routines:OPENSSL_internal:CERTIFICATE_VERIFY_FAILED:TLS_error_end'
+  recorded_at: Sat, 15 Nov 2025 06:41:41 GMT
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/tiktok/user/followers?handle=stoolpresidente&min_time=1737751140
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
       code: 200
       message: OK
     headers:
       Date:
-      - Sat, 15 Nov 2025 06:18:09 GMT
+      - Sat, 15 Nov 2025 06:41:46 GMT
       Content-Type:
       - application/json; charset=utf-8
       Access-Control-Allow-Origin:
       - "*"
       Etag:
-      - W/"198-mveheGPCuN3zjA7vqhHn4KyFaK0"
+      - W/"198-cHUQa2aJz+gESviELxmoegcsRhA"
       Rndr-Id:
-      - ba4041de-1cde-4ea9
+      - 23326948-291e-4924
       Vary:
       - Accept-Encoding
       X-Powered-By:
@@ -43,13 +111,13 @@ http_interactions:
       Server:
       - cloudflare
       Cf-Ray:
-      - 99eca1210ef9f603-ORD
+      - 99ecc3b81ac65eb1-ORD
       Alt-Svc:
       - h3=":443"; ma=86400
       Transfer-Encoding:
       - chunked
     body:
       encoding: ASCII-8BIT
-      string: '{"success":true,"credits_remaining":24903,"extra":{"fatal_item_ids":[],"logid":"20251115061808F24FB60142025DC59430","now":1763187488000},"followers":[],"has_more":false,"log_pb":{"impr_id":"20251115061808F24FB60142025DC59430"},"max_time":1763187488,"min_time":-1,"myself_user_id":"0","next_page_token":"eyJtYXhfY3Vyc29yIjotMSwibWluX2N1cnNvciI6LTF9","offset":0,"status_code":0,"status_msg":"","total":4511324}'
-  recorded_at: Sat, 15 Nov 2025 06:18:09 GMT
+      string: '{"success":true,"credits_remaining":24824,"extra":{"fatal_item_ids":[],"logid":"202511150641454F2250CDA057B5D13CDC","now":1763188906000},"followers":[],"has_more":false,"log_pb":{"impr_id":"202511150641454F2250CDA057B5D13CDC"},"max_time":1763188906,"min_time":-1,"myself_user_id":"0","next_page_token":"eyJtYXhfY3Vyc29yIjotMSwibWluX2N1cnNvciI6LTF9","offset":0,"status_code":0,"status_msg":"","total":4511321}'
+  recorded_at: Sat, 15 Nov 2025 06:41:46 GMT
 recorded_with: VCR 6.3.1
