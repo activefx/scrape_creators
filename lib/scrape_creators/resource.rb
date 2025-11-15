@@ -119,14 +119,40 @@ module ScrapeCreators
 
     # Parse JSON response
     #
-    # @param body [String] Response body
-    # @return [Hash] Parsed JSON
+    # @param body [String, Hash, Array] Response body
+    # @return [Hash, Array] Parsed JSON
     def parse_json(body)
-      return {} if body.nil? || body.empty?
+      return {} if body.nil?
+      return {} if body.respond_to?(:empty?) && body.empty?
 
+      # If Faraday's JSON middleware already parsed it, symbolize all keys recursively
+      if body.is_a?(Hash)
+        return deep_symbolize_keys(body)
+      elsif body.is_a?(Array)
+        return body
+      end
+
+      # Otherwise, parse the JSON string
       JSON.parse(body, symbolize_names: true)
     rescue JSON::ParserError
       { raw: body }
+    end
+
+    # Recursively symbolize all keys in a hash
+    #
+    # @param obj [Object] The object to symbolize
+    # @return [Object] The symbolized object
+    def deep_symbolize_keys(obj)
+      case obj
+      when Hash
+        obj.each_with_object({}) do |(key, value), result|
+          result[key.to_sym] = deep_symbolize_keys(value)
+        end
+      when Array
+        obj.map { |item| deep_symbolize_keys(item) }
+      else
+        obj
+      end
     end
 
     # Extract error message from response

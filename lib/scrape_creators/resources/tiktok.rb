@@ -51,7 +51,17 @@ module ScrapeCreators
       def profile(handle)
         raise ArgumentError, "handle is required" if handle.nil? || handle.to_s.empty?
 
-        get("/v1/tiktok/profile", { handle: handle })
+        response = get("/v1/tiktok/profile", { handle: handle })
+
+        # Handle account_deactivated flag in 200 responses
+        if response[:account_deactivated]
+          raise NotFoundError.new(
+            response[:message] || "Profile not found",
+            response_body: response
+          )
+        end
+
+        response
       end
 
       # Get audience demographics for a TikTok user
@@ -207,7 +217,14 @@ module ScrapeCreators
         params[:amount] = amount if amount
         params[:trim] = trim unless trim.nil?
 
-        get("/v3/tiktok/profile-videos", params)
+        response = get("/v3/tiktok/profile-videos", params)
+
+        # API returns an array at top level, wrap it to match expected structure
+        if response.is_a?(Array)
+          { itemList: response }
+        else
+          response
+        end
       end
 
       # Get TikTok video information
@@ -272,7 +289,20 @@ module ScrapeCreators
         params[:region] = region if region
         params[:trim] = trim unless trim.nil?
 
-        get("/v2/tiktok/video", params)
+        response = get("/v2/tiktok/video", params)
+
+        # Extract aweme_detail from the response wrapper
+        aweme_detail = response[:aweme_detail] || response
+
+        # Check if video data is actually present (has id or aweme_id)
+        unless aweme_detail[:id] || aweme_detail[:aweme_id]
+          raise NotFoundError.new(
+            "Video not found or unavailable",
+            response_body: response
+          )
+        end
+
+        aweme_detail
       end
 
       # Get TikTok video transcript

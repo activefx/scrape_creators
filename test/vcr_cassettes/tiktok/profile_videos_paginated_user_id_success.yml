@@ -1,0 +1,56 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v3/tiktok/profile-videos?userId=6659752019493208069
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Date:
+      - Sat, 15 Nov 2025 06:17:43 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Cf-Ray:
+      - 99eca08e982a4d2c-ORD
+      Access-Control-Allow-Origin:
+      - "*"
+      Etag:
+      - W/"8c-H9bDZanL4emY7bofCu1TIpdCmEQ"
+      Rndr-Id:
+      - 90f1941f-9386-46da
+      Vary:
+      - Accept-Encoding
+      X-Powered-By:
+      - Express
+      X-Render-Origin-Server:
+      - Render
+      Cf-Cache-Status:
+      - DYNAMIC
+      Server:
+      - cloudflare
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '{"success":false,"credits_remaining":24908,"error":"missing_parameter","errorStatus":400,"message":"You
+        must provide a handle or a user_id"}'
+  recorded_at: Sat, 15 Nov 2025 06:17:43 GMT
+recorded_with: VCR 6.3.1

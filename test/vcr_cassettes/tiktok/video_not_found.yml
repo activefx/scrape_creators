@@ -1,0 +1,55 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v2/tiktok/video?url=https://www.tiktok.com/@user/video/1234567890
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 15 Nov 2025 06:18:54 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      Etag:
+      - W/"1c4-hr+tCoqN8faNmlK7d9zMJb3l6XI"
+      Rndr-Id:
+      - cc83a186-b6d1-4f59
+      Vary:
+      - Accept-Encoding
+      X-Powered-By:
+      - Express
+      X-Render-Origin-Server:
+      - Render
+      Cf-Cache-Status:
+      - DYNAMIC
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 99eca2403a8810e5-ORD
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"success":true,"credits_remaining":24892,"extra":{"fatal_item_ids":[],"logid":"20251115061853178E7F6DF933B43493FE","now":1763187533000},"log_pb":{"impr_id":"20251115061853178E7F6DF933B43493FE"},"status_code":0,"status_msg":"","aweme_detail":{"is_ad":false,"content_model":{"standard_biz":{"tts_voice_info":{"tts_voice_reuse_params":null}}},"is_eligible_for_commission":false,"is_paid_partnership":false,"create_time_utc":null,"shop_product_url":null}}'
+  recorded_at: Sat, 15 Nov 2025 06:18:54 GMT
+recorded_with: VCR 6.3.1
