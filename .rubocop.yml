@@ -1,0 +1,52 @@
+# frozen_string_literal: true
+
+plugins:
+  - rubocop-minitest
+  - rubocop-rake
+
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 3.2
+  SuggestExtensions: true
+  Exclude:
+    - 'vendor/**/*'
+    - 'tmp/**/*'
+    - 'node_modules/**/*'
+    - 'bin/*'
+
+# Metrics
+Metrics/BlockLength:
+  Exclude:
+    - 'test/**/*'
+    - '**/*_test.rb'
+    - '**/*.gemspec'
+    - 'Rakefile'
+  AllowedMethods:
+    - timeout  # Timeout.timeout blocks often wrap complex logic
+
+Metrics/ClassLength:
+  Max: 130  # Slight increase for complex core classes
+  Exclude:
+    - 'test/**/*'
+    - '**/*_test.rb'
+
+Metrics/MethodLength:
+  Exclude:
+    - 'test/**/*'
+    - '**/*_test.rb'
+
+Metrics/ModuleLength:
+  Exclude:
+    - 'test/**/*'
+    - '**/*_test.rb'
+
+# Style
+Style/FrozenStringLiteralComment:
+  Enabled: true
+  EnforcedStyle: always
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+Style/StringLiteralsInInterpolation:
+  EnforcedStyle: double_quotes
