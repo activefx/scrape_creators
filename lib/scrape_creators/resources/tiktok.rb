@@ -347,6 +347,173 @@ module ScrapeCreators
 
         get("/v1/tiktok/user/live", { handle: handle })
       end
+
+      # Get TikTok video comments
+      #
+      # Scrapes comments from a TikTok video with pagination support.
+      #
+      # @param url [String] TikTok video URL
+      # @param cursor [String, nil] Cursor for pagination to get more comments
+      # @param trim [Boolean, nil] Whether to trim the response data (default: false)
+      # @return [Hash] Comments data with comments array, cursor, and pagination info
+      # @raise [BadRequestError] If the url parameter is missing or invalid
+      # @raise [NotFoundError] If the video is not found
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Get video comments
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   comments = client.tiktok.video_comments("https://www.tiktok.com/@user/video/1234567890")
+      #   puts comments[:comments].first[:text]
+      #   puts comments[:has_more]  # => true/false
+      #
+      # @example Paginate through comments
+      #   page1 = client.tiktok.video_comments("https://www.tiktok.com/@user/video/1234567890")
+      #   page2 = client.tiktok.video_comments(
+      #     "https://www.tiktok.com/@user/video/1234567890",
+      #     cursor: page1[:cursor]
+      #   )
+      #
+      # @example Response structure
+      #   {
+      #     comments: [
+      #       {
+      #         cid: "7463276288959824682",
+      #         text: "Mesa and Scottsdale are like 2 different planets",
+      #         create_time: 1737679448,
+      #         digg_count: 1015,
+      #         reply_comment_total: 9,
+      #         user: {
+      #           uid: "6851091024770040837",
+      #           uniqueId: "tmoneyhoney18",
+      #           nickname: "T"
+      #         }
+      #       }
+      #     ],
+      #     cursor: 20,
+      #     has_more: 1,
+      #     total: 269
+      #   }
+      def video_comments(url, cursor: nil, trim: nil)
+        raise ArgumentError, "url is required" if url.nil? || url.to_s.empty?
+
+        params = { url: url }
+        params[:cursor] = cursor if cursor
+        params[:trim] = trim unless trim.nil?
+
+        get("/v1/tiktok/video/comments", params)
+      end
+
+      # Get TikTok user following list
+      #
+      # Scrapes accounts that a TikTok user follows with pagination support.
+      #
+      # @param handle [String] TikTok handle (username)
+      # @param min_time [Integer, nil] Cursor for pagination (get from previous response)
+      # @param trim [Boolean, nil] Whether to trim the response data (default: false)
+      # @return [Hash] Following data with followings array and pagination info
+      # @raise [BadRequestError] If the handle parameter is missing or invalid
+      # @raise [NotFoundError] If the profile is not found
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Get user's following list
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   following = client.tiktok.user_following("stoolpresidente")
+      #   puts following[:followings].first[:nickname]
+      #   puts following[:has_more]  # => true/false
+      #
+      # @example Paginate through following list
+      #   page1 = client.tiktok.user_following("stoolpresidente")
+      #   page2 = client.tiktok.user_following("stoolpresidente", min_time: page1[:min_time])
+      #
+      # @example Response structure
+      #   {
+      #     followings: [
+      #       {
+      #         uid: "7436873095740343338",
+      #         uniqueId: "barstoolgruden",
+      #         nickname: "Barstool Gruden",
+      #         signature: "SB XXXVII Champ currently @Barstool Sports",
+      #         follower_count: 137712,
+      #         following_count: 3,
+      #         aweme_count: 121
+      #       }
+      #     ],
+      #     has_more: true,
+      #     min_time: 1694905758,
+      #     max_time: 1737751308,
+      #     total: 74
+      #   }
+      def user_following(handle, min_time: nil, trim: nil)
+        raise ArgumentError, "handle is required" if handle.nil? || handle.to_s.empty?
+
+        params = { handle: handle }
+        params[:min_time] = min_time if min_time
+        params[:trim] = trim unless trim.nil?
+
+        get("/v1/tiktok/user/following", params)
+      end
+
+      # Get TikTok user followers list
+      #
+      # Scrapes followers of a TikTok account with pagination support.
+      # Requires either handle or user_id parameter. Using user_id provides faster response times.
+      #
+      # @param handle [String, nil] TikTok handle (username)
+      # @param user_id [String, nil] TikTok user ID (faster response)
+      # @param min_time [Integer, nil] Cursor for pagination (get from previous response)
+      # @param trim [Boolean, nil] Whether to trim the response data (default: false)
+      # @return [Hash] Followers data with followers array and pagination info
+      # @raise [BadRequestError] If both handle and user_id are missing, or if parameters are invalid
+      # @raise [NotFoundError] If the profile is not found
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Get user's followers by handle
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   followers = client.tiktok.user_followers(handle: "stoolpresidente")
+      #   puts followers[:followers].first[:nickname]
+      #   puts followers[:has_more]  # => true/false
+      #
+      # @example Get user's followers by user ID (faster)
+      #   followers = client.tiktok.user_followers(user_id: "6659752019493208069")
+      #
+      # @example Paginate through followers list
+      #   page1 = client.tiktok.user_followers(handle: "stoolpresidente")
+      #   page2 = client.tiktok.user_followers(
+      #     handle: "stoolpresidente",
+      #     min_time: page1[:min_time]
+      #   )
+      #
+      # @example Response structure
+      #   {
+      #     followers: [
+      #       {
+      #         uid: "7463232156317287456",
+      #         uniqueId: "jamal.voyage",
+      #         nickname: "Jamal Voyage",
+      #         follower_count: 0,
+      #         following_count: 5,
+      #         aweme_count: 0
+      #       }
+      #     ],
+      #     has_more: true,
+      #     min_time: 1737751140,
+      #     max_time: 1737751376,
+      #     total: 4108517
+      #   }
+      def user_followers(handle: nil, user_id: nil, min_time: nil, trim: nil)
+        raise ArgumentError, "handle or user_id is required" if handle.nil? && user_id.nil?
+
+        params = {}
+        params[:handle] = handle if handle
+        params[:user_id] = user_id if user_id
+        params[:min_time] = min_time if min_time
+        params[:trim] = trim unless trim.nil?
+
+        get("/v1/tiktok/user/followers", params)
+      end
     end
   end
 end

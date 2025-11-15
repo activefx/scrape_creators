@@ -342,4 +342,160 @@ describe ScrapeCreators::Resources::Tiktok do
       end
     end
   end
+
+  describe "#video_comments" do
+    it "fetches video comments successfully" do
+      VCR.use_cassette("tiktok/video_comments_success") do
+        comments = tiktok.video_comments("https://www.tiktok.com/@stoolpresidente/video/7445883744370625822")
+
+        assert_kind_of Hash, comments
+        assert comments.key?(:comments)
+        assert_kind_of Array, comments[:comments]
+
+        unless comments[:comments].empty?
+          first_comment = comments[:comments].first
+          assert first_comment.key?(:cid)
+          assert first_comment.key?(:text)
+          assert first_comment.key?(:user)
+        end
+      end
+    end
+
+    it "fetches video comments with cursor pagination" do
+      VCR.use_cassette("tiktok/video_comments_with_cursor") do
+        comments = tiktok.video_comments(
+          "https://www.tiktok.com/@stoolpresidente/video/7445883744370625822",
+          cursor: "20"
+        )
+
+        assert_kind_of Hash, comments
+        assert comments.key?(:comments)
+      end
+    end
+
+    it "raises ArgumentError when url is nil" do
+      error = assert_raises(ArgumentError) do
+        tiktok.video_comments(nil)
+      end
+      assert_match(/url is required/, error.message)
+    end
+
+    it "raises ArgumentError when url is empty" do
+      error = assert_raises(ArgumentError) do
+        tiktok.video_comments("")
+      end
+      assert_match(/url is required/, error.message)
+    end
+
+    it "raises NotFoundError for non-existent video" do
+      VCR.use_cassette("tiktok/video_comments_not_found") do
+        assert_raises(ScrapeCreators::NotFoundError) do
+          tiktok.video_comments("https://www.tiktok.com/@user/video/1234567890")
+        end
+      end
+    end
+  end
+
+  describe "#user_following" do
+    it "fetches user following list successfully" do
+      VCR.use_cassette("tiktok/user_following_success") do
+        following = tiktok.user_following("stoolpresidente")
+
+        assert_kind_of Hash, following
+        assert following.key?(:followings)
+        assert_kind_of Array, following[:followings]
+
+        unless following[:followings].empty?
+          first_following = following[:followings].first
+          assert first_following.key?(:uid)
+          assert first_following.key?(:uniqueId)
+          assert first_following.key?(:nickname)
+        end
+      end
+    end
+
+    it "fetches user following with pagination" do
+      VCR.use_cassette("tiktok/user_following_with_pagination") do
+        following = tiktok.user_following("stoolpresidente", min_time: 1694905758)
+
+        assert_kind_of Hash, following
+        assert following.key?(:followings)
+      end
+    end
+
+    it "raises ArgumentError when handle is nil" do
+      error = assert_raises(ArgumentError) do
+        tiktok.user_following(nil)
+      end
+      assert_match(/handle is required/, error.message)
+    end
+
+    it "raises ArgumentError when handle is empty" do
+      error = assert_raises(ArgumentError) do
+        tiktok.user_following("")
+      end
+      assert_match(/handle is required/, error.message)
+    end
+
+    it "raises NotFoundError for non-existent user" do
+      VCR.use_cassette("tiktok/user_following_not_found") do
+        assert_raises(ScrapeCreators::NotFoundError) do
+          tiktok.user_following("thisuserdoesnotexist123456789")
+        end
+      end
+    end
+  end
+
+  describe "#user_followers" do
+    it "fetches user followers by handle successfully" do
+      VCR.use_cassette("tiktok/user_followers_by_handle_success") do
+        followers = tiktok.user_followers(handle: "stoolpresidente")
+
+        assert_kind_of Hash, followers
+        assert followers.key?(:followers)
+        assert_kind_of Array, followers[:followers]
+
+        unless followers[:followers].empty?
+          first_follower = followers[:followers].first
+          assert first_follower.key?(:uid)
+          assert first_follower.key?(:uniqueId)
+          assert first_follower.key?(:nickname)
+        end
+      end
+    end
+
+    it "fetches user followers by user_id successfully" do
+      VCR.use_cassette("tiktok/user_followers_by_user_id_success") do
+        followers = tiktok.user_followers(user_id: "6659752019493208069")
+
+        assert_kind_of Hash, followers
+        assert followers.key?(:followers)
+        assert_kind_of Array, followers[:followers]
+      end
+    end
+
+    it "fetches user followers with pagination" do
+      VCR.use_cassette("tiktok/user_followers_with_pagination") do
+        followers = tiktok.user_followers(handle: "stoolpresidente", min_time: 1737751140)
+
+        assert_kind_of Hash, followers
+        assert followers.key?(:followers)
+      end
+    end
+
+    it "raises ArgumentError when both handle and user_id are nil" do
+      error = assert_raises(ArgumentError) do
+        tiktok.user_followers
+      end
+      assert_match(/handle or user_id is required/, error.message)
+    end
+
+    it "raises NotFoundError for non-existent user" do
+      VCR.use_cassette("tiktok/user_followers_not_found") do
+        assert_raises(ScrapeCreators::NotFoundError) do
+          tiktok.user_followers(handle: "thisuserdoesnotexist123456789")
+        end
+      end
+    end
+  end
 end
