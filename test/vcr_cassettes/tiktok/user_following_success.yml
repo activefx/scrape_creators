@@ -1,0 +1,56 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/tiktok/user/following?handle=stoolpresidente
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - test_api_key
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 402
+      message: Payment Required
+    headers:
+      Date:
+      - Sat, 15 Nov 2025 06:03:21 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Cf-Ray:
+      - 99ec8b855f7610a5-ORD
+      Access-Control-Allow-Origin:
+      - "*"
+      Etag:
+      - W/"68-XPLV6cfURqd0qEMUNXkHBrOV3/s"
+      Rndr-Id:
+      - f62349b7-781b-47a9
+      Vary:
+      - Accept-Encoding
+      X-Powered-By:
+      - Express
+      X-Render-Origin-Server:
+      - Render
+      Cf-Cache-Status:
+      - DYNAMIC
+      Server:
+      - cloudflare
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '{"message":"Looks like you''re out of credits :( You''ll need to buy
+        more to continue using the service."}'
+  recorded_at: Sat, 15 Nov 2025 06:03:21 GMT
+recorded_with: VCR 6.3.1
