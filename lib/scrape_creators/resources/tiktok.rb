@@ -51,7 +51,17 @@ module ScrapeCreators
       def profile(handle)
         raise ArgumentError, "handle is required" if handle.nil? || handle.to_s.empty?
 
-        get("/v1/tiktok/profile", { handle: handle })
+        response = get("/v1/tiktok/profile", { handle: handle })
+
+        # Handle account_deactivated flag in 200 responses
+        if response[:account_deactivated]
+          raise NotFoundError.new(
+            response[:message] || "Profile not found",
+            response_body: response
+          )
+        end
+
+        response
       end
 
       # Get audience demographics for a TikTok user
