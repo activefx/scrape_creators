@@ -289,7 +289,20 @@ module ScrapeCreators
         params[:region] = region if region
         params[:trim] = trim unless trim.nil?
 
-        get("/v2/tiktok/video", params)
+        response = get("/v2/tiktok/video", params)
+
+        # Extract aweme_detail from the response wrapper
+        aweme_detail = response[:aweme_detail] || response
+
+        # Check if video data is actually present (has id or aweme_id)
+        unless aweme_detail[:id] || aweme_detail[:aweme_id]
+          raise NotFoundError.new(
+            "Video not found or unavailable",
+            response_body: response
+          )
+        end
+
+        aweme_detail
       end
 
       # Get TikTok video transcript
