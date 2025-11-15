@@ -8,7 +8,7 @@ http_interactions:
       string: ''
     headers:
       X-Api-Key:
-      - test_api_key
+      - "<API_KEY>"
       Content-Type:
       - application/json
       Accept:
@@ -19,21 +19,19 @@ http_interactions:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
   response:
     status:
-      code: 402
-      message: Payment Required
+      code: 200
+      message: OK
     headers:
       Date:
-      - Sat, 15 Nov 2025 06:06:01 GMT
+      - Sat, 15 Nov 2025 06:09:54 GMT
       Content-Type:
       - application/json; charset=utf-8
-      Cf-Ray:
-      - 99ec8f6a3cc010a5-ORD
       Access-Control-Allow-Origin:
       - "*"
       Etag:
-      - W/"68-XPLV6cfURqd0qEMUNXkHBrOV3/s"
+      - W/"90-141puzfwQs6qdk/yFk5OEWKQ3+I"
       Rndr-Id:
-      - 2f3ca94d-b58f-45fa
+      - 9cc4bc58-d886-4a7e
       Vary:
       - Accept-Encoding
       X-Powered-By:
@@ -44,13 +42,15 @@ http_interactions:
       - DYNAMIC
       Server:
       - cloudflare
+      Cf-Ray:
+      - 99ec95102c01e24b-ORD
       Alt-Svc:
       - h3=":443"; ma=86400
       Transfer-Encoding:
       - chunked
     body:
-      encoding: UTF-8
-      string: '{"message":"Looks like you''re out of credits :( You''ll need to buy
-        more to continue using the service."}'
-  recorded_at: Sat, 15 Nov 2025 06:06:01 GMT
+      encoding: ASCII-8BIT
+      string: '{"success":true,"credits_remaining":24970,"account_deactivated":true,"handle":"thisuserdoesnotexist123456789","message":"Account
+        doesn''t exist"}'
+  recorded_at: Sat, 15 Nov 2025 06:09:54 GMT
 recorded_with: VCR 6.3.1

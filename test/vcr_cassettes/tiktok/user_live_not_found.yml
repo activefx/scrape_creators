@@ -8,7 +8,7 @@ http_interactions:
       string: ''
     headers:
       X-Api-Key:
-      - test_api_key
+      - "<API_KEY>"
       Content-Type:
       - application/json
       Accept:
@@ -19,21 +19,19 @@ http_interactions:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
   response:
     status:
-      code: 402
-      message: Payment Required
+      code: 200
+      message: OK
     headers:
       Date:
-      - Sat, 15 Nov 2025 06:06:07 GMT
+      - Sat, 15 Nov 2025 06:09:32 GMT
       Content-Type:
       - application/json; charset=utf-8
-      Cf-Ray:
-      - 99ec8f8e1db410a5-ORD
       Access-Control-Allow-Origin:
       - "*"
       Etag:
-      - W/"68-XPLV6cfURqd0qEMUNXkHBrOV3/s"
+      - W/"40-h02FzQ1MhX0pSkQKbpzwfaCfo9Y"
       Rndr-Id:
-      - 412c1b50-7e72-4526
+      - cb53c6cf-8bd5-49c1
       Vary:
       - Accept-Encoding
       X-Powered-By:
@@ -44,13 +42,14 @@ http_interactions:
       - DYNAMIC
       Server:
       - cloudflare
+      Cf-Ray:
+      - 99ec9488780feaf0-ORD
       Alt-Svc:
       - h3=":443"; ma=86400
       Transfer-Encoding:
       - chunked
     body:
-      encoding: UTF-8
-      string: '{"message":"Looks like you''re out of credits :( You''ll need to buy
-        more to continue using the service."}'
-  recorded_at: Sat, 15 Nov 2025 06:06:07 GMT
+      encoding: ASCII-8BIT
+      string: '{"success":true,"credits_remaining":24977,"liveRoomUserInfo":{}}'
+  recorded_at: Sat, 15 Nov 2025 06:09:32 GMT
 recorded_with: VCR 6.3.1

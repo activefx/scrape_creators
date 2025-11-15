@@ -8,7 +8,7 @@ http_interactions:
       string: ''
     headers:
       X-Api-Key:
-      - test_api_key
+      - "<API_KEY>"
       Content-Type:
       - application/json
       Accept:
@@ -19,21 +19,19 @@ http_interactions:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
   response:
     status:
-      code: 402
-      message: Payment Required
+      code: 200
+      message: OK
     headers:
       Date:
-      - Sat, 15 Nov 2025 06:06:09 GMT
+      - Sat, 15 Nov 2025 06:10:04 GMT
       Content-Type:
       - application/json; charset=utf-8
-      Cf-Ray:
-      - 99ec8f9a6a7f2ced-ORD
       Access-Control-Allow-Origin:
       - "*"
       Etag:
-      - W/"68-XPLV6cfURqd0qEMUNXkHBrOV3/s"
+      - W/"1c4-73X+O+IH2ZXwSfyPyuBQsnSJXPE"
       Rndr-Id:
-      - fc82db6c-8290-4bf6
+      - 9c47c94c-0178-42e1
       Vary:
       - Accept-Encoding
       X-Powered-By:
@@ -44,13 +42,14 @@ http_interactions:
       - DYNAMIC
       Server:
       - cloudflare
+      Cf-Ray:
+      - 99ec9552fa140046-ORD
       Alt-Svc:
       - h3=":443"; ma=86400
       Transfer-Encoding:
       - chunked
     body:
-      encoding: UTF-8
-      string: '{"message":"Looks like you''re out of credits :( You''ll need to buy
-        more to continue using the service."}'
-  recorded_at: Sat, 15 Nov 2025 06:06:09 GMT
+      encoding: ASCII-8BIT
+      string: '{"success":true,"credits_remaining":24915,"extra":{"fatal_item_ids":[],"logid":"2025111506100452B2207342E4D13C3B5C","now":1763187004000},"log_pb":{"impr_id":"2025111506100452B2207342E4D13C3B5C"},"status_code":0,"status_msg":"","aweme_detail":{"is_ad":false,"content_model":{"standard_biz":{"tts_voice_info":{"tts_voice_reuse_params":null}}},"is_eligible_for_commission":false,"is_paid_partnership":false,"create_time_utc":null,"shop_product_url":null}}'
+  recorded_at: Sat, 15 Nov 2025 06:10:04 GMT
 recorded_with: VCR 6.3.1

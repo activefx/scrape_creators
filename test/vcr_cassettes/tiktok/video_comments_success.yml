@@ -8,7 +8,7 @@ http_interactions:
       string: ''
     headers:
       X-Api-Key:
-      - test_api_key
+      - "<API_KEY>"
       Content-Type:
       - application/json
       Accept:
@@ -19,21 +19,19 @@ http_interactions:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
   response:
     status:
-      code: 402
-      message: Payment Required
+      code: 200
+      message: OK
     headers:
       Date:
-      - Sat, 15 Nov 2025 06:06:06 GMT
+      - Sat, 15 Nov 2025 06:09:20 GMT
       Content-Type:
       - application/json; charset=utf-8
-      Cf-Ray:
-      - 99ec8f8bbca2e24b-ORD
       Access-Control-Allow-Origin:
       - "*"
       Etag:
-      - W/"68-XPLV6cfURqd0qEMUNXkHBrOV3/s"
+      - W/"ff-O8wOyR4nct12vbB2ZCJmdY1RxhI"
       Rndr-Id:
-      - e0f4e964-1cef-48cb
+      - 2b00b3db-a091-4721
       Vary:
       - Accept-Encoding
       X-Powered-By:
@@ -44,13 +42,14 @@ http_interactions:
       - DYNAMIC
       Server:
       - cloudflare
+      Cf-Ray:
+      - 99ec943d2b890046-ORD
       Alt-Svc:
       - h3=":443"; ma=86400
       Transfer-Encoding:
       - chunked
     body:
-      encoding: UTF-8
-      string: '{"message":"Looks like you''re out of credits :( You''ll need to buy
-        more to continue using the service."}'
-  recorded_at: Sat, 15 Nov 2025 06:06:07 GMT
+      encoding: ASCII-8BIT
+      string: '{"success":true,"credits_remaining":24984,"comments":null,"extra":{"api_debug_info":null,"fatal_item_ids":null,"now":1763186959000},"log_pb":{"impr_id":"2025111506091968467F68555FDD3BC4BA"},"reply_style":2,"status_code":0,"status_msg":"","top_gifts":null}'
+  recorded_at: Sat, 15 Nov 2025 06:09:20 GMT
 recorded_with: VCR 6.3.1

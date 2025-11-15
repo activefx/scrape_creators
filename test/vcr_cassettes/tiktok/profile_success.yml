@@ -8,7 +8,7 @@ http_interactions:
       string: ''
     headers:
       X-Api-Key:
-      - test_api_key
+      - "<API_KEY>"
       Content-Type:
       - application/json
       Accept:
@@ -19,21 +19,19 @@ http_interactions:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
   response:
     status:
-      code: 402
-      message: Payment Required
+      code: 200
+      message: OK
     headers:
       Date:
-      - Sat, 15 Nov 2025 06:06:02 GMT
+      - Sat, 15 Nov 2025 06:09:55 GMT
       Content-Type:
       - application/json; charset=utf-8
-      Cf-Ray:
-      - 99ec8f6e8e00b680-ORD
       Access-Control-Allow-Origin:
       - "*"
       Etag:
-      - W/"68-XPLV6cfURqd0qEMUNXkHBrOV3/s"
+      - W/"8af-nMQC8efN7QOXyLe+m51jkdEFZc8"
       Rndr-Id:
-      - 91ca7dfa-e01f-48a7
+      - 542422c6-0bbb-4f3e
       Vary:
       - Accept-Encoding
       X-Powered-By:
@@ -44,13 +42,16 @@ http_interactions:
       - DYNAMIC
       Server:
       - cloudflare
+      Cf-Ray:
+      - 99ec951a7a323ef3-ORD
       Alt-Svc:
       - h3=":443"; ma=86400
       Transfer-Encoding:
       - chunked
     body:
-      encoding: UTF-8
-      string: '{"message":"Looks like you''re out of credits :( You''ll need to buy
-        more to continue using the service."}'
-  recorded_at: Sat, 15 Nov 2025 06:06:02 GMT
+      encoding: ASCII-8BIT
+      string: '{"success":true,"credits_remaining":24969,"user":{"id":"6659752019493208069","shortId":"","uniqueId":"stoolpresidente","nickname":"Dave
+        Portnoy","avatarLarger":"https://p16-common-sign.tiktokcdn-us.com/tos-maliva-avt-0068/7310178711609032710~tplv-tiktokx-cropcenter:1080:1080.jpeg?dr=9640&refresh_token=193ff46f&x-expires=1763359200&x-signature=ORdVVm0%2B1N4DBA13VLP6Nk57RL8%3D&t=4d5b0474&ps=13740610&shp=a5d48078&shcp=81f88b70&idc=useast8","avatarMedium":"https://p16-common-sign.tiktokcdn-us.com/tos-maliva-avt-0068/7310178711609032710~tplv-tiktokx-cropcenter:720:720.jpeg?dr=9640&refresh_token=27f89ac2&x-expires=1763359200&x-signature=rGPj78RkX4bHbbo3e%2BJ04S4u5JQ%3D&t=4d5b0474&ps=13740610&shp=a5d48078&shcp=81f88b70&idc=useast8","avatarThumb":"https://p19-common-sign.tiktokcdn-us.com/tos-maliva-avt-0068/7310178711609032710~tplv-tiktokx-cropcenter:100:100.jpeg?dr=9640&refresh_token=2fab05c9&x-expires=1763359200&x-signature=EU8vKXUEj%2FMGPnKjjmr5JCJA0jw%3D&t=4d5b0474&ps=13740610&shp=a5d48078&shcp=81f88b70&idc=useast8","signature":"El
+        Presidente/Barstool Sports Founder.","createTime":1550594547,"verified":true,"secUid":"MS4wLjABAAAAINC_ElRR-l1RCcnEjOZhNO-9wOzAMf-YHXqRY8vvG9bEhMRa6iu23TaE3JPZYXBD","ftc":false,"relation":0,"openFavorite":false,"bioLink":{"link":"https://youtu.be/lN0jRqTlGeU?si=JLcTbGpgEPQUeDaC","risk":0},"commentSetting":0,"commerceUserInfo":{"commerceUser":false},"duetSetting":0,"stitchSetting":0,"privateAccount":false,"secret":false,"isADVirtual":false,"roomId":"","uniqueIdModifyTime":0,"ttSeller":false,"downloadSetting":0,"profileTab":{"showMusicTab":false,"showQuestionTab":false,"showPlayListTab":true},"followingVisibility":1,"recommendReason":"","nowInvitationCardUrl":"","nickNameModifyTime":0,"isEmbedBanned":false,"canExpPlaylist":true,"profileEmbedPermission":1,"language":"en","eventList":[],"suggestAccountBind":false,"isOrganization":0,"UserStoryStatus":0},"stats":{"followerCount":4500000,"followingCount":88,"heart":214700000,"heartCount":214700000,"videoCount":2260,"diggCount":0,"friendCount":61},"statsV2":{"followerCount":"4511353","followingCount":"88","heart":"214700967","heartCount":"214700967","videoCount":"2260","diggCount":"0","friendCount":"61"},"itemList":[]}'
+  recorded_at: Sat, 15 Nov 2025 06:09:55 GMT
 recorded_with: VCR 6.3.1

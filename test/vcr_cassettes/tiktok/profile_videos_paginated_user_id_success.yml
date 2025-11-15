@@ -8,7 +8,7 @@ http_interactions:
       string: ''
     headers:
       X-Api-Key:
-      - test_api_key
+      - "<API_KEY>"
       Content-Type:
       - application/json
       Accept:
@@ -19,21 +19,21 @@ http_interactions:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
   response:
     status:
-      code: 402
-      message: Payment Required
+      code: 400
+      message: Bad Request
     headers:
       Date:
-      - Sat, 15 Nov 2025 06:06:04 GMT
+      - Sat, 15 Nov 2025 06:09:02 GMT
       Content-Type:
       - application/json; charset=utf-8
       Cf-Ray:
-      - 99ec8f7ad953e818-ORD
+      - 99ec93d58dcd0046-ORD
       Access-Control-Allow-Origin:
       - "*"
       Etag:
-      - W/"68-XPLV6cfURqd0qEMUNXkHBrOV3/s"
+      - W/"8c-MYO9AHoRjiwSfucsDZc6/ER+7aI"
       Rndr-Id:
-      - 1b11e64f-b8fd-4479
+      - 68dac5d6-0137-43a0
       Vary:
       - Accept-Encoding
       X-Powered-By:
@@ -50,7 +50,7 @@ http_interactions:
       - chunked
     body:
       encoding: UTF-8
-      string: '{"message":"Looks like you''re out of credits :( You''ll need to buy
-        more to continue using the service."}'
-  recorded_at: Sat, 15 Nov 2025 06:06:04 GMT
+      string: '{"success":false,"credits_remaining":24988,"error":"missing_parameter","errorStatus":400,"message":"You
+        must provide a handle or a user_id"}'
+  recorded_at: Sat, 15 Nov 2025 06:09:02 GMT
 recorded_with: VCR 6.3.1

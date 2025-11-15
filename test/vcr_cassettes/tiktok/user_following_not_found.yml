@@ -8,7 +8,7 @@ http_interactions:
       string: ''
     headers:
       X-Api-Key:
-      - test_api_key
+      - "<API_KEY>"
       Content-Type:
       - application/json
       Accept:
@@ -19,21 +19,19 @@ http_interactions:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
   response:
     status:
-      code: 402
-      message: Payment Required
+      code: 404
+      message: Not Found
     headers:
       Date:
-      - Sat, 15 Nov 2025 06:06:04 GMT
+      - Sat, 15 Nov 2025 06:09:28 GMT
       Content-Type:
       - application/json; charset=utf-8
-      Cf-Ray:
-      - 99ec8f7c3f2db4b8-ORD
       Access-Control-Allow-Origin:
       - "*"
       Etag:
-      - W/"68-XPLV6cfURqd0qEMUNXkHBrOV3/s"
+      - W/"6c-DnLu6qnxYw2lrQ3WYMPw1bE8mKE"
       Rndr-Id:
-      - 9ca802a9-62ac-4b1b
+      - 75ec42a1-6928-4ea9
       Vary:
       - Accept-Encoding
       X-Powered-By:
@@ -44,13 +42,15 @@ http_interactions:
       - DYNAMIC
       Server:
       - cloudflare
+      Cf-Ray:
+      - 99ec947138f70ea2-ORD
       Alt-Svc:
       - h3=":443"; ma=86400
       Transfer-Encoding:
       - chunked
     body:
-      encoding: UTF-8
-      string: '{"message":"Looks like you''re out of credits :( You''ll need to buy
-        more to continue using the service."}'
-  recorded_at: Sat, 15 Nov 2025 06:06:04 GMT
+      encoding: ASCII-8BIT
+      string: '{"success":false,"credits_remaining":24980,"error":"not_found","errorStatus":404,"message":"User
+        not found"}'
+  recorded_at: Sat, 15 Nov 2025 06:09:28 GMT
 recorded_with: VCR 6.3.1

@@ -8,7 +8,7 @@ http_interactions:
       string: ''
     headers:
       X-Api-Key:
-      - test_api_key
+      - "<API_KEY>"
       Content-Type:
       - application/json
       Accept:
@@ -19,21 +19,19 @@ http_interactions:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
   response:
     status:
-      code: 402
-      message: Payment Required
+      code: 200
+      message: OK
     headers:
       Date:
-      - Sat, 15 Nov 2025 06:06:05 GMT
+      - Sat, 15 Nov 2025 06:09:59 GMT
       Content-Type:
       - application/json; charset=utf-8
-      Cf-Ray:
-      - 99ec8f84a911b680-ORD
       Access-Control-Allow-Origin:
       - "*"
       Etag:
-      - W/"68-XPLV6cfURqd0qEMUNXkHBrOV3/s"
+      - W/"77-Qyvgs/2NPF5PQyxvl12/pBJ+lYw"
       Rndr-Id:
-      - 412bfa45-682e-4e30
+      - 11f28d5e-3831-4768
       Vary:
       - Accept-Encoding
       X-Powered-By:
@@ -44,13 +42,14 @@ http_interactions:
       - DYNAMIC
       Server:
       - cloudflare
+      Cf-Ray:
+      - 99ec9536383e2ced-ORD
       Alt-Svc:
       - h3=":443"; ma=86400
       Transfer-Encoding:
       - chunked
     body:
-      encoding: UTF-8
-      string: '{"message":"Looks like you''re out of credits :( You''ll need to buy
-        more to continue using the service."}'
-  recorded_at: Sat, 15 Nov 2025 06:06:05 GMT
+      encoding: ASCII-8BIT
+      string: '{"credits_remaining":24917,"url":"https://www.tiktok.com/@stoolpresidente/video/7445883744370625822","transcript":null}'
+  recorded_at: Sat, 15 Nov 2025 06:09:59 GMT
 recorded_with: VCR 6.3.1
