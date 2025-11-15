@@ -107,4 +107,239 @@ describe ScrapeCreators::Resources::Tiktok do
       end
     end
   end
+
+  describe "#profile_videos" do
+    it "fetches profile videos successfully" do
+      VCR.use_cassette("tiktok/profile_videos_success") do
+        videos = tiktok.profile_videos("stoolpresidente")
+
+        assert_kind_of Hash, videos
+        assert videos.key?(:itemList)
+        assert_kind_of Array, videos[:itemList]
+
+        unless videos[:itemList].empty?
+          first_video = videos[:itemList].first
+          assert first_video.key?(:id)
+          assert first_video.key?(:desc)
+          assert first_video.key?(:createTime)
+        end
+      end
+    end
+
+    it "fetches profile videos with sort_by parameter" do
+      VCR.use_cassette("tiktok/profile_videos_oldest") do
+        videos = tiktok.profile_videos("stoolpresidente", sort_by: "oldest")
+
+        assert_kind_of Hash, videos
+        assert videos.key?(:itemList)
+      end
+    end
+
+    it "fetches profile videos with pagination cursor" do
+      VCR.use_cassette("tiktok/profile_videos_paginated") do
+        videos = tiktok.profile_videos("stoolpresidente", max_cursor: "123456")
+
+        assert_kind_of Hash, videos
+        assert videos.key?(:itemList)
+      end
+    end
+
+    it "raises ArgumentError when handle is nil" do
+      error = assert_raises(ArgumentError) do
+        tiktok.profile_videos(nil)
+      end
+      assert_match(/handle is required/, error.message)
+    end
+
+    it "raises ArgumentError when handle is empty" do
+      error = assert_raises(ArgumentError) do
+        tiktok.profile_videos("")
+      end
+      assert_match(/handle is required/, error.message)
+    end
+  end
+
+  describe "#profile_videos_paginated" do
+    it "fetches profile videos with handle successfully" do
+      VCR.use_cassette("tiktok/profile_videos_paginated_handle_success") do
+        videos = tiktok.profile_videos_paginated(handle: "stoolpresidente")
+
+        assert_kind_of Hash, videos
+        assert videos.key?(:itemList)
+        assert_kind_of Array, videos[:itemList]
+      end
+    end
+
+    it "fetches profile videos with user_id successfully" do
+      VCR.use_cassette("tiktok/profile_videos_paginated_user_id_success") do
+        videos = tiktok.profile_videos_paginated(user_id: "6659752019493208069")
+
+        assert_kind_of Hash, videos
+        assert videos.key?(:itemList)
+      end
+    end
+
+    it "fetches profile videos with amount parameter" do
+      VCR.use_cassette("tiktok/profile_videos_paginated_with_amount") do
+        videos = tiktok.profile_videos_paginated(handle: "stoolpresidente", amount: 50)
+
+        assert_kind_of Hash, videos
+        assert videos.key?(:itemList)
+      end
+    end
+
+    it "raises ArgumentError when both handle and user_id are nil" do
+      error = assert_raises(ArgumentError) do
+        tiktok.profile_videos_paginated
+      end
+      assert_match(/handle or user_id is required/, error.message)
+    end
+  end
+
+  describe "#video" do
+    it "fetches video info successfully" do
+      VCR.use_cassette("tiktok/video_success") do
+        video = tiktok.video("https://www.tiktok.com/@stoolpresidente/video/7445883744370625822")
+
+        assert_kind_of Hash, video
+        assert video.key?(:id)
+        assert video.key?(:desc)
+        assert video.key?(:video)
+        assert video.key?(:author)
+        assert video.key?(:stats)
+      end
+    end
+
+    it "fetches video info with transcript" do
+      VCR.use_cassette("tiktok/video_with_transcript") do
+        video = tiktok.video(
+          "https://www.tiktok.com/@stoolpresidente/video/7445883744370625822",
+          get_transcript: true
+        )
+
+        assert_kind_of Hash, video
+        assert video.key?(:id)
+      end
+    end
+
+    it "fetches video info with region parameter" do
+      VCR.use_cassette("tiktok/video_with_region") do
+        video = tiktok.video(
+          "https://www.tiktok.com/@stoolpresidente/video/7445883744370625822",
+          region: "US"
+        )
+
+        assert_kind_of Hash, video
+        assert video.key?(:id)
+      end
+    end
+
+    it "raises ArgumentError when url is nil" do
+      error = assert_raises(ArgumentError) do
+        tiktok.video(nil)
+      end
+      assert_match(/url is required/, error.message)
+    end
+
+    it "raises ArgumentError when url is empty" do
+      error = assert_raises(ArgumentError) do
+        tiktok.video("")
+      end
+      assert_match(/url is required/, error.message)
+    end
+
+    it "raises NotFoundError for non-existent video" do
+      VCR.use_cassette("tiktok/video_not_found") do
+        assert_raises(ScrapeCreators::NotFoundError) do
+          tiktok.video("https://www.tiktok.com/@user/video/1234567890")
+        end
+      end
+    end
+  end
+
+  describe "#video_transcript" do
+    it "fetches video transcript successfully" do
+      VCR.use_cassette("tiktok/video_transcript_success") do
+        transcript = tiktok.video_transcript("https://www.tiktok.com/@stoolpresidente/video/7445883744370625822")
+
+        assert_kind_of Hash, transcript
+      end
+    end
+
+    it "fetches video transcript with language parameter" do
+      VCR.use_cassette("tiktok/video_transcript_with_language") do
+        transcript = tiktok.video_transcript(
+          "https://www.tiktok.com/@stoolpresidente/video/7445883744370625822",
+          language: "es"
+        )
+
+        assert_kind_of Hash, transcript
+      end
+    end
+
+    it "raises ArgumentError when url is nil" do
+      error = assert_raises(ArgumentError) do
+        tiktok.video_transcript(nil)
+      end
+      assert_match(/url is required/, error.message)
+    end
+
+    it "raises ArgumentError when url is empty" do
+      error = assert_raises(ArgumentError) do
+        tiktok.video_transcript("")
+      end
+      assert_match(/url is required/, error.message)
+    end
+
+    it "raises NotFoundError for video without transcript" do
+      VCR.use_cassette("tiktok/video_transcript_not_found") do
+        assert_raises(ScrapeCreators::NotFoundError) do
+          tiktok.video_transcript("https://www.tiktok.com/@user/video/1234567890")
+        end
+      end
+    end
+  end
+
+  describe "#user_live" do
+    it "fetches user live status successfully when live" do
+      VCR.use_cassette("tiktok/user_live_active") do
+        live = tiktok.user_live("someliveuser")
+
+        assert_kind_of Hash, live
+        assert live.key?(:isLive)
+      end
+    end
+
+    it "fetches user live status successfully when not live" do
+      VCR.use_cassette("tiktok/user_live_inactive") do
+        live = tiktok.user_live("stoolpresidente")
+
+        assert_kind_of Hash, live
+        assert live.key?(:isLive)
+        assert_equal false, live[:isLive]
+      end
+    end
+
+    it "raises ArgumentError when handle is nil" do
+      error = assert_raises(ArgumentError) do
+        tiktok.user_live(nil)
+      end
+      assert_match(/handle is required/, error.message)
+    end
+
+    it "raises ArgumentError when handle is empty" do
+      error = assert_raises(ArgumentError) do
+        tiktok.user_live("")
+      end
+      assert_match(/handle is required/, error.message)
+    end
+
+    it "raises NotFoundError for non-existent user" do
+      VCR.use_cassette("tiktok/user_live_not_found") do
+        assert_raises(ScrapeCreators::NotFoundError) do
+          tiktok.user_live("thisuserdoesnotexist123456789")
+        end
+      end
+    end
+  end
 end
