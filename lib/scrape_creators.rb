@@ -2,7 +2,14 @@
 
 require "zeitwerk"
 loader = Zeitwerk::Loader.for_gem
+
+# Ignore errors.rb since we manually require it to define error classes at module level
+loader.ignore("#{__dir__}/scrape_creators/errors.rb")
+
 loader.setup
+
+# Manually require errors to define all error classes
+require_relative "scrape_creators/errors"
 
 # Ruby client library for the ScrapeCreators API
 #
