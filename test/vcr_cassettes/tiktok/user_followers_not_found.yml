@@ -23,15 +23,15 @@ http_interactions:
       message: Not Found
     headers:
       Date:
-      - Sat, 15 Nov 2025 06:18:10 GMT
+      - Sat, 15 Nov 2025 06:41:49 GMT
       Content-Type:
       - application/json; charset=utf-8
       Access-Control-Allow-Origin:
       - "*"
       Etag:
-      - W/"6c-2nrIwDb2jW7RMKgWWC/yVUmK+Vc"
+      - W/"6c-v+XV9eH1COLp3bNObz0Li0gTdo0"
       Rndr-Id:
-      - 30ee679e-1948-4585
+      - 17097a3e-fb9a-4f3a
       Vary:
       - Accept-Encoding
       X-Powered-By:
@@ -43,14 +43,14 @@ http_interactions:
       Server:
       - cloudflare
       Cf-Ray:
-      - 99eca1300cac45f5-ORD
+      - 99ecc3d6ff87eaf0-ORD
       Alt-Svc:
       - h3=":443"; ma=86400
       Transfer-Encoding:
       - chunked
     body:
       encoding: ASCII-8BIT
-      string: '{"success":false,"credits_remaining":24903,"error":"not_found","errorStatus":404,"message":"User
+      string: '{"success":false,"credits_remaining":24823,"error":"not_found","errorStatus":404,"message":"User
         not found"}'
-  recorded_at: Sat, 15 Nov 2025 06:18:10 GMT
+  recorded_at: Sat, 15 Nov 2025 06:41:49 GMT
 recorded_with: VCR 6.3.1

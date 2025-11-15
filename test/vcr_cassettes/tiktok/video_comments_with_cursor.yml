@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://api.scrapecreators.com/v1/tiktok/video/comments?cursor=20&url=https://www.tiktok.com/@stoolpresidente/video/7445883744370625822
+    uri: https://api.scrapecreators.com/v1/tiktok/video/comments?cursor=20&url=https://www.tiktok.com/@programming_hub/video/7340627334321491205
     body:
       encoding: US-ASCII
       string: ''
@@ -23,15 +23,15 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sat, 15 Nov 2025 06:18:37 GMT
+      - Sat, 15 Nov 2025 06:33:47 GMT
       Content-Type:
       - application/json; charset=utf-8
       Access-Control-Allow-Origin:
       - "*"
       Etag:
-      - W/"ff-tHP+NuyKMG3CpTcMLKeeqomAI24"
+      - W/"159-wzd/7c5STO4+SZgThcGlrFgC7ns"
       Rndr-Id:
-      - 74e55da9-51cb-4c2b
+      - 1d6304ce-231d-4fcb
       Vary:
       - Accept-Encoding
       X-Powered-By:
@@ -43,13 +43,13 @@ http_interactions:
       Server:
       - cloudflare
       Cf-Ray:
-      - 99eca1d92e97acac-ORD
+      - 99ecb812486d2330-ORD
       Alt-Svc:
       - h3=":443"; ma=86400
       Transfer-Encoding:
       - chunked
     body:
       encoding: ASCII-8BIT
-      string: '{"success":true,"credits_remaining":24895,"comments":null,"extra":{"api_debug_info":null,"fatal_item_ids":null,"now":1763187517000},"log_pb":{"impr_id":"2025111506183640C019D06F2DD13AB62D"},"reply_style":2,"status_code":0,"status_msg":"","top_gifts":null}'
-  recorded_at: Sat, 15 Nov 2025 06:18:37 GMT
+      string: '{"success":true,"credits_remaining":24833,"alias_comment_deleted":false,"comments":[],"cursor":40,"extra":{"api_debug_info":null,"fatal_item_ids":null,"now":1763188427000},"has_filtered_comments":0,"has_more":0,"log_pb":{"impr_id":"202511150633473ED877E3742D3E3467A8"},"reply_style":2,"status_code":0,"status_msg":"","top_gifts":null,"total":20}'
+  recorded_at: Sat, 15 Nov 2025 06:33:47 GMT
 recorded_with: VCR 6.3.1

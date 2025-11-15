@@ -23,15 +23,15 @@ http_interactions:
       message: Not Found
     headers:
       Date:
-      - Sat, 15 Nov 2025 06:18:57 GMT
+      - Sat, 15 Nov 2025 06:41:51 GMT
       Content-Type:
       - application/json; charset=utf-8
       Access-Control-Allow-Origin:
       - "*"
       Etag:
-      - W/"70-Oz11mAEYMjO4ch6nC4zAmoaRzhA"
+      - W/"70-O5a5Nbzx98ryRrUgLRxIbCiz2vM"
       Rndr-Id:
-      - 97a5dc11-8c70-48f1
+      - '08fc0b83-c45d-4af7'
       Vary:
       - Accept-Encoding
       X-Powered-By:
@@ -43,14 +43,14 @@ http_interactions:
       Server:
       - cloudflare
       Cf-Ray:
-      - 99eca256ba6d4d2c-ORD
+      - 99ecc3df6edb5eb1-ORD
       Alt-Svc:
       - h3=":443"; ma=86400
       Transfer-Encoding:
       - chunked
     body:
       encoding: ASCII-8BIT
-      string: '{"success":true,"credits_remaining":24864,"error":"not_found","errorStatus":404,"message":"Account
+      string: '{"success":true,"credits_remaining":24797,"error":"not_found","errorStatus":404,"message":"Account
         deactivated"}'
-  recorded_at: Sat, 15 Nov 2025 06:18:57 GMT
+  recorded_at: Sat, 15 Nov 2025 06:41:51 GMT
 recorded_with: VCR 6.3.1
