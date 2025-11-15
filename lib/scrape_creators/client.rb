@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "faraday"
+require "faraday/retry"
 require "json"
 
 module ScrapeCreators
@@ -31,7 +32,12 @@ module ScrapeCreators
       @api_key = api_key || ScrapeCreators.configuration&.api_key
       raise ArgumentError, "API key is required" if @api_key.nil? || @api_key.empty?
 
-      @config = (ScrapeCreators.configuration&.to_h || {}).merge(options)
+      # Start with default configuration values
+      default_config = Configuration.new.to_h
+      # Merge with global configuration if available
+      global_config = ScrapeCreators.configuration&.to_h || {}
+      # Merge with instance-specific options
+      @config = default_config.merge(global_config).merge(options)
       @config[:api_key] = @api_key
     end
 

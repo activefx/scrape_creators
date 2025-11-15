@@ -119,11 +119,19 @@ module ScrapeCreators
 
     # Parse JSON response
     #
-    # @param body [String] Response body
+    # @param body [String, Hash] Response body
     # @return [Hash] Parsed JSON
     def parse_json(body)
-      return {} if body.nil? || body.empty?
+      return {} if body.nil?
+      return {} if body.respond_to?(:empty?) && body.empty?
 
+      # If Faraday's JSON middleware already parsed it, return as-is
+      # (but ensure symbol keys)
+      if body.is_a?(Hash)
+        return body.transform_keys(&:to_sym)
+      end
+
+      # Otherwise, parse the JSON string
       JSON.parse(body, symbolize_names: true)
     rescue JSON::ParserError
       { raw: body }
