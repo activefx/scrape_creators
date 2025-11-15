@@ -13,7 +13,7 @@ VCR.configure do |config|
   config.allow_http_connections_when_no_cassette = false
 
   # Remove sensitive data from VCR cassettes
-  config.filter_sensitive_data("<API_KEY>") { ENV["API_KEY"] } if ENV["API_KEY"]
+  config.filter_sensitive_data("<API_KEY>") { ENV["SCRAPE_CREATORS_API_KEY"] } if ENV["SCRAPE_CREATORS_API_KEY"]
 
   # Ignore requests to Chrome browser when using system tests
   config.ignore_hosts "chromedriver.storage.googleapis.com"
