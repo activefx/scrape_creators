@@ -19,19 +19,121 @@ http_interactions:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
   response:
     status:
+      code: 503
+      message: Service Unavailable
+    headers:
+      Content-Length:
+      - '216'
+      Content-Type:
+      - text/plain
+      Date:
+      - Sat, 15 Nov 2025 06:18:43 GMT
+    body:
+      encoding: UTF-8
+      string: 'upstream connect error or disconnect/reset before headers. reset reason:
+        remote connection failure, transport failure reason: TLS_error:|268435581:SSL
+        routines:OPENSSL_internal:CERTIFICATE_VERIFY_FAILED:TLS_error_end'
+  recorded_at: Sat, 15 Nov 2025 06:18:43 GMT
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/tiktok/video/transcript?url=https://www.tiktok.com/@user/video/1234567890
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 503
+      message: Service Unavailable
+    headers:
+      Content-Length:
+      - '216'
+      Content-Type:
+      - text/plain
+      Date:
+      - Sat, 15 Nov 2025 06:18:43 GMT
+    body:
+      encoding: UTF-8
+      string: 'upstream connect error or disconnect/reset before headers. reset reason:
+        remote connection failure, transport failure reason: TLS_error:|268435581:SSL
+        routines:OPENSSL_internal:CERTIFICATE_VERIFY_FAILED:TLS_error_end'
+  recorded_at: Sat, 15 Nov 2025 06:18:44 GMT
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/tiktok/video/transcript?url=https://www.tiktok.com/@user/video/1234567890
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 503
+      message: Service Unavailable
+    headers:
+      Content-Length:
+      - '216'
+      Content-Type:
+      - text/plain
+      Date:
+      - Sat, 15 Nov 2025 06:18:46 GMT
+    body:
+      encoding: UTF-8
+      string: 'upstream connect error or disconnect/reset before headers. reset reason:
+        remote connection failure, transport failure reason: TLS_error:|268435581:SSL
+        routines:OPENSSL_internal:CERTIFICATE_VERIFY_FAILED:TLS_error_end'
+  recorded_at: Sat, 15 Nov 2025 06:18:46 GMT
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/tiktok/video/transcript?url=https://www.tiktok.com/@user/video/1234567890
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
       code: 200
       message: OK
     headers:
       Date:
-      - Sat, 15 Nov 2025 06:10:02 GMT
+      - Sat, 15 Nov 2025 06:18:51 GMT
       Content-Type:
       - application/json; charset=utf-8
       Access-Control-Allow-Origin:
       - "*"
       Etag:
-      - W/"63-OvAhltRagC4/8wrBqGAM9bW7ovY"
+      - W/"63-D/yTfKnmJasZkg2AhzWsJStjkHs"
       Rndr-Id:
-      - 13d1fd4c-6573-45bb
+      - 44f85e70-ede9-402e
       Vary:
       - Accept-Encoding
       X-Powered-By:
@@ -43,13 +145,13 @@ http_interactions:
       Server:
       - cloudflare
       Cf-Ray:
-      - 99ec9544399cacae-ORD
+      - 99eca231c8971156-ORD
       Alt-Svc:
       - h3=":443"; ma=86400
       Transfer-Encoding:
       - chunked
     body:
       encoding: ASCII-8BIT
-      string: '{"credits_remaining":24917,"url":"https://www.tiktok.com/@user/video/1234567890","transcript":null}'
-  recorded_at: Sat, 15 Nov 2025 06:10:02 GMT
+      string: '{"credits_remaining":24894,"url":"https://www.tiktok.com/@user/video/1234567890","transcript":null}'
+  recorded_at: Sat, 15 Nov 2025 06:18:51 GMT
 recorded_with: VCR 6.3.1

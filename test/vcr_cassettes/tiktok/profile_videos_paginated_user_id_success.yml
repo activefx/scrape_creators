@@ -23,17 +23,17 @@ http_interactions:
       message: Bad Request
     headers:
       Date:
-      - Sat, 15 Nov 2025 06:09:02 GMT
+      - Sat, 15 Nov 2025 06:17:43 GMT
       Content-Type:
       - application/json; charset=utf-8
       Cf-Ray:
-      - 99ec93d58dcd0046-ORD
+      - 99eca08e982a4d2c-ORD
       Access-Control-Allow-Origin:
       - "*"
       Etag:
-      - W/"8c-MYO9AHoRjiwSfucsDZc6/ER+7aI"
+      - W/"8c-H9bDZanL4emY7bofCu1TIpdCmEQ"
       Rndr-Id:
-      - 68dac5d6-0137-43a0
+      - 90f1941f-9386-46da
       Vary:
       - Accept-Encoding
       X-Powered-By:
@@ -50,7 +50,7 @@ http_interactions:
       - chunked
     body:
       encoding: UTF-8
-      string: '{"success":false,"credits_remaining":24988,"error":"missing_parameter","errorStatus":400,"message":"You
+      string: '{"success":false,"credits_remaining":24908,"error":"missing_parameter","errorStatus":400,"message":"You
         must provide a handle or a user_id"}'
-  recorded_at: Sat, 15 Nov 2025 06:09:02 GMT
+  recorded_at: Sat, 15 Nov 2025 06:17:43 GMT
 recorded_with: VCR 6.3.1

@@ -217,7 +217,14 @@ module ScrapeCreators
         params[:amount] = amount if amount
         params[:trim] = trim unless trim.nil?
 
-        get("/v3/tiktok/profile-videos", params)
+        response = get("/v3/tiktok/profile-videos", params)
+
+        # API returns an array at top level, wrap it to match expected structure
+        if response.is_a?(Array)
+          { itemList: response }
+        else
+          response
+        end
       end
 
       # Get TikTok video information

@@ -23,15 +23,15 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sat, 15 Nov 2025 06:09:32 GMT
+      - Sat, 15 Nov 2025 06:18:35 GMT
       Content-Type:
       - application/json; charset=utf-8
       Access-Control-Allow-Origin:
       - "*"
       Etag:
-      - W/"40-h02FzQ1MhX0pSkQKbpzwfaCfo9Y"
+      - W/"40-iagGQ64iFv8C8fGcHAEBCpb893g"
       Rndr-Id:
-      - cb53c6cf-8bd5-49c1
+      - c58b523f-2e10-4fb6
       Vary:
       - Accept-Encoding
       X-Powered-By:
@@ -43,13 +43,13 @@ http_interactions:
       Server:
       - cloudflare
       Cf-Ray:
-      - 99ec9488780feaf0-ORD
+      - 99eca1bf3eb522e1-ORD
       Alt-Svc:
       - h3=":443"; ma=86400
       Transfer-Encoding:
       - chunked
     body:
       encoding: ASCII-8BIT
-      string: '{"success":true,"credits_remaining":24977,"liveRoomUserInfo":{}}'
-  recorded_at: Sat, 15 Nov 2025 06:09:32 GMT
+      string: '{"success":true,"credits_remaining":24897,"liveRoomUserInfo":{}}'
+  recorded_at: Sat, 15 Nov 2025 06:18:35 GMT
 recorded_with: VCR 6.3.1

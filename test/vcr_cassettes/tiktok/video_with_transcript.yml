@@ -23,15 +23,15 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sat, 15 Nov 2025 06:10:04 GMT
+      - Sat, 15 Nov 2025 06:18:56 GMT
       Content-Type:
       - application/json; charset=utf-8
       Access-Control-Allow-Origin:
       - "*"
       Etag:
-      - W/"1c4-73X+O+IH2ZXwSfyPyuBQsnSJXPE"
+      - W/"1c4-/f9iEDjrmK6HIK9NGvNWTirM5f4"
       Rndr-Id:
-      - 9c47c94c-0178-42e1
+      - 46a49a95-e8de-47a6
       Vary:
       - Accept-Encoding
       X-Powered-By:
@@ -43,13 +43,13 @@ http_interactions:
       Server:
       - cloudflare
       Cf-Ray:
-      - 99ec9552fa140046-ORD
+      - 99eca24edcd26158-ORD
       Alt-Svc:
       - h3=":443"; ma=86400
       Transfer-Encoding:
       - chunked
     body:
       encoding: ASCII-8BIT
-      string: '{"success":true,"credits_remaining":24915,"extra":{"fatal_item_ids":[],"logid":"2025111506100452B2207342E4D13C3B5C","now":1763187004000},"log_pb":{"impr_id":"2025111506100452B2207342E4D13C3B5C"},"status_code":0,"status_msg":"","aweme_detail":{"is_ad":false,"content_model":{"standard_biz":{"tts_voice_info":{"tts_voice_reuse_params":null}}},"is_eligible_for_commission":false,"is_paid_partnership":false,"create_time_utc":null,"shop_product_url":null}}'
-  recorded_at: Sat, 15 Nov 2025 06:10:04 GMT
+      string: '{"success":true,"credits_remaining":24890,"extra":{"fatal_item_ids":[],"logid":"2025111506185505415A4EB6D40B351662","now":1763187536000},"log_pb":{"impr_id":"2025111506185505415A4EB6D40B351662"},"status_code":0,"status_msg":"","aweme_detail":{"is_ad":false,"content_model":{"standard_biz":{"tts_voice_info":{"tts_voice_reuse_params":null}}},"is_eligible_for_commission":false,"is_paid_partnership":false,"create_time_utc":null,"shop_product_url":null}}'
+  recorded_at: Sat, 15 Nov 2025 06:18:56 GMT
 recorded_with: VCR 6.3.1

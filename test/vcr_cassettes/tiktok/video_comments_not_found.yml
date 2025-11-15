@@ -23,15 +23,15 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sat, 15 Nov 2025 06:09:20 GMT
+      - Sat, 15 Nov 2025 06:18:38 GMT
       Content-Type:
       - application/json; charset=utf-8
       Access-Control-Allow-Origin:
       - "*"
       Etag:
-      - W/"158-FuF1x2QPNA7IRnjycviZrwnBC44"
+      - W/"158-mBCrhG8WXXqAUABO2C1+DZQwFK0"
       Rndr-Id:
-      - 4a77cd74-8411-4f34
+      - '0951b0f3-71e6-4956'
       Vary:
       - Accept-Encoding
       X-Powered-By:
@@ -43,13 +43,13 @@ http_interactions:
       Server:
       - cloudflare
       Cf-Ray:
-      - 99ec9444bc6e2b4b-ORD
+      - 99eca1defa18dadc-ORD
       Alt-Svc:
       - h3=":443"; ma=86400
       Transfer-Encoding:
       - chunked
     body:
       encoding: ASCII-8BIT
-      string: '{"success":true,"credits_remaining":24983,"alias_comment_deleted":false,"comments":[],"cursor":20,"extra":{"api_debug_info":null,"fatal_item_ids":null,"now":1763186960000},"has_filtered_comments":0,"has_more":0,"log_pb":{"impr_id":"202511150609209BB31CF30A792639B103"},"reply_style":1,"status_code":0,"status_msg":"","top_gifts":null,"total":0}'
-  recorded_at: Sat, 15 Nov 2025 06:09:20 GMT
+      string: '{"success":true,"credits_remaining":24894,"alias_comment_deleted":false,"comments":[],"cursor":20,"extra":{"api_debug_info":null,"fatal_item_ids":null,"now":1763187518000},"has_filtered_comments":0,"has_more":0,"log_pb":{"impr_id":"20251115061837B558436B43459E37E1F8"},"reply_style":1,"status_code":0,"status_msg":"","top_gifts":null,"total":0}'
+  recorded_at: Sat, 15 Nov 2025 06:18:38 GMT
 recorded_with: VCR 6.3.1

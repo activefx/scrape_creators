@@ -23,15 +23,15 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sat, 15 Nov 2025 06:09:59 GMT
+      - Sat, 15 Nov 2025 06:18:43 GMT
       Content-Type:
       - application/json; charset=utf-8
       Access-Control-Allow-Origin:
       - "*"
       Etag:
-      - W/"77-Qyvgs/2NPF5PQyxvl12/pBJ+lYw"
+      - W/"77-Dl+8WArH1GsBPUZVyXYvQ3TxLFw"
       Rndr-Id:
-      - 11f28d5e-3831-4768
+      - 137ca804-1da7-4309
       Vary:
       - Accept-Encoding
       X-Powered-By:
@@ -43,13 +43,13 @@ http_interactions:
       Server:
       - cloudflare
       Cf-Ray:
-      - 99ec9536383e2ced-ORD
+      - 99eca1faba8edadc-ORD
       Alt-Svc:
       - h3=":443"; ma=86400
       Transfer-Encoding:
       - chunked
     body:
       encoding: ASCII-8BIT
-      string: '{"credits_remaining":24917,"url":"https://www.tiktok.com/@stoolpresidente/video/7445883744370625822","transcript":null}'
-  recorded_at: Sat, 15 Nov 2025 06:09:59 GMT
+      string: '{"credits_remaining":24894,"url":"https://www.tiktok.com/@stoolpresidente/video/7445883744370625822","transcript":null}'
+  recorded_at: Sat, 15 Nov 2025 06:18:43 GMT
 recorded_with: VCR 6.3.1
