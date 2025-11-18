@@ -24,29 +24,29 @@ module ScrapeCreators
       #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
       #   profile = client.tiktok.profile("stoolpresidente")
       #   puts profile[:user][:nickname]  # => "Dave Portnoy"
-      #   puts profile[:stats][:followerCount]  # => 4100000
+      #   puts profile[:stats][:follower_count]  # => 4100000
       #
       # @example Response structure
       #   {
       #     user: {
       #       id: "6659752019493208069",
-      #       uniqueId: "stoolpresidente",
+      #       unique_id: "stoolpresidente",
       #       nickname: "Dave Portnoy",
-      #       avatarLarger: "https://...",
+      #       avatar_larger: "https://...",
       #       signature: "El Presidente/Barstool Sports Founder.",
       #       verified: true,
-      #       bioLink: { link: "https://...", risk: 0 },
-      #       privateAccount: false,
+      #       bio_link: { link: "https://...", risk: 0 },
+      #       private_account: false,
       #       ...
       #     },
       #     stats: {
-      #       followerCount: 4100000,
-      #       followingCount: 74,
+      #       follower_count: 4100000,
+      #       following_count: 74,
       #       heart: 190400000,
-      #       videoCount: 2017,
+      #       video_count: 2017,
       #       ...
       #     },
-      #     itemList: []
+      #     item_list: []
       #   }
       def profile(handle)
         raise ArgumentError, "handle is required" if handle.nil? || handle.to_s.empty?
@@ -82,22 +82,22 @@ module ScrapeCreators
       #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
       #   audience = client.tiktok.audience("handle")
       #   puts audience[:success]  # => true
-      #   puts audience[:audienceLocations].first[:country]  # => "Mexico"
-      #   puts audience[:audienceLocations].first[:percentage]  # => "15.96%"
+      #   puts audience[:audience_locations].first[:country]  # => "Mexico"
+      #   puts audience[:audience_locations].first[:percentage]  # => "15.96%"
       #
       # @example Response structure
       #   {
       #     success: true,
-      #     audienceLocations: [
+      #     audience_locations: [
       #       {
       #         country: "Mexico",
-      #         countryCode: "MX",
+      #         country_code: "MX",
       #         count: 83,
       #         percentage: "15.96%"
       #       },
       #       {
       #         country: "United States",
-      #         countryCode: "US",
+      #         country_code: "US",
       #         count: 34,
       #         percentage: "6.54%"
       #       },
@@ -128,30 +128,30 @@ module ScrapeCreators
       # @example Get most recent videos
       #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
       #   videos = client.tiktok.profile_videos("stoolpresidente")
-      #   puts videos[:itemList].first[:desc]  # Video description
-      #   puts videos[:hasMore]  # => true/false
+      #   puts videos[:item_list].first[:desc]  # Video description
+      #   puts videos[:has_more]  # => true/false
       #
       # @example Get oldest videos first
       #   videos = client.tiktok.profile_videos("stoolpresidente", sort_by: "oldest")
       #
       # @example Paginate through results
       #   page1 = client.tiktok.profile_videos("handle")
-      #   page2 = client.tiktok.profile_videos("handle", max_cursor: page1[:maxCursor])
+      #   page2 = client.tiktok.profile_videos("handle", max_cursor: page1[:max_cursor])
       #
       # @example Response structure
       #   {
-      #     itemList: [
+      #     item_list: [
       #       {
       #         id: "7445883744370625822",
       #         desc: "Video description",
-      #         createTime: 1234567890,
+      #         create_time: 1234567890,
       #         video: { ... },
-      #         stats: { diggCount: 123, shareCount: 45, ... }
+      #         statistics: { digg_count: 123, share_count: 45, ... }
       #       }
       #     ],
       #     cursor: "123456",
-      #     maxCursor: "789012",
-      #     hasMore: true
+      #     max_cursor: "789012",
+      #     has_more: true
       #   }
       def profile_videos(handle, sort_by: nil, max_cursor: nil, trim: nil)
         raise ArgumentError, "handle is required" if handle.nil? || handle.to_s.empty?
@@ -161,21 +161,7 @@ module ScrapeCreators
         params[:maxCursor] = max_cursor if max_cursor
         params[:trim] = trim unless trim.nil?
 
-        response = get("/v3/tiktok/profile/videos", params)
-
-        # Normalize response: add :itemList if only :aweme_list exists
-        response[:itemList] = response[:aweme_list] if response[:aweme_list] && !response[:itemList]
-
-        # Normalize each video item in the list
-        if response[:itemList].is_a?(Array)
-          response[:itemList].each do |item|
-            item[:id] = item[:aweme_id] if item[:aweme_id] && !item[:id]
-            item[:createTime] = item[:create_time] if item[:create_time] && !item[:createTime]
-            item[:stats] = item[:statistics] if item[:statistics] && !item[:stats]
-          end
-        end
-
-        response
+        get("/v3/tiktok/profile/videos", params)
       end
 
       # Get TikTok profile videos with automatic pagination
@@ -211,13 +197,13 @@ module ScrapeCreators
       #
       # @example Response structure
       #   {
-      #     itemList: [
+      #     item_list: [
       #       {
       #         id: "7445883744370625822",
       #         desc: "Video description",
-      #         createTime: 1234567890,
+      #         create_time: 1234567890,
       #         video: { ... },
-      #         stats: { diggCount: 123, shareCount: 45, ... }
+      #         statistics: { digg_count: 123, share_count: 45, ... }
       #       }
       #     ]
       #   }
@@ -233,9 +219,9 @@ module ScrapeCreators
 
         response = get("/v3/tiktok/profile-videos", params)
 
-        # API returns an array at top level, wrap it to match expected structure
+        # API returns an array at top level, wrap it in a hash
         if response.is_a?(Array)
-          { itemList: response }
+          { item_list: response }
         else
           response
         end
@@ -262,7 +248,7 @@ module ScrapeCreators
       #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
       #   video = client.tiktok.video("https://www.tiktok.com/@user/video/1234567890")
       #   puts video[:desc]  # Video description
-      #   puts video[:stats][:playCount]  # View count
+      #   puts video[:statistics][:play_count]  # View count
       #
       # @example Get video with transcript
       #   video = client.tiktok.video(
@@ -275,23 +261,23 @@ module ScrapeCreators
       #   {
       #     id: "7445883744370625822",
       #     desc: "Video description",
-      #     createTime: 1234567890,
+      #     create_time: 1234567890,
       #     video: {
       #       duration: 15,
       #       ratio: "720p",
       #       cover: "https://...",
-      #       downloadAddr: "https://..."
+      #       download_addr: "https://..."
       #     },
       #     author: {
       #       id: "6659752019493208069",
-      #       uniqueId: "stoolpresidente",
+      #       unique_id: "stoolpresidente",
       #       nickname: "Dave Portnoy"
       #     },
-      #     stats: {
-      #       playCount: 1000000,
-      #       diggCount: 50000,
-      #       commentCount: 1000,
-      #       shareCount: 5000
+      #     statistics: {
+      #       play_count: 1000000,
+      #       digg_count: 50000,
+      #       comment_count: 1000,
+      #       share_count: 5000
       #     },
       #     transcript: "..." # if get_transcript is true
       #   }
@@ -308,18 +294,13 @@ module ScrapeCreators
         # Extract aweme_detail from the response wrapper
         aweme_detail = response[:aweme_detail] || response
 
-        # Check if video data is actually present (has id or aweme_id)
+        # Check if video data is actually present
         unless aweme_detail[:id] || aweme_detail[:aweme_id]
           raise NotFoundError.new(
             "Video not found or unavailable",
             response_body: response
           )
         end
-
-        # Normalize response: add :id if only :aweme_id exists
-        aweme_detail[:id] = aweme_detail[:aweme_id] if aweme_detail[:aweme_id] && !aweme_detail[:id]
-        # Normalize response: add :stats if only :statistics exists
-        aweme_detail[:stats] = aweme_detail[:statistics] if aweme_detail[:statistics] && !aweme_detail[:stats]
 
         aweme_detail
       end
@@ -371,39 +352,24 @@ module ScrapeCreators
       # @example Check if user is live
       #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
       #   live = client.tiktok.user_live("stoolpresidente")
-      #   puts live[:isLive]  # => true/false
+      #   # Check if live_room_user_info is present and has data
+      #   is_live = live[:live_room_user_info]&.any?
       #
       # @example Response structure when live
       #   {
-      #     isLive: true,
-      #     liveRoom: {
-      #       id: "7445883744370625822",
-      #       title: "Live stream title",
-      #       coverUrl: "https://...",
-      #       stats: {
-      #         viewerCount: 1000,
-      #         totalUser: 5000
-      #       }
+      #     live_room_user_info: {
+      #       # Live room data
       #     }
       #   }
       #
       # @example Response structure when not live
       #   {
-      #     isLive: false
+      #     live_room_user_info: {}
       #   }
       def user_live(handle)
         raise ArgumentError, "handle is required" if handle.nil? || handle.to_s.empty?
 
-        response = get("/v1/tiktok/user/live", { handle: handle })
-
-        # Normalize response: add :isLive based on liveRoomUserInfo presence
-        response[:isLive] = if response[:liveRoomUserInfo]
-                              !response[:liveRoomUserInfo].empty? && response[:liveRoomUserInfo].keys.any?
-                            else
-                              false
-                            end
-
-        response
+        get("/v1/tiktok/user/live", { handle: handle })
       end
 
       # Get TikTok video comments
@@ -443,7 +409,7 @@ module ScrapeCreators
       #         reply_comment_total: 9,
       #         user: {
       #           uid: "6851091024770040837",
-      #           uniqueId: "tmoneyhoney18",
+      #           unique_id: "tmoneyhoney18",
       #           nickname: "T"
       #         }
       #       }
@@ -490,7 +456,7 @@ module ScrapeCreators
       #     followings: [
       #       {
       #         uid: "7436873095740343338",
-      #         uniqueId: "barstoolgruden",
+      #         unique_id: "barstoolgruden",
       #         nickname: "Barstool Gruden",
       #         signature: "SB XXXVII Champ currently @Barstool Sports",
       #         follower_count: 137712,
@@ -510,16 +476,7 @@ module ScrapeCreators
         params[:min_time] = min_time if min_time
         params[:trim] = trim unless trim.nil?
 
-        response = get("/v1/tiktok/user/following", params)
-
-        # Normalize each user in the followings list
-        if response[:followings].is_a?(Array)
-          response[:followings].each do |user|
-            user[:uniqueId] = user[:unique_id] if user[:unique_id] && !user[:uniqueId]
-          end
-        end
-
-        response
+        get("/v1/tiktok/user/following", params)
       end
 
       # Get TikTok user followers list
@@ -558,7 +515,7 @@ module ScrapeCreators
       #     followers: [
       #       {
       #         uid: "7463232156317287456",
-      #         uniqueId: "jamal.voyage",
+      #         unique_id: "jamal.voyage",
       #         nickname: "Jamal Voyage",
       #         follower_count: 0,
       #         following_count: 5,
@@ -579,16 +536,7 @@ module ScrapeCreators
         params[:min_time] = min_time if min_time
         params[:trim] = trim unless trim.nil?
 
-        response = get("/v1/tiktok/user/followers", params)
-
-        # Normalize each user in the followers list
-        if response[:followers].is_a?(Array)
-          response[:followers].each do |user|
-            user[:uniqueId] = user[:unique_id] if user[:unique_id] && !user[:uniqueId]
-          end
-        end
-
-        response
+        get("/v1/tiktok/user/followers", params)
       end
     end
   end

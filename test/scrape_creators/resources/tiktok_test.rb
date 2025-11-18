@@ -19,15 +19,15 @@ describe ScrapeCreators::Resources::Tiktok do
         # Verify user data structure
         user = profile[:user]
 
-        assert_equal "stoolpresidente", user[:uniqueId]
+        assert_equal "stoolpresidente", user[:unique_id]
         assert_equal "Dave Portnoy", user[:nickname]
         assert user[:verified]
 
         # Verify stats structure
         stats = profile[:stats]
 
-        assert_predicate stats[:followerCount], :positive?
-        assert_predicate stats[:videoCount], :positive?
+        assert_predicate stats[:follower_count], :positive?
+        assert_predicate stats[:video_count], :positive?
       end
     end
 
@@ -70,15 +70,15 @@ describe ScrapeCreators::Resources::Tiktok do
         videos = tiktok.profile_videos("stoolpresidente")
 
         assert_kind_of Hash, videos
-        assert videos.key?(:itemList)
-        assert_kind_of Array, videos[:itemList]
+        assert videos.key?(:aweme_list)
+        assert_kind_of Array, videos[:aweme_list]
 
-        unless videos[:itemList].empty?
-          first_video = videos[:itemList].first
+        unless videos[:aweme_list].empty?
+          first_video = videos[:aweme_list].first
 
-          assert first_video.key?(:id)
+          assert first_video.key?(:aweme_id)
           assert first_video.key?(:desc)
-          assert first_video.key?(:createTime)
+          assert first_video.key?(:create_time)
         end
       end
     end
@@ -88,7 +88,7 @@ describe ScrapeCreators::Resources::Tiktok do
         videos = tiktok.profile_videos("stoolpresidente", sort_by: "oldest")
 
         assert_kind_of Hash, videos
-        assert videos.key?(:itemList)
+        assert videos.key?(:aweme_list)
       end
     end
 
@@ -97,7 +97,7 @@ describe ScrapeCreators::Resources::Tiktok do
         videos = tiktok.profile_videos("stoolpresidente", max_cursor: "123456")
 
         assert_kind_of Hash, videos
-        assert videos.key?(:itemList)
+        assert videos.key?(:aweme_list)
       end
     end
 
@@ -122,8 +122,8 @@ describe ScrapeCreators::Resources::Tiktok do
         videos = tiktok.profile_videos_paginated(handle: "stoolpresidente")
 
         assert_kind_of Hash, videos
-        assert videos.key?(:itemList)
-        assert_kind_of Array, videos[:itemList]
+        assert videos.key?(:item_list)
+        assert_kind_of Array, videos[:item_list]
       end
     end
 
@@ -132,7 +132,7 @@ describe ScrapeCreators::Resources::Tiktok do
         videos = tiktok.profile_videos_paginated(handle: "stoolpresidente", amount: 50)
 
         assert_kind_of Hash, videos
-        assert videos.key?(:itemList)
+        assert videos.key?(:item_list)
       end
     end
 
@@ -150,11 +150,11 @@ describe ScrapeCreators::Resources::Tiktok do
         video = tiktok.video("https://www.tiktok.com/@programming_hub/video/7340627334321491205")
 
         assert_kind_of Hash, video
-        assert video.key?(:id)
+        assert video.key?(:aweme_id)
         assert video.key?(:desc)
         assert video.key?(:video)
         assert video.key?(:author)
-        assert video.key?(:stats)
+        assert video.key?(:statistics)
       end
     end
 
@@ -166,7 +166,7 @@ describe ScrapeCreators::Resources::Tiktok do
         )
 
         assert_kind_of Hash, video
-        assert video.key?(:id)
+        assert video.key?(:aweme_id)
       end
     end
 
@@ -178,7 +178,7 @@ describe ScrapeCreators::Resources::Tiktok do
         )
 
         assert_kind_of Hash, video
-        assert video.key?(:id)
+        assert video.key?(:aweme_id)
       end
     end
 
@@ -246,7 +246,7 @@ describe ScrapeCreators::Resources::Tiktok do
         live = tiktok.user_live("someliveuser")
 
         assert_kind_of Hash, live
-        assert live.key?(:isLive)
+        assert live.key?(:live_room_user_info)
       end
     end
 
@@ -255,8 +255,9 @@ describe ScrapeCreators::Resources::Tiktok do
         live = tiktok.user_live("stoolpresidente")
 
         assert_kind_of Hash, live
-        assert live.key?(:isLive)
-        refute live[:isLive]
+        assert live.key?(:live_room_user_info)
+        # When not live, live_room_user_info is an empty hash
+        assert_equal({}, live[:live_room_user_info])
       end
     end
 
@@ -334,7 +335,7 @@ describe ScrapeCreators::Resources::Tiktok do
           first_following = following[:followings].first
 
           assert first_following.key?(:uid)
-          assert first_following.key?(:uniqueId)
+          assert first_following.key?(:unique_id)
           assert first_following.key?(:nickname)
         end
       end
@@ -385,7 +386,7 @@ describe ScrapeCreators::Resources::Tiktok do
           first_follower = followers[:followers].first
 
           assert first_follower.key?(:uid)
-          assert first_follower.key?(:uniqueId)
+          assert first_follower.key?(:unique_id)
           assert first_follower.key?(:nickname)
         end
       end

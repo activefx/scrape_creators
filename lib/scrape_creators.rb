@@ -5,11 +5,17 @@ loader = Zeitwerk::Loader.for_gem
 
 # Ignore errors.rb since we manually require it to define error classes at module level
 loader.ignore("#{__dir__}/scrape_creators/errors.rb")
+# Ignore middleware directory since it contains Faraday middleware
+loader.ignore("#{__dir__}/scrape_creators/middleware")
 
 loader.setup
 
 # Manually require errors to define all error classes
 require_relative "scrape_creators/errors"
+# Manually require utility module
+require_relative "scrape_creators/util"
+# Manually require middleware
+require_relative "scrape_creators/middleware/response_keys"
 
 # Ruby client library for the ScrapeCreators API
 #
