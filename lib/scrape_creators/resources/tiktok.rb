@@ -538,6 +538,63 @@ module ScrapeCreators
 
         get("/v1/tiktok/user/followers", params)
       end
+
+      # Search TikTok users by query
+      #
+      # Scrapes TikTok users matching a search query with pagination support.
+      #
+      # @param query [String] Search query for users
+      # @param cursor [Integer, String, nil] Cursor for pagination to get more users
+      # @param trim [Boolean, nil] Whether to trim the response data (default: false)
+      # @return [Hash] Search results with users array and cursor for pagination
+      # @raise [BadRequestError] If the query parameter is missing or invalid
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Search for users
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   results = client.tiktok.search_users("taylorswift")
+      #   puts results[:user_list].first[:user_info][:nickname]  # => "Taylor Swift"
+      #   puts results[:cursor]  # => 10
+      #
+      # @example Paginate through search results
+      #   page1 = client.tiktok.search_users("taylorswift")
+      #   page2 = client.tiktok.search_users("taylorswift", cursor: page1[:cursor])
+      #
+      # @example Get trimmed response
+      #   results = client.tiktok.search_users("taylorswift", trim: true)
+      #
+      # @example Response structure
+      #   {
+      #     cursor: 10,
+      #     user_list: [
+      #       {
+      #         user_info: {
+      #           uid: "6881290705605477381",
+      #           unique_id: "taylorswift",
+      #           nickname: "Taylor Swift",
+      #           avatar_thumb: { url_list: [...] },
+      #           signature: "...",
+      #           follower_count: 32691341,
+      #           following_count: 0,
+      #           aweme_count: 71,
+      #           total_favorited: 247401086,
+      #           verification_type: 1,
+      #           custom_verify: "Verified account",
+      #           ...
+      #         }
+      #       }
+      #     ]
+      #   }
+      def search_users(query, cursor: nil, trim: nil)
+        raise ArgumentError, "query is required" if query.nil? || query.to_s.empty?
+
+        params = { query: query }
+        params[:cursor] = cursor if cursor
+        params[:trim] = trim unless trim.nil?
+
+        get("/v1/tiktok/search/users", params)
+      end
     end
   end
 end
