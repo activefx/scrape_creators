@@ -459,6 +459,49 @@ rake console
 7. Commit with clear messages
 8. Push and create pull request
 
+### Pre-Pull Request Checklist
+Before creating a pull request, you **MUST** ensure the following:
+
+1. **RuboCop Must Pass**: Run `rubocop` to check for style violations
+   - If RuboCop reports violations, run `rubocop -a` (autocorrect) to automatically fix safe violations
+   - Review autocorrected changes to ensure they are correct
+   - Manually fix any remaining violations that autocorrect cannot handle
+   - Re-run `rubocop` to verify all violations are resolved
+   - **DO NOT** create a pull request if RuboCop is failing
+
+2. **All Tests Must Pass**: Run `rake test` to ensure all tests pass
+
+3. **Commit RuboCop Fixes**: If autocorrect made changes, commit them with a clear message:
+   ```bash
+   git add .
+   git commit -m "Fix RuboCop violations"
+   ```
+
+**Example workflow before creating PR**:
+```bash
+# Run RuboCop
+rubocop
+
+# If violations are found, run autocorrect
+rubocop -a
+
+# Review the changes
+git diff
+
+# Commit autocorrect changes if any
+git add .
+git commit -m "Fix RuboCop violations"
+
+# Verify RuboCop passes
+rubocop
+
+# Ensure tests still pass
+rake test
+
+# Now safe to create PR
+gh pr create --title "Your feature" --body "Description"
+```
+
 ### Running Tests
 ```bash
 # Run all tests

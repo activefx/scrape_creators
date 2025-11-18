@@ -34,7 +34,7 @@ module ScrapeCreators
       when Hash
         value.each_with_object({}) do |(k, v), result|
           # Convert both string and symbol keys to snake_case symbols
-          key_str = k.is_a?(Symbol) ? k.to_s : k.to_s
+          key_str = k.to_s
           new_key = underscore(key_str).to_sym
           result[new_key] = deep_transform_keys(v)
         end

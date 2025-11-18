@@ -257,7 +257,7 @@ describe ScrapeCreators::Resources::Tiktok do
         assert_kind_of Hash, live
         assert live.key?(:live_room_user_info)
         # When not live, live_room_user_info is an empty hash
-        assert_equal({}, live[:live_room_user_info])
+        assert_empty(live[:live_room_user_info])
       end
     end
 
