@@ -61,7 +61,7 @@ module ScrapeCreators
         conn.headers["Accept"] = "application/json"
 
         # Response middleware
-        conn.response :json, content_type: /\bjson$/
+        conn.response :json, content_type: /\bjson$/, parser_options: { symbolize_names: true }
         conn.response :logger if config[:debug]
 
         # HTTP adapter

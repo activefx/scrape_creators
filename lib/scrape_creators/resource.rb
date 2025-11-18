@@ -74,7 +74,8 @@ module ScrapeCreators
     def handle_response(response)
       case response.status
       when 200..299
-        parse_json(response.body)
+        # Transform camelCase keys to snake_case
+        ScrapeCreators::Util.deep_transform_keys(parse_json(response.body))
       when 400
         raise BadRequestError.new(
           extract_error_message(response),
