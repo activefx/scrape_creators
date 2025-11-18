@@ -426,4 +426,62 @@ describe ScrapeCreators::Resources::Tiktok do
       end
     end
   end
+
+  describe "#search_users" do
+    it "searches for users successfully" do
+      VCR.use_cassette("tiktok/search_users_success") do
+        results = tiktok.search_users("taylorswift")
+
+        assert_kind_of Hash, results
+        assert results.key?(:cursor)
+        assert results.key?(:user_list)
+        assert_kind_of Array, results[:user_list]
+
+        unless results[:user_list].empty?
+          first_user = results[:user_list].first
+
+          assert first_user.key?(:user_info)
+
+          user_info = first_user[:user_info]
+
+          assert user_info.key?(:uid)
+          assert user_info.key?(:unique_id)
+          assert user_info.key?(:nickname)
+        end
+      end
+    end
+
+    it "searches for users with cursor pagination" do
+      VCR.use_cassette("tiktok/search_users_with_cursor") do
+        results = tiktok.search_users("taylorswift", cursor: 10)
+
+        assert_kind_of Hash, results
+        assert results.key?(:user_list)
+      end
+    end
+
+    it "searches for users with trim parameter" do
+      VCR.use_cassette("tiktok/search_users_with_trim") do
+        results = tiktok.search_users("taylorswift", trim: true)
+
+        assert_kind_of Hash, results
+        # Trimmed responses use :users instead of :user_list
+        assert results.key?(:users)
+      end
+    end
+
+    it "raises ArgumentError when query is nil" do
+      error = assert_raises(ArgumentError) do
+        tiktok.search_users(nil)
+      end
+      assert_match(/query is required/, error.message)
+    end
+
+    it "raises ArgumentError when query is empty" do
+      error = assert_raises(ArgumentError) do
+        tiktok.search_users("")
+      end
+      assert_match(/query is required/, error.message)
+    end
+  end
 end
