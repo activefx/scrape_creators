@@ -595,6 +595,85 @@ module ScrapeCreators
 
         get("/v1/tiktok/search/users", params)
       end
+
+      # Search TikTok videos by keyword
+      #
+      # Scrapes TikTok videos matching a keyword search with pagination support.
+      # Allows filtering by date posted, sorting options, and region-specific proxies.
+      #
+      # @param query [String] Keyword to search for
+      # @param date_posted [String, nil] Time frame filter for videos
+      #   Options: "yesterday", "this-week", "this-month", "last-3-months", "last-6-months", "all-time"
+      # @param sort_by [String, nil] Sort order for results
+      #   Options: "relevance", "most-liked", "date-posted"
+      # @param region [String, nil] Two-letter country code for proxy location (e.g., "US", "GB", "FR")
+      #   Note: This doesn't filter videos by region, it sets the proxy location for scraping
+      # @param cursor [Integer, String, nil] Cursor for pagination to get more videos
+      # @param trim [Boolean, nil] Whether to trim the response data (default: false)
+      # @return [Hash] Search results with videos array and cursor for pagination
+      # @raise [BadRequestError] If the query parameter is missing or invalid
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Search for videos by keyword
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   results = client.tiktok.search_keyword("super bowl")
+      #   puts results[:search_item_list].first[:aweme_info][:desc]
+      #   puts results[:cursor]
+      #
+      # @example Search with filters
+      #   results = client.tiktok.search_keyword(
+      #     "cooking recipes",
+      #     date_posted: "this-week",
+      #     sort_by: "most-liked"
+      #   )
+      #
+      # @example Paginate through search results
+      #   page1 = client.tiktok.search_keyword("dance")
+      #   page2 = client.tiktok.search_keyword("dance", cursor: page1[:cursor])
+      #
+      # @example Get trimmed response
+      #   results = client.tiktok.search_keyword("music", trim: true)
+      #
+      # @example Response structure
+      #   {
+      #     cursor: 12,
+      #     search_item_list: [
+      #       {
+      #         aweme_info: {
+      #           aweme_id: "7334621391758642478",
+      #           desc: "The most insane Super Bowl ever...",
+      #           create_time: 1707724682,
+      #           author: {
+      #             unique_id: "username",
+      #             nickname: "User Name",
+      #             ...
+      #           },
+      #           statistics: {
+      #             digg_count: 355,
+      #             comment_count: 5,
+      #             play_count: 31677,
+      #             share_count: 22
+      #           },
+      #           video: { ... },
+      #           music: { ... },
+      #           ...
+      #         }
+      #       }
+      #     ]
+      #   }
+      def search_keyword(query, date_posted: nil, sort_by: nil, region: nil, cursor: nil, trim: nil)
+        raise ArgumentError, "query is required" if query.nil? || query.to_s.empty?
+
+        params = { query: query }
+        params[:date_posted] = date_posted if date_posted
+        params[:sort_by] = sort_by if sort_by
+        params[:region] = region if region
+        params[:cursor] = cursor if cursor
+        params[:trim] = trim unless trim.nil?
+
+        get("/v1/tiktok/search/keyword", params)
+      end
     end
   end
 end

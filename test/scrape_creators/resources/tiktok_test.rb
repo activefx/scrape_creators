@@ -484,4 +484,87 @@ describe ScrapeCreators::Resources::Tiktok do
       assert_match(/query is required/, error.message)
     end
   end
+
+  describe "#search_keyword" do
+    it "searches for videos by keyword successfully" do
+      VCR.use_cassette("tiktok/search_keyword_success") do
+        results = tiktok.search_keyword("super bowl")
+
+        assert_kind_of Hash, results
+        assert results.key?(:cursor)
+        assert results.key?(:search_item_list)
+        assert_kind_of Array, results[:search_item_list]
+
+        unless results[:search_item_list].empty?
+          first_item = results[:search_item_list].first
+
+          assert first_item.key?(:aweme_info)
+
+          aweme_info = first_item[:aweme_info]
+
+          assert aweme_info.key?(:aweme_id) || aweme_info.key?(:id)
+          assert aweme_info.key?(:desc)
+          assert aweme_info.key?(:author)
+        end
+      end
+    end
+
+    it "searches for videos with date_posted filter" do
+      VCR.use_cassette("tiktok/search_keyword_with_date_posted") do
+        results = tiktok.search_keyword("cooking", date_posted: "this-week")
+
+        assert_kind_of Hash, results
+        assert results.key?(:search_item_list)
+      end
+    end
+
+    it "searches for videos with sort_by parameter" do
+      VCR.use_cassette("tiktok/search_keyword_with_sort_by") do
+        results = tiktok.search_keyword("dance", sort_by: "most-liked")
+
+        assert_kind_of Hash, results
+        assert results.key?(:search_item_list)
+      end
+    end
+
+    it "searches for videos with region parameter" do
+      VCR.use_cassette("tiktok/search_keyword_with_region") do
+        results = tiktok.search_keyword("music", region: "US")
+
+        assert_kind_of Hash, results
+        assert results.key?(:search_item_list)
+      end
+    end
+
+    it "searches for videos with cursor pagination" do
+      VCR.use_cassette("tiktok/search_keyword_with_cursor") do
+        results = tiktok.search_keyword("trending", cursor: 12)
+
+        assert_kind_of Hash, results
+        assert results.key?(:search_item_list)
+      end
+    end
+
+    it "searches for videos with trim parameter" do
+      VCR.use_cassette("tiktok/search_keyword_with_trim") do
+        results = tiktok.search_keyword("fitness", trim: true)
+
+        assert_kind_of Hash, results
+      end
+    end
+
+    it "raises ArgumentError when query is nil" do
+      error = assert_raises(ArgumentError) do
+        tiktok.search_keyword(nil)
+      end
+      assert_match(/query is required/, error.message)
+    end
+
+    it "raises ArgumentError when query is empty" do
+      error = assert_raises(ArgumentError) do
+        tiktok.search_keyword("")
+      end
+      assert_match(/query is required/, error.message)
+    end
+  end
 end
