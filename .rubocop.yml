@@ -59,6 +59,10 @@ Metrics/PerceivedComplexity:
     - 'test/**/*'
     - '**/*_test.rb'
 
+Metrics/ParameterLists:
+  Max: 7  # API resource methods often wrap REST endpoints with many query parameters
+  CountKeywordArgs: true
+
 # Style
 Style/FrozenStringLiteralComment:
   Enabled: true

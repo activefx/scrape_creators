@@ -1,0 +1,59 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/tiktok/search/keyword?query=dance&sort_by=most-liked
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Fri, 21 Nov 2025 18:48:18 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      Etag:
+      - W/"528-g+qBhddLhPekyneON+UHALkD4k4"
+      Rndr-Id:
+      - '0681e83a-4ae2-480e'
+      Vary:
+      - Accept-Encoding
+      X-Powered-By:
+      - Express
+      X-Render-Origin-Server:
+      - Render
+      Cf-Cache-Status:
+      - DYNAMIC
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 9a225c380953f153-ORD
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"success":true,"credits_remaining":24754,"aweme_list":null,"backtrace":"","components":null,"cursor":null,"extra":{"api_debug_info":null,"fatal_item_ids":[],"logid":"2025112118481657F1CEA894C0300863B9","now":1763750896000,"search_request_id":"","server_stream_time":302},"feedback_type":"video","global_doodle_config":{"display_filter_bar":1,"enable_image_record":true,"feedback_survey":[{"feedback_type":"video","long_stress_info":null,"multiple_choices":[{"key":"Dislike","value":"Dislike"},{"key":"Unrelated
+        content","value":"Unrelated content"},{"key":"Not my language","value":"Not
+        my language"},{"key":"Outdated content","value":"Outdated content"},{"key":"Culturally
+        insensitive","value":"Culturally insensitive"},{"key":"Inappropriate content","value":"Inappropriate
+        content"},{"key":"Misinformation","value":"Misinformation"},{"key":"Others","value":"Others"}],"send_us_multiple_choices":null}],"hide_results":false,"hit_dolphin":false,"hit_shark":true,"keyword":"dance","new_source":"switch_tab","search_channel":"musically_video","search_intent":{},"tns_search_result":"Pass"},"has_more":0,"log_pb":{"impr_id":"2025112118481657F1CEA894C0300863B9"},"search_item_list":[],"search_nil_info":{"is_load_more":"first_flush","search_nil_item":"federation_empty","search_nil_type":"","text_type":10},"status_code":0}'
+  recorded_at: Fri, 21 Nov 2025 18:48:18 GMT
+recorded_with: VCR 6.3.1
