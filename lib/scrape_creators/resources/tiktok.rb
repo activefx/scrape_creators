@@ -596,6 +596,78 @@ module ScrapeCreators
         get("/v1/tiktok/search/users", params)
       end
 
+      # Search TikTok "Top" search results
+      #
+      # Performs a TikTok "Top" search which returns both Photo Carousels and Videos,
+      # unlike the regular keyword search which only returns Videos.
+      #
+      # @param query [String] Keyword to search for
+      # @param publish_time [String, nil] Time frame TikTok was posted.
+      #   Options: "yesterday", "this-week", "this-month", "last-3-months",
+      #   "last-6-months", "all-time"
+      # @param sort_by [String, nil] Sort order.
+      #   Options: "relevance", "most-liked", "date-posted"
+      # @param region [String, nil] Region for proxy placement (2-letter country code like US, GB, FR).
+      #   Note: This doesn't filter results to a specific region, it places the proxy there.
+      # @param cursor [Integer, String, nil] Cursor for pagination (get from previous response)
+      # @return [Hash] Search results with items array and cursor for pagination
+      # @raise [BadRequestError] If the query parameter is missing or invalid
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Basic search
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   results = client.tiktok.search_top("dance")
+      #   puts results[:items].first[:desc]  # Video/carousel description
+      #   puts results[:cursor]  # => 30
+      #
+      # @example Search with filters
+      #   results = client.tiktok.search_top(
+      #     "dance",
+      #     publish_time: "this-week",
+      #     sort_by: "most-liked",
+      #     region: "US"
+      #   )
+      #
+      # @example Paginate through search results
+      #   page1 = client.tiktok.search_top("dance")
+      #   page2 = client.tiktok.search_top("dance", cursor: page1[:cursor])
+      #
+      # @example Response structure
+      #   {
+      #     success: true,
+      #     items: [
+      #       {
+      #         id: "7528150371680767263",
+      #         desc: "Video description #dance #trend",
+      #         content_type: "video",
+      #         create_time: "2025-07-17T20:28:28.000Z",
+      #         region: "US",
+      #         statistics: {
+      #           play_count: 17897,
+      #           digg_count: 1895,
+      #           comment_count: 83,
+      #           share_count: 27
+      #         },
+      #         video: { ... },
+      #         author: { ... },
+      #         url: "https://www.tiktok.com/@user/video/123"
+      #       }
+      #     ],
+      #     cursor: 30
+      #   }
+      def search_top(query, publish_time: nil, sort_by: nil, region: nil, cursor: nil)
+        raise ArgumentError, "query is required" if query.nil? || query.to_s.empty?
+
+        params = { query: query }
+        params[:publish_time] = publish_time if publish_time
+        params[:sort_by] = sort_by if sort_by
+        params[:region] = region if region
+        params[:cursor] = cursor if cursor
+
+        get("/v1/tiktok/search/top", params)
+      end
+      
       # Search TikTok videos by hashtag
       #
       # Scrapes TikTok videos matching a hashtag with pagination support.
