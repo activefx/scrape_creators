@@ -501,6 +501,23 @@ describe ScrapeCreators::Resources::Tiktok do
           assert first_item.key?(:id)
           assert first_item.key?(:desc)
           assert first_item.key?(:content_type)
+  describe "#search_hashtag" do
+    it "searches for videos by hashtag successfully" do
+      VCR.use_cassette("tiktok/search_hashtag_success") do
+        results = tiktok.search_hashtag("fyp")
+
+        assert_kind_of Hash, results
+        assert results.key?(:cursor)
+        assert results.key?(:aweme_list)
+        assert_kind_of Array, results[:aweme_list]
+
+        unless results[:aweme_list].empty?
+          first_video = results[:aweme_list].first
+
+          assert first_video.key?(:aweme_id)
+          assert first_video.key?(:desc)
+          assert first_video.key?(:author)
+          assert first_video.key?(:statistics)
         end
       end
     end
@@ -567,6 +584,44 @@ describe ScrapeCreators::Resources::Tiktok do
         tiktok.search_top("")
       end
       assert_match(/query is required/, error.message)
+    it "searches for videos with cursor pagination" do
+      VCR.use_cassette("tiktok/search_hashtag_with_cursor") do
+        results = tiktok.search_hashtag("fyp", cursor: 12)
+
+        assert_kind_of Hash, results
+        assert results.key?(:aweme_list)
+      end
+    end
+
+    it "searches for videos with region parameter" do
+      VCR.use_cassette("tiktok/search_hashtag_with_region") do
+        results = tiktok.search_hashtag("fyp", region: "US")
+
+        assert_kind_of Hash, results
+        assert results.key?(:aweme_list)
+      end
+    end
+
+    it "searches for videos with trim parameter" do
+      VCR.use_cassette("tiktok/search_hashtag_with_trim") do
+        results = tiktok.search_hashtag("fyp", trim: true)
+
+        assert_kind_of Hash, results
+      end
+    end
+
+    it "raises ArgumentError when hashtag is nil" do
+      error = assert_raises(ArgumentError) do
+        tiktok.search_hashtag(nil)
+      end
+      assert_match(/hashtag is required/, error.message)
+    end
+
+    it "raises ArgumentError when hashtag is empty" do
+      error = assert_raises(ArgumentError) do
+        tiktok.search_hashtag("")
+      end
+      assert_match(/hashtag is required/, error.message)
     end
   end
 end

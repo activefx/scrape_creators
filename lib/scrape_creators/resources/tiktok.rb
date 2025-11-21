@@ -667,6 +667,74 @@ module ScrapeCreators
 
         get("/v1/tiktok/search/top", params)
       end
+      
+      # Search TikTok videos by hashtag
+      #
+      # Scrapes TikTok videos matching a hashtag with pagination support.
+      #
+      # @param hashtag [String] Hashtag to search for (without the # symbol)
+      # @param region [String, nil] Region code for proxy location (e.g., "US", "UK")
+      # @param cursor [Integer, String, nil] Cursor for pagination to get more videos
+      # @param trim [Boolean, nil] Whether to trim the response data (default: false)
+      # @return [Hash] Search results with videos array and cursor for pagination
+      # @raise [BadRequestError] If the hashtag parameter is missing or invalid
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Search for videos by hashtag
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   results = client.tiktok.search_hashtag("fyp")
+      #   puts results[:aweme_list].first[:desc]  # Video description
+      #   puts results[:cursor]  # => 12
+      #   puts results[:has_more]  # => 1
+      #
+      # @example Paginate through search results
+      #   page1 = client.tiktok.search_hashtag("fyp")
+      #   page2 = client.tiktok.search_hashtag("fyp", cursor: page1[:cursor])
+      #
+      # @example Search with region parameter
+      #   results = client.tiktok.search_hashtag("fyp", region: "US")
+      #
+      # @example Get trimmed response
+      #   results = client.tiktok.search_hashtag("fyp", trim: true)
+      #
+      # @example Response structure
+      #   {
+      #     aweme_list: [
+      #       {
+      #         aweme_id: "6862153058223197445",
+      #         desc: "To the 🐝 🐝 🐝  #fyp",
+      #         create_time: 1597719521,
+      #         author: {
+      #           uid: "6748458643983238149",
+      #           unique_id: "bellapoarch",
+      #           nickname: "Bella Poarch"
+      #         },
+      #         statistics: {
+      #           play_count: 852942803,
+      #           digg_count: 68933772,
+      #           comment_count: 2901351,
+      #           share_count: 42457977
+      #         },
+      #         video: { ... },
+      #         music: { ... }
+      #       }
+      #     ],
+      #     cursor: 12,
+      #     has_more: 1,
+      #     status_code: 0,
+      #     status_msg: ""
+      #   }
+      def search_hashtag(hashtag, region: nil, cursor: nil, trim: nil)
+        raise ArgumentError, "hashtag is required" if hashtag.nil? || hashtag.to_s.empty?
+
+        params = { hashtag: hashtag }
+        params[:region] = region if region
+        params[:cursor] = cursor if cursor
+        params[:trim] = trim unless trim.nil?
+
+        get("/v1/tiktok/search/hashtag", params)
+      end
     end
   end
 end

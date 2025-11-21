@@ -1,0 +1,39 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/tiktok/search/hashtag?cursor=12&hashtag=fyp
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Fri, 21 Nov 2025 12:00:00 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Powered-By:
+      - Express
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '{"aweme_list":[{"aweme_id":"7340627334321491205","desc":"Another #fyp video","create_time":1609459200,"author":{"uid":"123456789","unique_id":"testuser","nickname":"Test User"},"statistics":{"play_count":100000,"digg_count":5000,"comment_count":500,"share_count":100},"video":{"duration":15000,"ratio":"720p"}}],"cursor":24,"has_more":1,"status_code":0,"status_msg":""}'
+  recorded_at: Fri, 21 Nov 2025 12:00:00 GMT
+recorded_with: VCR 6.3.1
