@@ -1,0 +1,39 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/tiktok/search/hashtag?hashtag=fyp
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Fri, 21 Nov 2025 12:00:00 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Powered-By:
+      - Express
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '{"aweme_list":[{"aweme_id":"6862153058223197445","desc":"To the 🐝 🐝 🐝  #fyp","create_time":1597719521,"author":{"uid":"6748458643983238149","unique_id":"bellapoarch","nickname":"Bella Poarch","avatar_thumb":{"url_list":["https://example.com/avatar.jpg"]}},"statistics":{"play_count":852942803,"digg_count":68933772,"comment_count":2901351,"share_count":42457977},"video":{"duration":10703,"ratio":"540p","cover":{"url_list":["https://example.com/cover.jpg"]}},"music":{"title":"M to the B","author":"Millie B"}}],"cursor":12,"has_more":1,"status_code":0,"status_msg":""}'
+  recorded_at: Fri, 21 Nov 2025 12:00:00 GMT
+recorded_with: VCR 6.3.1

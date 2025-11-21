@@ -1,0 +1,37 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/tiktok/search/top?publish_time=this-week&query=dance
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 21 Nov 2025 12:00:00 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Powered-By:
+      - Express
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"items":[{"id":"7528150371680767263","desc":"Recent dance video #dance #trend","content_type":"video","create_time":"2025-11-18T10:00:00.000Z","region":"US","statistics":{"play_count":5000,"digg_count":500,"comment_count":50},"author":{"uid":"123456","unique_id":"dancer1","nickname":"Dancer One"},"url":"https://www.tiktok.com/@dancer1/video/7528150371680767263"}],"cursor":30}'
+  recorded_at: Thu, 21 Nov 2025 12:00:00 GMT
+recorded_with: VCR 6.3.1
