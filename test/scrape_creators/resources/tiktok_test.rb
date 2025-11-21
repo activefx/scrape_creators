@@ -505,39 +505,6 @@ describe ScrapeCreators::Resources::Tiktok do
           assert aweme_info.key?(:aweme_id) || aweme_info.key?(:id)
           assert aweme_info.key?(:desc)
           assert aweme_info.key?(:author)
-  describe "#search_top" do
-    it "searches top results successfully" do
-      VCR.use_cassette("tiktok/search_top_success") do
-        results = tiktok.search_top("dance")
-
-        assert_kind_of Hash, results
-        assert results.key?(:success)
-        assert results.key?(:items)
-        assert_kind_of Array, results[:items]
-
-        unless results[:items].empty?
-          first_item = results[:items].first
-
-          assert first_item.key?(:id)
-          assert first_item.key?(:desc)
-          assert first_item.key?(:content_type)
-  describe "#search_hashtag" do
-    it "searches for videos by hashtag successfully" do
-      VCR.use_cassette("tiktok/search_hashtag_success") do
-        results = tiktok.search_hashtag("fyp")
-
-        assert_kind_of Hash, results
-        assert results.key?(:cursor)
-        assert results.key?(:aweme_list)
-        assert_kind_of Array, results[:aweme_list]
-
-        unless results[:aweme_list].empty?
-          first_video = results[:aweme_list].first
-
-          assert first_video.key?(:aweme_id)
-          assert first_video.key?(:desc)
-          assert first_video.key?(:author)
-          assert first_video.key?(:statistics)
         end
       end
     end
@@ -583,6 +550,44 @@ describe ScrapeCreators::Resources::Tiktok do
         results = tiktok.search_keyword("fitness", trim: true)
 
         assert_kind_of Hash, results
+      end
+    end
+
+    it "raises ArgumentError when query is nil" do
+      error = assert_raises(ArgumentError) do
+        tiktok.search_keyword(nil)
+      end
+      assert_match(/query is required/, error.message)
+    end
+
+    it "raises ArgumentError when query is empty" do
+      error = assert_raises(ArgumentError) do
+        tiktok.search_keyword("")
+      end
+      assert_match(/query is required/, error.message)
+    end
+  end
+
+  describe "#search_top" do
+    it "searches top results successfully" do
+      VCR.use_cassette("tiktok/search_top_success") do
+        results = tiktok.search_top("dance")
+
+        assert_kind_of Hash, results
+        assert results.key?(:success)
+        assert results.key?(:items)
+        assert_kind_of Array, results[:items]
+
+        unless results[:items].empty?
+          first_item = results[:items].first
+
+          assert first_item.key?(:id)
+          assert first_item.key?(:desc)
+          assert first_item.key?(:content_type)
+        end
+      end
+    end
+
     it "searches top results with publish_time filter" do
       VCR.use_cassette("tiktok/search_top_with_publish_time") do
         results = tiktok.search_top("dance", publish_time: "this-week")
@@ -635,7 +640,6 @@ describe ScrapeCreators::Resources::Tiktok do
 
     it "raises ArgumentError when query is nil" do
       error = assert_raises(ArgumentError) do
-        tiktok.search_keyword(nil)
         tiktok.search_top(nil)
       end
       assert_match(/query is required/, error.message)
@@ -643,12 +647,33 @@ describe ScrapeCreators::Resources::Tiktok do
 
     it "raises ArgumentError when query is empty" do
       error = assert_raises(ArgumentError) do
-        tiktok.search_keyword("")
-      end
-      assert_match(/query is required/, error.message)
         tiktok.search_top("")
       end
       assert_match(/query is required/, error.message)
+    end
+  end
+
+  describe "#search_hashtag" do
+    it "searches for videos by hashtag successfully" do
+      VCR.use_cassette("tiktok/search_hashtag_success") do
+        results = tiktok.search_hashtag("fyp")
+
+        assert_kind_of Hash, results
+        assert results.key?(:cursor)
+        assert results.key?(:aweme_list)
+        assert_kind_of Array, results[:aweme_list]
+
+        unless results[:aweme_list].empty?
+          first_video = results[:aweme_list].first
+
+          assert first_video.key?(:aweme_id)
+          assert first_video.key?(:desc)
+          assert first_video.key?(:author)
+          assert first_video.key?(:statistics)
+        end
+      end
+    end
+
     it "searches for videos with cursor pagination" do
       VCR.use_cassette("tiktok/search_hashtag_with_cursor") do
         results = tiktok.search_hashtag("fyp", cursor: 12)
