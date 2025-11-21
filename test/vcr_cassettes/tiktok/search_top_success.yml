@@ -1,0 +1,37 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/tiktok/search/top?query=dance
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 21 Nov 2025 12:00:00 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Powered-By:
+      - Express
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"items":[{"id":"7528150371680767263","desc":"Last two brain cells at 3 am #dance #trend #fun","content_type":"video","create_time":"2025-07-17T20:28:28.000Z","desc_language":"en","region":"US","is_top":0,"statistics":{"aweme_id":"7528150371680767263","collect_count":101,"comment_count":83,"digg_count":1895,"download_count":3,"forward_count":0,"play_count":17897,"share_count":27},"video":{"duration":14700,"height":1024,"width":576},"author":{"uid":"6699211557223826437","unique_id":"officialnickkosir","nickname":"Nick Kosir","follower_count":9446848},"url":"https://www.tiktok.com/@officialnickkosir/video/7528150371680767263"}],"cursor":30}'
+  recorded_at: Thu, 21 Nov 2025 12:00:00 GMT
+recorded_with: VCR 6.3.1
