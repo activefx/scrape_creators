@@ -611,21 +611,6 @@ module ScrapeCreators
       # @param cursor [Integer, String, nil] Cursor for pagination to get more videos
       # @param trim [Boolean, nil] Whether to trim the response data (default: false)
       # @return [Hash] Search results with videos array and cursor for pagination
-      # Search TikTok "Top" search results
-      #
-      # Performs a TikTok "Top" search which returns both Photo Carousels and Videos,
-      # unlike the regular keyword search which only returns Videos.
-      #
-      # @param query [String] Keyword to search for
-      # @param publish_time [String, nil] Time frame TikTok was posted.
-      #   Options: "yesterday", "this-week", "this-month", "last-3-months",
-      #   "last-6-months", "all-time"
-      # @param sort_by [String, nil] Sort order.
-      #   Options: "relevance", "most-liked", "date-posted"
-      # @param region [String, nil] Region for proxy placement (2-letter country code like US, GB, FR).
-      #   Note: This doesn't filter results to a specific region, it places the proxy there.
-      # @param cursor [Integer, String, nil] Cursor for pagination (get from previous response)
-      # @return [Hash] Search results with items array and cursor for pagination
       # @raise [BadRequestError] If the query parameter is missing or invalid
       # @raise [UnauthorizedError] If the API key is invalid
       # @raise [PaymentRequiredError] If credits are insufficient
@@ -688,6 +673,27 @@ module ScrapeCreators
         params[:trim] = trim unless trim.nil?
 
         get("/v1/tiktok/search/keyword", params)
+      end
+
+      # Search TikTok "Top" search results
+      #
+      # Performs a TikTok "Top" search which returns both Photo Carousels and Videos,
+      # unlike the regular keyword search which only returns Videos.
+      #
+      # @param query [String] Keyword to search for
+      # @param publish_time [String, nil] Time frame TikTok was posted.
+      #   Options: "yesterday", "this-week", "this-month", "last-3-months",
+      #   "last-6-months", "all-time"
+      # @param sort_by [String, nil] Sort order.
+      #   Options: "relevance", "most-liked", "date-posted"
+      # @param region [String, nil] Region for proxy placement (2-letter country code like US, GB, FR).
+      #   Note: This doesn't filter results to a specific region, it places the proxy there.
+      # @param cursor [Integer, String, nil] Cursor for pagination (get from previous response)
+      # @return [Hash] Search results with items array and cursor for pagination
+      # @raise [BadRequestError] If the query parameter is missing or invalid
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
       # @example Basic search
       #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
       #   results = client.tiktok.search_top("dance")
@@ -740,7 +746,7 @@ module ScrapeCreators
 
         get("/v1/tiktok/search/top", params)
       end
-      
+
       # Search TikTok videos by hashtag
       #
       # Scrapes TikTok videos matching a hashtag with pagination support.
