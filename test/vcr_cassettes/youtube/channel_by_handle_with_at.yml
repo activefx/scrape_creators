@@ -1,0 +1,39 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/youtube/channel?handle=@mrbeast
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 23 Nov 2025 10:00:00 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Powered-By:
+      - Express
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"channelId":"UCX6OQ3DkcsbYNE6H8uQQuVA","title":"MrBeast","description":"SUBSCRIBE FOR A COOKIE!","customUrl":"@MrBeast","publishedAt":"2012-02-20T00:43:50Z","thumbnails":{"default":{"url":"https://yt3.googleusercontent.com/ytc/AIdro_mKzklyPPhghBJQH5H3HpZ-QHPZ6U4GvMQH-K9jdMkGsg=s88-c-k-c0x00ffffff-no-rj","width":88,"height":88},"medium":{"url":"https://yt3.googleusercontent.com/ytc/AIdro_mKzklyPPhghBJQH5H3HpZ-QHPZ6U4GvMQH-K9jdMkGsg=s240-c-k-c0x00ffffff-no-rj","width":240,"height":240},"high":{"url":"https://yt3.googleusercontent.com/ytc/AIdro_mKzklyPPhghBJQH5H3HpZ-QHPZ6U4GvMQH-K9jdMkGsg=s800-c-k-c0x00ffffff-no-rj","width":800,"height":800}},"country":"US","viewCount":62000000000,"subscriberCount":358000000,"videoCount":850,"bannerExternalUrl":"https://yt3.googleusercontent.com/banner.jpg","keywords":["MrBeast","Beast","challenges"],"isFamilySafe":true}'
+  recorded_at: Sat, 23 Nov 2025 10:00:00 GMT
+recorded_with: VCR 6.3.1
