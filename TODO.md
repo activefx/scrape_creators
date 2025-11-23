@@ -57,7 +57,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 - [✅] GET Reels (`/v1/instagram/user/reels`)
 - [✅] GET Reels - Auto Pagination (`/v1/instagram/user/reels/simple`)
 - [✅] GET Story Highlights (`/v1/instagram/user/highlights`)
-- [⏳] GET Highlights Details (`/v1/instagram/user/highlight/detail`)
+- [✅] GET Highlights Details (`/v1/instagram/user/highlight/detail`)
 - [⏳] GET Reels using Song (`/v1/instagram/song/reels`)
 - [⏳] GET Embed HTML (`/v1/instagram/user/embed`)
 
@@ -130,7 +130,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 - [✅] GET Tweet Details (`/v1/twitter/tweet`)
 - [✅] GET Transcript (`/v1/twitter/tweet/transcript`)
 - [✅] GET Community (`/v1/twitter/community`)
-- [⏳] GET Community Tweets (`/v1/twitter/community/tweets`)
+- [✅] GET Community Tweets (`/v1/twitter/community/tweets`)
 
 ---
 
@@ -141,7 +141,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 - [✅] GET Simple Comments (`/v1/reddit/post/comments/simple`)
 - [✅] GET Search (`/v1/reddit/search`)
 - [✅] GET Search Ads (`/v1/reddit/ads/search`)
-- [⏳] GET Get Ad (`/v1/reddit/ad`)
+- [✅] GET Get Ad (`/v1/reddit/ad`)
 
 ---
 
@@ -149,7 +149,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 
 - [✅] GET Profile (`/v1/truthsocial/profile`)
 - [✅] GET User Posts (`/v1/truthsocial/user/posts`)
-- [⏳] GET Post (`/v1/truthsocial/post`)
+- [✅] GET Post (`/v1/truthsocial/post`)
 
 ---
 
@@ -256,16 +256,16 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 ### Platform Completion Status
 - TikTok: 18/18 endpoints (100%)
 - TikTok Shop: 3/3 endpoints (100%)
-- Instagram: 10/13 endpoints (77%)
+- Instagram: 11/13 endpoints (85%)
 - YouTube: 6/12 endpoints (50%)
 - LinkedIn: 3/3 endpoints (100%)
 - Facebook: 6/6 endpoints (100%)
 - Facebook Ad Library: 4/4 endpoints (100%)
 - Google Ad Library: 3/3 endpoints (100%)
 - LinkedIn Ad Library: 2/2 endpoints (100%)
-- Twitter: 5/6 endpoints (83%)
-- Reddit: 5/6 endpoints (83%)
-- Truth Social: 2/3 endpoints (67%)
+- Twitter: 6/6 endpoints (100%)
+- Reddit: 6/6 endpoints (100%)
+- Truth Social: 3/3 endpoints (100%)
 - Threads: 2/5 endpoints (40%)
 - Bluesky: 0/3 endpoints (0%)
 - Pinterest: 0/4 endpoints (0%)
