@@ -128,7 +128,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 - [✅] GET Profile (`/v1/twitter/profile`)
 - [✅] GET User Tweets (`/v1/twitter/user-tweets`)
 - [✅] GET Tweet Details (`/v1/twitter/tweet`)
-- [⏳] GET Transcript (`/v1/twitter/tweet/transcript`)
+- [✅] GET Transcript (`/v1/twitter/tweet/transcript`)
 - [⏳] GET Community (`/v1/twitter/community`)
 - [⏳] GET Community Tweets (`/v1/twitter/community/tweets`)
 
@@ -249,25 +249,23 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 
 ## Implementation Progress Summary
 
-**Total Endpoints:** 133
-**Completed:** 28 (TikTok core + search + songs + shop endpoints, Instagram profile + basic profile + posts, Threads profile, LinkedIn profile + company, Facebook Ad Library search + company ads)
-**Remaining:** 105
+**Total Endpoints:** 103
+**Completed:** 56
+**Remaining:** 47
 
 ### Platform Completion Status
 - TikTok: 18/18 endpoints (100%)
 - TikTok Shop: 3/3 endpoints (100%)
-- Instagram: 7/13 endpoints (54%)
-- Instagram: 2/13 endpoints (15%)
+- Instagram: 8/13 endpoints (62%)
 - YouTube: 4/12 endpoints (33%)
-- Instagram: 3/13 endpoints (23%)
 - LinkedIn: 3/3 endpoints (100%)
-- Facebook: 3/6 endpoints (50%)
+- Facebook: 4/6 endpoints (67%)
 - Facebook Ad Library: 3/4 endpoints (75%)
 - Google Ad Library: 1/3 endpoints (33%)
-- LinkedIn Ad Library: 1/2 endpoints (50%)
-- Twitter: 2/6 endpoints (33%)
+- LinkedIn Ad Library: 2/2 endpoints (100%)
+- Twitter: 4/6 endpoints (67%)
 - Reddit: 4/6 endpoints (67%)
-- Truth Social: 0/3 endpoints (0%)
+- Truth Social: 1/3 endpoints (33%)
 - Threads: 1/5 endpoints (20%)
 - Bluesky: 0/3 endpoints (0%)
 - Pinterest: 0/4 endpoints (0%)
