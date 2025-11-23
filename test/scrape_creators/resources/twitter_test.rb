@@ -93,4 +93,106 @@ describe ScrapeCreators::Resources::Twitter do
       end
     end
   end
+
+  describe "#user_tweets" do
+    it "fetches user tweets successfully" do
+      VCR.use_cassette("twitter/user_tweets_success") do
+        result = twitter.user_tweets("Austen")
+
+        assert_kind_of Hash, result
+        assert result.key?(:tweets)
+        assert_kind_of Array, result[:tweets]
+        refute_empty result[:tweets]
+
+        # Verify tweet structure
+        tweet = result[:tweets].first
+
+        assert tweet.key?(:rest_id)
+        assert tweet.key?(:legacy)
+
+        # Verify legacy data structure
+        legacy = tweet[:legacy]
+
+        assert legacy.key?(:full_text)
+        assert legacy.key?(:favorite_count)
+        assert legacy.key?(:retweet_count)
+        assert legacy.key?(:created_at)
+      end
+    end
+
+    it "includes user information in tweets" do
+      VCR.use_cassette("twitter/user_tweets_success") do
+        result = twitter.user_tweets("Austen")
+
+        tweet = result[:tweets].first
+
+        assert tweet.key?(:core)
+        assert tweet[:core].key?(:user_results)
+        assert tweet[:core][:user_results].key?(:result)
+
+        user = tweet[:core][:user_results][:result]
+
+        assert user.key?(:legacy)
+        assert user[:legacy].key?(:screen_name)
+      end
+    end
+
+    it "includes engagement metrics" do
+      VCR.use_cassette("twitter/user_tweets_success") do
+        result = twitter.user_tweets("Austen")
+
+        tweet = result[:tweets].first
+        legacy = tweet[:legacy]
+
+        assert legacy.key?(:favorite_count)
+        assert legacy.key?(:retweet_count)
+        assert legacy.key?(:reply_count)
+        assert legacy.key?(:quote_count)
+      end
+    end
+
+    it "supports trim parameter" do
+      VCR.use_cassette("twitter/user_tweets_trimmed") do
+        result = twitter.user_tweets("Austen", trim: true)
+
+        assert_kind_of Hash, result
+        assert result.key?(:tweets)
+        assert_kind_of Array, result[:tweets]
+      end
+    end
+
+    it "raises ArgumentError when handle is nil" do
+      error = assert_raises(ArgumentError) do
+        twitter.user_tweets(nil)
+      end
+      assert_match(/handle is required/, error.message)
+    end
+
+    it "raises ArgumentError when handle is empty" do
+      error = assert_raises(ArgumentError) do
+        twitter.user_tweets("")
+      end
+      assert_match(/handle is required/, error.message)
+    end
+
+    it "raises NotFoundError for non-existent profile" do
+      VCR.use_cassette("twitter/user_tweets_not_found") do
+        assert_raises(ScrapeCreators::NotFoundError) do
+          twitter.user_tweets("thisuserdoesnotexist123456789xyz")
+        end
+      end
+    end
+
+    it "raises UnauthorizedError for invalid API key" do
+      VCR.use_cassette("twitter/user_tweets_unauthorized") do
+        invalid_client = ScrapeCreators::Client.new(api_key: "invalid_key")
+
+        error = assert_raises(ScrapeCreators::UnauthorizedError) do
+          invalid_client.twitter.user_tweets("Austen")
+        end
+
+        assert_match(/invalid|unauthorized|api.?key/i, error.message)
+      end
+    end
+  end
 end
