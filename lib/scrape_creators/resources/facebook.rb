@@ -344,6 +344,65 @@ module ScrapeCreators
 
         get("/v1/facebook/post/transcript", url: url)
       end
+
+      # Get comments from a Facebook post or reel
+      #
+      # Retrieves comments from a public Facebook post or reel including author
+      # information, engagement metrics, and pagination support.
+      #
+      # @param url [String] Facebook post URL (or reel URL)
+      # @param cursor [String, nil] Pagination cursor from previous response to get more comments
+      # @return [Hash] Comments data including comments array, cursor, and has_next_page flag
+      # @raise [ArgumentError] If the url parameter is nil or empty
+      # @raise [BadRequestError] If the url parameter is invalid
+      # @raise [NotFoundError] If the post is not found
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Get comments from a Facebook post
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   result = client.facebook.comments("https://www.facebook.com/reel/1206903601483960/")
+      #   result[:comments].each { |comment| puts "#{comment[:author][:name]}: #{comment[:text]}" }
+      #
+      # @example Paginate through comments
+      #   first_page = client.facebook.comments("https://www.facebook.com/reel/1206903601483960/")
+      #   if first_page[:has_next_page]
+      #     next_page = client.facebook.comments(
+      #       "https://www.facebook.com/reel/1206903601483960/",
+      #       cursor: first_page[:cursor]
+      #     )
+      #   end
+      #
+      # @example Response structure
+      #   {
+      #     success: true,
+      #     comments: [
+      #       {
+      #         id: "Y29tbWVudDoxMjA2OTAzNjAxNDgzOTYwXzc4NzQ2NjY0NzI2NTk4Mw==",
+      #         text: "How are you not 300lbs?",
+      #         created_at: "2025-09-01T00:38:58.000Z",
+      #         reply_count: 16,
+      #         reaction_count: 76,
+      #         author: {
+      #           id: "pfbid0Ay28K5Lc7QpQLD8wZEHrq4ertocvWcZApjZjDoRqfkYQSzSxaPBS7qFt53v95rERl",
+      #           name: "George Bergerac",
+      #           gender: "MALE",
+      #           profile_picture: "https://...",
+      #           short_name: "George"
+      #         }
+      #       }
+      #     ],
+      #     cursor: "MToxNzU3MTA2NzYyOg....",
+      #     has_next_page: true
+      #   }
+      def comments(url, cursor: nil)
+        raise ArgumentError, "url is required" if url.nil? || url.to_s.empty?
+
+        params = { url: url }
+        params[:cursor] = cursor unless cursor.nil?
+
+        get("/v1/facebook/post/comments", params)
+      end
     end
   end
 end

@@ -1,0 +1,39 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/facebook/post/comments?cursor=MToxNzU3MTA2NzYyOg&url=https://www.facebook.com/reel/1206903601483960/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 23 Nov 2025 10:00:00 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Powered-By:
+      - Express
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"success":true,"comments":[{"id":"Y29tbWVudDoxMjA2OTAzNjAxNDgzOTYwXzgwNjQwOTc4NTE0OTc4OQ==","text":"I thought dogs were not supposed to have chocolate.","created_at":"2025-08-31T23:54:14.000Z","reply_count":17,"reaction_count":65,"author":{"id":"pfbid02s73v688AjeBDBkE9fZhHueosTBQcbBeVnXaCsdZkbtC3q6ZYUyutsjer8bWsR9P7l","name":"Jerry Mickel","gender":"FEMALE","profile_picture":"https://scontent-iad3-1.xx.fbcdn.net/v/t39.30808-1/406419031_217990624668899_9106419728628593815_n.jpg","short_name":"Jerry"}},{"id":"Y29tbWVudDoxMjA2OTAzNjAxNDgzOTYwXzEzNTU1Mjc1NjI2MDYwNzk=","text":"Peanut butter Ritz bitz?","created_at":"2025-09-01T00:27:01.000Z","reply_count":10,"reaction_count":35,"author":{"id":"pfbid0yr2MztyVjE36n2T2MSC1dxZNFN7kKHa2hQs8wrNAP81u2WdhRLFrzcGGbwuUALJzl","name":"Julie Henry","gender":"FEMALE","profile_picture":"https://scontent-iad3-2.xx.fbcdn.net/v/t39.30808-1/539869738_25395292103393389_6583639586888007033_n.jpg","short_name":"Julie"}}],"cursor":"MToxNzU3MTA2NzYyOb","hasNextPage":false}'
+  recorded_at: Sat, 23 Nov 2025 10:00:00 GMT
+recorded_with: VCR 6.3.1

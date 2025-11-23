@@ -1,0 +1,56 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/google/search?query=Austen%20Allred
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 23 Nov 2025 19:37:37 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      Etag:
+      - W/"bee-SJi324W/yrr0JaVAwlrIWyM+iLU"
+      Rndr-Id:
+      - 1c6cefa0-b339-4c3c
+      Vary:
+      - Accept-Encoding
+      X-Powered-By:
+      - Express
+      X-Render-Origin-Server:
+      - Render
+      Cf-Cache-Status:
+      - DYNAMIC
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 9a331f430ece0046-ORD
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eyJzdWNjZXNzIjp0cnVlLCJjcmVkaXRzX3JlbWFpbmluZyI6MjQ2NjYsInJlc3VsdHMiOlt7InRpdGxlIjoiQXVzdGVuIEFsbHJlZCAtIEZvdW5kZXIgQCBHYXVudGxldCBBSSDwn5uh77iPIC0gTGlua2VkSW4iLCJ1cmwiOiJodHRwczovL3d3dy5saW5rZWRpbi5jb20vaW4vYXVzdGVuYWxscmVkIiwiZGVzY3JpcHRpb24iOiJGb3VuZGVyIEAgR2F1bnRsZXQgQUkg8J+boe+4jyDCtyBGb3VuZGVyIG9mIEdhdW50bGV0IEFJIMK3IEV4cGVyaWVuY2U6IEdhdW50bGV0IEFJIMK3IEVkdWNhdGlvbjogWSBDb21iaW5hdG9yIMK3IExvY2F0aW9uOiBBdXN0aW4gwrcgNTAwKyBjb25uZWN0aW9ucyBvbiBMaW5rZWRJbi4ifSx7InRpdGxlIjoiVHdpdHRlciBQcm9maWxlIiwidXJsIjoiaHR0cHM6Ly94LmNvbS9BdXN0ZW4ifSx7InRpdGxlIjoiQXVzdGVuIEFsbHJlZCAoQEF1c3RlbikgLyBQb3N0cyAvIFggLSBUd2l0dGVyIiwidXJsIjoiaHR0cHM6Ly94LmNvbS9BdXN0ZW4iLCJkZXNjcmlwdGlvbiI6IkZvdW5kZXIgR2F1bnRsZXRBSS5jb206IEZyZWUgQUkgdHJhaW5pbmcgZm9yIHRoZSBzbWFydGVzdCBlbmdpbmVlcnMgaW4gdGhlIHdvcmxkLiBXaWxsIHR3ZWV0IGFzIEkgd2lzaCBhbmQgc3VmZmVyIHRoZSBjb25zZXF1ZW5jZXMuIFBvc3RzLiBQaW5uZWQgUG9zdC4ifSx7InRpdGxlIjoiQXVzdGVuIEFsbHJlZCAoQ0VPIG9mIEJsb29tdGVjaCBhbmQgZm91bmRlciBvZiBHYXVudGxldCBBSSAuLi4gLSBSZWRkaXQiLCJ1cmwiOiJodHRwczovL3d3dy5yZWRkaXQuY29tL3IvY29kaW5nYm9vdGNhbXAvY29tbWVudHMvMWhpZTdoNS9hdXN0ZW5fYWxscmVkX2Nlb19vZl9ibG9vbXRlY2hfYW5kX2ZvdW5kZXJfb2YvIiwiZGVzY3JpcHRpb24iOiJEZWMgMjAsIDIwMjQgwrcgQXVzdGVuIEFsbHJlZCBpcyBhbiBhYnNvbHV0ZSBjb24gYXJ0aXN0IGFuZCBwcm92ZW4gbGlhciB3aGVuIGl0IGNvbWVzIHRvIG91dGNvbWVzIGJ1dCBoZSdzIGEgcHJvbW90aW9uIG1hZXN0cm8gYXMgd2VsbC4gSSBoYXZlIG5vIGRvdWJ0IHRoYXTCoC4uLiJ9LHsidGl0bGUiOiJGYXN0IENyaW1lcyBhdCBMYW1iZGEgU2Nob29sIC0gU2FuZG9mc2t5IiwidXJsIjoiaHR0cHM6Ly93d3cuc2FuZG9mc2t5LmNvbS9sYW1iZGEtc2Nob29sLyIsImRlc2NyaXB0aW9uIjoiSnVuIDE4LCAyMDI0IMK3IFRoZSBGYWxsIG9mIEF1c3RlbiBBbGxyZWQuIFRoZSBqb3VybmFsaXN0IHdobyBleHBvc2VkIExhbWJkYSBTY2hvb2wgd2Fzbid0IGEgam91cm5hbGlzdCBieSB0cmFkZS4gVmluY2VudCBXb28gd2FzIGEgc3VjY2Vzc2Z1bCBlbnRyZXByZW5ldXIgYmVzdMKgLi4uIn0seyJ0aXRsZSI6IkF1c3RlbiBBbGxyZWQgKEBhdXN0ZW5hbGwpIOKAoiBJbnN0YWdyYW0gcGhvdG9zIGFuZCB2aWRlb3MiLCJ1cmwiOiJodHRwczovL3d3dy5pbnN0YWdyYW0uY29tL2F1c3RlbmFsbC8iLCJkZXNjcmlwdGlvbiI6IkNvLWZvdW5kZXIgYW5kIENFTyBvZiBHYXVudGxldCBBSS4gVGhpcyBhY2NvdW50IGlzIHByaXZhdGUuIEZvbGxvdyBhdXN0ZW5hbGwgaW4gdGhlIGFwcCB0byBzZWUgdGhlaXIgcGhvdG9zIGFuZCB2aWRlb3MuIE9wZW4gSW5zdGFncmFtLiJ9LHsidGl0bGUiOiJDRlBCIFRha2VzIEFjdGlvbiBBZ2FpbnN0IENvZGluZyBCb290IENhbXAgQmxvb21UZWNoIGFuZCAuLi4iLCJ1cmwiOiJodHRwczovL3d3dy5jb25zdW1lcmZpbmFuY2UuZ292L2Fib3V0LXVzL25ld3Nyb29tL2NmcGItdGFrZXMtYWN0aW9uLWFnYWluc3QtY29kaW5nLWJvb3QtY2FtcC1ibG9vbXRlY2gtYW5kLWNlby1hdXN0ZW4tYWxscmVkLWZvci1kZWNlaXZpbmctc3R1ZGVudHMtYW5kLWhpZGluZy1sb2FuLWNvc3RzLyIsImRlc2NyaXB0aW9uIjoiQXByIDE3LCAyMDI0IMK3IFRoZSBDb25zdW1lciBGaW5hbmNpYWwgUHJvdGVjdGlvbiBCdXJlYXUgKENGUEIpIGlzc3VlZCBhbiBvcmRlciBhZ2FpbnN0IEJsb29tVGVjaCBhbmQgaXRzIENFTywgQXVzdGVuIEFsbHJlZCwgZm9yIGRlY2VpdmluZyBzdHVkZW50cyBhYm91dCB0aGUgY29zdCBvZiBsb2Fucy4ifSx7InRpdGxlIjoiQXVzdGVuIEFsbHJlZCAtIEZvdW5kZXJzIFBsZWRnZSIsInVybCI6Imh0dHBzOi8vd3d3LmZvdW5kZXJzcGxlZGdlLmNvbS9tZW1iZXJzLzc2NSIsImRlc2NyaXB0aW9uIjoiQXVzdGVuIEFsbHJlZCBpcyB0aGUgQ28tRm91bmRlciBhbmQgQ0VPIG9mIExhbWJkYSBTY2hvb2wuIEEgbmF0aXZlIG9mIFNwcmluZ3ZpbGxlLCBVdGFoLCBBdXN0ZW4ncyBzdGFydC11cCBqb3VybmV5IGJlZ2FuIGluIDIwMTcuIn0seyJ0aXRsZSI6IkF1c3RlbiBBbGxyZWQgLSBUaGUgRnV0dXIiLCJ1cmwiOiJodHRwczovL3RoZWZ1dHVyLmNvbS9jb250ZW50L2F1c3Rlbi1hbGxyZWQiLCJkZXNjcmlwdGlvbiI6Ik91ciBndWVzdCBvbiB0aGUgcG9kY2FzdCB0b2RheSBpcyBBdXN0ZW4gQWxscmVkLCB0aGUgbWFuIHdpdGggYSBwbGFuIHRvIG1ha2UgY29tcHV0ZXIgc2NpZW5jZSBlZHVjYXRpb24gZXZlbiBtb3JlIGFjY2Vzc2libGUuIEEgc29mdHdhcmUgZW5naW5lZXIgaGltc2VsZizCoC4uLiJ9LHsidGl0bGUiOiJBdXN0ZW4gQWxscmVkIiwidXJsIjoiaHR0cHM6Ly93d3cuYXVzdGVuYWxscmVkLmNvbS8iLCJkZXNjcmlwdGlvbiI6IkZlYiA5LCAyMDIzIMK3IEknbSB0aGUgY28tZm91bmRlciBhbmQgQ0VPIG9mIEJsb29tIEluc3RpdHV0ZSBvZiBUZWNobm9sb2d5LiBJJ20gQGF1c3RlbiBvbiBUd2l0dGVyLiBJIHJlYWQgYSBsb3QuIEkgaW52ZXN0IGluIGVhcmx5LXN0YWdlIHRlY2ggc3RhcnR1cHMgb3V0IG9mIHRoZSBBdXN0ZW7CoC4uLiJ9LHsidGl0bGUiOiJBdXN0ZW4gQWxscmVkIC0gQmxvb20gSW5zdGl0dXRlIG9mIFRlY2hub2xvZ3kiLCJ1cmwiOiJodHRwczovL3d3dy5ibG9vbXRlY2guY29tL2Jsb2ctdG9waWMvYXVzdGVuLWFsbHJlZCIsImRlc2NyaXB0aW9uIjoiR3JhZHVhdGVzIHdpbGwgYmUgcHJlcGFyZWQgd2l0aCB0aGUgc2tpbGxzIG5lY2Vzc2FyeSB0byBsYW5kIGFuIGVudHJ5LWxldmVsIHNvZnR3YXJlIGVuZ2luZWVyaW5nIHJvbGUgYXQgY29tcGFuaWVzIG9mIGFsbCBzaXplcy4ifV19
+  recorded_at: Sun, 23 Nov 2025 19:37:37 GMT
+recorded_with: VCR 6.3.1

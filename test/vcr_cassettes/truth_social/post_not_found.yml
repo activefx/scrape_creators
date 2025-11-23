@@ -1,0 +1,55 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/truthsocial/post?url=https://truthsocial.com/@nonexistent/999999999999999999
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Date:
+      - Sun, 23 Nov 2025 06:45:01 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      Etag:
+      - W/"6e-jUFFw45BnQpDYLMkDCWCQBEMtcU"
+      Rndr-Id:
+      - 28fc93fc-4029-4167
+      Vary:
+      - Accept-Encoding
+      X-Powered-By:
+      - Express
+      X-Render-Origin-Server:
+      - Render
+      Cf-Cache-Status:
+      - DYNAMIC
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 9a2eb27beb4feafd-ORD
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"success":true,"credits_remaining":24719,"error":"not_found","errorStatus":404,"message":"Post not found"}'
+  recorded_at: Sun, 23 Nov 2025 06:45:01 GMT
+recorded_with: VCR 6.3.1
