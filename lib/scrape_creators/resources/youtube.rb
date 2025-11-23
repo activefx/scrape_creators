@@ -70,6 +70,81 @@ module ScrapeCreators
 
         get("/v1/youtube/channel", params)
       end
+
+      # Get all videos from a YouTube channel
+      #
+      # Retrieves videos from a channel with detailed information including view counts,
+      # thumbnails, and duration. Supports pagination with continuation tokens.
+      # You must provide at least one of: channel_id or handle.
+      #
+      # @param channel_id [String, nil] YouTube channel ID (e.g., "UCX6OQ3DkcsbYNE6H8uQQuVA")
+      # @param handle [String, nil] YouTube handle/username (e.g., "mrbeast" or "@mrbeast")
+      # @param sort [String, nil] Sort order - "latest" or "popular"
+      # @param continuation_token [String, nil] Token from previous response to get more videos
+      # @param include_extras [Boolean, nil] Include like/comment count and description (slower)
+      # @return [Hash] Videos data with array of videos and optional continuation token
+      # @raise [ArgumentError] If no identifier (channel_id or handle) is provided
+      # @raise [BadRequestError] If the parameters are invalid
+      # @raise [NotFoundError] If the channel is not found
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Get videos from a channel by handle
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   result = client.youtube.channel_videos(handle: "mrbeast")
+      #   result[:videos].each do |video|
+      #     puts "#{video[:title]} - #{video[:view_count_text]}"
+      #   end
+      #
+      # @example Get popular videos sorted
+      #   result = client.youtube.channel_videos(handle: "mrbeast", sort: "popular")
+      #
+      # @example Paginate through videos
+      #   result = client.youtube.channel_videos(handle: "mrbeast")
+      #   while result[:continuation_token]
+      #     result = client.youtube.channel_videos(
+      #       handle: "mrbeast",
+      #       continuation_token: result[:continuation_token]
+      #     )
+      #   end
+      #
+      # @example Include extra details (likes, comments, description)
+      #   result = client.youtube.channel_videos(handle: "mrbeast", include_extras: true)
+      #
+      # @example Response structure
+      #   {
+      #     videos: [
+      #       {
+      #         type: "video",
+      #         id: "5EWaxmWgQMI",
+      #         url: "https://www.youtube.com/watch?v=5EWaxmWgQMI",
+      #         title: "Video Title",
+      #         description: "Video description...",
+      #         thumbnail: "https://i.ytimg.com/vi/5EWaxmWgQMI/hqdefault.jpg",
+      #         channel: { title: "", thumbnail: nil },
+      #         view_count_text: "110,447 views",
+      #         view_count_int: 110447,
+      #         published_time_text: "9 days ago",
+      #         published_time: "2025-01-23T22:48:53.914Z",
+      #         length_text: "37:25",
+      #         length_seconds: 2245,
+      #         badges: []
+      #       }
+      #     ],
+      #     continuation_token: "4qmFsgLlFhIYW..."
+      #   }
+      def channel_videos(channel_id: nil, handle: nil, sort: nil, continuation_token: nil, include_extras: nil)
+        raise ArgumentError, "At least one of channel_id or handle is required" if channel_id.nil? && handle.nil?
+
+        params = {}
+        params[:channelId] = channel_id if channel_id
+        params[:handle] = handle if handle
+        params[:sort] = sort if sort
+        params[:continuationToken] = continuation_token if continuation_token
+        params[:includeExtras] = include_extras unless include_extras.nil?
+
+        get("/v1/youtube/channel-videos", params)
+      end
     end
   end
 end
