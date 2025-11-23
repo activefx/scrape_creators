@@ -1064,4 +1064,61 @@ describe ScrapeCreators::Resources::Instagram do
       end
     end
   end
+
+  describe "#embed" do
+    it "fetches embed HTML for an Instagram profile" do
+      VCR.use_cassette("instagram/embed_success") do
+        result = instagram.embed("adrianhorning")
+
+        assert_kind_of Hash, result
+        assert result[:success]
+
+        # Verify response structure
+        assert result.key?(:html)
+        assert_kind_of String, result[:html]
+        refute_empty result[:html]
+
+        # Verify HTML content contains expected elements
+        assert_match(/<!DOCTYPE html>/i, result[:html])
+      end
+    end
+
+    it "returns embed HTML even for non-existent profiles" do
+      VCR.use_cassette("instagram/embed_not_found") do
+        # The embed endpoint returns success with generic HTML even for non-existent users
+        result = instagram.embed("thisuserdoesnotexist123456789xyz")
+
+        assert_kind_of Hash, result
+        assert result[:success]
+        assert result.key?(:html)
+        assert_kind_of String, result[:html]
+      end
+    end
+
+    it "raises ArgumentError when handle is nil" do
+      error = assert_raises(ArgumentError) do
+        instagram.embed(nil)
+      end
+      assert_match(/handle is required/, error.message)
+    end
+
+    it "raises ArgumentError when handle is empty" do
+      error = assert_raises(ArgumentError) do
+        instagram.embed("")
+      end
+      assert_match(/handle is required/, error.message)
+    end
+
+    it "raises PaymentRequiredError for invalid API key" do
+      VCR.use_cassette("instagram/embed_unauthorized") do
+        invalid_client = ScrapeCreators::Client.new(api_key: "invalid_key")
+
+        error = assert_raises(ScrapeCreators::PaymentRequiredError) do
+          invalid_client.instagram.embed("adrianhorning")
+        end
+
+        assert_match(/credits/i, error.message)
+      end
+    end
+  end
 end

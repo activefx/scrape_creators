@@ -91,6 +91,81 @@ module ScrapeCreators
 
         get("/v1/pinterest/search", params)
       end
+
+      # Get Pinterest pin details
+      #
+      # Fetches detailed information about a specific Pinterest pin including
+      # images, description, pinner information, board details, rich metadata,
+      # and engagement statistics.
+      #
+      # @param url [String] The Pinterest pin URL (required)
+      # @param trim [Boolean, nil] Whether to return a trimmed response (default: false)
+      # @return [Hash] Pin details including images, metadata, and engagement stats
+      # @raise [ArgumentError] If the url parameter is nil or empty
+      # @raise [BadRequestError] If the request parameters are invalid
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      # @raise [NotFoundError] If the pin is not found
+      #
+      # @example Get pin details
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   pin = client.pinterest.pin("https://www.pinterest.com/pin/68747564459/")
+      #   puts pin[:title]
+      #   puts pin[:description]
+      #
+      # @example Get trimmed pin response
+      #   pin = client.pinterest.pin("https://www.pinterest.com/pin/68747564459/", trim: true)
+      #
+      # @example Response structure (partial)
+      #   {
+      #     success: true,
+      #     title: "Italian Pot Roast (Straccato)",
+      #     description: "Italian Pot Roast (Straccato)",
+      #     entity_id: "68747564459",
+      #     domain: "closetcooking.com",
+      #     link: "https://www.closetcooking.com/italian-pot-roast-straccato/",
+      #     dominant_color: "#714426",
+      #     image_spec_orig: {
+      #       url: "https://i.pinimg.com/originals/...",
+      #       height: 1200,
+      #       width: 800
+      #     },
+      #     pinner: {
+      #       username: "fluffduckie",
+      #       full_name: "Adrienne James",
+      #       follower_count: 4756
+      #     },
+      #     origin_pinner: {
+      #       username: "ClosetCooking",
+      #       full_name: "Closet Cooking",
+      #       follower_count: 780870
+      #     },
+      #     board: {
+      #       name: "Food & Fun",
+      #       url: "/fluffduckie/food-fun/",
+      #       pin_count: 1880
+      #     },
+      #     aggregated_pin_data: {
+      #       aggregated_stats: { saves: 49054 },
+      #       comment_count: 55
+      #     },
+      #     rich_metadata: {
+      #       recipe: { name: "Italian Pot Roast (Stracotto)", ... },
+      #       description: "A slow braised Italian style pot roast..."
+      #     },
+      #     total_reaction_count: 694,
+      #     share_count: 162,
+      #     repin_count: 2208,
+      #     created_at: "Thu, 06 Jun 2024 02:33:19 +0000"
+      #   }
+      def pin(url, trim: nil)
+        raise ArgumentError, "url is required" if url.nil? || url.to_s.empty?
+
+        params = { url: url }
+        params[:trim] = trim unless trim.nil?
+
+        get("/v1/pinterest/pin", params)
+      end
     end
   end
 end
