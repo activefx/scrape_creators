@@ -1,0 +1,71 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/reddit/post/comments/simple?amount=5&url=https://www.reddit.com/r/AskReddit/comments/ablzuq/people_who_havent_pooped_in_2019_yet_why_are_you/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 23 Nov 2025 18:14:39 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      Etag:
+      - W/"25d0-bhISwzE0SHYbdXN5fpVcJQLVDus"
+      Rndr-Id:
+      - 8fc359b9-7779-42f0
+      Vary:
+      - Accept-Encoding
+      X-Powered-By:
+      - Express
+      X-Render-Origin-Server:
+      - Render
+      Cf-Cache-Status:
+      - DYNAMIC
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 9a32a5b08a79f153-ORD
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '[{"created_at_iso":"2019-01-01T21:35:24.000Z","url":"https://www.reddit.com/r/AskReddit/comments/ablzuq/people_who_havent_pooped_in_2019_yet_why_are_you/ed1czme/","subreddit_id":"t5_2qh1i","approved_at_utc":null,"author_is_blocked":false,"comment_type":null,"awarders":[],"mod_reason_by":null,"banned_by":null,"author_flair_type":"text","total_awards_received":0,"subreddit":"AskReddit","author_flair_template_id":null,"likes":null,"user_reports":[],"saved":false,"id":"ed1czme","banned_at_utc":null,"mod_reason_title":null,"gilded":2,"archived":true,"collapsed_reason_code":null,"no_follow":false,"author":"sweatybeard","can_mod_post":false,"created_utc":1546378524,"send_replies":true,"parent_id":"t3_ablzuq","score":12207,"author_fullname":"t2_cep2k","approved_by":null,"mod_note":null,"all_awardings":[],"collapsed":false,"body":"But
+        when I finally do, it''ll be the years biggest shit ^^^^^so ^^^^^far","edited":false,"top_awarded_type":null,"author_flair_css_class":null,"name":"t1_ed1czme","is_submitter":false,"downs":0,"author_flair_richtext":[],"author_patreon_flair":false,"body_html":"&lt;div
+        class=\"md\"&gt;&lt;p&gt;But when I finally do, it&amp;#39;ll be the years
+        biggest shit &lt;sup&gt;&lt;sup&gt;&lt;sup&gt;&lt;sup&gt;&lt;sup&gt;so&lt;/sup&gt;&lt;/sup&gt;&lt;/sup&gt;&lt;/sup&gt;&lt;/sup&gt;
+        &lt;sup&gt;&lt;sup&gt;&lt;sup&gt;&lt;sup&gt;&lt;sup&gt;far&lt;/sup&gt;&lt;/sup&gt;&lt;/sup&gt;&lt;/sup&gt;&lt;/sup&gt;&lt;/p&gt;\n&lt;/div&gt;","removal_reason":null,"collapsed_reason":null,"distinguished":null,"associated_award":null,"stickied":false,"author_premium":false,"can_gild":false,"gildings":{},"unrepliable_reason":null,"author_flair_text_color":null,"score_hidden":false,"permalink":"/r/AskReddit/comments/ablzuq/people_who_havent_pooped_in_2019_yet_why_are_you/ed1czme/","subreddit_type":"public","locked":false,"report_reasons":null,"created":1546378524,"author_flair_text":null,"treatment_tags":[],"link_id":"t3_ablzuq","subreddit_name_prefixed":"r/AskReddit","controversiality":0,"depth":0,"author_flair_background_color":null,"collapsed_because_crowd_control":null,"mod_reports":[],"num_reports":null,"ups":12207},{"created_at_iso":"2019-01-02T01:13:09.000Z","url":"https://www.reddit.com/r/AskReddit/comments/ablzuq/people_who_havent_pooped_in_2019_yet_why_are_you/ed1su6t/","subreddit_id":"t5_2qh1i","approved_at_utc":null,"author_is_blocked":false,"comment_type":null,"awarders":[],"mod_reason_by":null,"banned_by":null,"author_flair_type":"text","total_awards_received":0,"subreddit":"AskReddit","author_flair_template_id":null,"likes":null,"user_reports":[],"saved":false,"id":"ed1su6t","banned_at_utc":null,"mod_reason_title":null,"gilded":0,"archived":true,"collapsed_reason_code":null,"no_follow":false,"author":"jofwu","can_mod_post":false,"created_utc":1546391589,"send_replies":true,"parent_id":"t1_ed1czme","score":2420,"author_fullname":"t2_6ckuh","removal_reason":null,"approved_by":null,"mod_note":null,"all_awardings":[],"body":"Somewhere
+        out there, somebody has made the biggest poop of the year. And they don''t
+        even know it. ","edited":false,"top_awarded_type":null,"author_flair_css_class":null,"name":"t1_ed1su6t","is_submitter":false,"downs":0,"author_flair_richtext":[],"author_patreon_flair":false,"body_html":"&lt;div
+        class=\"md\"&gt;&lt;p&gt;Somewhere out there, somebody has made the biggest
+        poop of the year. And they don&amp;#39;t even know it. &lt;/p&gt;\n&lt;/div&gt;","gildings":{},"collapsed_reason":null,"distinguished":null,"associated_award":null,"stickied":false,"author_premium":false,"can_gild":false,"link_id":"t3_ablzuq","unrepliable_reason":null,"author_flair_text_color":null,"score_hidden":false,"permalink":"/r/AskReddit/comments/ablzuq/people_who_havent_pooped_in_2019_yet_why_are_you/ed1su6t/","subreddit_type":"public","locked":false,"report_reasons":null,"created":1546391589,"author_flair_text":null,"treatment_tags":[],"collapsed":false,"subreddit_name_prefixed":"r/AskReddit","controversiality":0,"depth":1,"author_flair_background_color":null,"collapsed_because_crowd_control":null,"mod_reports":[],"num_reports":null,"ups":2420},{"created_at_iso":"2019-01-02T02:34:28.000Z","url":"https://www.reddit.com/r/AskReddit/comments/ablzuq/people_who_havent_pooped_in_2019_yet_why_are_you/ed1ye8p/","total_awards_received":0,"approved_at_utc":null,"author_is_blocked":false,"comment_type":null,"awarders":[],"mod_reason_by":null,"banned_by":null,"ups":785,"removal_reason":null,"link_id":"t3_ablzuq","author_flair_template_id":null,"likes":null,"user_reports":[],"saved":false,"id":"ed1ye8p","banned_at_utc":null,"mod_reason_title":null,"gilded":0,"archived":true,"collapsed_reason_code":null,"no_follow":false,"author":"[deleted]","can_mod_post":false,"created_utc":1546396468,"send_replies":true,"parent_id":"t1_ed1su6t","score":785,"approved_by":null,"report_reasons":null,"all_awardings":[],"subreddit_id":"t5_2qh1i","body":"I
+        made my biggest poop of last year right in between Christmas and New year''s-
+        first time I could say that I filled the bowl to the waterline","edited":false,"author_flair_css_class":null,"downs":0,"is_submitter":false,"body_html":"&lt;div
+        class=\"md\"&gt;&lt;p&gt;I made my biggest poop of last year right in between
+        Christmas and New year&amp;#39;s- first time I could say that I filled the
+        bowl to the waterline&lt;/p&gt;\n&lt;/div&gt;","gildings":{},"collapsed_reason":null,"associated_award":null,"stickied":false,"subreddit_type":"public","can_gild":false,"top_awarded_type":null,"unrepliable_reason":null,"author_flair_text_color":"dark","score_hidden":false,"permalink":"/r/AskReddit/comments/ablzuq/people_who_havent_pooped_in_2019_yet_why_are_you/ed1ye8p/","num_reports":null,"locked":false,"name":"t1_ed1ye8p","created":1546396468,"subreddit":"AskReddit","author_flair_text":null,"treatment_tags":[],"collapsed":false,"subreddit_name_prefixed":"r/AskReddit","controversiality":0,"depth":2,"author_flair_background_color":"","collapsed_because_crowd_control":null,"mod_reports":[],"mod_note":null,"distinguished":null},{"created_at_iso":"2019-01-02T15:19:39.000Z","url":"https://www.reddit.com/r/AskReddit/comments/ablzuq/people_who_havent_pooped_in_2019_yet_why_are_you/ed2xsuk/","subreddit_id":"t5_2qh1i","approved_at_utc":null,"author_is_blocked":false,"comment_type":null,"awarders":[],"mod_reason_by":null,"banned_by":null,"author_flair_type":"text","total_awards_received":0,"subreddit":"AskReddit","author_flair_template_id":null,"likes":null,"user_reports":[],"saved":false,"id":"ed2xsuk","banned_at_utc":null,"mod_reason_title":null,"gilded":0,"archived":true,"collapsed_reason_code":null,"no_follow":false,"author":"minjabinja","can_mod_post":false,"send_replies":true,"parent_id":"t1_ed1ye8p","score":338,"author_fullname":"t2_nqzim","removal_reason":null,"approved_by":null,"mod_note":null,"all_awardings":[],"collapsed":false,"body":"goals","edited":false,"top_awarded_type":null,"author_flair_css_class":null,"name":"t1_ed2xsuk","is_submitter":false,"downs":0,"author_flair_richtext":[],"author_patreon_flair":false,"body_html":"&lt;div
+        class=\"md\"&gt;&lt;p&gt;goals&lt;/p&gt;\n&lt;/div&gt;","gildings":{},"collapsed_reason":null,"distinguished":null,"associated_award":null,"stickied":false,"author_premium":false,"can_gild":false,"link_id":"t3_ablzuq","unrepliable_reason":null,"author_flair_text_color":null,"score_hidden":false,"permalink":"/r/AskReddit/comments/ablzuq/people_who_havent_pooped_in_2019_yet_why_are_you/ed2xsuk/","subreddit_type":"public","locked":false,"report_reasons":null,"created":1546442379,"author_flair_text":null,"treatment_tags":[],"created_utc":1546442379,"subreddit_name_prefixed":"r/AskReddit","controversiality":0,"depth":3,"author_flair_background_color":null,"collapsed_because_crowd_control":null,"mod_reports":[],"num_reports":null,"ups":338},{"created_at_iso":"2019-01-01T21:36:36.000Z","url":"https://www.reddit.com/r/AskReddit/comments/ablzuq/people_who_havent_pooped_in_2019_yet_why_are_you/ed1d2z7/","subreddit_id":"t5_2qh1i","approved_at_utc":null,"author_is_blocked":false,"comment_type":null,"awarders":[],"mod_reason_by":null,"banned_by":null,"author_flair_type":"text","total_awards_received":0,"subreddit":"AskReddit","author_flair_template_id":null,"likes":null,"user_reports":[],"saved":false,"id":"ed1d2z7","banned_at_utc":null,"mod_reason_title":null,"gilded":2,"archived":true,"collapsed_reason_code":null,"no_follow":false,"author":"ButtholeLinoleum","can_mod_post":false,"created_utc":1546378596,"send_replies":true,"parent_id":"t3_ablzuq","score":14262,"author_fullname":"t2_jdxns","approved_by":null,"mod_note":null,"all_awardings":[],"collapsed":false,"body":"I''ve
+        been pissing out my ass all fuckin day.","edited":false,"top_awarded_type":null,"author_flair_css_class":null,"name":"t1_ed1d2z7","is_submitter":false,"downs":0,"author_flair_richtext":[],"author_patreon_flair":false,"body_html":"&lt;div
+        class=\"md\"&gt;&lt;p&gt;I&amp;#39;ve been pissing out my ass all fuckin day.&lt;/p&gt;\n&lt;/div&gt;","removal_reason":null,"collapsed_reason":null,"distinguished":null,"associated_award":null,"stickied":false,"author_premium":false,"can_gild":false,"gildings":{},"unrepliable_reason":null,"author_flair_text_color":null,"score_hidden":false,"permalink":"/r/AskReddit/comments/ablzuq/people_who_havent_pooped_in_2019_yet_why_are_you/ed1d2z7/","subreddit_type":"public","locked":false,"report_reasons":null,"created":1546378596,"author_flair_text":null,"treatment_tags":[],"link_id":"t3_ablzuq","subreddit_name_prefixed":"r/AskReddit","controversiality":0,"depth":0,"author_flair_background_color":null,"collapsed_because_crowd_control":null,"mod_reports":[],"num_reports":null,"ups":14262}]'
+  recorded_at: Sun, 23 Nov 2025 18:14:39 GMT
+recorded_with: VCR 6.3.1

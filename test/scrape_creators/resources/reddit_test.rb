@@ -267,4 +267,112 @@ describe ScrapeCreators::Resources::Reddit do
       end
     end
   end
+
+  describe "#simple_comments" do
+    let(:post_url) { "https://www.reddit.com/r/AskReddit/comments/ablzuq/people_who_havent_pooped_in_2019_yet_why_are_you/" }
+
+    it "fetches simple comments from a post successfully" do
+      VCR.use_cassette("reddit/simple_comments_success") do
+        result = reddit.simple_comments(post_url)
+
+        assert_kind_of Array, result
+        refute_empty result
+
+        # Verify comment structure
+        comment = result.first
+
+        assert comment.key?(:id)
+        assert comment.key?(:author)
+        assert comment.key?(:body)
+        assert comment.key?(:score)
+        assert comment.key?(:created_utc)
+        assert comment.key?(:subreddit)
+        assert comment.key?(:permalink)
+      end
+    end
+
+    it "returns comments with expected fields" do
+      VCR.use_cassette("reddit/simple_comments_success") do
+        result = reddit.simple_comments(post_url)
+
+        comment = result.first
+
+        # Core identifiers
+        assert comment.key?(:id)
+        assert comment.key?(:name)
+        assert comment.key?(:parent_id)
+        assert comment.key?(:link_id)
+
+        # Content
+        assert comment.key?(:body)
+        assert comment.key?(:body_html)
+
+        # Engagement metrics
+        assert comment.key?(:score)
+        assert comment.key?(:ups)
+        assert comment.key?(:downs)
+
+        # Metadata
+        assert comment.key?(:author)
+        assert comment.key?(:subreddit)
+        assert comment.key?(:created_utc)
+      end
+    end
+
+    it "fetches comments with amount parameter" do
+      VCR.use_cassette("reddit/simple_comments_with_amount") do
+        result = reddit.simple_comments(post_url, amount: 5)
+
+        assert_kind_of Array, result
+        assert_operator result.length, :<=, 5
+      end
+    end
+
+    it "fetches comments with trim parameter" do
+      VCR.use_cassette("reddit/simple_comments_trimmed") do
+        result = reddit.simple_comments(post_url, trim: true)
+
+        assert_kind_of Array, result
+      end
+    end
+
+    it "fetches comments with all parameters" do
+      VCR.use_cassette("reddit/simple_comments_all_params") do
+        result = reddit.simple_comments(post_url, amount: 3, trim: true)
+
+        assert_kind_of Array, result
+        assert_operator result.length, :<=, 3
+      end
+    end
+
+    describe "argument validation" do
+      it "raises ArgumentError when url is nil" do
+        error = assert_raises(ArgumentError) do
+          reddit.simple_comments(nil)
+        end
+        assert_match(/url is required/, error.message)
+      end
+
+      it "raises ArgumentError when url is empty" do
+        error = assert_raises(ArgumentError) do
+          reddit.simple_comments("")
+        end
+        assert_match(/url is required/, error.message)
+      end
+    end
+
+    describe "error handling" do
+      it "raises PaymentRequiredError for invalid API key" do
+        VCR.use_cassette("reddit/simple_comments_unauthorized") do
+          invalid_client = ScrapeCreators::Client.new(api_key: "invalid_key")
+
+          error = assert_raises(ScrapeCreators::PaymentRequiredError) do
+            invalid_client.reddit.simple_comments(post_url)
+          end
+
+          assert_match(/credits/i, error.message)
+        end
+      end
+    end
+  end
 end

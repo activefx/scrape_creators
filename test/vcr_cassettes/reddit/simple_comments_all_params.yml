@@ -1,0 +1,60 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/reddit/post/comments/simple?amount=3&trim=true&url=https://www.reddit.com/r/AskReddit/comments/ablzuq/people_who_havent_pooped_in_2019_yet_why_are_you/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 23 Nov 2025 18:14:43 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      Etag:
+      - W/"519-LYWebD2kF2pKN1Wp+xWiV/OWxrs"
+      Rndr-Id:
+      - 8be7438b-e2e5-430b
+      Vary:
+      - Accept-Encoding
+      X-Powered-By:
+      - Express
+      X-Render-Origin-Server:
+      - Render
+      Cf-Cache-Status:
+      - DYNAMIC
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 9a32a5c368f7f32d-ORD
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '[{"id":"ed1czme","author":"sweatybeard","author_fullname":"t2_cep2k","body":"But
+        when I finally do, it''ll be the years biggest shit ^^^^^so ^^^^^far","name":"t1_ed1czme","created_utc":1546378524,"created_at_iso":"2019-01-01T21:35:24.000Z","parent_id":"t3_ablzuq","url":"https://www.reddit.com/r/AskReddit/comments/ablzuq/people_who_havent_pooped_in_2019_yet_why_are_you/ed1czme/","ups":12210,"downs":0,"score":12210},{"id":"ed1su6t","author":"jofwu","author_fullname":"t2_6ckuh","body":"Somewhere
+        out there, somebody has made the biggest poop of the year. And they don''t
+        even know it. ","name":"t1_ed1su6t","created_utc":1546391589,"created_at_iso":"2019-01-02T01:13:09.000Z","parent_id":"t1_ed1czme","url":"https://www.reddit.com/r/AskReddit/comments/ablzuq/people_who_havent_pooped_in_2019_yet_why_are_you/ed1su6t/","ups":2421,"downs":0,"score":2421},{"id":"ed1ye8p","author":"[deleted]","body":"I
+        made my biggest poop of last year right in between Christmas and New year''s-
+        first time I could say that I filled the bowl to the waterline","name":"t1_ed1ye8p","created_utc":1546396468,"created_at_iso":"2019-01-02T02:34:28.000Z","parent_id":"t1_ed1su6t","url":"https://www.reddit.com/r/AskReddit/comments/ablzuq/people_who_havent_pooped_in_2019_yet_why_are_you/ed1ye8p/","ups":780,"downs":0,"score":780}]'
+  recorded_at: Sun, 23 Nov 2025 18:14:43 GMT
+recorded_with: VCR 6.3.1
