@@ -309,4 +309,67 @@ describe ScrapeCreators::Resources::Twitter do
       end
     end
   end
+
+  describe "#transcript" do
+    let(:video_tweet_url) { "https://x.com/zaborovic/status/1855587637938598309" }
+
+    it "fetches video tweet transcript successfully" do
+      VCR.use_cassette("twitter/transcript_success") do
+        result = twitter.transcript(video_tweet_url)
+
+        assert_kind_of Hash, result
+
+        # Verify success status
+        assert result[:success]
+
+        # Verify transcript is present and non-empty
+        assert result.key?(:transcript)
+        assert_kind_of String, result[:transcript]
+        refute_empty result[:transcript]
+      end
+    end
+
+    it "returns transcript text content" do
+      VCR.use_cassette("twitter/transcript_success") do
+        result = twitter.transcript(video_tweet_url)
+
+        # Verify transcript contains expected content
+        assert_includes result[:transcript].downcase, "innovation"
+      end
+    end
+
+    it "raises ArgumentError when url is nil" do
+      error = assert_raises(ArgumentError) do
+        twitter.transcript(nil)
+      end
+      assert_match(/url is required/, error.message)
+    end
+
+    it "raises ArgumentError when url is empty" do
+      error = assert_raises(ArgumentError) do
+        twitter.transcript("")
+      end
+      assert_match(/url is required/, error.message)
+    end
+
+    it "raises NotFoundError for non-existent tweet" do
+      VCR.use_cassette("twitter/transcript_not_found") do
+        assert_raises(ScrapeCreators::NotFoundError) do
+          twitter.transcript("https://x.com/user/status/999999999999999999999")
+        end
+      end
+    end
+
+    it "raises UnauthorizedError for invalid API key" do
+      VCR.use_cassette("twitter/transcript_unauthorized") do
+        invalid_client = ScrapeCreators::Client.new(api_key: "invalid_key")
+
+        error = assert_raises(ScrapeCreators::UnauthorizedError) do
+          invalid_client.twitter.transcript(video_tweet_url)
+        end
+
+        assert_match(/invalid|unauthorized|api.?key/i, error.message)
+      end
+    end
+  end
 end
