@@ -1,0 +1,55 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/tiktok/song/videos?clipId=7439295283975702544
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 23 Nov 2025 06:05:28 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      Etag:
+      - W/"2f2e-eqHJen61ebvoJjblLacjOcoO7iY"
+      Rndr-Id:
+      - 4fb59fa6-5b27-463d
+      Vary:
+      - Accept-Encoding
+      X-Powered-By:
+      - Express
+      X-Render-Origin-Server:
+      - Render
+      Cf-Cache-Status:
+      - DYNAMIC
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 9a2df9e3695822d6-ORD
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"aweme_list":[{"aweme_id":"7452069943757114646","desc":"Test video","create_time":1735070246,"author":{"uid":"7431412724132922400","unique_id":"testuser","nickname":"Test User"},"statistics":{"play_count":100000,"digg_count":5000},"video":{"duration":9700},"music":{"id":7439295283975703000,"id_str":"7439295283975702544","title":"luther"}}],"cursor":12,"has_more":1,"status_code":0,"status_msg":""}'
+  recorded_at: Sun, 23 Nov 2025 06:05:28 GMT
+recorded_with: VCR 6.3.1

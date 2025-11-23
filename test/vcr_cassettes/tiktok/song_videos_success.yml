@@ -1,0 +1,55 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/tiktok/song/videos?clipId=7439295283975702544
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 23 Nov 2025 06:05:26 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      Etag:
+      - W/"2f2e-eqHJen61ebvoJjblLacjOcoO7iY"
+      Rndr-Id:
+      - 4fb59fa6-5b27-463b
+      Vary:
+      - Accept-Encoding
+      X-Powered-By:
+      - Express
+      X-Render-Origin-Server:
+      - Render
+      Cf-Cache-Status:
+      - DYNAMIC
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 9a2df9e3695822d4-ORD
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"aweme_list":[{"aweme_id":"7452069943757114646","desc":"2024 en 43 fotos el rey de las bromas #memestiktok #elreydelasbromas","create_time":1735070246,"author":{"uid":"7431412724132922400","unique_id":"elreydelasbromasoficial","nickname":"El rey de las bromas oficial","sec_uid":"MS4wLjABAAAAbhqboEW5Qk6emunyGrRmD04w52fJAPvOI8XPuGxq9xwnkN9ID8cpxME-yUqEwaYU"},"statistics":{"play_count":2932976,"digg_count":197747,"comment_count":347,"share_count":26467,"collect_count":10436},"video":{"duration":9700,"cover":{"url_list":["https://p16-pu-sign-no.tiktokcdn-eu.com/tos-no1a-p-0037-no/okGkhASBzBEwjVUiiAAYnAElCCGrftPwHIIiBR~tplv-tiktokx-cropcenter-q:300:400:q72.jpeg"]}},"music":{"id":7439295283975703000,"id_str":"7439295283975702544","title":"luther","author":"Kendrick Lamar & SZA","album":"GNX","duration":59}}],"cursor":12,"has_more":1,"status_code":0,"status_msg":"","can_pin_video":false,"extra":{"logid":"202502180605264FFF1CE5D6043F4CF934","now":1739829927000}}'
+  recorded_at: Sun, 23 Nov 2025 06:05:26 GMT
+recorded_with: VCR 6.3.1

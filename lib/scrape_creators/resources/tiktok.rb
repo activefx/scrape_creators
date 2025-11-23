@@ -966,6 +966,72 @@ module ScrapeCreators
 
         get("/v1/tiktok/song", { clipId: clip_id })
       end
+
+      # Get TikTok videos using a specific song
+      #
+      # Retrieves a list of TikTok videos that use a specific song/sound.
+      # Supports cursor-based pagination for fetching more results.
+      #
+      # @param clip_id [String] The clip ID of the song. Can be found in song URLs like
+      #   https://www.tiktok.com/music/Song-Name-7370375686554782506 where
+      #   7370375686554782506 is the clip_id
+      # @param cursor [Integer, String, nil] Cursor for pagination to get more videos
+      # @return [Hash] Videos data with aweme_list array and cursor for pagination
+      # @raise [ArgumentError] If the clip_id parameter is nil or empty
+      # @raise [NotFoundError] If the song is not found
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Get videos using a song
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   videos = client.tiktok.song_videos("7370375686554782506")
+      #   puts videos[:aweme_list].first[:desc]  # Video description
+      #   puts videos[:has_more]  # => 1
+      #
+      # @example Paginate through videos
+      #   page1 = client.tiktok.song_videos("7370375686554782506")
+      #   page2 = client.tiktok.song_videos("7370375686554782506", cursor: page1[:cursor])
+      #
+      # @example Get videos from popular_songs response
+      #   songs = client.tiktok.popular_songs
+      #   clip_id = songs[:sound_list].first[:clip_id]
+      #   videos = client.tiktok.song_videos(clip_id)
+      #
+      # @example Response structure
+      #   {
+      #     aweme_list: [
+      #       {
+      #         aweme_id: "7452069943757114646",
+      #         desc: "Video description #hashtag",
+      #         create_time: 1735070246,
+      #         author: {
+      #           uid: "7431412724132922400",
+      #           unique_id: "username",
+      #           nickname: "User Name"
+      #         },
+      #         statistics: {
+      #           play_count: 2932976,
+      #           digg_count: 197747,
+      #           comment_count: 347,
+      #           share_count: 26467
+      #         },
+      #         video: { ... },
+      #         music: { ... }
+      #       }
+      #     ],
+      #     cursor: 12,
+      #     has_more: 1,
+      #     status_code: 0,
+      #     status_msg: ""
+      #   }
+      def song_videos(clip_id, cursor: nil)
+        raise ArgumentError, "clip_id is required" if clip_id.nil? || clip_id.to_s.empty?
+
+        params = { clipId: clip_id }
+        params[:cursor] = cursor if cursor
+
+        get("/v1/tiktok/song/videos", params)
+      end
     end
   end
 end
