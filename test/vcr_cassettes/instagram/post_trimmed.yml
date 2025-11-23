@@ -1,0 +1,39 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/instagram/post?trim=true&url=https://www.instagram.com/reel/DF5s0duxDts/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 23 Nov 2025 10:00:00 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Powered-By:
+      - Express
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"data":{"xdt_shortcode_media":{"id":"3565077699422862188","shortcode":"DF5s0duxDts","is_video":true,"video_url":"https://scontent-sea1-1.cdninstagram.com/o1/v/t16/f2/m86/example.mp4","video_duration":71.1,"owner":{"id":"2700692569","username":"adrianhorning"},"edge_media_preview_like":{"count":153},"edge_media_to_parent_comment":{"count":17}}},"extensions":{"is_final":true},"status":"ok"}'
+  recorded_at: Sat, 23 Nov 2025 10:00:00 GMT
+recorded_with: VCR 6.3.1
