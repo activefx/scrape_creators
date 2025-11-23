@@ -577,6 +577,23 @@ describe ScrapeCreators::Resources::Instagram do
       VCR.use_cassette("instagram/reels_not_found") do
         assert_raises(ScrapeCreators::NotFoundError) do
           instagram.reels(handle: "thisuserdoesnotexist123456789xyz")
+        end
+      end
+    end
+
+    it "raises UnauthorizedError for invalid API key" do
+      VCR.use_cassette("instagram/reels_unauthorized") do
+        invalid_client = ScrapeCreators::Client.new(api_key: "invalid_key")
+
+        error = assert_raises(ScrapeCreators::UnauthorizedError) do
+          invalid_client.instagram.reels(handle: "adrianhorning")
+        end
+
+        assert_match(/invalid|unauthorized|api.?key/i, error.message)
+      end
+    end
+  end
+
   describe "#comments" do
     it "fetches comments from an Instagram post" do
       VCR.use_cassette("instagram/comments_success") do
@@ -643,11 +660,6 @@ describe ScrapeCreators::Resources::Instagram do
     end
 
     it "raises UnauthorizedError for invalid API key" do
-      VCR.use_cassette("instagram/reels_unauthorized") do
-        invalid_client = ScrapeCreators::Client.new(api_key: "invalid_key")
-
-        error = assert_raises(ScrapeCreators::UnauthorizedError) do
-          invalid_client.instagram.reels(handle: "adrianhorning")
       VCR.use_cassette("instagram/comments_unauthorized") do
         invalid_client = ScrapeCreators::Client.new(api_key: "invalid_key")
 
