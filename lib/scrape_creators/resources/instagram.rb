@@ -288,6 +288,56 @@ module ScrapeCreators
 
         get("/v1/instagram/post", params)
       end
+
+      # Get the transcript of an Instagram post or reel
+      #
+      # Uses AI to transcribe the audio content of an Instagram post or reel.
+      # This endpoint is slower than others (10-30 seconds) due to AI processing.
+      # Returns null if no one is speaking in the video. For carousel posts,
+      # returns a transcript for each item in the carousel.
+      #
+      # @param url [String] Instagram post or reel URL
+      # @return [Hash] Transcript data including success status and transcripts array
+      # @raise [ArgumentError] If the url parameter is nil or empty
+      # @raise [BadRequestError] If the url parameter is invalid
+      # @raise [NotFoundError] If the post/reel is not found
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Get transcript for an Instagram reel
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   result = client.instagram.transcript("https://www.instagram.com/reel/DHsD6HGqJhp/")
+      #   puts result[:success]  # => true
+      #   puts result[:transcripts].first[:text]  # => "Let's fry up the perfect bunzel..."
+      #
+      # @example Response structure
+      #   {
+      #     success: true,
+      #     transcripts: [
+      #       {
+      #         id: "3597267389859272809",
+      #         shortcode: "DHsD6HGqJhp",
+      #         text: "Let's fry up the perfect bunzel. Beautiful..."
+      #       }
+      #     ]
+      #   }
+      #
+      # @example Response when no speech is detected
+      #   {
+      #     success: true,
+      #     transcripts: [
+      #       {
+      #         id: "3597267389859272809",
+      #         shortcode: "DHsD6HGqJhp",
+      #         text: null
+      #       }
+      #     ]
+      #   }
+      def transcript(url)
+        raise ArgumentError, "url is required" if url.nil? || url.to_s.empty?
+
+        get("/v2/instagram/media/transcript", url: url)
+      end
     end
   end
 end
