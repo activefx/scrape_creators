@@ -218,4 +218,117 @@ describe ScrapeCreators::Resources::Youtube do
       end
     end
   end
+
+  describe "#channel_shorts" do
+    describe "with handle parameter" do
+      it "fetches shorts from a YouTube channel by handle" do
+        VCR.use_cassette("youtube/channel_shorts_by_handle") do
+          result = youtube.channel_shorts(handle: "upflip")
+
+          assert_kind_of Hash, result
+          assert result.key?(:shorts)
+          assert_kind_of Array, result[:shorts]
+
+          # Verify short structure if shorts exist
+          if result[:shorts].any?
+            short = result[:shorts].first
+
+            assert short.key?(:id)
+            assert short.key?(:title)
+            assert short.key?(:url)
+            assert_equal "short", short[:type]
+          end
+        end
+      end
+
+      it "accepts handle with @ prefix" do
+        VCR.use_cassette("youtube/channel_shorts_by_handle_with_at") do
+          result = youtube.channel_shorts(handle: "@upflip")
+
+          assert_kind_of Hash, result
+          assert result.key?(:shorts)
+        end
+      end
+    end
+
+    describe "with channel_id parameter" do
+      it "fetches shorts from a YouTube channel by channel ID" do
+        VCR.use_cassette("youtube/channel_shorts_by_id") do
+          result = youtube.channel_shorts(channel_id: "UCX6OQ3DkcsbYNE6H8uQQuVA")
+
+          assert_kind_of Hash, result
+          assert result.key?(:shorts)
+        end
+      end
+    end
+
+    describe "with sort parameter" do
+      it "fetches shorts sorted by popular" do
+        VCR.use_cassette("youtube/channel_shorts_sort_popular") do
+          result = youtube.channel_shorts(handle: "upflip", sort: "popular")
+
+          assert_kind_of Hash, result
+          assert result.key?(:shorts)
+        end
+      end
+
+      it "fetches shorts sorted by newest" do
+        VCR.use_cassette("youtube/channel_shorts_sort_newest") do
+          result = youtube.channel_shorts(handle: "upflip", sort: "newest")
+
+          assert_kind_of Hash, result
+          assert result.key?(:shorts)
+        end
+      end
+    end
+
+    describe "pagination" do
+      it "returns continuation_token for pagination" do
+        VCR.use_cassette("youtube/channel_shorts_pagination") do
+          result = youtube.channel_shorts(handle: "upflip")
+
+          assert_kind_of Hash, result
+          # Continuation token may or may not be present depending on channel size
+          assert result.key?(:shorts)
+        end
+      end
+    end
+
+    describe "parameter validation" do
+      it "raises ArgumentError when no identifier is provided" do
+        error = assert_raises(ArgumentError) do
+          youtube.channel_shorts
+        end
+        assert_match(/channel_id or handle is required/, error.message)
+      end
+
+      it "raises ArgumentError when both identifiers are nil" do
+        error = assert_raises(ArgumentError) do
+          youtube.channel_shorts(channel_id: nil, handle: nil)
+        end
+        assert_match(/channel_id or handle is required/, error.message)
+      end
+    end
+
+    describe "error handling" do
+      it "raises NotFoundError for non-existent channel" do
+        VCR.use_cassette("youtube/channel_shorts_not_found") do
+          assert_raises(ScrapeCreators::NotFoundError) do
+            youtube.channel_shorts(handle: "thishandledefinitelydoesnotexist123456789xyz")
+          end
+        end
+      end
+
+      it "raises authentication error for invalid API key" do
+        VCR.use_cassette("youtube/channel_shorts_unauthorized") do
+          invalid_client = ScrapeCreators::Client.new(api_key: "invalid_key")
+
+          # API may return UnauthorizedError or PaymentRequiredError for invalid credentials
+          assert_raises(ScrapeCreators::UnauthorizedError, ScrapeCreators::PaymentRequiredError) do
+            invalid_client.youtube.channel_shorts(handle: "upflip")
+          end
+        end
+      end
+    end
+  end
 end
