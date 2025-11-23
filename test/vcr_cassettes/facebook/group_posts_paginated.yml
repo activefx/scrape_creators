@@ -1,0 +1,39 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/facebook/group/posts?cursor=AQHRBjJCelNvdGRjH8s2j&url=https://www.facebook.com/groups/742354120555345
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 23 Nov 2025 18:00:00 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Powered-By:
+      - Express
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"posts":[{"id":"1280123456789012","text":"Another post from the group","url":"https://www.facebook.com/groups/742354120555345/permalink/1280123456789012/","permalink":"https://www.facebook.com/user/videos/123456789/","author":{"__typename":"User","name":"Test User","short_name":"Test","id":"100012345678901"},"reactionCount":50,"commentCount":10,"videoViewCount":null,"publishTime":1748000000,"videoDetails":null,"topComments":[]}],"cursor":"AQHRBjJCelNvdGRjNextPage"}'
+  recorded_at: Sun, 23 Nov 2025 18:00:00 GMT
+recorded_with: VCR 6.3.1

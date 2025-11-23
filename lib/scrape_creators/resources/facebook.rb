@@ -185,6 +185,102 @@ module ScrapeCreators
 
         get("/v1/facebook/profile/posts", params)
       end
+
+      # Get posts from a public Facebook group
+      #
+      # Retrieves posts from a public Facebook group including engagement metrics,
+      # content, media details, and timestamps. Only returns 3 posts at a time due
+      # to Facebook API limitations.
+      #
+      # @param url [String, nil] Facebook group URL (either url or group_id is required)
+      # @param group_id [String, nil] Facebook group ID (faster than url lookup)
+      # @param sort_by [String, nil] How to sort the posts
+      #   (TOP_POSTS, RECENT_ACTIVITY, CHRONOLOGICAL, CHRONOLOGICAL_LISTINGS)
+      # @param cursor [String, nil] Pagination cursor to get the next page of posts
+      # @return [Hash] Posts data including posts array and pagination cursor
+      # @raise [ArgumentError] If both url and group_id are nil or empty
+      # @raise [NotFoundError] If the group is not found
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Get group posts using URL
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   posts = client.facebook.group_posts(url: "https://www.facebook.com/groups/742354120555345")
+      #   puts posts[:posts].first[:text]
+      #
+      # @example Get group posts using group ID (faster)
+      #   posts = client.facebook.group_posts(group_id: "742354120555345")
+      #   posts[:posts].each { |post| puts post[:text] }
+      #
+      # @example Get top posts from a group
+      #   posts = client.facebook.group_posts(
+      #     url: "https://www.facebook.com/groups/742354120555345",
+      #     sort_by: "TOP_POSTS"
+      #   )
+      #
+      # @example Paginate through posts
+      #   first_page = client.facebook.group_posts(url: "https://www.facebook.com/groups/742354120555345")
+      #   if first_page[:cursor]
+      #     next_page = client.facebook.group_posts(
+      #       url: "https://www.facebook.com/groups/742354120555345",
+      #       cursor: first_page[:cursor]
+      #     )
+      #   end
+      #
+      # @example Response structure
+      #   {
+      #     success: true,
+      #     posts: [
+      #       {
+      #         id: "1286289372828481",
+      #         text: nil,
+      #         url: "https://www.facebook.com/groups/742354120555345/permalink/1286289372828481/",
+      #         permalink: "https://www.facebook.com/sofiyati.942655/videos/996458202287759/",
+      #         author: {
+      #           __typename: "User",
+      #           name: "Sofiyati",
+      #           short_name: "Sofiyati",
+      #           id: "61552766652796"
+      #         },
+      #         reaction_count: 198,
+      #         comment_count: 100,
+      #         video_view_count: nil,
+      #         publish_time: 1748639389,
+      #         video_details: {
+      #           sd_url: "https://...",
+      #           hd_url: "https://...",
+      #           thumbnail_url: "https://..."
+      #         },
+      #         top_comments: [
+      #           {
+      #             id: "Y29...",
+      #             text: "Comment text here...",
+      #             publish_time: 1748666375,
+      #             author: {
+      #               id: "pfbid...",
+      #               name: "User Name",
+      #               gender: "MALE",
+      #               url: nil
+      #             }
+      #           }
+      #         ]
+      #       }
+      #     ],
+      #     cursor: "AQHRBjJCelNvdGRjH8s2j-...."
+      #   }
+      def group_posts(url: nil, group_id: nil, sort_by: nil, cursor: nil)
+        if (url.nil? || url.to_s.empty?) && (group_id.nil? || group_id.to_s.empty?)
+          raise ArgumentError, "url or group_id is required"
+        end
+
+        params = {}
+        params[:url] = url unless url.nil? || url.to_s.empty?
+        params[:group_id] = group_id unless group_id.nil? || group_id.to_s.empty?
+        params[:sort_by] = sort_by unless sort_by.nil?
+        params[:cursor] = cursor unless cursor.nil?
+
+        get("/v1/facebook/group/posts", params)
+      end
     end
   end
 end
