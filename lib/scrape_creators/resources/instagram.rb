@@ -95,6 +95,53 @@ module ScrapeCreators
 
         get("/v1/instagram/profile", params)
       end
+
+      # Get a basic Instagram profile by user ID
+      #
+      # Retrieves basic profile information for an Instagram user by their user ID.
+      # This endpoint is currently free to use and provides essential profile data
+      # including username, biography, follower/following counts, and verification status.
+      #
+      # @param user_id [String, Integer] Instagram user ID (numeric ID, not username)
+      # @return [Hash] Basic profile data including user info and counts
+      # @raise [ArgumentError] If the user_id parameter is nil or empty
+      # @raise [BadRequestError] If the user_id parameter is invalid
+      # @raise [NotFoundError] If the profile is not found
+      # @raise [UnauthorizedError] If the API key is invalid
+      #
+      # @example Get a basic Instagram profile by user ID
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   profile = client.instagram.basic_profile("314216")
+      #   puts profile[:username]       # => "zuck"
+      #   puts profile[:full_name]      # => "Mark Zuckerberg"
+      #   puts profile[:follower_count] # => 16101999
+      #   puts profile[:is_verified]    # => true
+      #
+      # @example Response structure
+      #   {
+      #     username: "zuck",
+      #     pk: "314216",
+      #     id: "314216",
+      #     full_name: "Mark Zuckerberg",
+      #     biography: "I build stuff",
+      #     is_verified: true,
+      #     is_private: false,
+      #     is_business: false,
+      #     follower_count: 16101999,
+      #     following_count: 617,
+      #     media_count: 409,
+      #     profile_pic_url: "https://...",
+      #     hd_profile_pic_url_info: { url: "https://..." },
+      #     bio_links: [],
+      #     external_url: "",
+      #     account_type: 3,
+      #     fbid_v2: "17841401746480004"
+      #   }
+      def basic_profile(user_id)
+        raise ArgumentError, "user_id is required" if user_id.nil? || user_id.to_s.empty?
+
+        get("/v1/instagram/basic-profile", userId: user_id)
+      end
     end
   end
 end
