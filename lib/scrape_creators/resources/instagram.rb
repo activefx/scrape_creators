@@ -142,6 +142,82 @@ module ScrapeCreators
 
         get("/v1/instagram/basic-profile", userId: user_id)
       end
+
+      # Get a public Instagram profile's posts
+      #
+      # Retrieves public posts from an Instagram profile including media details,
+      # captions, engagement metrics, and pagination information.
+      #
+      # @param handle [String] Instagram handle (username)
+      # @param next_max_id [String, nil] Cursor for pagination to get the next page of results
+      # @param trim [Boolean, nil] Whether to trim the response data (default: false)
+      # @return [Hash] Posts data including items array and pagination info
+      # @raise [ArgumentError] If the handle parameter is nil or empty
+      # @raise [BadRequestError] If the handle parameter is invalid
+      # @raise [NotFoundError] If the profile is not found
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Get posts from an Instagram profile
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   posts = client.instagram.posts("barstoolsports")
+      #   puts posts[:num_results]       # => 12
+      #   puts posts[:more_available]    # => true
+      #   puts posts[:items].first[:id]  # => "3600545900919030401_260462810"
+      #
+      # @example Get next page of posts using cursor
+      #   first_page = client.instagram.posts("barstoolsports")
+      #   next_page = client.instagram.posts("barstoolsports", next_max_id: first_page[:next_max_id])
+      #
+      # @example Get trimmed posts response
+      #   posts = client.instagram.posts("barstoolsports", trim: true)
+      #
+      # @example Response structure
+      #   {
+      #     num_results: 12,
+      #     more_available: true,
+      #     items: [
+      #       {
+      #         pk: "3600545900919030401",
+      #         id: "3600545900919030401_260462810",
+      #         code: "DH3tWudxIKB",
+      #         media_type: 2,
+      #         taken_at: 1743438570,
+      #         caption: {
+      #           text: "Caption text here",
+      #           created_at: 1743438572
+      #         },
+      #         like_count: 387,
+      #         comment_count: 12,
+      #         play_count: 35499,
+      #         user: {
+      #           pk: "260462810",
+      #           username: "barstoolsports",
+      #           full_name: "Barstool Sports",
+      #           is_verified: true
+      #         },
+      #         image_versions2: { candidates: [...] },
+      #         video_versions: [...],
+      #         url: "https://www.instagram.com/barstoolsports/p/DH3tWudxIKB/"
+      #       }
+      #     ],
+      #     next_max_id: "3599731065704772932_260462810",
+      #     user: {
+      #       pk: "260462810",
+      #       username: "barstoolsports",
+      #       is_verified: true
+      #     },
+      #     status: "ok"
+      #   }
+      def posts(handle, next_max_id: nil, trim: nil)
+        raise ArgumentError, "handle is required" if handle.nil? || handle.to_s.empty?
+
+        params = { handle: handle }
+        params[:next_max_id] = next_max_id unless next_max_id.nil?
+        params[:trim] = trim unless trim.nil?
+
+        get("/v2/instagram/user/posts", params)
+      end
     end
   end
 end
