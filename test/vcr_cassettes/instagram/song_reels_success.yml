@@ -1,0 +1,39 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/instagram/song/reels?audio_id=18151049539042235
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 23 Nov 2025 10:00:00 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Powered-By:
+      - Express
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"success":true,"items":[{"media":{"pk":"3652360178415977960","id":"3652360178415977960_4396457","code":"DKvyjsyREXo","taken_at":1749615300,"media_type":2,"product_type":"clips","play_count":66233,"like_count":4570,"comment_count":59,"video_duration":26.574,"has_audio":true,"user":{"pk":"4396457","pk_id":"4396457","username":"teresitassen","full_name":"Winwyn Marquez","is_verified":true,"is_private":false,"profile_pic_url":"https://instagram.example.com/profile.jpg"},"caption":{"text":"Here for the soft wins and good energy"},"image_versions2":{"candidates":[{"url":"https://instagram.example.com/image.jpg","width":540,"height":960}]},"video_versions":[{"url":"https://instagram.example.com/video.mp4","width":480,"height":853,"type":101}]}}],"paging_info":{"max_id":"Gpa-z7y0tM7mzmXMutubrcuPvmXQl6Kk5o7lr2Wa_b_LpY_jq2XkhKqL47ufqmWqx5q7z9D4pGWq-5jqg-PJuGXu-4zrmYP4wGX2o-icwfPf32Umoqa-mvplFBI0AikIGAAaCDoGGQwA","more_available":true},"music_canonical_id":"18151049539042235","audio_page_reporting_id":"18151049539042235","formatted_media_count":"73.2K reels","metadata":{"music_info":null,"original_sound_info":{"allow_creator_to_rename":true,"audio_asset_id":"571995655694687","original_audio_title":"Original audio","duration_in_ms":11920,"formatted_clips_media_count":"73.2K reels","is_explicit":false,"ig_artist":{"pk":"48370406447","username":"wingfoilracing","full_name":"WingFoil Racing World Cup Series","is_private":false,"is_verified":false,"profile_pic_url":"https://instagram.example.com/artist.jpg"}}},"audio_ranking_info":{"best_audio_cluster_id":"5209534055764708"},"is_music_page_restricted":false,"available_tabs":["clips"],"media_count":{"clips_count":73245,"photos_count":0},"status":"ok"}'
+  recorded_at: Sat, 23 Nov 2025 10:00:00 GMT
+recorded_with: VCR 6.3.1

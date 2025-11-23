@@ -67,6 +67,79 @@ module ScrapeCreators
 
         get("/bluesky/profile", handle: handle)
       end
+
+      # Get posts from a Bluesky user
+      #
+      # Retrieves posts from a public Bluesky user's profile. Use user_id for faster
+      # response times.
+      #
+      # @param handle [String, nil] Bluesky handle (e.g., "espn.com", "user.bsky.social")
+      # @param user_id [String, nil] Bluesky DID (e.g., "did:plc:x7d6j54pm22ufehkes6jo4jf")
+      # @param cursor [String, nil] Pagination cursor for fetching more posts
+      # @return [Hash] Posts data including feed array and pagination cursor
+      # @raise [ArgumentError] If both handle and user_id are nil or empty
+      # @raise [BadRequestError] If the parameters are invalid
+      # @raise [NotFoundError] If the user is not found
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Get posts by handle
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   response = client.bluesky.user_posts(handle: "espn.com")
+      #   response[:feed].each do |post|
+      #     puts post[:record][:text]
+      #     puts "Likes: #{post[:like_count]}"
+      #   end
+      #
+      # @example Get posts by user_id (faster)
+      #   response = client.bluesky.user_posts(user_id: "did:plc:x7d6j54pm22ufehkes6jo4jf")
+      #
+      # @example Paginate through posts
+      #   response = client.bluesky.user_posts(handle: "espn.com")
+      #   while response[:cursor]
+      #     response = client.bluesky.user_posts(handle: "espn.com", cursor: response[:cursor])
+      #   end
+      #
+      # @example Response structure
+      #   {
+      #     success: true,
+      #     feed: [
+      #       {
+      #         uri: "at://did:plc:x7d6j54pm22ufehkes6jo4jf/app.bsky.feed.post/...",
+      #         cid: "bafyreibams5wyqdpg2cmmks7lhf5ccxu7hbu24sfatgc53jmb2nun5k5dm",
+      #         author: {
+      #           did: "did:plc:x7d6j54pm22ufehkes6jo4jf",
+      #           handle: "espn.com",
+      #           display_name: "ESPN",
+      #           avatar: "https://cdn.bsky.app/img/avatar/plain/...",
+      #           verification: { verified_status: "valid", ... }
+      #         },
+      #         record: {
+      #           type: "app.bsky.feed.post",
+      #           text: "Post content here...",
+      #           created_at: "2025-05-29T19:01:20.743Z"
+      #         },
+      #         reply_count: 1,
+      #         repost_count: 0,
+      #         like_count: 24,
+      #         quote_count: 1,
+      #         indexed_at: "2025-05-29T19:01:21.645Z"
+      #       }
+      #     ],
+      #     cursor: "2025-05-22T17:02:02.847Z"
+      #   }
+      def user_posts(handle: nil, user_id: nil, cursor: nil)
+        if (handle.nil? || handle.to_s.empty?) && (user_id.nil? || user_id.to_s.empty?)
+          raise ArgumentError, "handle or user_id is required"
+        end
+
+        params = {}
+        params[:handle] = handle if handle && !handle.to_s.empty?
+        params[:user_id] = user_id if user_id && !user_id.to_s.empty?
+        params[:cursor] = cursor if cursor && !cursor.to_s.empty?
+
+        get("/bluesky/user/posts", params)
+      end
     end
   end
 end
