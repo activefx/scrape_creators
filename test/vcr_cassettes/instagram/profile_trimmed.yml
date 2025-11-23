@@ -1,0 +1,39 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/instagram/profile?handle=adrianhorning&trim=true
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 23 Nov 2025 10:00:00 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Powered-By:
+      - Express
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"success":true,"data":{"user":{"id":"2700692569","username":"adrianhorning","full_name":"Adrian Horning","biography":"Scraping the web","external_url":"https://scrapecreators.com/","edge_followed_by":{"count":25116},"edge_follow":{"count":101},"is_private":false,"is_verified":true,"is_business_account":true,"profile_pic_url":"https://scontent-iad3-1.cdninstagram.com/v/t51.2885-19/430086429_362220943449758_2621012714660517106_n.jpg","edge_owner_to_timeline_media":{"count":71}}},"status":"ok"}'
+  recorded_at: Sat, 23 Nov 2025 10:00:00 GMT
+recorded_with: VCR 6.3.1
