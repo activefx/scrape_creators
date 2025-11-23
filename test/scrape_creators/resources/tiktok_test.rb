@@ -812,4 +812,74 @@ describe ScrapeCreators::Resources::Tiktok do
       end
     end
   end
+
+  describe "#song" do
+    it "fetches song details successfully" do
+      VCR.use_cassette("tiktok/song_success") do
+        song = tiktok.song("6717159721276540930")
+
+        assert_kind_of Hash, song
+        assert song.key?(:music_info)
+
+        music_info = song[:music_info]
+
+        assert music_info.key?(:title)
+        assert music_info.key?(:author)
+        assert music_info.key?(:duration)
+        assert music_info.key?(:id_str)
+      end
+    end
+
+    it "fetches song details with cover images" do
+      VCR.use_cassette("tiktok/song_with_covers") do
+        song = tiktok.song("6717159721276540930")
+
+        assert_kind_of Hash, song
+        assert song.key?(:music_info)
+
+        music_info = song[:music_info]
+
+        assert music_info.key?(:cover_large)
+        assert music_info.key?(:cover_medium)
+        assert music_info.key?(:cover_thumb)
+      end
+    end
+
+    it "fetches song details with share info" do
+      VCR.use_cassette("tiktok/song_with_share_info") do
+        song = tiktok.song("6717159721276540930")
+
+        assert_kind_of Hash, song
+        assert song.key?(:music_info)
+
+        music_info = song[:music_info]
+
+        assert music_info.key?(:share_info)
+      end
+    end
+
+    it "raises ArgumentError when clip_id is nil" do
+      error = assert_raises(ArgumentError) do
+        tiktok.song(nil)
+      end
+      assert_match(/clip_id is required/, error.message)
+    end
+
+    it "raises ArgumentError when clip_id is empty" do
+      error = assert_raises(ArgumentError) do
+        tiktok.song("")
+      end
+      assert_match(/clip_id is required/, error.message)
+    end
+
+    it "returns response without music_info for invalid clip_id" do
+      VCR.use_cassette("tiktok/song_not_found") do
+        # API returns 200 OK with success:true but no music_info for invalid clip IDs
+        result = tiktok.song("invalid_clip_id_123456")
+
+        assert_kind_of Hash, result
+        refute result.key?(:music_info)
+      end
+    end
+  end
 end
