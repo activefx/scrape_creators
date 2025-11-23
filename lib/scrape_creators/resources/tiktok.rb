@@ -814,6 +814,92 @@ module ScrapeCreators
 
         get("/v1/tiktok/search/hashtag", params)
       end
+
+      # Get popular songs from TikTok
+      #
+      # Retrieves a list of popular songs from TikTok's Creative Center.
+      # This endpoint can take up to 30 seconds to respond.
+      #
+      # @note This endpoint scrapes data from https://ads.tiktok.com/business/creativecenter/inspiration/popular/music/pc/en
+      #
+      # @param page [Integer, nil] Page number for pagination
+      # @param time_period [Integer, nil] Time period to get popular songs from
+      #   Options: 7, 30, 120 (days)
+      # @param rank_type [String, nil] Get popular or surging songs
+      #   Options: "popular", "surging"
+      # @param new_on_board [Boolean, nil] Filter for songs new to top 100
+      # @param commercial_music [Boolean, nil] Filter for songs approved for business use
+      # @param country_code [String, nil] Country code to get popular songs from
+      #   Options: AR, AU, AT, BH, BD, BY, BE, BR, BG, KH, CA, CL, CO, HR, CZ, DK, EG, EE,
+      #   FI, FR, DE, GR, HU, IS, ID, IQ, IE, IL, IT, JP, JO, KZ, KW, LV, LB, LT, LU, MO,
+      #   MY, MX, MA, MM, NL, NZ, NG, NO, OM, PK, PE, PH, PL, PT, QA, RO, SA, SG, SK, ZA,
+      #   KR, ES, SE, CH, TW, TH, TR, UA, AE, GB, US, UZ, VN
+      # @return [Hash] Popular songs data with pagination info and song list
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Get popular songs
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   songs = client.tiktok.popular_songs
+      #   puts songs[:sound_list].first[:title]  # => "luther"
+      #   puts songs[:sound_list].first[:author]  # => "Kendrick Lamar & SZA"
+      #
+      # @example Get popular songs with filters
+      #   songs = client.tiktok.popular_songs(
+      #     time_period: 7,
+      #     rank_type: "surging",
+      #     country_code: "US"
+      #   )
+      #
+      # @example Filter for commercial music
+      #   songs = client.tiktok.popular_songs(commercial_music: true)
+      #
+      # @example Paginate through results
+      #   page1 = client.tiktok.popular_songs
+      #   page2 = client.tiktok.popular_songs(page: 2) if page1.dig(:pagination, :has_more)
+      #
+      # @example Response structure
+      #   {
+      #     pagination: {
+      #       page: 1,
+      #       size: 20,
+      #       total: 99,
+      #       has_more: true
+      #     },
+      #     sound_list: [
+      #       {
+      #         author: "Kendrick Lamar & SZA",
+      #         clip_id: "7439295283975702544",
+      #         country_code: "US",
+      #         cover: "https://...",
+      #         duration: 59,
+      #         if_cml: false,
+      #         is_search: false,
+      #         link: "https://www.tiktok.com/music/x-7439295283975702544",
+      #         promoted: false,
+      #         rank: 1,
+      #         rank_diff: 1,
+      #         rank_diff_type: 1,
+      #         related_items: [...],
+      #         song_id: "7440101671265486864",
+      #         title: "luther",
+      #         trend: [...],
+      #         url_title: "luther"
+      #       }
+      #     ]
+      #   }
+      def popular_songs(page: nil, time_period: nil, rank_type: nil, new_on_board: nil,
+                        commercial_music: nil, country_code: nil)
+        params = {}
+        params[:page] = page if page
+        params[:timePeriod] = time_period if time_period
+        params[:rankType] = rank_type if rank_type
+        params[:newOnBoard] = new_on_board unless new_on_board.nil?
+        params[:commercialMusic] = commercial_music unless commercial_music.nil?
+        params[:countryCode] = country_code if country_code
+
+        get("/v1/tiktok/songs/popular", params)
+      end
     end
   end
 end

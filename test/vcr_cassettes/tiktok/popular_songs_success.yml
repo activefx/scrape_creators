@@ -1,0 +1,43 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/tiktok/songs/popular
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 23 Nov 2025 04:26:50 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Powered-By:
+      - Express
+      X-Render-Origin-Server:
+      - Render
+      Cf-Cache-Status:
+      - DYNAMIC
+      Server:
+      - cloudflare
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"credits_remaining":24749,"pagination":{"page":1,"size":20,"total":99,"has_more":true},"sound_list":[{"author":"Kendrick Lamar & SZA","clip_id":"7439295283975702544","country_code":"US","cover":"https://p16-sg.tiktokcdn.com/aweme/720x720/tos-alisg-v-2774/oAQAfe3r0KfAKAMDJpQVILIMTeGSVPAmreQznA.jpeg","duration":59,"if_cml":false,"is_search":false,"link":"https://www.tiktok.com/music/x-7439295283975702544","on_list_times":null,"promoted":false,"rank":1,"rank_diff":1,"rank_diff_type":1,"related_items":[{"item_id":7471072183498968000,"cover_uri":"https://p16-sign-va.tiktokcdn.com/test.image"}],"song_id":"7440101671265486864","title":"luther","trend":[{"time":1739145600,"value":0.15},{"time":1739232000,"value":0.42}],"url_title":"luther"},{"author":"J Balvin","clip_id":"6806083515436779522","country_code":"US","cover":"https://p16-sg.tiktokcdn.com/aweme/720x720/tos-alisg-v-2774/oYfXAiqBHmo4IgE88a9F5tJDBeAQNIZolzQCAB.jpeg","duration":60,"if_cml":false,"is_search":false,"link":"https://www.tiktok.com/music/x-6806083515436779522","on_list_times":null,"promoted":false,"rank":2,"rank_diff":2,"rank_diff_type":1,"related_items":[],"song_id":"6803589005066635265","title":"Azul","trend":[],"url_title":"Azul"}]}'
+  recorded_at: Sun, 23 Nov 2025 04:26:50 GMT
+recorded_with: VCR 6.3.1

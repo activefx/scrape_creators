@@ -714,4 +714,102 @@ describe ScrapeCreators::Resources::Tiktok do
       assert_match(/hashtag is required/, error.message)
     end
   end
+
+  describe "#popular_songs" do
+    it "fetches popular songs successfully" do
+      VCR.use_cassette("tiktok/popular_songs_success") do
+        songs = tiktok.popular_songs
+
+        assert_kind_of Hash, songs
+        assert songs.key?(:pagination)
+        assert songs.key?(:sound_list)
+        assert_kind_of Array, songs[:sound_list]
+
+        unless songs[:sound_list].empty?
+          first_song = songs[:sound_list].first
+
+          assert first_song.key?(:title)
+          assert first_song.key?(:author)
+          assert first_song.key?(:song_id)
+          assert first_song.key?(:rank)
+        end
+
+        # Verify pagination structure
+        pagination = songs[:pagination]
+
+        assert pagination.key?(:page)
+        assert pagination.key?(:total)
+        assert pagination.key?(:has_more)
+      end
+    end
+
+    it "fetches popular songs with page parameter" do
+      VCR.use_cassette("tiktok/popular_songs_with_page") do
+        songs = tiktok.popular_songs(page: 2)
+
+        assert_kind_of Hash, songs
+        assert songs.key?(:sound_list)
+      end
+    end
+
+    it "fetches popular songs with time_period filter" do
+      VCR.use_cassette("tiktok/popular_songs_with_time_period") do
+        songs = tiktok.popular_songs(time_period: 7)
+
+        assert_kind_of Hash, songs
+        assert songs.key?(:sound_list)
+      end
+    end
+
+    it "fetches popular songs with rank_type filter" do
+      VCR.use_cassette("tiktok/popular_songs_with_rank_type") do
+        songs = tiktok.popular_songs(rank_type: "surging")
+
+        assert_kind_of Hash, songs
+        assert songs.key?(:sound_list)
+      end
+    end
+
+    it "fetches popular songs with country_code filter" do
+      VCR.use_cassette("tiktok/popular_songs_with_country_code") do
+        songs = tiktok.popular_songs(country_code: "US")
+
+        assert_kind_of Hash, songs
+        assert songs.key?(:sound_list)
+      end
+    end
+
+    it "fetches popular songs with new_on_board filter" do
+      VCR.use_cassette("tiktok/popular_songs_with_new_on_board") do
+        songs = tiktok.popular_songs(new_on_board: true)
+
+        assert_kind_of Hash, songs
+        assert songs.key?(:sound_list)
+      end
+    end
+
+    it "fetches popular songs with commercial_music filter" do
+      VCR.use_cassette("tiktok/popular_songs_with_commercial_music") do
+        songs = tiktok.popular_songs(commercial_music: true)
+
+        assert_kind_of Hash, songs
+        assert songs.key?(:sound_list)
+      end
+    end
+
+    it "fetches popular songs with all filters" do
+      VCR.use_cassette("tiktok/popular_songs_with_all_filters") do
+        songs = tiktok.popular_songs(
+          page: 1,
+          time_period: 30,
+          rank_type: "popular",
+          country_code: "US",
+          commercial_music: true
+        )
+
+        assert_kind_of Hash, songs
+        assert songs.key?(:sound_list)
+      end
+    end
+  end
 end
