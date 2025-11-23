@@ -102,7 +102,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 ## Facebook Ad Library
 
 - [✅] GET Ad Details (`/v1/facebook/adLibrary/ad`)
-- [⏳] GET Search (`/v1/facebook/adLibrary/search/ads`)
+- [✅] GET Search (`/v1/facebook/adLibrary/search/ads`)
 - [⏳] GET Company Ads (`/v1/facebook/adLibrary/company/ads`)
 - [⏳] GET Search for Companies (`/v1/facebook/adLibrary/search/companies`)
 
@@ -250,8 +250,8 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 ## Implementation Progress Summary
 
 **Total Endpoints:** 133
-**Completed:** 26 (TikTok core + search + songs + shop endpoints, Instagram profile + basic profile + posts, Threads profile, LinkedIn profile + company)
-**Remaining:** 107
+**Completed:** 27 (TikTok core + search + songs + shop endpoints, Instagram profile + basic profile + posts, Threads profile, LinkedIn profile + company, Facebook Ad Library search)
+**Remaining:** 106
 
 ### Platform Completion Status
 - TikTok: 18/18 endpoints (100%)
@@ -265,7 +265,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 - YouTube: 2/12 endpoints (17%)
 - LinkedIn: 2/3 endpoints (67%)
 - Facebook: 2/6 endpoints (33%)
-- Facebook Ad Library: 1/4 endpoints (25%)
+- Facebook Ad Library: 2/4 endpoints (50%)
 - Google Ad Library: 1/3 endpoints (33%)
 - LinkedIn Ad Library: 0/2 endpoints (0%)
 - Twitter: 0/6 endpoints (0%)
