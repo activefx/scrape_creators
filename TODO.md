@@ -173,7 +173,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 
 ## Pinterest
 
-- [⏳] GET Search (`/v1/pinterest/search`)
+- [✅] GET Search (`/v1/pinterest/search`)
 - [⏳] GET Pin (`/v1/pinterest/pin`)
 - [⏳] GET User Boards (`/v1/pinterest/user/boards`)
 - [⏳] GET Board (`/v1/pinterest/board`)
@@ -250,8 +250,8 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 ## Implementation Progress Summary
 
 **Total Endpoints:** 103
-**Completed:** 58
-**Remaining:** 45
+**Completed:** 59
+**Remaining:** 44
 
 ### Platform Completion Status
 - TikTok: 18/18 endpoints (100%)
@@ -268,7 +268,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 - Truth Social: 3/3 endpoints (100%)
 - Threads: 1/5 endpoints (20%)
 - Bluesky: 0/3 endpoints (0%)
-- Pinterest: 0/4 endpoints (0%)
+- Pinterest: 1/4 endpoints (25%)
 - Google: 0/1 endpoints (0%)
 - Twitch: 0/2 endpoints (0%)
 - Kick: 0/1 endpoints (0%)
