@@ -251,6 +251,94 @@ module ScrapeCreators
 
         get("/v1/twitter/tweet/transcript", url: url)
       end
+
+      # Get the details of a Twitter(X) Community
+      #
+      # Retrieves community information including name, description, creator,
+      # rules, member count, and member facepile.
+      #
+      # @param url [String] The full URL of the Twitter community
+      #   (e.g., "https://x.com/i/communities/1926186499399139650")
+      # @return [Hash] Community data including details, rules, and member info
+      # @raise [ArgumentError] If the url parameter is nil or empty
+      # @raise [BadRequestError] If the url parameter is invalid
+      # @raise [NotFoundError] If the community is not found
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Get community details
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   community = client.twitter.community("https://x.com/i/communities/1926186499399139650")
+      #   puts community[:name]          # => "The First Thousand"
+      #   puts community[:description]   # => "This community is for creators..."
+      #   puts community[:member_count]  # => 1896
+      #   puts community[:join_policy]   # => "Open"
+      #
+      # @example Access community rules
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   community = client.twitter.community("https://x.com/i/communities/1926186499399139650")
+      #   community[:rules].each do |rule|
+      #     puts "#{rule[:name]}: #{rule[:description]}"
+      #   end
+      #
+      # @example Access community creator
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   community = client.twitter.community("https://x.com/i/communities/1926186499399139650")
+      #   creator = community[:creator_results][:result]
+      #   puts creator[:core][:screen_name]  # => "CanaCarson"
+      #   puts creator[:is_blue_verified]    # => true
+      #
+      # @example Response structure
+      #   {
+      #     success: true,
+      #     __typename: "Community",
+      #     is_member: false,
+      #     name: "The First Thousand",
+      #     role: "NonMember",
+      #     rest_id: "1926186499399139650",
+      #     actions: {
+      #       join_action_result: { __typename: "CommunityJoinActionUnavailable" },
+      #       id: "Q29tbXVuaXR5QWN0aW9uczoxOTI2MTg2NDk5Mzk5MTM5NjUw"
+      #     },
+      #     description: "This community is for creators and builders...",
+      #     creator_results: {
+      #       result: {
+      #         __typename: "User",
+      #         id: "VXNlcjoxOTIxMzY4NDU0NDQ5MjAxMTUy",
+      #         is_blue_verified: true,
+      #         core: { screen_name: "CanaCarson" },
+      #         verification: { verified: false }
+      #       },
+      #       id: "VXNlclJlc3VsdHM6MTkyMTM2ODQ1NDQ0OTIwMTE1Mg=="
+      #     },
+      #     join_policy: "Open",
+      #     created_at: 1748073622931,
+      #     rules: [
+      #       {
+      #         rest_id: "1926189963793609186",
+      #         description: "This isn't the space to drop ChatGPT...",
+      #         name: "No Empty Platitudes",
+      #         id: "Q29tbXVuaXR5UnVsZToxOTI2MTg5OTYzNzkzNjA5MTg2"
+      #       }
+      #     ],
+      #     members_facepile_results: [
+      #       {
+      #         result: {
+      #           __typename: "User",
+      #           avatar: { image_url: "https://pbs.twimg.com/..." },
+      #           id: "VXNlcjoxOTIxMzY4NDU0NDQ5MjAxMTUy"
+      #         },
+      #         id: "VXNlclJlc3VsdHM6MTkyMTM2ODQ1NDQ0OTIwMTE1Mg=="
+      #       }
+      #     ],
+      #     member_count: 1896,
+      #     id: "Q29tbXVuaXR5OjE5MjYxODY0OTkzOTkxMzk2NTA="
+      #   }
+      def community(url)
+        raise ArgumentError, "url is required" if url.nil? || url.to_s.empty?
+
+        get("/v1/twitter/community", url: url)
+      end
     end
   end
 end
