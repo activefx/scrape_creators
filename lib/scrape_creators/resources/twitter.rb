@@ -339,6 +339,89 @@ module ScrapeCreators
 
         get("/v1/twitter/community", url: url)
       end
+
+      # Get tweets from a Twitter(X) Community
+      #
+      # Retrieves tweets posted in a Twitter community, including tweet content,
+      # engagement metrics, media, and user information for each tweet author.
+      #
+      # @param url [String] The full URL of the Twitter community
+      #   (e.g., "https://x.com/i/communities/1926186499399139650")
+      # @return [Hash] Hash containing success status and tweets array
+      # @raise [ArgumentError] If the url parameter is nil or empty
+      # @raise [BadRequestError] If the url parameter is invalid
+      # @raise [NotFoundError] If the community is not found
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Get community tweets
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   result = client.twitter.community_tweets("https://x.com/i/communities/1926186499399139650")
+      #   result[:tweets].each do |tweet|
+      #     puts tweet[:full_text]
+      #     puts "Likes: #{tweet[:favorite_count]}"
+      #     puts "Retweets: #{tweet[:retweet_count]}"
+      #   end
+      #
+      # @example Access tweet author information
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   result = client.twitter.community_tweets("https://x.com/i/communities/1926186499399139650")
+      #   tweet = result[:tweets].first
+      #   user = tweet[:user]
+      #   puts user[:core][:name]          # => "Mike in' Software"
+      #   puts user[:core][:screen_name]   # => "mikeinsoftware"
+      #   puts user[:is_blue_verified]     # => true
+      #
+      # @example Response structure
+      #   {
+      #     success: true,
+      #     tweets: [
+      #       {
+      #         id: "1940874916771123735",
+      #         source: "<a href=\"http://twitter.com/download/iphone\">Twitter for iPhone</a>",
+      #         view_count: "8660",
+      #         bookmark_count: 10,
+      #         bookmarked: false,
+      #         created_at: "Thu Jul 03 20:46:54 +0000 2025",
+      #         conversation_id_str: "1940874916771123735",
+      #         display_text_range: [0, 27],
+      #         favorite_count: 173,
+      #         favorited: false,
+      #         full_text: "You just need 1 viral tweet https://t.co/Z4Q5jtsxAp",
+      #         is_quote_status: false,
+      #         lang: "en",
+      #         possibly_sensitive: false,
+      #         quote_count: 2,
+      #         reply_count: 55,
+      #         retweet_count: 3,
+      #         retweeted: false,
+      #         user_id_str: "73647967",
+      #         id_str: "1940874916771123735",
+      #         user: {
+      #           __typename: "User",
+      #           id: "VXNlcjo3MzY0Nzk2Nw==",
+      #           rest_id: "73647967",
+      #           is_blue_verified: true,
+      #           core: {
+      #             created_at: "Sat Sep 12 14:00:05 +0000 2009",
+      #             name: "Mike in' Software",
+      #             screen_name: "mikeinsoftware"
+      #           },
+      #           legacy: {
+      #             description: "Senior SWE👨‍💻 Indie hacking...",
+      #             followers_count: 1173,
+      #             friends_count: 990,
+      #             statuses_count: 2931
+      #           }
+      #         }
+      #       }
+      #     ]
+      #   }
+      def community_tweets(url)
+        raise ArgumentError, "url is required" if url.nil? || url.to_s.empty?
+
+        get("/v1/twitter/community/tweets", url: url)
+      end
     end
   end
 end
