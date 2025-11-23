@@ -427,6 +427,122 @@ module ScrapeCreators
 
         get("/v1/youtube/video/transcript", { url: url })
       end
+
+      # Search YouTube for videos, channels, playlists, shorts, and lives
+      #
+      # Searches YouTube and returns matching content across various types.
+      # Supports filtering by upload date, sorting, and pagination.
+      #
+      # @param query [String] Search query (required)
+      # @param upload_date [String, nil] Filter by upload date
+      #   Options: "last_hour", "today", "this_week", "this_month", "this_year"
+      # @param sort_by [String, nil] Sort order
+      #   Options: "relevance", "upload_date"
+      # @param filter [String, nil] Filter by content type. Only works when not using
+      #   upload_date or sort_by. Options: "shorts"
+      # @param continuation_token [String, nil] Token from previous response for pagination
+      # @param include_extras [Boolean, nil] Include like/comment count and description
+      #   (slightly slower response)
+      # @return [Hash] Search results including videos, channels, playlists, shorts, shelves,
+      #   lives, and continuation_token
+      # @raise [ArgumentError] If query is not provided
+      # @raise [BadRequestError] If the parameters are invalid
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Basic search
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   results = client.youtube.search(query: "running")
+      #   results[:videos].each do |video|
+      #     puts "#{video[:title]} - #{video[:view_count_text]}"
+      #   end
+      #
+      # @example Search with upload date filter
+      #   results = client.youtube.search(query: "news", upload_date: "today")
+      #
+      # @example Search with sorting
+      #   results = client.youtube.search(query: "tutorial", sort_by: "upload_date")
+      #
+      # @example Search for shorts only
+      #   results = client.youtube.search(query: "funny", filter: "shorts")
+      #
+      # @example Paginate through results
+      #   results = client.youtube.search(query: "cooking")
+      #   while results[:continuation_token]
+      #     results = client.youtube.search(
+      #       query: "cooking",
+      #       continuation_token: results[:continuation_token]
+      #     )
+      #   end
+      #
+      # @example Include extra details
+      #   results = client.youtube.search(query: "music", include_extras: true)
+      #
+      # @example Response structure
+      #   {
+      #     videos: [
+      #       {
+      #         type: "video",
+      #         id: "BzSzwqb-OEE",
+      #         url: "https://www.youtube.com/watch?v=BzSzwqb-OEE",
+      #         title: "NF - RUNNING (Audio)",
+      #         thumbnail: "https://i.ytimg.com/vi/BzSzwqb-OEE/hq720.jpg",
+      #         channel: {
+      #           id: "UCoRR6OLuIZ2-5VxtnQIaN2w",
+      #           title: "NFrealmusic",
+      #           handle: "channel/UCoRR6OLuIZ2-5VxtnQIaN2w",
+      #           thumbnail: "https://yt3.ggpht.com/..."
+      #         },
+      #         view_count_text: "14,860,541 views",
+      #         view_count_int: 14860541,
+      #         published_time_text: "2 years ago",
+      #         published_time: "2023-05-28T17:08:46.499Z",
+      #         length_text: "4:14",
+      #         length_seconds: 254,
+      #         badges: []
+      #       }
+      #     ],
+      #     channels: [],
+      #     playlists: [],
+      #     shorts: [
+      #       {
+      #         type: "short",
+      #         id: "uMNvF-lSCHg",
+      #         url: "https://www.youtube.com/watch?v=uMNvF-lSCHg",
+      #         title: "LONG RUN ROUTINE #run #runvlog #runner #shorts #morning",
+      #         thumbnail: "https://i.ytimg.com/vi/uMNvF-lSCHg/hq720.jpg",
+      #         channel: { id: "...", title: "...", handle: "...", thumbnail: "..." },
+      #         view_count_text: "462,705 views",
+      #         view_count_int: 462705,
+      #         published_time_text: "10 months ago",
+      #         published_time: "2024-07-28T17:08:46.498Z",
+      #         length_text: "0:44",
+      #         length_seconds: 44,
+      #         badges: []
+      #       }
+      #     ],
+      #     shelves: [
+      #       {
+      #         type: "shelf",
+      #         title: "Shorts",
+      #         items: [{ type: "short", id: "...", ... }]
+      #       }
+      #     ],
+      #     lives: [],
+      #     continuation_token: "EooDEg..."
+      #   }
+      def search(query:, upload_date: nil, sort_by: nil, filter: nil, continuation_token: nil, include_extras: nil)
+        raise ArgumentError, "query is required" if query.nil? || query.to_s.strip.empty?
+
+        params = { query: query }
+        params[:uploadDate] = upload_date if upload_date
+        params[:sortBy] = sort_by if sort_by
+        params[:filter] = filter if filter
+        params[:continuationToken] = continuation_token if continuation_token
+        params[:includeExtras] = include_extras unless include_extras.nil?
+
+        get("/v1/youtube/search", params)
+      end
     end
   end
 end

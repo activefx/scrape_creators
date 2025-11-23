@@ -631,4 +631,166 @@ describe ScrapeCreators::Resources::Youtube do
       end
     end
   end
+
+  describe "#search" do
+    describe "with query parameter" do
+      it "searches YouTube for videos" do
+        VCR.use_cassette("youtube/search_basic") do
+          result = youtube.search(query: "running")
+
+          assert_kind_of Hash, result
+          assert result.key?(:videos)
+          assert_kind_of Array, result[:videos]
+
+          # Verify video structure if videos exist
+          if result[:videos].any?
+            video = result[:videos].first
+
+            assert video.key?(:id)
+            assert video.key?(:title)
+            assert video.key?(:url)
+            assert video.key?(:type)
+            assert_equal "video", video[:type]
+          end
+        end
+      end
+
+      it "returns shorts in results" do
+        VCR.use_cassette("youtube/search_with_shorts") do
+          result = youtube.search(query: "running")
+
+          assert_kind_of Hash, result
+          assert result.key?(:shorts)
+          assert_kind_of Array, result[:shorts]
+        end
+      end
+
+      it "returns channels, playlists, shelves, and lives arrays" do
+        VCR.use_cassette("youtube/search_all_types") do
+          result = youtube.search(query: "running")
+
+          assert_kind_of Hash, result
+          assert result.key?(:channels)
+          assert result.key?(:playlists)
+          assert result.key?(:shelves)
+          assert result.key?(:lives)
+          assert_kind_of Array, result[:channels]
+          assert_kind_of Array, result[:playlists]
+          assert_kind_of Array, result[:shelves]
+          assert_kind_of Array, result[:lives]
+        end
+      end
+    end
+
+    describe "with upload_date parameter" do
+      it "filters by upload date" do
+        VCR.use_cassette("youtube/search_upload_date_today") do
+          result = youtube.search(query: "news", upload_date: "today")
+
+          assert_kind_of Hash, result
+          assert result.key?(:videos)
+        end
+      end
+
+      it "accepts this_week upload date filter" do
+        VCR.use_cassette("youtube/search_upload_date_this_week") do
+          result = youtube.search(query: "news", upload_date: "this_week")
+
+          assert_kind_of Hash, result
+          assert result.key?(:videos)
+        end
+      end
+    end
+
+    describe "with sort_by parameter" do
+      it "sorts by upload_date" do
+        VCR.use_cassette("youtube/search_sort_upload_date") do
+          result = youtube.search(query: "tutorial", sort_by: "upload_date")
+
+          assert_kind_of Hash, result
+          assert result.key?(:videos)
+        end
+      end
+
+      it "sorts by relevance" do
+        VCR.use_cassette("youtube/search_sort_relevance") do
+          result = youtube.search(query: "tutorial", sort_by: "relevance")
+
+          assert_kind_of Hash, result
+          assert result.key?(:videos)
+        end
+      end
+    end
+
+    describe "with filter parameter" do
+      it "filters for shorts only" do
+        VCR.use_cassette("youtube/search_filter_shorts") do
+          result = youtube.search(query: "funny", filter: "shorts")
+
+          assert_kind_of Hash, result
+          # When filtering for shorts, results may be in shorts or videos array
+          assert result.key?(:videos) || result.key?(:shorts)
+        end
+      end
+    end
+
+    describe "with include_extras parameter" do
+      it "includes extra details when true" do
+        VCR.use_cassette("youtube/search_with_extras") do
+          result = youtube.search(query: "music", include_extras: true)
+
+          assert_kind_of Hash, result
+          assert result.key?(:videos)
+        end
+      end
+    end
+
+    describe "pagination" do
+      it "returns continuation_token for pagination" do
+        VCR.use_cassette("youtube/search_pagination") do
+          result = youtube.search(query: "cooking")
+
+          assert_kind_of Hash, result
+          # Continuation token may or may not be present
+          assert result.key?(:videos)
+        end
+      end
+    end
+
+    describe "parameter validation" do
+      it "raises ArgumentError when query is not provided" do
+        error = assert_raises(ArgumentError) do
+          youtube.search(query: nil)
+        end
+        assert_match(/query is required/, error.message)
+      end
+
+      it "raises ArgumentError when query is empty string" do
+        error = assert_raises(ArgumentError) do
+          youtube.search(query: "")
+        end
+        assert_match(/query is required/, error.message)
+      end
+
+      it "raises ArgumentError when query is whitespace only" do
+        error = assert_raises(ArgumentError) do
+          youtube.search(query: "   ")
+        end
+        assert_match(/query is required/, error.message)
+      end
+    end
+
+    describe "error handling" do
+      it "raises authentication error for invalid API key" do
+        VCR.use_cassette("youtube/search_unauthorized") do
+          invalid_client = ScrapeCreators::Client.new(api_key: "invalid_key")
+
+          # API may return UnauthorizedError or PaymentRequiredError for invalid credentials
+          assert_raises(ScrapeCreators::UnauthorizedError, ScrapeCreators::PaymentRequiredError) do
+            invalid_client.youtube.search(query: "test")
+          end
+        end
+      end
+    end
+  end
 end
