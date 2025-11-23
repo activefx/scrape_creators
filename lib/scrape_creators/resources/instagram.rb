@@ -874,6 +874,36 @@ module ScrapeCreators
 
         get("/v1/instagram/song/reels", params)
       end
+
+      # Get the HTML embed for a user's Instagram profile
+      #
+      # Retrieves an embeddable HTML snippet for displaying a user's Instagram
+      # profile. This can be used to embed the profile on websites or applications.
+      #
+      # @param handle [String] Instagram handle (username)
+      # @return [Hash] Embed data including success status and HTML content
+      # @raise [ArgumentError] If the handle parameter is nil or empty
+      # @raise [BadRequestError] If the handle parameter is invalid
+      # @raise [NotFoundError] If the profile is not found
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Get embed HTML for an Instagram profile
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   result = client.instagram.embed("adrianhorning")
+      #   puts result[:success]  # => true
+      #   puts result[:html]     # => "<!DOCTYPE html>\n<html lang=\"en\"..."
+      #
+      # @example Response structure
+      #   {
+      #     success: true,
+      #     html: "<!DOCTYPE html>\n<html lang=\"en\" id=\"facebook\"..."
+      #   }
+      def embed(handle)
+        raise ArgumentError, "handle is required" if handle.nil? || handle.to_s.empty?
+
+        get("/v1/instagram/user/embed", handle: handle)
+      end
     end
   end
 end

@@ -58,8 +58,8 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 - [✅] GET Reels - Auto Pagination (`/v1/instagram/user/reels/simple`)
 - [✅] GET Story Highlights (`/v1/instagram/user/highlights`)
 - [✅] GET Highlights Details (`/v1/instagram/user/highlight/detail`)
-- [⏳] GET Reels using Song (`/v1/instagram/song/reels`)
-- [⏳] GET Embed HTML (`/v1/instagram/user/embed`)
+- [✅] GET Reels using Song (`/v1/instagram/song/reels`)
+- [✅] GET Embed HTML (`/v1/instagram/user/embed`)
 
 ---
 
@@ -250,13 +250,13 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 ## Implementation Progress Summary
 
 **Total Endpoints:** 103
-**Completed:** 59
-**Remaining:** 44
+**Completed:** 61
+**Remaining:** 42
 
 ### Platform Completion Status
 - TikTok: 18/18 endpoints (100%)
 - TikTok Shop: 3/3 endpoints (100%)
-- Instagram: 11/13 endpoints (85%)
+- Instagram: 13/13 endpoints (100%)
 - YouTube: 7/12 endpoints (58%)
 - LinkedIn: 3/3 endpoints (100%)
 - Facebook: 6/6 endpoints (100%)
