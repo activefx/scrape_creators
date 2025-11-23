@@ -201,7 +201,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 
 ## Snapchat
 
-- [⏳] GET User Profile (`/v1/snapchat/profile`)
+- [✅] GET User Profile (`/v1/snapchat/profile`)
 
 ---
 
@@ -272,7 +272,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 - Google: 1/1 endpoints (100%)
 - Twitch: 1/2 endpoints (50%)
 - Kick: 0/1 endpoints (0%)
-- Snapchat: 0/1 endpoints (0%)
+- Snapchat: 1/1 endpoints (100%)
 - Linktree: 1/1 endpoints (100%)
 - Komi: 0/1 endpoints (0%)
 - Pillar: 0/1 endpoints (0%)

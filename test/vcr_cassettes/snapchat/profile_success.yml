@@ -1,0 +1,45 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/snapchat/profile?handle=zane
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 23 Nov 2025 07:00:00 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Powered-By:
+      - Express
+      X-Render-Origin-Server:
+      - Render
+      Cf-Cache-Status:
+      - DYNAMIC
+      Server:
+      - cloudflare
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"success":true,"credits_remaining":24700,"userProfile":{"username":"zane","title":"Zane","snapcodeImageUrl":"https://app.snapchat.com/web/deeplink/snapcode?username=zane&type=SVG&bitmoji=enable","badge":1,"categoryStringId":"","subcategoryStringId":"","subscriberCount":"1535700","bio":"Time to get buck wild baby","websiteUrl":"","profilePictureUrl":"https://cf-st.sc-cdn.net/aps/bolt/example.jpg","address":"","bitmoji3d":null,"hasCuratedHighlights":true,"hasSpotlightHighlights":true,"mutableName":"","publisherType":"","squareHeroImageUrl":"https://cf-st.sc-cdn.net/aps/bolt/hero.jpg","primaryColor":"","hasStory":false,"relatedAccountsInfo":[{"publicProfileInfo":{"username":"imnotscottysire","title":"Scotty Sire","snapcodeImageUrl":"","badge":1,"categoryStringId":"","subcategoryStringId":"","subscriberCount":"0","bio":"","websiteUrl":"","profilePictureUrl":"https://cf-st.sc-cdn.net/aps/bolt/scottysire.jpg","address":"","bitmoji3d":null,"hasCuratedHighlights":false,"hasSpotlightHighlights":false,"mutableName":"","publisherType":"","squareHeroImageUrl":"","primaryColor":"","hasStory":true,"relatedAccountsInfo":[],"creationTimestampMs":null,"lastUpdateTimestampMs":null,"businessProfileId":"ebc366e6-3058-4c94-8e85-35a4e50c6737"},"subscribeLink":{"oneLinkBaseUrl":"https://click.snapchat.com/aVHG","pidKeys":["af_pid","utm_source"],"pidFallbackValue":"consumer_web","campaignKeys":["af_c","utm_campaign"],"campaignFallbackValue":"add_user","googleClickIdParam":"af_sub1","deepLinkUrl":"https://www.snapchat.com/add/imnotscottysire?sc_referrer=web","iosAppStoreUrl":"https://apps.apple.com/app/apple-store/id447188370?pt=614006&ct=add_user&mt=8","desktopPageUrl":"https://snapchat.com/download?purpose=web_stories&sp=add_user"}}],"creationTimestampMs":{"value":"1584846804362"},"lastUpdateTimestampMs":{"value":"1741518441231"},"businessProfileId":"e123b268-312b-41d6-8088-b51c12c6f2c6"},"story":null,"curatedHighlights":[{"storyType":3,"snapList":[{"snapIndex":0,"snapId":{"value":""},"snapMediaType":0,"snapUrls":{"mediaUrl":"https://cf-st.sc-cdn.net/d/example.jpg","mediaPreviewUrl":{"value":"https://cf-st.sc-cdn.net/d/preview.jpg"},"overlayUrl":null,"attachmentUrl":null},"isSponsored":null,"timestampInSec":{"value":"1670431570"},"snapTitle":null,"snapSubtitles":null,"lat":null,"lng":null,"hasAttachment":null,"intervalStartTimeMs":null,"audioTranscriptionObjectUrl":null}],"storyId":{"value":""},"storyTitle":{"value":"FULL HAIR TRANSFORMATION (PART 1)"},"thumbnailUrl":{"value":"https://cf-st.sc-cdn.net/d/thumbnail.jpg"},"storySubtitle":null,"storyShareId":null,"canonicalUrlSuffix":null,"emoji":null,"storyTapId":"0","videoTrackUrl":null,"highlightId":{"value":"39f6379c-1787-4f79-859c-8cee75a8076e"},"isAttributed":null}],"spotlightHighlights":[{"storyType":3,"snapList":[{"snapIndex":0,"snapId":{"value":"W7_EDlXWTBiXAEEniNoMPwAAYZGJ6d3NyYWdiAYdiSHKKAYdiSG6AAAAAAQ"},"snapMediaType":1,"snapUrls":{"mediaUrl":"https://cf-st.sc-cdn.net/d/spotlight.jpg","mediaPreviewUrl":{"value":"https://cf-st.sc-cdn.net/d/spotlight_preview.jpg"},"overlayUrl":null,"attachmentUrl":null},"isSponsored":null,"timestampInSec":{"value":"1680981126"},"snapTitle":null,"snapSubtitles":null,"lat":null,"lng":null,"hasAttachment":null,"intervalStartTimeMs":null,"audioTranscriptionObjectUrl":null}],"storyId":{"value":"W7_EDlXWTBiXAEEniNoMPwAAYZGJ6d3NyYWdiAYdiSHKKAYdiSG6AAAAAAQ"},"storyTitle":{"value":""},"thumbnailUrl":{"value":"https://cf-st.sc-cdn.net/d/spotlight_thumb.jpg"},"storySubtitle":null,"storyShareId":null,"canonicalUrlSuffix":null,"emoji":null,"storyTapId":"0","videoTrackUrl":null,"highlightId":{"value":"W7_EDlXWTBiXAEEniNoMPwAAYZGJ6d3NyYWdiAYdiSHKKAYdiSG6AAAAAAQ"},"isAttributed":null}],"spotlightStoryMetadata":[{"videoMetadata":{"name":"Turn around sir","description":"Another Spotlight Snap brought to you by Snapchat","thumbnailUrl":"https://cf-st.sc-cdn.net/d/video_thumb.jpg","uploadDateMs":"1680981126784","viewCount":"11937","contentUrl":"https://cf-st.sc-cdn.net/d/video.mp4","creator":{"$case":"personCreator","personCreator":{"username":"zane","url":"https://www.snapchat.com/add/zane","name":"Zane","followerCount":"0","websiteUrl":""}},"durationMs":"6200","width":540,"height":960,"keywords":[],"shareCount":"0","embeddedTextCaption":"Turn around sir"},"userMetadata":null,"lensMetadata":null,"hashtags":[],"contextCards":[{"contextType":2,"title":"@zane''s Sound","subtitle":"","url":"","thumbnailUrl":"https://cf-st.sc-cdn.net/d/sound_thumb.jpg","snapcodeUrl":"","thumbnailType":2,"hasBadge":false}],"engagementStats":{"viewCount":"11937","shareCount":"6","commentCount":"10"},"deeplink":"https://click.snapchat.com/aVHG?pid=snapchat_download_page","oneLinkParams":{"oneLinkBaseUrl":"https://click.snapchat.com/aVHG","pidKeys":["af_pid","utm_source"],"pidFallbackValue":"consumer_web","campaignKeys":["af_c","utm_campaign"],"campaignFallbackValue":"spotlight","googleClickIdParam":"af_sub1","deepLinkUrl":"https://www.snapchat.com/spotlight/example","iosAppStoreUrl":"https://apps.apple.com/app/apple-store/id447188370?pt=614006&ct=spotlight&mt=8","desktopPageUrl":"https://snapchat.com/download?purpose=web_stories&sp=spotlight"},"description":""}]}'
+  recorded_at: Sun, 23 Nov 2025 07:00:00 GMT
+recorded_with: VCR 6.3.1
