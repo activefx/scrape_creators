@@ -513,6 +513,85 @@ module ScrapeCreators
         get("/v1/instagram/user/reels", params)
       end
 
+      # Get public reels from a user's profile with auto-pagination
+      #
+      # Retrieves public reels from an Instagram profile with automatic pagination.
+      # Can provide a user_id or handle, but for faster response times, use user_id.
+      # Note: This endpoint doesn't include pinned reels, and Instagram doesn't return
+      # the description of the reel on this endpoint. Use the post detail endpoint
+      # to get the description.
+      #
+      # @param user_id [String, Integer, nil] Instagram user ID (for faster response times)
+      # @param handle [String, nil] Instagram handle (username)
+      # @param amount [Integer, nil] Number of reels to fetch (default: 12)
+      # @param trim [Boolean, nil] Whether to trim the response data (default: false)
+      # @return [Array<Hash>] Array of reels data including media info and engagement metrics
+      # @raise [ArgumentError] If both user_id and handle are nil or empty
+      # @raise [BadRequestError] If the parameters are invalid
+      # @raise [NotFoundError] If the profile is not found
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Get reels from an Instagram profile by handle
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   reels = client.instagram.reels_simple(handle: "adrianhorning")
+      #   puts reels.count                           # => 12
+      #   puts reels.first[:media][:code]            # => "DEiyb48AeB9"
+      #   puts reels.first[:media][:play_count]      # => 3865
+      #
+      # @example Get reels by user ID (faster)
+      #   reels = client.instagram.reels_simple(user_id: "2700692569")
+      #   puts reels.first[:media][:user][:username]  # => "adrianhorning"
+      #
+      # @example Get more reels with amount parameter
+      #   reels = client.instagram.reels_simple(handle: "adrianhorning", amount: 24)
+      #   puts reels.count                           # => 24
+      #
+      # @example Get trimmed reels response
+      #   reels = client.instagram.reels_simple(handle: "adrianhorning", trim: true)
+      #
+      # @example Response structure (array of reels)
+      #   [
+      #     {
+      #       media: {
+      #         pk: "3540614075954356349",
+      #         id: "3540614075954356349_2700692569",
+      #         code: "DEiyb48AeB9",
+      #         taken_at: 1736294201,
+      #         media_type: 2,
+      #         product_type: "clips",
+      #         play_count: 3865,
+      #         like_count: 126,
+      #         comment_count: 12,
+      #         video_duration: 76.783,
+      #         has_audio: true,
+      #         caption: null,
+      #         user: {
+      #           pk: "2700692569",
+      #           username: "adrianhorning",
+      #           full_name: "Adrian Horning",
+      #           is_verified: true
+      #         },
+      #         image_versions2: { candidates: [...] },
+      #         video_versions: [...],
+      #         url: "https://www.instagram.com/reel/DEiyb48AeB9"
+      #       }
+      #     }
+      #   ]
+      def reels_simple(user_id: nil, handle: nil, amount: nil, trim: nil)
+        if (user_id.nil? || user_id.to_s.empty?) && (handle.nil? || handle.to_s.empty?)
+          raise ArgumentError, "Either user_id or handle is required"
+        end
+
+        params = {}
+        params[:user_id] = user_id unless user_id.nil? || user_id.to_s.empty?
+        params[:handle] = handle unless handle.nil? || handle.to_s.empty?
+        params[:amount] = amount unless amount.nil?
+        params[:trim] = trim unless trim.nil?
+
+        get("/v1/instagram/user/reels/simple", params)
+      end
+
       # Get comments from an Instagram post or reel
       #
       # Retrieves comments from a public Instagram post or reel. Note that this

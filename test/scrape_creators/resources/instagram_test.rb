@@ -594,6 +594,113 @@ describe ScrapeCreators::Resources::Instagram do
     end
   end
 
+  describe "#reels_simple" do
+    it "fetches reels from an Instagram profile by handle with auto-pagination" do
+      VCR.use_cassette("instagram/reels_simple_by_handle_success") do
+        reels = instagram.reels_simple(handle: "adrianhorning")
+
+        assert_kind_of Array, reels
+        refute_empty reels
+
+        # Verify first reel structure
+        item = reels.first
+
+        assert item.key?(:media)
+        media = item[:media]
+
+        assert media.key?(:pk)
+        assert media.key?(:id)
+        assert media.key?(:code)
+        assert media.key?(:taken_at)
+        assert media.key?(:media_type)
+        assert media.key?(:product_type)
+        assert_equal "clips", media[:product_type]
+
+        # Verify user info in reel
+        assert media.key?(:user)
+        assert_equal "adrianhorning", media[:user][:username]
+
+        # Verify video properties
+        assert media.key?(:video_duration)
+        assert media.key?(:has_audio)
+        assert media.key?(:url)
+      end
+    end
+
+    it "fetches reels from an Instagram profile by user ID" do
+      VCR.use_cassette("instagram/reels_simple_by_user_id_success") do
+        reels = instagram.reels_simple(user_id: "2700692569")
+
+        assert_kind_of Array, reels
+        refute_empty reels
+
+        # Verify first reel structure
+        item = reels.first
+
+        assert item.key?(:media)
+      end
+    end
+
+    it "accepts integer user ID" do
+      VCR.use_cassette("instagram/reels_simple_by_user_id_success") do
+        reels = instagram.reels_simple(user_id: 2_700_692_569)
+
+        assert_kind_of Array, reels
+        refute_empty reels
+      end
+    end
+
+    it "fetches reels with amount parameter" do
+      VCR.use_cassette("instagram/reels_simple_with_amount") do
+        reels = instagram.reels_simple(handle: "adrianhorning", amount: 5)
+
+        assert_kind_of Array, reels
+      end
+    end
+
+    it "fetches reels with trim parameter" do
+      VCR.use_cassette("instagram/reels_simple_trimmed") do
+        reels = instagram.reels_simple(handle: "adrianhorning", trim: true)
+
+        assert_kind_of Array, reels
+      end
+    end
+
+    it "raises ArgumentError when both user_id and handle are nil" do
+      error = assert_raises(ArgumentError) do
+        instagram.reels_simple
+      end
+      assert_match(/Either user_id or handle is required/, error.message)
+    end
+
+    it "raises ArgumentError when both user_id and handle are empty" do
+      error = assert_raises(ArgumentError) do
+        instagram.reels_simple(user_id: "", handle: "")
+      end
+      assert_match(/Either user_id or handle is required/, error.message)
+    end
+
+    it "raises NotFoundError for non-existent profile" do
+      VCR.use_cassette("instagram/reels_simple_not_found") do
+        assert_raises(ScrapeCreators::NotFoundError) do
+          instagram.reels_simple(handle: "thisuserdoesnotexist123456789xyz")
+        end
+      end
+    end
+
+    it "raises UnauthorizedError for invalid API key" do
+      VCR.use_cassette("instagram/reels_simple_unauthorized") do
+        invalid_client = ScrapeCreators::Client.new(api_key: "invalid_key")
+
+        error = assert_raises(ScrapeCreators::UnauthorizedError) do
+          invalid_client.instagram.reels_simple(handle: "adrianhorning")
+        end
+
+        assert_match(/invalid|unauthorized|api.?key/i, error.message)
+      end
+    end
+  end
+
   describe "#comments" do
     it "fetches comments from an Instagram post" do
       VCR.use_cassette("instagram/comments_success") do

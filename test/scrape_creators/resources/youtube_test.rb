@@ -421,4 +421,125 @@ describe ScrapeCreators::Resources::Youtube do
       end
     end
   end
+
+  describe "#video" do
+    describe "with video URL" do
+      it "fetches video details" do
+        VCR.use_cassette("youtube/video_by_url") do
+          video = youtube.video(url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+
+          assert_kind_of Hash, video
+
+          # Verify core video data structure
+          assert video.key?(:id)
+          assert video.key?(:title)
+          assert video.key?(:description)
+          assert video.key?(:type)
+
+          # Verify engagement stats
+          assert video.key?(:view_count_int) || video.key?(:view_count_text)
+        end
+      end
+
+      it "includes channel information" do
+        VCR.use_cassette("youtube/video_with_channel_info") do
+          video = youtube.video(url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+
+          assert_kind_of Hash, video
+          assert video.key?(:channel)
+          assert_kind_of Hash, video[:channel] if video[:channel]
+        end
+      end
+    end
+
+    describe "with short URL" do
+      it "fetches short details" do
+        VCR.use_cassette("youtube/video_short_by_url") do
+          short = youtube.video(url: "https://www.youtube.com/shorts/ydPkyvWtmg4")
+
+          assert_kind_of Hash, short
+          assert short.key?(:id)
+          assert short.key?(:title)
+        end
+      end
+    end
+
+    describe "with get_transcript parameter" do
+      it "fetches video with transcript" do
+        VCR.use_cassette("youtube/video_with_transcript") do
+          video = youtube.video(
+            url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+            get_transcript: true
+          )
+
+          assert_kind_of Hash, video
+          assert video.key?(:id)
+          assert video.key?(:title)
+          # Transcript may or may not be available depending on the video
+        end
+      end
+
+      it "fetches video without transcript when get_transcript is false" do
+        VCR.use_cassette("youtube/video_without_transcript") do
+          video = youtube.video(
+            url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+            get_transcript: false
+          )
+
+          assert_kind_of Hash, video
+          assert video.key?(:id)
+          assert video.key?(:title)
+        end
+      end
+    end
+
+    describe "parameter validation" do
+      it "raises ArgumentError when url is not provided" do
+        error = assert_raises(ArgumentError) do
+          youtube.video(url: nil)
+        end
+        assert_match(/url is required/, error.message)
+      end
+
+      it "raises ArgumentError when url is empty string" do
+        error = assert_raises(ArgumentError) do
+          youtube.video(url: "")
+        end
+        assert_match(/url is required/, error.message)
+      end
+
+      it "raises ArgumentError when url is whitespace only" do
+        error = assert_raises(ArgumentError) do
+          youtube.video(url: "   ")
+        end
+        assert_match(/url is required/, error.message)
+      end
+    end
+
+    describe "error handling" do
+      it "returns nil values for non-existent video" do
+        VCR.use_cassette("youtube/video_not_found") do
+          # API returns 200 with null values for non-existent videos
+          video = youtube.video(url: "https://www.youtube.com/watch?v=nonexistentvideo123xyz")
+
+          assert_kind_of Hash, video
+          assert video.key?(:id)
+          # Non-existent videos have null/nil values for metadata
+          assert_nil video[:view_count_int]
+          assert_nil video[:description]
+        end
+      end
+
+      it "raises authentication error for invalid API key" do
+        VCR.use_cassette("youtube/video_unauthorized") do
+          invalid_client = ScrapeCreators::Client.new(api_key: "invalid_key")
+
+          # API may return UnauthorizedError or PaymentRequiredError for invalid credentials
+          assert_raises(ScrapeCreators::UnauthorizedError, ScrapeCreators::PaymentRequiredError) do
+            invalid_client.youtube.video(url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+          end
+        end
+      end
+    end
+  end
 end

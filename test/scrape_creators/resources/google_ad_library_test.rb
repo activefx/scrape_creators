@@ -160,4 +160,109 @@ describe ScrapeCreators::Resources::GoogleAdLibrary do
       end
     end
   end
+
+  describe "#ad" do
+    let(:ad_url) do
+      "https://adstransparency.google.com/advertiser/AR01614014350098432001/creative/CR07443539616616939521"
+    end
+
+    describe "with valid url" do
+      it "fetches ad details successfully" do
+        VCR.use_cassette("google_ad_library/ad_details") do
+          result = google_ad_library.ad(url: ad_url)
+
+          assert_kind_of Hash, result
+          assert result[:success]
+          assert result.key?(:advertiser_id)
+          assert result.key?(:creative_id)
+          assert result.key?(:format)
+        end
+      end
+
+      it "returns ad format information" do
+        VCR.use_cassette("google_ad_library/ad_details") do
+          result = google_ad_library.ad(url: ad_url)
+
+          assert_kind_of Hash, result
+          # Format should be one of text, image, or video
+          assert_includes %w[text image video], result[:format] if result[:format]
+        end
+      end
+
+      it "returns ad variations when available" do
+        VCR.use_cassette("google_ad_library/ad_details") do
+          result = google_ad_library.ad(url: ad_url)
+
+          assert_kind_of Hash, result
+          if result[:variations]
+            assert_kind_of Array, result[:variations]
+
+            # Check variation structure if there are variations
+            if result[:variations].any?
+              variation = result[:variations].first
+              # Variations may have headline, description, destination_url
+              assert_kind_of Hash, variation
+            end
+          end
+        end
+      end
+
+      it "returns region statistics when available" do
+        VCR.use_cassette("google_ad_library/ad_details") do
+          result = google_ad_library.ad(url: ad_url)
+
+          assert_kind_of Hash, result
+          if result[:region_stats]
+            assert_kind_of Array, result[:region_stats]
+
+            # Check region stats structure if present
+            if result[:region_stats].any?
+              region = result[:region_stats].first
+
+              assert region.key?(:region_code) || region.key?(:region_name)
+            end
+          end
+        end
+      end
+
+      it "returns creative regions when available" do
+        VCR.use_cassette("google_ad_library/ad_details") do
+          result = google_ad_library.ad(url: ad_url)
+
+          assert_kind_of Hash, result
+          assert_kind_of Array, result[:creative_regions] if result[:creative_regions]
+        end
+      end
+    end
+
+    describe "parameter validation" do
+      it "raises ArgumentError when url is nil" do
+        error = assert_raises(ArgumentError) do
+          google_ad_library.ad(url: nil)
+        end
+        assert_match(/url is required/, error.message)
+      end
+
+      it "raises ArgumentError when url is empty string" do
+        error = assert_raises(ArgumentError) do
+          google_ad_library.ad(url: "")
+        end
+        assert_match(/url is required/, error.message)
+      end
+    end
+
+    describe "error handling" do
+      it "raises UnauthorizedError for invalid API key" do
+        VCR.use_cassette("google_ad_library/ad_unauthorized") do
+          invalid_client = ScrapeCreators::Client.new(api_key: "invalid_key")
+
+          error = assert_raises(ScrapeCreators::UnauthorizedError) do
+            invalid_client.google_ad_library.ad(url: ad_url)
+          end
+
+          assert_match(/invalid|unauthorized|api.?key/i, error.message)
+        end
+      end
+    end
+  end
 end
