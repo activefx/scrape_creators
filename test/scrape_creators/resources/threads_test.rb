@@ -174,4 +174,104 @@ describe ScrapeCreators::Resources::Threads do
       end
     end
   end
+
+  describe "#post" do
+    let(:post_url) { "https://www.threads.net/@trendspider/post/DIU8naHS6q_" }
+
+    it "fetches a Threads post successfully" do
+      VCR.use_cassette("threads/post_success") do
+        response = threads.post(post_url)
+
+        assert_kind_of Hash, response
+        assert response[:success]
+
+        # Verify post object
+        assert response.key?(:post)
+        post = response[:post]
+
+        assert_kind_of Hash, post
+
+        # Basic post identifiers
+        assert post.key?(:id)
+        assert post.key?(:pk)
+        assert post.key?(:code)
+
+        # User info
+        assert post.key?(:user)
+        assert_kind_of Hash, post[:user]
+        assert post[:user].key?(:username)
+        assert post[:user].key?(:pk)
+
+        # Post content
+        assert post.key?(:caption)
+        assert_kind_of Hash, post[:caption]
+        assert post[:caption].key?(:text)
+
+        # Engagement metrics
+        assert post.key?(:like_count)
+        assert_kind_of Integer, post[:like_count]
+
+        # Media info
+        assert post.key?(:media_type)
+        assert post.key?(:taken_at)
+
+        # Threads-specific info
+        assert post.key?(:text_post_app_info)
+        assert_kind_of Hash, post[:text_post_app_info]
+
+        # Verify comments array
+        assert response.key?(:comments)
+        assert_kind_of Array, response[:comments]
+
+        # Verify related posts array
+        assert response.key?(:related_posts)
+        assert_kind_of Array, response[:related_posts]
+      end
+    end
+
+    it "fetches trimmed post data when trim option is true" do
+      VCR.use_cassette("threads/post_trimmed") do
+        response = threads.post(post_url, trim: true)
+
+        assert_kind_of Hash, response
+        assert response[:success]
+        assert response.key?(:post)
+        assert_kind_of Hash, response[:post]
+      end
+    end
+
+    it "raises ArgumentError when url is nil" do
+      error = assert_raises(ArgumentError) do
+        threads.post(nil)
+      end
+      assert_match(/url is required/, error.message)
+    end
+
+    it "raises ArgumentError when url is empty" do
+      error = assert_raises(ArgumentError) do
+        threads.post("")
+      end
+      assert_match(/url is required/, error.message)
+    end
+
+    it "raises NotFoundError for non-existent post" do
+      VCR.use_cassette("threads/post_not_found") do
+        assert_raises(ScrapeCreators::NotFoundError) do
+          threads.post("https://www.threads.net/@nonexistentuser/post/XXXXXXXXX")
+        end
+      end
+    end
+
+    it "raises UnauthorizedError for invalid API key" do
+      VCR.use_cassette("threads/post_unauthorized") do
+        invalid_client = ScrapeCreators::Client.new(api_key: "invalid_key")
+
+        error = assert_raises(ScrapeCreators::UnauthorizedError) do
+          invalid_client.threads.post(post_url)
+        end
+
+        assert_match(/invalid|unauthorized|api.?key/i, error.message)
+      end
+    end
+  end
 end
