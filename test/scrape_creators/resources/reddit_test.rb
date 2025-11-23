@@ -702,4 +702,112 @@ describe ScrapeCreators::Resources::Reddit do
       end
     end
   end
+
+  describe "#ad" do
+    let(:ad_id) { "79e005f1e09ec72245e904d87d2a0869" }
+
+    it "fetches ad details successfully" do
+      VCR.use_cassette("reddit/ad_success") do
+        result = reddit.ad(ad_id)
+
+        assert_kind_of Hash, result
+        assert result.key?(:success)
+        assert result.key?(:data)
+      end
+    end
+
+    it "returns analysis_summary with expected fields" do
+      VCR.use_cassette("reddit/ad_success") do
+        result = reddit.ad(ad_id)
+
+        data = result[:data]
+
+        assert data.key?(:analysis_summary)
+        analysis_summary = data[:analysis_summary]
+
+        assert analysis_summary.key?(:headline)
+        assert analysis_summary.key?(:media)
+        assert_kind_of Array, analysis_summary[:headline]
+        assert_kind_of Array, analysis_summary[:media]
+      end
+    end
+
+    it "returns inspiration_creative with expected fields" do
+      VCR.use_cassette("reddit/ad_success") do
+        result = reddit.ad(ad_id)
+
+        data = result[:data]
+
+        assert data.key?(:inspiration_creative)
+        creative = data[:inspiration_creative]
+
+        assert creative.key?(:id)
+        assert creative.key?(:budget_category)
+        assert creative.key?(:industry)
+        assert creative.key?(:placements)
+        assert creative.key?(:objective)
+        assert creative.key?(:creative)
+        assert creative.key?(:profile_info)
+      end
+    end
+
+    it "returns creative content with expected fields" do
+      VCR.use_cassette("reddit/ad_success") do
+        result = reddit.ad(ad_id)
+
+        creative = result[:data][:inspiration_creative][:creative]
+
+        assert creative.key?(:id)
+        assert creative.key?(:type)
+        assert creative.key?(:headline)
+        assert creative.key?(:body)
+        assert creative.key?(:content)
+        assert creative.key?(:thumbnail_url)
+        assert creative.key?(:created_at)
+        assert creative.key?(:profile_id)
+        assert creative.key?(:post_url)
+      end
+    end
+
+    it "returns profile_info with expected fields" do
+      VCR.use_cassette("reddit/ad_success") do
+        result = reddit.ad(ad_id)
+
+        profile_info = result[:data][:inspiration_creative][:profile_info]
+
+        assert profile_info.key?(:name)
+        assert profile_info.key?(:snoovatar_icon_url)
+      end
+    end
+
+    describe "argument validation" do
+      it "raises ArgumentError when id is nil" do
+        error = assert_raises(ArgumentError) do
+          reddit.ad(nil)
+        end
+        assert_match(/id is required/, error.message)
+      end
+
+      it "raises ArgumentError when id is empty" do
+        error = assert_raises(ArgumentError) do
+          reddit.ad("")
+        end
+        assert_match(/id is required/, error.message)
+      end
+    end
+
+    describe "error handling" do
+      it "raises PaymentRequiredError for invalid API key" do
+        VCR.use_cassette("reddit/ad_unauthorized") do
+          invalid_client = ScrapeCreators::Client.new(api_key: "invalid_key")
+
+          error = assert_raises(ScrapeCreators::PaymentRequiredError) do
+            invalid_client.reddit.ad(ad_id)
+          end
+
+          assert_match(/credits/i, error.message)
+        end
+      end
+    end
+  end
 end

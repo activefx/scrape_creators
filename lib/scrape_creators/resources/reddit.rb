@@ -455,6 +455,67 @@ module ScrapeCreators
         get("/v1/reddit/ads/search", params)
       end
 
+      # Get a specific Reddit ad by ID
+      #
+      # Retrieves detailed information about a specific Reddit ad from the Ad Library,
+      # including creative content, targeting information, and AI-generated analysis.
+      #
+      # @param id [String] The ad ID (required)
+      # @return [Hash] Ad data including analysis summary and creative details
+      # @raise [ArgumentError] If the id parameter is nil or empty
+      # @raise [BadRequestError] If the request parameters are invalid
+      # @raise [NotFoundError] If the ad is not found
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Get ad details by ID
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   ad = client.reddit.ad("79e005f1e09ec72245e904d87d2a0869")
+      #   puts ad[:data][:inspiration_creative][:creative][:headline]
+      #
+      # @example Response structure
+      #   {
+      #     success: true,
+      #     data: {
+      #       analysis_summary: {
+      #         headline: [
+      #           "Direct Question/Engagement: The headline poses a direct question...",
+      #           "Intrigue/Curiosity Gap: The headline uses the phrase...",
+      #           "Relatability/Aspiration: The headline addresses a common desire..."
+      #         ],
+      #         media: []
+      #       },
+      #       inspiration_creative: {
+      #         id: "79e005f1e09ec72245e904d87d2a0869",
+      #         budget_category: "HIGH",
+      #         industry: "OTHER",
+      #         placements: ["FEED", "COMMENTS_PAGE"],
+      #         objective: "CONVERSIONS",
+      #         creative: {
+      #           id: "t3_1cdt7o6",
+      #           type: "TEXT",
+      #           content: [...],
+      #           headline: "What is a rich person's money tip you wish you knew sooner?",
+      #           body: "Life would be a whole lot easier...",
+      #           thumbnail_url: "https://b.thumbs.redditmedia.com/...",
+      #           allow_comments: false,
+      #           created_at: "2024-04-26T18:47:57+00:00",
+      #           profile_id: "t2_3usby",
+      #           post_url: "https://www.reddit.com/r/u_thepennyhoarder/..."
+      #         },
+      #         profile_info: {
+      #           name: "u_thepennyhoarder",
+      #           snoovatar_icon_url: "https://www.redditstatic.com/avatars/..."
+      #         }
+      #       }
+      #     }
+      #   }
+      def ad(id)
+        raise ArgumentError, "id is required" if id.nil? || id.to_s.empty?
+
+        get("/v1/reddit/ad", { id: id })
+      end
+
       private
 
       # Validates ad search filter parameters
