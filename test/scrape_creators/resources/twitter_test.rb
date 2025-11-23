@@ -195,4 +195,118 @@ describe ScrapeCreators::Resources::Twitter do
       end
     end
   end
+
+  describe "#tweet" do
+    let(:tweet_url) { "https://x.com/adrian_horning_/status/1628769691547074562" }
+
+    it "fetches tweet details successfully" do
+      VCR.use_cassette("twitter/tweet_success") do
+        tweet = twitter.tweet(tweet_url)
+
+        assert_kind_of Hash, tweet
+
+        # Verify top-level structure
+        assert_equal "Tweet", tweet[:__typename]
+        assert tweet.key?(:rest_id)
+        assert tweet.key?(:core)
+        assert tweet.key?(:legacy)
+        assert tweet.key?(:views)
+      end
+    end
+
+    it "includes user information" do
+      VCR.use_cassette("twitter/tweet_success") do
+        tweet = twitter.tweet(tweet_url)
+
+        assert tweet[:core].key?(:user_results)
+        assert tweet[:core][:user_results].key?(:result)
+
+        user = tweet[:core][:user_results][:result]
+
+        assert_equal "User", user[:__typename]
+        assert user.key?(:rest_id)
+        assert user.key?(:legacy)
+        assert user[:legacy].key?(:screen_name)
+        assert user[:legacy].key?(:name)
+      end
+    end
+
+    it "includes engagement metrics" do
+      VCR.use_cassette("twitter/tweet_success") do
+        tweet = twitter.tweet(tweet_url)
+
+        legacy = tweet[:legacy]
+
+        assert legacy.key?(:favorite_count)
+        assert legacy.key?(:retweet_count)
+        assert legacy.key?(:reply_count)
+        assert legacy.key?(:quote_count)
+        assert legacy.key?(:bookmark_count)
+      end
+    end
+
+    it "includes view count" do
+      VCR.use_cassette("twitter/tweet_success") do
+        tweet = twitter.tweet(tweet_url)
+
+        assert tweet[:views].key?(:count)
+        assert tweet[:views].key?(:state)
+      end
+    end
+
+    it "includes tweet content" do
+      VCR.use_cassette("twitter/tweet_success") do
+        tweet = twitter.tweet(tweet_url)
+
+        legacy = tweet[:legacy]
+
+        assert legacy.key?(:full_text)
+        assert legacy.key?(:created_at)
+        assert legacy.key?(:id_str)
+      end
+    end
+
+    it "supports trim parameter" do
+      VCR.use_cassette("twitter/tweet_trimmed") do
+        tweet = twitter.tweet(tweet_url, trim: true)
+
+        assert_kind_of Hash, tweet
+        assert tweet.key?(:rest_id)
+      end
+    end
+
+    it "raises ArgumentError when url is nil" do
+      error = assert_raises(ArgumentError) do
+        twitter.tweet(nil)
+      end
+      assert_match(/url is required/, error.message)
+    end
+
+    it "raises ArgumentError when url is empty" do
+      error = assert_raises(ArgumentError) do
+        twitter.tweet("")
+      end
+      assert_match(/url is required/, error.message)
+    end
+
+    it "raises NotFoundError for non-existent tweet" do
+      VCR.use_cassette("twitter/tweet_not_found") do
+        assert_raises(ScrapeCreators::NotFoundError) do
+          twitter.tweet("https://x.com/user/status/999999999999999999999")
+        end
+      end
+    end
+
+    it "raises UnauthorizedError for invalid API key" do
+      VCR.use_cassette("twitter/tweet_unauthorized") do
+        invalid_client = ScrapeCreators::Client.new(api_key: "invalid_key")
+
+        error = assert_raises(ScrapeCreators::UnauthorizedError) do
+          invalid_client.twitter.tweet(tweet_url)
+        end
+
+        assert_match(/invalid|unauthorized|api.?key/i, error.message)
+      end
+    end
+  end
 end

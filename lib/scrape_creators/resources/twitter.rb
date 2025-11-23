@@ -151,6 +151,75 @@ module ScrapeCreators
 
         get("/v1/twitter/user-tweets", params)
       end
+
+      # Get detailed information about a specific tweet
+      #
+      # Retrieves tweet details including engagement metrics, user information,
+      # media attachments, and view counts.
+      #
+      # @param url [String] The full URL of the tweet (e.g., "https://x.com/user/status/123")
+      # @param trim [Boolean] Set to true for a trimmed down version of the response
+      # @return [Hash] Tweet data including content, engagement metrics, user info, and media
+      # @raise [ArgumentError] If the url parameter is nil or empty
+      # @raise [BadRequestError] If the url parameter is invalid
+      # @raise [NotFoundError] If the tweet is not found
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Get tweet details
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   tweet = client.twitter.tweet("https://x.com/adrian_horning_/status/1628769691547074562")
+      #   puts tweet[:legacy][:full_text]
+      #   puts "Likes: #{tweet[:legacy][:favorite_count]}"
+      #   puts "Retweets: #{tweet[:legacy][:retweet_count]}"
+      #   puts "Views: #{tweet[:views][:count]}"
+      #
+      # @example Get trimmed tweet details
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   tweet = client.twitter.tweet("https://x.com/user/status/123", trim: true)
+      #
+      # @example Response structure
+      #   {
+      #     __typename: "Tweet",
+      #     rest_id: "1628769691547074562",
+      #     core: {
+      #       user_results: {
+      #         result: {
+      #           __typename: "User",
+      #           id: "VXNlcjo0NTIwMjQxMjA5",
+      #           rest_id: "4520241209",
+      #           is_blue_verified: true,
+      #           legacy: {
+      #             name: "Adrian | The Web Scraping Guy",
+      #             screen_name: "adrian_horning_",
+      #             followers_count: 16488
+      #           }
+      #         }
+      #       }
+      #     },
+      #     views: {
+      #       count: "101132",
+      #       state: "EnabledWithCount"
+      #     },
+      #     legacy: {
+      #       bookmark_count: 1159,
+      #       created_at: "Thu Feb 23 14:52:10 +0000 2023",
+      #       favorite_count: 402,
+      #       full_text: "I've scraped huge retailers...",
+      #       quote_count: 7,
+      #       reply_count: 41,
+      #       retweet_count: 30,
+      #       id_str: "1628769691547074562"
+      #     }
+      #   }
+      def tweet(url, trim: nil)
+        raise ArgumentError, "url is required" if url.nil? || url.to_s.empty?
+
+        params = { url: url }
+        params[:trim] = trim unless trim.nil?
+
+        get("/v1/twitter/tweet", params)
+      end
     end
   end
 end
