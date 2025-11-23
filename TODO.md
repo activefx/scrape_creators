@@ -207,7 +207,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 
 ## Linktree
 
-- [⏳] GET Linktree page (`/v1/linktree`)
+- [✅] GET Linktree page (`/v1/linktree`)
 
 ---
 
@@ -250,8 +250,8 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 ## Implementation Progress Summary
 
 **Total Endpoints:** 103
-**Completed:** 61
-**Remaining:** 42
+**Completed:** 62
+**Remaining:** 41
 
 ### Platform Completion Status
 - TikTok: 18/18 endpoints (100%)
@@ -273,7 +273,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 - Twitch: 1/2 endpoints (50%)
 - Kick: 0/1 endpoints (0%)
 - Snapchat: 0/1 endpoints (0%)
-- Linktree: 0/1 endpoints (0%)
+- Linktree: 1/1 endpoints (100%)
 - Komi: 0/1 endpoints (0%)
 - Pillar: 0/1 endpoints (0%)
 - Linkbio: 0/1 endpoints (0%)
