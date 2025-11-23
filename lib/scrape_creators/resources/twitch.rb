@@ -90,6 +90,53 @@ module ScrapeCreators
 
         get("/v1/twitch/profile", handle: handle)
       end
+
+      # Get a Twitch clip
+      #
+      # Retrieves detailed information about a Twitch clip including video URLs,
+      # broadcaster info, curator info, view count, and related clips from the broadcaster.
+      #
+      # @param url [String] Twitch clip URL (e.g., "https://clips.twitch.tv/CloudySavageMarjoramRuleFive--ErzsYbE7UWvgCMQ")
+      # @return [Array<Hash>] Array of response data containing clip info and related clips
+      # @raise [ArgumentError] If the url parameter is nil or empty
+      # @raise [BadRequestError] If the url parameter is invalid
+      # @raise [NotFoundError] If the clip is not found
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Get a Twitch clip
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   result = client.twitch.clip("https://clips.twitch.tv/CloudySavageMarjoramRuleFive--ErzsYbE7UWvgCMQ")
+      #   clip = result.first[:data][:clip]
+      #   puts clip[:title]           # => "un grande el mesero"
+      #   puts clip[:view_count]      # => 52441
+      #   puts clip[:duration_seconds] # => 27
+      #
+      # @example Access video qualities
+      #   result = client.twitch.clip("https://clips.twitch.tv/...")
+      #   clip = result.first[:data][:clip]
+      #   clip[:video_qualities].each do |quality|
+      #     puts quality[:source_url]
+      #   end
+      #
+      # @example Access broadcaster information
+      #   result = client.twitch.clip("https://clips.twitch.tv/...")
+      #   clip = result.first[:data][:clip]
+      #   puts clip[:broadcaster][:display_name]  # => "Staryuuki"
+      #   puts clip[:broadcaster][:followers][:total_count]  # => 3450065
+      #
+      # @example Access related clips from the broadcaster
+      #   result = client.twitch.clip("https://clips.twitch.tv/...")
+      #   user_clips = result[1][:data][:user][:clips][:edges]
+      #   user_clips.each do |edge|
+      #     puts edge[:node][:title]
+      #     puts edge[:node][:view_count]
+      #   end
+      def clip(url)
+        raise ArgumentError, "url is required" if url.nil? || url.to_s.empty?
+
+        get("/v1/twitch/clip", url: url)
+      end
     end
   end
 end
