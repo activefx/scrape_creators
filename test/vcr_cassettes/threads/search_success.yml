@@ -1,0 +1,39 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/threads/search?query=basketball
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 23 Nov 2025 19:32:06 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Powered-By:
+      - Express
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"posts":[{"id":"3623717915788120086_63263616227","pk":"3623717915788120086","user":{"friendship_status":null,"pk":"63263616227","profile_pic_url":"https://instagram.example.com/profile.jpg","username":"shams","id":"63263616227","transparency_label":null,"transparency_product":null,"transparency_product_enabled":false,"is_verified":true,"text_post_app_is_private":false,"has_onboarded_to_text_post_app":true},"text_post_app_info":{"show_header_follow":null,"is_markup":null,"custom_feed_preview_info":null,"link_preview_attachment":null,"linked_inline_media":null,"special_effects_enabled_str":"","text_fragments":{"fragments":[{"fragment_type":"plaintext","link_fragment":null,"mention_fragment":null,"plaintext":"BREAKING: Gregg Popovich will no longer be Head Coach of the San Antonio Spurs and is transitioning full-time to Team President, sources told ESPN.","tag_fragment":null,"linkified_web_url":null,"styling_info":null}]},"reshare_count":260,"direct_reply_count":75,"repost_count":200,"quote_count":59,"share_info":{"quoted_attachment_author_attribution_allowed":true,"quoted_attachment_post_unavailable":false,"quoted_attachment_post":null,"quoted_post":null,"reposted_post":null},"reply_to_author":null,"reply_control":"everyone","private_reply_partner":null,"self_thread_count":null,"tag_header":null,"root_post_author":null,"pinned_post_info":null,"related_trends_info":null,"is_reply":false,"is_post_unavailable":false,"post_unavailable_reason":null,"hush_info":null},"is_paid_partnership":null,"audio":null,"caption":{"text":"BREAKING: Gregg Popovich will no longer be Head Coach of the San Antonio Spurs and is transitioning full-time to Team President, sources told ESPN. The iconic Popovich is a Basketball Hall of Famer, the NBAs all-time winningest coach, and led the Spurs to five championships.","pk":"17901829044168955","has_translation":null},"caption_is_edited":false,"transcription_data":null,"carousel_media":null,"code":"DJKCD7AxRAW","image_versions2":{"candidates":[]},"original_height":612,"original_width":612,"accessibility_caption":null,"video_versions":null,"has_audio":null,"media_type":19,"caption_add_on":null,"giphy_media_info":null,"media_overlay_info":null,"sharing_friction_info":{"should_have_sharing_friction":false,"sharing_friction_payload":null},"like_count":4093,"metaPlace":null,"meta_place":null,"gen_ai_detection_method":null,"taken_at":1746200860,"organic_tracking_token":"eyJ2ZXJzaW9uIjo1fQ==","logging_info_token":null,"like_and_view_counts_disabled":false},{"id":"3623717915788120087_63263616228","pk":"3623717915788120087","user":{"friendship_status":null,"pk":"63263616228","profile_pic_url":"https://instagram.example.com/profile2.jpg","username":"espn","id":"63263616228","transparency_label":null,"transparency_product":null,"transparency_product_enabled":false,"is_verified":true,"text_post_app_is_private":false,"has_onboarded_to_text_post_app":true},"text_post_app_info":{"reshare_count":100,"direct_reply_count":50,"repost_count":80,"quote_count":20,"reply_control":"everyone","is_reply":false,"is_post_unavailable":false},"caption":{"text":"NBA Basketball highlights from tonight games.","pk":"17901829044168956","has_translation":null},"code":"DJKCD7AxRAX","media_type":19,"like_count":2500,"taken_at":1746200861}]}'
+  recorded_at: Sun, 23 Nov 2025 19:32:06 GMT
+recorded_with: VCR 6.3.1

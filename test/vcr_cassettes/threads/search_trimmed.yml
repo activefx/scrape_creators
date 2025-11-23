@@ -1,0 +1,39 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/threads/search?query=basketball&trim=true
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 23 Nov 2025 19:32:06 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Powered-By:
+      - Express
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"posts":[{"id":"3623717915788120086_63263616227","pk":"3623717915788120086","code":"DJKCD7AxRAW","caption":{"text":"BREAKING: Gregg Popovich will no longer be Head Coach of the San Antonio Spurs.","pk":"17901829044168955"},"like_count":4093,"taken_at":1746200860,"user":{"pk":"63263616227","username":"shams","is_verified":true}}]}'
+  recorded_at: Sun, 23 Nov 2025 19:32:06 GMT
+recorded_with: VCR 6.3.1

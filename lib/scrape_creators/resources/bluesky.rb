@@ -140,6 +140,80 @@ module ScrapeCreators
 
         get("/bluesky/user/posts", params)
       end
+
+      # Get a Bluesky post
+      #
+      # Retrieves a single Bluesky post including author information, content,
+      # engagement metrics, embeds, and replies.
+      #
+      # @param url [String] Bluesky post URL (e.g., "https://bsky.app/profile/espn.com/post/3lqdfq7fkvm2g")
+      # @return [Hash] Post data including author, content, engagement metrics, and replies
+      # @raise [ArgumentError] If the url parameter is nil or empty
+      # @raise [BadRequestError] If the url parameter is invalid
+      # @raise [NotFoundError] If the post is not found
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Get a Bluesky post
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   response = client.bluesky.post("https://bsky.app/profile/espn.com/post/3lqdfq7fkvm2g")
+      #   puts response[:post][:record][:text]
+      #   puts "Likes: #{response[:post][:like_count]}"
+      #
+      # @example Response structure
+      #   {
+      #     success: true,
+      #     post: {
+      #       uri: "at://did:plc:x7d6j54pm22ufehkes6jo4jf/app.bsky.feed.post/3lqdfq7fkvm2g",
+      #       cid: "bafyreibams5wyqdpg2cmmks7lhf5ccxu7hbu24sfatgc53jmb2nun5k5dm",
+      #       author: {
+      #         did: "did:plc:x7d6j54pm22ufehkes6jo4jf",
+      #         handle: "espn.com",
+      #         display_name: "ESPN",
+      #         avatar: "https://cdn.bsky.app/img/avatar/plain/...",
+      #         verification: { verified_status: "valid", ... }
+      #       },
+      #       record: {
+      #         type: "app.bsky.feed.post",
+      #         text: "Post content here...",
+      #         created_at: "2025-05-29T19:01:20.743Z",
+      #         embed: { ... }
+      #       },
+      #       embed: {
+      #         type: "app.bsky.embed.external#view",
+      #         external: {
+      #           uri: "http://example.com",
+      #           title: "Article Title",
+      #           description: "Article description",
+      #           thumb: "https://cdn.bsky.app/img/..."
+      #         }
+      #       },
+      #       reply_count: 1,
+      #       repost_count: 0,
+      #       like_count: 24,
+      #       quote_count: 1,
+      #       indexed_at: "2025-05-29T19:01:21.645Z",
+      #       labels: []
+      #     },
+      #     replies: [
+      #       {
+      #         type: "app.bsky.feed.defs#threadViewPost",
+      #         post: {
+      #           uri: "at://...",
+      #           author: { ... },
+      #           record: { text: "Reply content...", ... },
+      #           like_count: 0,
+      #           ...
+      #         },
+      #         replies: []
+      #       }
+      #     ]
+      #   }
+      def post(url)
+        raise ArgumentError, "url is required" if url.nil? || url.to_s.empty?
+
+        get("/bluesky/post", url: url)
+      end
     end
   end
 end
