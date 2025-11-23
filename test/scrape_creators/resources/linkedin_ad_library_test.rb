@@ -137,4 +137,82 @@ describe ScrapeCreators::Resources::LinkedinAdLibrary do
       end
     end
   end
+
+  describe "#ad" do
+    let(:ad_url) { "https://www.linkedin.com/ad-library/detail/664291126" }
+
+    describe "successful request" do
+      it "fetches ad details successfully" do
+        VCR.use_cassette("linkedin_ad_library/ad_success") do
+          result = linkedin_ad_library.ad(url: ad_url)
+
+          assert_kind_of Hash, result
+          assert result[:success]
+          assert result.key?(:id)
+          assert result.key?(:description)
+          assert result.key?(:advertiser)
+          assert result.key?(:ad_type)
+        end
+      end
+
+      it "returns targeting information" do
+        VCR.use_cassette("linkedin_ad_library/ad_success") do
+          result = linkedin_ad_library.ad(url: ad_url)
+
+          assert result.key?(:targeting)
+          assert_kind_of Hash, result[:targeting]
+        end
+      end
+
+      it "returns impression data" do
+        VCR.use_cassette("linkedin_ad_library/ad_success") do
+          result = linkedin_ad_library.ad(url: ad_url)
+
+          assert result.key?(:total_impressions)
+          assert result.key?(:impressions_by_country)
+          assert_kind_of Array, result[:impressions_by_country]
+        end
+      end
+
+      it "returns date information" do
+        VCR.use_cassette("linkedin_ad_library/ad_success") do
+          result = linkedin_ad_library.ad(url: ad_url)
+
+          assert result.key?(:start_date)
+          assert result.key?(:end_date)
+          assert result.key?(:ad_duration)
+        end
+      end
+    end
+
+    describe "parameter validation" do
+      it "raises ArgumentError when url is nil" do
+        error = assert_raises(ArgumentError) do
+          linkedin_ad_library.ad(url: nil)
+        end
+        assert_match(/url is required/, error.message)
+      end
+
+      it "raises ArgumentError when url is empty string" do
+        error = assert_raises(ArgumentError) do
+          linkedin_ad_library.ad(url: "")
+        end
+        assert_match(/url is required/, error.message)
+      end
+    end
+
+    describe "error handling" do
+      it "raises UnauthorizedError for invalid API key" do
+        VCR.use_cassette("linkedin_ad_library/ad_unauthorized") do
+          invalid_client = ScrapeCreators::Client.new(api_key: "invalid_key")
+
+          error = assert_raises(ScrapeCreators::UnauthorizedError) do
+            invalid_client.linkedin_ad_library.ad(url: ad_url)
+          end
+
+          assert_match(/invalid|unauthorized|api.?key/i, error.message)
+        end
+      end
+    end
+  end
 end
