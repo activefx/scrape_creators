@@ -80,10 +80,114 @@ module ScrapeCreators
         get("/v1/facebook/adLibrary/ad", params)
       end
 
+      # Search the Facebook (Meta) Ad Library by keyword
+      #
+      # Searches the Facebook Ad Library for ads matching a keyword query. Returns paginated
+      # results with ad details including creative content, targeting, and publisher platforms.
+      #
+      # @note This endpoint will tap out around 1,500 results because the cursor becomes too
+      #   big for a GET request. If you need more results, use the POST variant by passing
+      #   query params in the body.
+      #
+      # @param query [String] Keyword to search for (required)
+      # @param search_type [String, nil] Search type: "keyword_unordered" or "keyword_exact_phrase"
+      # @param ad_type [String, nil] Ad type filter: "all" or "political_and_issue_ads"
+      # @param country [String, nil] Two-letter country code (e.g., "US", "GB"). Defaults to ALL
+      # @param status [String, nil] Ad status: "ALL", "ACTIVE", or "INACTIVE". Defaults to ACTIVE
+      # @param media_type [String, nil] Media type: "ALL", "IMAGE", "VIDEO", "MEME",
+      #   "IMAGE_AND_MEME", or "NONE". Defaults to ALL
+      # @param start_date [String, nil] Impressions start date in YYYY-MM-DD format
+      # @param end_date [String, nil] Impressions end date in YYYY-MM-DD format
+      # @param cursor [String, nil] Cursor to paginate through results
+      # @param trim [Boolean, nil] Set to true for a trimmed down version of the response
+      # @return [Hash] Response containing search_results array, search_results_count, and cursor
+      # @raise [ArgumentError] If query is not provided
+      # @raise [BadRequestError] If the request parameters are invalid
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Basic keyword search
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   result = client.facebook_ad_library.search_ads(query: "labradoodle")
+      #   puts result[:search_results_count]  # => 50001
+      #   result[:search_results].each { |ad| puts ad[:page_name] }
+      #
+      # @example Search with filters
+      #   result = client.facebook_ad_library.search_ads(
+      #     query: "electric cars",
+      #     country: "US",
+      #     status: "ACTIVE",
+      #     media_type: "VIDEO"
+      #   )
+      #
+      # @example Paginate through results
+      #   first_page = client.facebook_ad_library.search_ads(query: "fitness")
+      #   if first_page[:cursor]
+      #     next_page = client.facebook_ad_library.search_ads(
+      #       query: "fitness",
+      #       cursor: first_page[:cursor]
+      #     )
+      #   end
+      #
+      # @example Search for exact phrase
+      #   result = client.facebook_ad_library.search_ads(
+      #     query: "organic dog food",
+      #     search_type: "keyword_exact_phrase"
+      #   )
+      #
+      # @example Response structure (key fields)
+      #   {
+      #     search_results: [
+      #       {
+      #         ad_archive_id: "615470338018648",
+      #         page_id: "115531458627129",
+      #         page_name: "JNB Stables Labradoodles",
+      #         is_active: true,
+      #         start_date: 1740729600,
+      #         end_date: 1740729600,
+      #         publisher_platform: ["FACEBOOK", "INSTAGRAM"],
+      #         snapshot: {
+      #           body: { text: "Ad body text..." },
+      #           display_format: "MULTI_IMAGES",
+      #           images: [...],
+      #           videos: [...]
+      #         }
+      #       }
+      #     ],
+      #     search_results_count: 50001,
+      #     cursor: "AQHRYLVDkoMkvGv7yK1rcce-vJmKiKv..."
+      #   }
+      # rubocop:disable Metrics/ParameterLists
+      def search_ads(
+        query:,
+        search_type: nil,
+        ad_type: nil,
+        country: nil,
+        status: nil,
+        media_type: nil,
+        start_date: nil,
+        end_date: nil,
+        cursor: nil,
+        trim: nil
+      )
+        validate_search_params!(query)
+
+        params = build_search_params(
+          query, search_type, ad_type, country, status,
+          media_type, start_date, end_date, cursor, trim
+        )
+        get("/v1/facebook/adLibrary/search/ads", params)
+      end
+      # rubocop:enable Metrics/ParameterLists
+
       private
 
       def validate_ad_params!(id)
         raise ArgumentError, "id is required" if blank?(id)
+      end
+
+      def validate_search_params!(query)
+        raise ArgumentError, "query is required" if blank?(query)
       end
 
       def build_ad_params(id, get_transcript, trim)
@@ -92,6 +196,25 @@ module ScrapeCreators
         params[:trim] = trim unless trim.nil?
         params
       end
+
+      # rubocop:disable Metrics/ParameterLists
+      def build_search_params(
+        query, search_type, ad_type, country, status,
+        media_type, start_date, end_date, cursor, trim
+      )
+        params = { query: query }
+        params[:search_type] = search_type unless search_type.nil?
+        params[:ad_type] = ad_type unless ad_type.nil?
+        params[:country] = country unless country.nil?
+        params[:status] = status unless status.nil?
+        params[:media_type] = media_type unless media_type.nil?
+        params[:start_date] = start_date unless start_date.nil?
+        params[:end_date] = end_date unless end_date.nil?
+        params[:cursor] = cursor unless cursor.nil?
+        params[:trim] = trim unless trim.nil?
+        params
+      end
+      # rubocop:enable Metrics/ParameterLists
 
       def blank?(value)
         value.nil? || value.to_s.empty?

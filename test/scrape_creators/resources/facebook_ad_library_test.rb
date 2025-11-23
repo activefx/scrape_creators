@@ -105,4 +105,157 @@ describe ScrapeCreators::Resources::FacebookAdLibrary do
       end
     end
   end
+
+  describe "#search_ads" do
+    describe "with valid query" do
+      it "searches ads successfully" do
+        VCR.use_cassette("facebook_ad_library/search_ads_success") do
+          result = facebook_ad_library.search_ads(query: "labradoodle")
+
+          assert_kind_of Hash, result
+          assert result.key?(:search_results)
+          assert result.key?(:search_results_count)
+          assert_kind_of Array, result[:search_results]
+        end
+      end
+
+      it "returns ad details in search results" do
+        VCR.use_cassette("facebook_ad_library/search_ads_success") do
+          result = facebook_ad_library.search_ads(query: "labradoodle")
+
+          refute_empty result[:search_results]
+          ad = result[:search_results].first
+
+          assert ad.key?(:ad_archive_id)
+          assert ad.key?(:page_name)
+          assert ad.key?(:snapshot)
+        end
+      end
+
+      it "returns pagination cursor" do
+        VCR.use_cassette("facebook_ad_library/search_ads_success") do
+          result = facebook_ad_library.search_ads(query: "labradoodle")
+
+          assert result.key?(:cursor)
+        end
+      end
+    end
+
+    describe "with optional parameters" do
+      it "accepts country filter" do
+        VCR.use_cassette("facebook_ad_library/search_ads_with_country") do
+          result = facebook_ad_library.search_ads(
+            query: "coffee",
+            country: "US"
+          )
+
+          assert_kind_of Hash, result
+          assert result.key?(:search_results)
+        end
+      end
+
+      it "accepts status filter" do
+        VCR.use_cassette("facebook_ad_library/search_ads_with_status") do
+          result = facebook_ad_library.search_ads(
+            query: "coffee",
+            status: "ACTIVE"
+          )
+
+          assert_kind_of Hash, result
+          assert result.key?(:search_results)
+        end
+      end
+
+      it "accepts media_type filter" do
+        VCR.use_cassette("facebook_ad_library/search_ads_with_media_type") do
+          result = facebook_ad_library.search_ads(
+            query: "coffee",
+            media_type: "VIDEO"
+          )
+
+          assert_kind_of Hash, result
+          assert result.key?(:search_results)
+        end
+      end
+
+      it "accepts search_type parameter" do
+        VCR.use_cassette("facebook_ad_library/search_ads_exact_phrase") do
+          result = facebook_ad_library.search_ads(
+            query: "organic coffee",
+            search_type: "keyword_exact_phrase"
+          )
+
+          assert_kind_of Hash, result
+          assert result.key?(:search_results)
+        end
+      end
+
+      it "accepts date range filters" do
+        VCR.use_cassette("facebook_ad_library/search_ads_with_dates") do
+          result = facebook_ad_library.search_ads(
+            query: "coffee",
+            start_date: "2025-01-01",
+            end_date: "2025-11-01"
+          )
+
+          assert_kind_of Hash, result
+          assert result.key?(:search_results)
+        end
+      end
+
+      it "accepts trim parameter" do
+        VCR.use_cassette("facebook_ad_library/search_ads_trimmed") do
+          result = facebook_ad_library.search_ads(
+            query: "coffee",
+            trim: true
+          )
+
+          assert_kind_of Hash, result
+          assert result.key?(:search_results)
+        end
+      end
+
+      it "accepts cursor for pagination" do
+        VCR.use_cassette("facebook_ad_library/search_ads_with_cursor") do
+          result = facebook_ad_library.search_ads(
+            query: "coffee",
+            cursor: "AQHRYLVDkoMkvGv7yK1rcce"
+          )
+
+          assert_kind_of Hash, result
+          assert result.key?(:search_results)
+        end
+      end
+    end
+
+    describe "parameter validation" do
+      it "raises ArgumentError when query is nil" do
+        error = assert_raises(ArgumentError) do
+          facebook_ad_library.search_ads(query: nil)
+        end
+        assert_match(/query is required/, error.message)
+      end
+
+      it "raises ArgumentError when query is empty string" do
+        error = assert_raises(ArgumentError) do
+          facebook_ad_library.search_ads(query: "")
+        end
+        assert_match(/query is required/, error.message)
+      end
+    end
+
+    describe "error handling" do
+      it "raises PaymentRequiredError for invalid API key" do
+        VCR.use_cassette("facebook_ad_library/search_ads_unauthorized") do
+          invalid_client = ScrapeCreators::Client.new(api_key: "invalid_key")
+
+          error = assert_raises(ScrapeCreators::PaymentRequiredError) do
+            invalid_client.facebook_ad_library.search_ads(query: "test")
+          end
+
+          assert_match(/credits/i, error.message)
+        end
+      end
+    end
+  end
 end
