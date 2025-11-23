@@ -1,0 +1,39 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/instagram/user/reels/simple?amount=5&handle=adrianhorning
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 23 Nov 2025 10:00:00 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Powered-By:
+      - Express
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '[{"media":{"taken_at":1736294201,"pk":"3540614075954356349","id":"3540614075954356349_2700692569","media_type":2,"code":"DEiyb48AeB9","caption":null,"play_count":3865,"user":{"full_name":"Adrian Horning","id":"2700692569","username":"adrianhorning","is_verified":true},"product_type":"clips","comment_count":12,"like_count":126,"video_duration":76.783,"has_audio":true,"url":"https://www.instagram.com/reel/DEiyb48AeB9"}},{"media":{"taken_at":1736207801,"pk":"3539889225954356350","id":"3539889225954356350_2700692569","media_type":2,"code":"DEfxyzABCDE","caption":null,"play_count":2500,"user":{"full_name":"Adrian Horning","id":"2700692569","username":"adrianhorning","is_verified":true},"product_type":"clips","comment_count":8,"like_count":95,"video_duration":45.5,"has_audio":true,"url":"https://www.instagram.com/reel/DEfxyzABCDE"}},{"media":{"taken_at":1736121401,"pk":"3539163375954356351","id":"3539163375954356351_2700692569","media_type":2,"code":"DEd123FGHIJ","caption":null,"play_count":1800,"user":{"full_name":"Adrian Horning","id":"2700692569","username":"adrianhorning","is_verified":true},"product_type":"clips","comment_count":5,"like_count":72,"video_duration":30.2,"has_audio":true,"url":"https://www.instagram.com/reel/DEd123FGHIJ"}},{"media":{"taken_at":1736035001,"pk":"3538437525954356352","id":"3538437525954356352_2700692569","media_type":2,"code":"DEb456KLMNO","caption":null,"play_count":1200,"user":{"full_name":"Adrian Horning","id":"2700692569","username":"adrianhorning","is_verified":true},"product_type":"clips","comment_count":3,"like_count":55,"video_duration":22.8,"has_audio":true,"url":"https://www.instagram.com/reel/DEb456KLMNO"}},{"media":{"taken_at":1735948601,"pk":"3537711675954356353","id":"3537711675954356353_2700692569","media_type":2,"code":"DEZ789PQRST","caption":null,"play_count":900,"user":{"full_name":"Adrian Horning","id":"2700692569","username":"adrianhorning","is_verified":true},"product_type":"clips","comment_count":2,"like_count":40,"video_duration":18.5,"has_audio":true,"url":"https://www.instagram.com/reel/DEZ789PQRST"}}]'
+  recorded_at: Sat, 23 Nov 2025 10:00:00 GMT
+recorded_with: VCR 6.3.1
