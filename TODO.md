@@ -54,7 +54,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 - [✅] GET Transcript (`/v2/instagram/media/transcript`)
 - [✅] GET Search Reels (`/v1/instagram/reels/search`)
 - [✅] GET Comments - Auto Pagination (`/v1/instagram/post/comments`)
-- [⏳] GET Reels (`/v1/instagram/user/reels`)
+- [✅] GET Reels (`/v1/instagram/user/reels`)
 - [⏳] GET Reels - Auto Pagination (`/v1/instagram/user/reels/simple`)
 - [⏳] GET Story Highlights (`/v1/instagram/user/highlights`)
 - [⏳] GET Highlights Details (`/v1/instagram/user/highlight/detail`)

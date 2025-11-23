@@ -1,0 +1,39 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/instagram/user/reels?user_id=2700692569
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 23 Nov 2025 10:00:00 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Powered-By:
+      - Express
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"items":[{"media":{"taken_at":1736294201,"pk":"3540614075954356349","id":"3540614075954356349_2700692569","fbid":"17882057793200056","device_timestamp":1736293997172889,"caption_is_edited":false,"strong_id__":"3540614075954356349_2700692569","deleted_reason":0,"has_shared_to_fb":0,"has_delayed_metadata":false,"share_count_disabled":false,"is_visual_reply_commenter_notice_enabled":true,"like_and_view_counts_disabled":false,"is_post_live_clips_media":false,"comment_threading_enabled":true,"is_unified_video":false,"commerciality_status":"not_commercial","integrity_review_decision":"pending","should_request_ads":false,"has_privately_liked":false,"filter_type":0,"photo_of_you":false,"can_see_insights_as_brand":false,"media_type":2,"code":"DEiyb48AeB9","caption":null,"timeline_pinned_user_ids":[],"play_count":3865,"has_views_fetching":true,"ig_play_count":3865,"display_uri":"https://scontent.cdninstagram.com/v/t51.2885-15/472965900_18326364268092570.jpg","user":{"fbid_v2":"17841402777077586","feed_post_reshare_disabled":false,"full_name":"Adrian Horning","id":"2700692569","is_private":false,"is_unpublished":false,"pk":"2700692569","pk_id":"2700692569","show_account_transparency_details":true,"strong_id__":"2700692569","third_party_downloads_enabled":1,"username":"adrianhorning","account_type":2,"account_badges":[],"has_anonymous_profile_picture":false,"is_verified":true,"profile_pic_url":"https://scontent.cdninstagram.com/v/t51.2885-19/430086429_362220943449758.jpg"},"owner":{"fbid_v2":"17841402777077586","feed_post_reshare_disabled":false,"full_name":"Adrian Horning","id":"2700692569","is_private":false,"pk":"2700692569","username":"adrianhorning","is_verified":true,"profile_pic_url":"https://scontent.cdninstagram.com/v/t51.2885-19/430086429_362220943449758.jpg"},"image_versions2":{"candidates":[{"width":1125,"height":2000,"url":"https://scontent.cdninstagram.com/v/t51.2885-15/472965900_18326364268092570.jpg"}]},"original_width":720,"original_height":1280,"is_artist_pick":false,"product_type":"clips","is_paid_partnership":false,"music_metadata":null,"organic_tracking_token":"eyJ2ZXJzaW9uIjo1fQ==","is_third_party_downloads_eligible":true,"ig_media_sharing_disabled":false,"are_remixes_crosspostable":true,"subscribe_cta_visible":false,"is_cutout_sticker_allowed":false,"fb_aggregated_like_count":0,"fb_aggregated_comment_count":0,"is_social_ufi_disabled":false,"can_reply":false,"preview_comments":[],"comment_count":12,"hide_view_all_comment_entrypoint":false,"is_comments_gif_composer_enabled":true,"has_liked":false,"like_count":126,"video_sticker_locales":[],"is_dash_eligible":1,"number_of_qualities":2,"video_versions":[{"height":853,"type":101,"url":"https://scontent.cdninstagram.com/o1/v/t16/f2/m86/video.mp4","width":480}],"video_duration":76.783,"has_audio":true,"clips_tab_pinned_user_ids":[],"clips_metadata":{"breaking_content_info":null,"clips_creation_entry_point":"clips","featured_label":null,"is_public_chat_welcome_video":false,"is_shared_to_fb":false,"audio_type":"original_sounds","original_sound_info":{"allow_creator_to_rename":true,"audio_asset_id":"577003721993612","duration_in_ms":76787,"hide_remixing":true,"ig_artist":{"pk":"2700692569","username":"adrianhorning","full_name":"Adrian Horning","is_verified":true},"is_explicit":false,"original_audio_title":"Original audio","original_media_id":"3540614075954356349"},"reusable_text_attribute_string":"Rebuilt my app with AI and it looks amazing"},"can_viewer_save":true,"can_viewer_reshare":true,"is_organic_product_tagging_eligible":false,"view_state_item_type":128,"is_reuse_allowed":false,"has_more_comments":true,"max_num_visible_preview_comments":2,"is_open_to_public_submission":false,"url":"https://www.instagram.com/reel/DEiyb48AeB9"}}],"paging_info":{"max_id":"QVFCMmhBOFROQXFVbVJGSXR0WUpSNzdSd2FRTUQ3OXR4b2xVbmJNcGtpQXloUUVLRQ==","more_available":true},"status":"ok"}'
+  recorded_at: Sat, 23 Nov 2025 10:00:00 GMT
+recorded_with: VCR 6.3.1

@@ -426,6 +426,91 @@ module ScrapeCreators
         get("/v1/instagram/reels/search", params)
       end
 
+      # Get all public reels from an Instagram profile
+      #
+      # Retrieves public reels from an Instagram profile with pagination support.
+      # Can provide a user_id or handle, but for faster response times, use user_id.
+      # Note: This endpoint doesn't include pinned reels, and Instagram doesn't return
+      # the description of the reel on this endpoint. Use the post detail endpoint
+      # to get the description.
+      #
+      # @param user_id [String, Integer, nil] Instagram user ID (for faster response times)
+      # @param handle [String, nil] Instagram handle (username)
+      # @param max_id [String, nil] Cursor for pagination to get more reels (from previous response)
+      # @param trim [Boolean, nil] Whether to trim the response data (default: false)
+      # @return [Hash] Reels data including items array and pagination info
+      # @raise [ArgumentError] If both user_id and handle are nil or empty
+      # @raise [BadRequestError] If the parameters are invalid
+      # @raise [NotFoundError] If the profile is not found
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Get reels from an Instagram profile by handle
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   reels = client.instagram.reels(handle: "adrianhorning")
+      #   puts reels[:items].count                    # => 12
+      #   puts reels[:paging_info][:more_available]   # => true
+      #
+      # @example Get reels by user ID (faster)
+      #   reels = client.instagram.reels(user_id: "2700692569")
+      #   puts reels[:items].first[:media][:code]     # => "DEiyb48AeB9"
+      #
+      # @example Get next page of reels using cursor
+      #   first_page = client.instagram.reels(handle: "adrianhorning")
+      #   next_page = client.instagram.reels(
+      #     handle: "adrianhorning",
+      #     max_id: first_page[:paging_info][:max_id]
+      #   )
+      #
+      # @example Get trimmed reels response
+      #   reels = client.instagram.reels(handle: "adrianhorning", trim: true)
+      #
+      # @example Response structure
+      #   {
+      #     items: [
+      #       {
+      #         media: {
+      #           pk: "3540614075954356349",
+      #           id: "3540614075954356349_2700692569",
+      #           code: "DEiyb48AeB9",
+      #           taken_at: 1736294201,
+      #           media_type: 2,
+      #           product_type: "clips",
+      #           play_count: 3865,
+      #           like_count: 126,
+      #           comment_count: 12,
+      #           video_duration: 76.783,
+      #           has_audio: true,
+      #           user: {
+      #             pk: "2700692569",
+      #             username: "adrianhorning",
+      #             full_name: "Adrian Horning",
+      #             is_verified: true
+      #           },
+      #           image_versions2: { candidates: [...] },
+      #           video_versions: [...],
+      #           url: "https://www.instagram.com/reel/DEiyb48AeB9"
+      #         }
+      #       }
+      #     ],
+      #     paging_info: {
+      #       max_id: "QVFCMmhBOFROQXFVbVJGSXR0WUpSNzdSd2FRTUQ...",
+      #       more_available: true
+      #     },
+      #     status: "ok"
+      #   }
+      def reels(user_id: nil, handle: nil, max_id: nil, trim: nil)
+        if (user_id.nil? || user_id.to_s.empty?) && (handle.nil? || handle.to_s.empty?)
+          raise ArgumentError, "Either user_id or handle is required"
+        end
+
+        params = {}
+        params[:user_id] = user_id unless user_id.nil? || user_id.to_s.empty?
+        params[:handle] = handle unless handle.nil? || handle.to_s.empty?
+        params[:max_id] = max_id unless max_id.nil?
+        params[:trim] = trim unless trim.nil?
+
+        get("/v1/instagram/user/reels", params)
       # Get comments from an Instagram post or reel
       #
       # Retrieves comments from a public Instagram post or reel. Note that this
