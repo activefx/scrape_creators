@@ -159,4 +159,89 @@ describe ScrapeCreators::Resources::TruthSocial do
       end
     end
   end
+
+  describe "#post" do
+    let(:post_url) { "https://truthsocial.com/@realDonaldTrump/114315219437063160" }
+
+    it "fetches a Truth Social post successfully" do
+      VCR.use_cassette("truth_social/post_success") do
+        result = truth_social.post(post_url)
+
+        assert_kind_of Hash, result
+        assert result[:success]
+
+        # Verify basic post data
+        assert result.key?(:id)
+        assert result.key?(:text)
+        assert result.key?(:content)
+        assert result.key?(:created_at)
+        assert result.key?(:url)
+        assert result.key?(:uri)
+
+        # Verify visibility and language
+        assert result.key?(:visibility)
+        assert result.key?(:language)
+
+        # Verify account data
+        assert result.key?(:account)
+        account = result[:account]
+
+        assert account.key?(:id)
+        assert account.key?(:username)
+        assert account.key?(:display_name)
+        assert account.key?(:followers_count)
+        assert account.key?(:following_count)
+        assert account.key?(:verified)
+
+        # Verify engagement metrics
+        assert result.key?(:replies_count)
+        assert result.key?(:reblogs_count)
+        assert result.key?(:favourites_count)
+
+        # Verify arrays exist
+        assert result.key?(:media_attachments)
+        assert_kind_of Array, result[:media_attachments]
+        assert result.key?(:mentions)
+        assert_kind_of Array, result[:mentions]
+        assert result.key?(:tags)
+        assert_kind_of Array, result[:tags]
+        assert result.key?(:emojis)
+        assert_kind_of Array, result[:emojis]
+      end
+    end
+
+    it "raises ArgumentError when url is nil" do
+      error = assert_raises(ArgumentError) do
+        truth_social.post(nil)
+      end
+      assert_match(/url is required/, error.message)
+    end
+
+    it "raises ArgumentError when url is empty" do
+      error = assert_raises(ArgumentError) do
+        truth_social.post("")
+      end
+      assert_match(/url is required/, error.message)
+    end
+
+    it "raises NotFoundError for non-existent post" do
+      VCR.use_cassette("truth_social/post_not_found") do
+        assert_raises(ScrapeCreators::NotFoundError) do
+          truth_social.post("https://truthsocial.com/@nonexistent/999999999999999999")
+        end
+      end
+    end
+
+    it "raises UnauthorizedError for invalid API key" do
+      VCR.use_cassette("truth_social/post_unauthorized") do
+        invalid_client = ScrapeCreators::Client.new(api_key: "invalid_key")
+
+        error = assert_raises(ScrapeCreators::UnauthorizedError) do
+          invalid_client.truth_social.post(post_url)
+        end
+
+        assert_match(/invalid|unauthorized|api.?key/i, error.message)
+      end
+    end
+  end
 end
