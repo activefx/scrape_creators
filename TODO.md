@@ -130,7 +130,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 - [✅] GET Tweet Details (`/v1/twitter/tweet`)
 - [✅] GET Transcript (`/v1/twitter/tweet/transcript`)
 - [✅] GET Community (`/v1/twitter/community`)
-- [⏳] GET Community Tweets (`/v1/twitter/community/tweets`)
+- [✅] GET Community Tweets (`/v1/twitter/community/tweets`)
 
 ---
 
@@ -263,7 +263,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 - Facebook Ad Library: 4/4 endpoints (100%)
 - Google Ad Library: 3/3 endpoints (100%)
 - LinkedIn Ad Library: 2/2 endpoints (100%)
-- Twitter: 5/6 endpoints (83%)
+- Twitter: 6/6 endpoints (100%)
 - Reddit: 5/6 endpoints (83%)
 - Truth Social: 2/3 endpoints (67%)
 - Threads: 1/5 endpoints (20%)
