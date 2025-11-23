@@ -73,7 +73,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 - [✅] GET Transcript (`/v1/youtube/video/transcript`)
 - [✅] GET Search (`/v1/youtube/search`)
 - [✅] GET Search by Hashtag (`/v1/youtube/search/hashtag`)
-- [⏳] GET Comments (`/v1/youtube/video/comments`)
+- [✅] GET Comments (`/v1/youtube/video/comments`)
 - [⏳] GET Trending Shorts (`/v1/youtube/shorts/trending`)
 - [⏳] GET Playlist (`/v1/youtube/playlist`)
 - [⏳] GET Community Post Details (`/v1/youtube/community-post`)
@@ -250,14 +250,14 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 ## Implementation Progress Summary
 
 **Total Endpoints:** 103
-**Completed:** 60
-**Remaining:** 43
+**Completed:** 61
+**Remaining:** 42
 
 ### Platform Completion Status
 - TikTok: 18/18 endpoints (100%)
 - TikTok Shop: 3/3 endpoints (100%)
 - Instagram: 11/13 endpoints (85%)
-- YouTube: 8/12 endpoints (67%)
+- YouTube: 9/12 endpoints (75%)
 - LinkedIn: 3/3 endpoints (100%)
 - Facebook: 6/6 endpoints (100%)
 - Facebook Ad Library: 4/4 endpoints (100%)
