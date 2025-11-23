@@ -386,4 +386,82 @@ describe ScrapeCreators::Resources::Instagram do
       end
     end
   end
+
+  describe "#search_reels" do
+    it "searches for reels by keyword" do
+      VCR.use_cassette("instagram/search_reels_success") do
+        results = instagram.search_reels("running")
+
+        assert_kind_of Hash, results
+        assert results[:success]
+
+        # Verify response structure
+        assert results.key?(:reels)
+        assert results.key?(:credits_remaining)
+        assert_kind_of Array, results[:reels]
+        refute_empty results[:reels]
+
+        # Verify first reel structure
+        reel = results[:reels].first
+
+        assert reel.key?(:id)
+        assert reel.key?(:shortcode)
+        assert reel.key?(:url)
+        assert reel.key?(:caption)
+        assert reel.key?(:video_url)
+        assert reel.key?(:video_duration)
+        assert reel.key?(:video_view_count)
+        assert reel.key?(:video_play_count)
+        assert reel.key?(:is_video)
+        assert reel.key?(:owner)
+        assert reel.key?(:taken_at)
+        assert reel.key?(:like_count)
+        assert reel.key?(:comment_count)
+
+        # Verify owner info
+        owner = reel[:owner]
+
+        assert owner.key?(:id)
+        assert owner.key?(:username)
+        assert owner.key?(:is_verified)
+      end
+    end
+
+    it "searches for reels with amount parameter" do
+      VCR.use_cassette("instagram/search_reels_with_amount") do
+        results = instagram.search_reels("fitness", amount: 5)
+
+        assert_kind_of Hash, results
+        assert results[:success]
+        assert results.key?(:reels)
+        assert_kind_of Array, results[:reels]
+      end
+    end
+
+    it "raises ArgumentError when query is nil" do
+      error = assert_raises(ArgumentError) do
+        instagram.search_reels(nil)
+      end
+      assert_match(/query is required/, error.message)
+    end
+
+    it "raises ArgumentError when query is empty" do
+      error = assert_raises(ArgumentError) do
+        instagram.search_reels("")
+      end
+      assert_match(/query is required/, error.message)
+    end
+
+    it "raises UnauthorizedError for invalid API key" do
+      VCR.use_cassette("instagram/search_reels_unauthorized") do
+        invalid_client = ScrapeCreators::Client.new(api_key: "invalid_key")
+
+        error = assert_raises(ScrapeCreators::UnauthorizedError) do
+          invalid_client.instagram.search_reels("running")
+        end
+
+        assert_match(/invalid|unauthorized|api.?key/i, error.message)
+      end
+    end
+  end
 end
