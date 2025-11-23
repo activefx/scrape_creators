@@ -71,6 +71,77 @@ module ScrapeCreators
 
         get("/v1/truthsocial/profile", handle: handle)
       end
+
+      # Get posts from a Truth Social user
+      #
+      # Retrieves posts from a public Truth Social user's profile. Note that as of 8/27/2025,
+      # Truth Social only allows viewing public profile/posts of prominent users (like Trump
+      # and Vance), requiring auth for everyone else.
+      #
+      # @param handle [String, nil] Truth Social username (required if user_id not provided)
+      # @param user_id [String, nil] Truth Social user ID for faster response times
+      #   (e.g., Trump's is "107780257626128497")
+      # @param next_max_id [String, nil] Used to paginate to next page of results
+      # @param trim [Boolean, nil] Set to true for a trimmed down version of the response
+      # @return [Hash] Posts data including array of posts and pagination info
+      # @raise [ArgumentError] If neither handle nor user_id is provided
+      # @raise [BadRequestError] If the parameters are invalid
+      # @raise [NotFoundError] If the user is not found
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Get posts by handle
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   result = client.truth_social.user_posts(handle: "realDonaldTrump")
+      #   result[:posts].each { |post| puts post[:text] }
+      #
+      # @example Get posts by user_id for faster response
+      #   result = client.truth_social.user_posts(user_id: "107780257626128497")
+      #
+      # @example Paginate through posts
+      #   result = client.truth_social.user_posts(handle: "realDonaldTrump")
+      #   next_page = client.truth_social.user_posts(
+      #     handle: "realDonaldTrump",
+      #     next_max_id: result[:next_max_id]
+      #   )
+      #
+      # @example Get trimmed response
+      #   result = client.truth_social.user_posts(handle: "realDonaldTrump", trim: true)
+      #
+      # @example Response structure
+      #   {
+      #     success: true,
+      #     posts: [
+      #       {
+      #         text: "Post content...",
+      #         id: "114315232218538121",
+      #         created_at: "2025-04-10T19:06:55.053Z",
+      #         content: "<p>HTML content...</p>",
+      #         url: "https://truthsocial.com/@realDonaldTrump/114315232218538121",
+      #         account: { username: "realDonaldTrump", display_name: "Donald J. Trump", ... },
+      #         replies_count: 601,
+      #         reblogs_count: 1607,
+      #         favourites_count: 6282,
+      #         media_attachments: [],
+      #         card: { title: "...", description: "...", ... },
+      #         ...
+      #       }
+      #     ],
+      #     next_max_id: "114308258545250117"
+      #   }
+      def user_posts(handle: nil, user_id: nil, next_max_id: nil, trim: nil)
+        if (handle.nil? || handle.to_s.empty?) && (user_id.nil? || user_id.to_s.empty?)
+          raise ArgumentError, "handle or user_id is required"
+        end
+
+        params = {}
+        params[:handle] = handle unless handle.nil? || handle.to_s.empty?
+        params[:user_id] = user_id unless user_id.nil? || user_id.to_s.empty?
+        params[:next_max_id] = next_max_id unless next_max_id.nil?
+        params[:trim] = trim unless trim.nil?
+
+        get("/v1/truthsocial/user/posts", params)
+      end
     end
   end
 end
