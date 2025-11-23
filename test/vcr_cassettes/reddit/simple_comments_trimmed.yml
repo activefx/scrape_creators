@@ -1,0 +1,84 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/reddit/post/comments/simple?trim=true&url=https://www.reddit.com/r/AskReddit/comments/ablzuq/people_who_havent_pooped_in_2019_yet_why_are_you/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 23 Nov 2025 18:14:47 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      Etag:
+      - W/"20d9-fHK6bpdzH1uf6gOb9JakePe0Qz0"
+      Rndr-Id:
+      - d78b7c57-6cae-4d59
+      Vary:
+      - Accept-Encoding
+      X-Powered-By:
+      - Express
+      X-Render-Origin-Server:
+      - Render
+      Cf-Cache-Status:
+      - DYNAMIC
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 9a32a5d7febfa68b-ORD
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '[{"id":"ed1czme","author":"sweatybeard","author_fullname":"t2_cep2k","body":"But
+        when I finally do, it''ll be the years biggest shit ^^^^^so ^^^^^far","name":"t1_ed1czme","created_utc":1546378524,"created_at_iso":"2019-01-01T21:35:24.000Z","parent_id":"t3_ablzuq","url":"https://www.reddit.com/r/AskReddit/comments/ablzuq/people_who_havent_pooped_in_2019_yet_why_are_you/ed1czme/","ups":12205,"downs":0,"score":12205},{"id":"ed1su6t","author":"jofwu","author_fullname":"t2_6ckuh","body":"Somewhere
+        out there, somebody has made the biggest poop of the year. And they don''t
+        even know it. ","name":"t1_ed1su6t","created_utc":1546391589,"created_at_iso":"2019-01-02T01:13:09.000Z","parent_id":"t1_ed1czme","url":"https://www.reddit.com/r/AskReddit/comments/ablzuq/people_who_havent_pooped_in_2019_yet_why_are_you/ed1su6t/","ups":2417,"downs":0,"score":2417},{"id":"ed1ye8p","author":"[deleted]","body":"I
+        made my biggest poop of last year right in between Christmas and New year''s-
+        first time I could say that I filled the bowl to the waterline","name":"t1_ed1ye8p","created_utc":1546396468,"created_at_iso":"2019-01-02T02:34:28.000Z","parent_id":"t1_ed1su6t","url":"https://www.reddit.com/r/AskReddit/comments/ablzuq/people_who_havent_pooped_in_2019_yet_why_are_you/ed1ye8p/","ups":780,"downs":0,"score":780},{"id":"ed2xsuk","author":"minjabinja","author_fullname":"t2_nqzim","body":"goals","name":"t1_ed2xsuk","created_utc":1546442379,"created_at_iso":"2019-01-02T15:19:39.000Z","parent_id":"t1_ed1ye8p","url":"https://www.reddit.com/r/AskReddit/comments/ablzuq/people_who_havent_pooped_in_2019_yet_why_are_you/ed2xsuk/","ups":333,"downs":0,"score":333},{"id":"ed1d2z7","author":"ButtholeLinoleum","author_fullname":"t2_jdxns","body":"I''ve
+        been pissing out my ass all fuckin day.","name":"t1_ed1d2z7","created_utc":1546378596,"created_at_iso":"2019-01-01T21:36:36.000Z","parent_id":"t3_ablzuq","url":"https://www.reddit.com/r/AskReddit/comments/ablzuq/people_who_havent_pooped_in_2019_yet_why_are_you/ed1d2z7/","ups":14262,"downs":0,"score":14262},{"id":"ed1kaog","author":"AtaxyQuiver","author_fullname":"t2_1pzobf5d","body":"You
+        have had this account for 4 years and the only posts on it are fairly disturbing....","name":"t1_ed1kaog","created_utc":1546384443,"created_at_iso":"2019-01-01T23:14:03.000Z","parent_id":"t1_ed1d2z7","url":"https://www.reddit.com/r/AskReddit/comments/ablzuq/people_who_havent_pooped_in_2019_yet_why_are_you/ed1kaog/","ups":1256,"downs":0,"score":1256},{"id":"ed1nf5s","author":"[deleted]","body":"It
+        has intruged me oh what the fuck","name":"t1_ed1nf5s","created_utc":1546387016,"created_at_iso":"2019-01-01T23:56:56.000Z","parent_id":"t1_ed1kaog","url":"https://www.reddit.com/r/AskReddit/comments/ablzuq/people_who_havent_pooped_in_2019_yet_why_are_you/ed1nf5s/","ups":361,"downs":0,"score":361},{"id":"ed1q3oe","author":"Silneit","author_fullname":"t2_1545e3","body":"''To
+        attach my scrotum to my sister''s face, should I use staples or glue?''","name":"t1_ed1q3oe","created_utc":1546389242,"created_at_iso":"2019-01-02T00:34:02.000Z","parent_id":"t1_ed1nf5s","url":"https://www.reddit.com/r/AskReddit/comments/ablzuq/people_who_havent_pooped_in_2019_yet_why_are_you/ed1q3oe/","ups":470,"downs":0,"score":470},{"id":"eegnz76","author":"jergin_therlax","author_fullname":"t2_9wct3","body":"Also,
+        \"What the fuck is wrong with people? Is your life truly so empty that sitting
+        on a frozen lake in a tent is considered a good time? I just wiped my diarrhea
+        butt with my sister''s panties.\" in r/Minnesota lmfao. Glad I followed my
+        curiosity.\n\n","name":"t1_eegnz76","created_utc":1547925732,"created_at_iso":"2019-01-19T19:22:12.000Z","parent_id":"t1_ed1q3oe","url":"https://www.reddit.com/r/AskReddit/comments/ablzuq/people_who_havent_pooped_in_2019_yet_why_are_you/eegnz76/","ups":143,"downs":0,"score":143},{"id":"ed1jlq7","author":"flesh0racle","author_fullname":"t2_153c4n","body":"Same.
+        Shitting through the eye of a needle.","name":"t1_ed1jlq7","created_utc":1546383878,"created_at_iso":"2019-01-01T23:04:38.000Z","parent_id":"t1_ed1d2z7","url":"https://www.reddit.com/r/AskReddit/comments/ablzuq/people_who_havent_pooped_in_2019_yet_why_are_you/ed1jlq7/","ups":1485,"downs":0,"score":1485},{"id":"ed1iwf0","author":"mrsuns10","author_fullname":"t2_ovgxw","body":"Username
+        checks out ","name":"t1_ed1iwf0","created_utc":1546383291,"created_at_iso":"2019-01-01T22:54:51.000Z","parent_id":"t1_ed1d2z7","url":"https://www.reddit.com/r/AskReddit/comments/ablzuq/people_who_havent_pooped_in_2019_yet_why_are_you/ed1iwf0/","ups":545,"downs":0,"score":545},{"id":"ed1emmi","author":"abksploder","author_fullname":"t2_1jqhk71","body":"Bold
+        of you to assume I''m going to take a shit this year.","name":"t1_ed1emmi","created_utc":1546379793,"created_at_iso":"2019-01-01T21:56:33.000Z","parent_id":"t3_ablzuq","url":"https://www.reddit.com/r/AskReddit/comments/ablzuq/people_who_havent_pooped_in_2019_yet_why_are_you/ed1emmi/","ups":34858,"downs":0,"score":34858},{"id":"ed1erpi","author":"ShoddySubstance","author_fullname":"t2_2uhed5z4","body":"bottling
+        it up is not healthy!","name":"t1_ed1erpi","created_utc":1546379905,"created_at_iso":"2019-01-01T21:58:25.000Z","parent_id":"t1_ed1emmi","url":"https://www.reddit.com/r/AskReddit/comments/ablzuq/people_who_havent_pooped_in_2019_yet_why_are_you/ed1erpi/","ups":7609,"downs":0,"score":7609},{"id":"ed1lm2g","author":"Joris2627","author_fullname":"t2_yynnaa","body":"Bold
+        of you to think i am botteling it up","name":"t1_ed1lm2g","created_utc":1546385529,"created_at_iso":"2019-01-01T23:32:09.000Z","parent_id":"t1_ed1erpi","url":"https://www.reddit.com/r/AskReddit/comments/ablzuq/people_who_havent_pooped_in_2019_yet_why_are_you/ed1lm2g/","ups":2943,"downs":0,"score":2943},{"id":"ed1nizp","author":"Yarxing","author_fullname":"t2_83jpy","body":"Are
+        you keeping it in a bag? ","name":"t1_ed1nizp","created_utc":1546387102,"created_at_iso":"2019-01-01T23:58:22.000Z","parent_id":"t1_ed1lm2g","url":"https://www.reddit.com/r/AskReddit/comments/ablzuq/people_who_havent_pooped_in_2019_yet_why_are_you/ed1nizp/","ups":1323,"downs":0,"score":1323},{"id":"ed1o8nq","author":"NotTRYINGtobeLame","author_fullname":"t2_kk5i6","body":"The
+        full term is *colostomy bag*","name":"t1_ed1o8nq","created_utc":1546387673,"created_at_iso":"2019-01-02T00:07:53.000Z","parent_id":"t1_ed1nizp","url":"https://www.reddit.com/r/AskReddit/comments/ablzuq/people_who_havent_pooped_in_2019_yet_why_are_you/ed1o8nq/","ups":1104,"downs":0,"score":1104},{"id":"ed1od4p","author":"ThatTechnician","author_fullname":"t2_17xzgla1","body":"I''m
+        definitely holding this full term. ","name":"t1_ed1od4p","created_utc":1546387776,"created_at_iso":"2019-01-02T00:09:36.000Z","parent_id":"t1_ed1o8nq","url":"https://www.reddit.com/r/AskReddit/comments/ablzuq/people_who_havent_pooped_in_2019_yet_why_are_you/ed1od4p/","ups":284,"downs":0,"score":284},{"id":"ed1o9id","author":"jld2k6","author_fullname":"t2_6lzbw","body":"Fun
+        fact, If you don''t poop for long enough it will literally back up into your
+        stomach and you will throw up shit and become septic. I knew a woman on methadone
+        who became so constipated she stopped pooping and didn''t do anything about
+        it until she started vomiting up shit and almost died. I can''t even imagine
+        what the process of clearing 28ft (8.53m) of mostly hard dried up shit from
+        your intestines is like after that if you survive","name":"t1_ed1o9id","created_utc":1546387693,"created_at_iso":"2019-01-02T00:08:13.000Z","parent_id":"t1_ed1emmi","url":"https://www.reddit.com/r/AskReddit/comments/ablzuq/people_who_havent_pooped_in_2019_yet_why_are_you/ed1o9id/","ups":2566,"downs":0,"score":2566},{"id":"ed1pj99","author":"prinzklaus","author_fullname":"t2_11c6xf","body":"That
+        was not a fun fact at all.","name":"t1_ed1pj99","created_utc":1546388767,"created_at_iso":"2019-01-02T00:26:07.000Z","parent_id":"t1_ed1o9id","url":"https://www.reddit.com/r/AskReddit/comments/ablzuq/people_who_havent_pooped_in_2019_yet_why_are_you/ed1pj99/","ups":3848,"downs":0,"score":3848},{"id":"ed1pzqm","author":"bradlees","author_fullname":"t2_5ra0i","body":"UNSUBSCRIBE
+        \n\nUNSUBSCRIBE ","name":"t1_ed1pzqm","created_utc":1546389153,"created_at_iso":"2019-01-02T00:32:33.000Z","parent_id":"t1_ed1pj99","url":"https://www.reddit.com/r/AskReddit/comments/ablzuq/people_who_havent_pooped_in_2019_yet_why_are_you/ed1pzqm/","ups":1895,"downs":0,"score":1895}]'
+  recorded_at: Sun, 23 Nov 2025 18:14:47 GMT
+recorded_with: VCR 6.3.1
