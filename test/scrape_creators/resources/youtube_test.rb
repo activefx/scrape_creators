@@ -331,4 +331,94 @@ describe ScrapeCreators::Resources::Youtube do
       end
     end
   end
+
+  describe "#channel_shorts_simple" do
+    describe "with handle parameter" do
+      it "fetches shorts from a YouTube channel by handle" do
+        VCR.use_cassette("youtube/channel_shorts_simple_by_handle") do
+          result = youtube.channel_shorts_simple(handle: "upflip", amount: 5)
+
+          assert_kind_of Array, result
+          assert_operator result.length, :<=, 5
+
+          # Verify short structure if shorts exist
+          if result.any?
+            short = result.first
+
+            assert short.key?(:id)
+            assert short.key?(:title)
+            assert short.key?(:url)
+            assert_equal "short", short[:type]
+            assert short.key?(:thumbnail)
+            assert short.key?(:view_count_text)
+            assert short.key?(:view_count_int)
+          end
+        end
+      end
+    end
+
+    describe "with channel_id parameter" do
+      it "fetches shorts from a YouTube channel by channel ID" do
+        VCR.use_cassette("youtube/channel_shorts_simple_by_id") do
+          result = youtube.channel_shorts_simple(channel_id: "UCX6OQ3DkcsbYNE6H8uQQuVA", amount: 5)
+
+          assert_kind_of Array, result
+        end
+      end
+    end
+
+    describe "with different amounts" do
+      it "returns the requested number of shorts" do
+        VCR.use_cassette("youtube/channel_shorts_simple_amount") do
+          result = youtube.channel_shorts_simple(handle: "upflip", amount: 10)
+
+          assert_kind_of Array, result
+          assert_operator result.length, :<=, 10
+        end
+      end
+    end
+
+    describe "parameter validation" do
+      it "raises ArgumentError when no identifier is provided" do
+        error = assert_raises(ArgumentError) do
+          youtube.channel_shorts_simple(amount: 5)
+        end
+        assert_match(/channel_id or handle is required/, error.message)
+      end
+
+      it "raises ArgumentError when both identifiers are nil" do
+        error = assert_raises(ArgumentError) do
+          youtube.channel_shorts_simple(channel_id: nil, handle: nil, amount: 5)
+        end
+        assert_match(/channel_id or handle is required/, error.message)
+      end
+
+      it "raises ArgumentError when amount is not provided" do
+        assert_raises(ArgumentError) do
+          youtube.channel_shorts_simple(handle: "upflip")
+        end
+      end
+    end
+
+    describe "error handling" do
+      it "raises NotFoundError for non-existent channel" do
+        VCR.use_cassette("youtube/channel_shorts_simple_not_found") do
+          assert_raises(ScrapeCreators::NotFoundError) do
+            youtube.channel_shorts_simple(handle: "thishandledefinitelydoesnotexist123456789xyz", amount: 5)
+          end
+        end
+      end
+
+      it "raises authentication error for invalid API key" do
+        VCR.use_cassette("youtube/channel_shorts_simple_unauthorized") do
+          invalid_client = ScrapeCreators::Client.new(api_key: "invalid_key")
+
+          # API may return UnauthorizedError or PaymentRequiredError for invalid credentials
+          assert_raises(ScrapeCreators::UnauthorizedError, ScrapeCreators::PaymentRequiredError) do
+            invalid_client.youtube.channel_shorts_simple(handle: "upflip", amount: 5)
+          end
+        end
+      end
+    end
+  end
 end

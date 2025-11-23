@@ -217,6 +217,69 @@ module ScrapeCreators
 
         get("/v1/youtube/channel/shorts", params)
       end
+
+      # Get latest shorts from a YouTube channel (auto-pagination convenience endpoint)
+      #
+      # Convenience endpoint that handles pagination automatically to retrieve a specified
+      # number of shorts. This costs more credits as it uses the Channel Shorts endpoint
+      # internally. For more details about each short (description, publish date, etc.),
+      # use the Video/Short Details endpoint.
+      # You must provide at least one of: channel_id or handle.
+      #
+      # @param channel_id [String, nil] YouTube channel ID (e.g., "UCX6OQ3DkcsbYNE6H8uQQuVA")
+      # @param handle [String, nil] YouTube handle/username (e.g., "mrbeast" or "@mrbeast")
+      # @param amount [Integer] Number of shorts to return (required)
+      # @return [Array<Hash>] Array of shorts with basic information
+      # @raise [ArgumentError] If no identifier (channel_id or handle) is provided
+      # @raise [ArgumentError] If amount is not provided
+      # @raise [BadRequestError] If the parameters are invalid
+      # @raise [NotFoundError] If the channel is not found
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Get 10 latest shorts from a channel by handle
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   shorts = client.youtube.channel_shorts_simple(handle: "mrbeast", amount: 10)
+      #   shorts.each do |short|
+      #     puts "#{short[:title]} - #{short[:view_count_text]}"
+      #   end
+      #
+      # @example Get 5 shorts by channel ID
+      #   shorts = client.youtube.channel_shorts_simple(
+      #     channel_id: "UCX6OQ3DkcsbYNE6H8uQQuVA",
+      #     amount: 5
+      #   )
+      #
+      # @example Response structure (returns array directly)
+      #   [
+      #     {
+      #       type: "short",
+      #       id: "01D3CgMZ29I",
+      #       url: "https://www.youtube.com/watch?v=01D3CgMZ29I",
+      #       title: "WHAT A MATCH",
+      #       thumbnail: "https://i.ytimg.com/vi/01D3CgMZ29I/oardefault.jpg?...",
+      #       view_count_text: "13K",
+      #       view_count_int: 13000
+      #     },
+      #     {
+      #       type: "short",
+      #       id: "zCgeCq9hKhY",
+      #       url: "https://www.youtube.com/watch?v=zCgeCq9hKhY",
+      #       title: "THE FINAL BOSS ALWAYS HAS A PLAN",
+      #       thumbnail: "https://i.ytimg.com/vi/zCgeCq9hKhY/oardefault.jpg?...",
+      #       view_count_text: "37K",
+      #       view_count_int: 37000
+      #     }
+      #   ]
+      def channel_shorts_simple(amount:, channel_id: nil, handle: nil)
+        raise ArgumentError, "At least one of channel_id or handle is required" if channel_id.nil? && handle.nil?
+
+        params = { amount: amount }
+        params[:channelId] = channel_id if channel_id
+        params[:handle] = handle if handle
+
+        get("/v1/youtube/channel/shorts/simple", params)
+      end
     end
   end
 end

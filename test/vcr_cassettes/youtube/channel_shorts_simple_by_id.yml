@@ -1,0 +1,60 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/youtube/channel/shorts/simple?amount=5&channelId=UCX6OQ3DkcsbYNE6H8uQQuVA
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 23 Nov 2025 18:27:54 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      Etag:
+      - W/"6d1-3xsEuVjA1PKjgSCSYyyoJmox67E"
+      Rndr-Id:
+      - ad5a3cde-587c-44fb
+      Vary:
+      - Accept-Encoding
+      X-Powered-By:
+      - Express
+      X-Render-Origin-Server:
+      - Render
+      Cf-Cache-Status:
+      - DYNAMIC
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 9a32b9208b6c1074-ORD
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '[{"type":"short","id":"HISfrcjiNPM","url":"https://www.youtube.com/watch?v=HISfrcjiNPM","title":"I
+        Surprised 50 Make-A-Wish Kids With Disneyland","thumbnail":"https://i.ytimg.com/vi/HISfrcjiNPM/oardefault.jpg?sqp=-oaymwEoCJUDENAFSFqQAgHyq4qpAxcIARUAAIhC2AEB4gEKCBgQAhgGOAFAAQ==&rs=AOn4CLDpzEg9qEodUV9ofFJAqV0tiFIHmA","viewCountText":"13M","viewCountInt":13000000},{"type":"short","id":"WROMyJAJmp4","url":"https://www.youtube.com/watch?v=WROMyJAJmp4","title":"Can
+        I Beat An F1 Driver?","thumbnail":"https://i.ytimg.com/vi/WROMyJAJmp4/oardefault.jpg?sqp=-oaymwEoCJUDENAFSFqQAgHyq4qpAxcIARUAAIhC2AEB4gEKCBgQAhgGOAFAAQ==&rs=AOn4CLBaZXoiru1nqIm_OESidOYha5OXYA","viewCountText":"105M","viewCountInt":105000000},{"type":"short","id":"tAwzBYE18Us","url":"https://www.youtube.com/watch?v=tAwzBYE18Us","title":"How
+        I Became MrBeef","thumbnail":"https://i.ytimg.com/vi/tAwzBYE18Us/oardefault.jpg?sqp=-oaymwEoCJUDENAFSFqQAgHyq4qpAxcIARUAAIhC2AEB4gEKCBgQAhgGOAFAAQ==&rs=AOn4CLCLSOUX3urWCKylNBEXI0RmU7WxuA","viewCountText":"17M","viewCountInt":17000000},{"type":"short","id":"LyFMbY-c_Lc","url":"https://www.youtube.com/watch?v=LyFMbY-c_Lc","title":"I
+        Raced Noah Lyles","thumbnail":"https://i.ytimg.com/vi/LyFMbY-c_Lc/oardefault.jpg?sqp=-oaymwEoCJUDENAFSFqQAgHyq4qpAxcIARUAAIhC2AEB4gEKCBgQAhgGOAFAAQ==&rs=AOn4CLCbkJmLlht82ngBNNjn-nL8UuQmPQ","viewCountText":"141M","viewCountInt":141000000},{"type":"short","id":"R7MkZL5i3FQ","url":"https://www.youtube.com/watch?v=R7MkZL5i3FQ","title":"Giving
+        Trick-or-Treaters Weirder and Weirder Gifts","thumbnail":"https://i.ytimg.com/vi/R7MkZL5i3FQ/oardefault.jpg?sqp=-oaymwEoCJUDENAFSFqQAgHyq4qpAxcIARUAAIhC2AEB4gEKCBgQAhgGOAFAAQ==&rs=AOn4CLAd2JXH1ysGdHhuoMNfYPL-o9AKkg","viewCountText":"102M","viewCountInt":102000000}]'
+  recorded_at: Sun, 23 Nov 2025 18:27:54 GMT
+recorded_with: VCR 6.3.1
