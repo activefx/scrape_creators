@@ -147,7 +147,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 
 ## Truth Social
 
-- [⏳] GET Profile (`/v1/truthsocial/profile`)
+- [✅] GET Profile (`/v1/truthsocial/profile`)
 - [⏳] GET User Posts (`/v1/truthsocial/user/posts`)
 - [⏳] GET Post (`/v1/truthsocial/post`)
 
@@ -250,7 +250,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 ## Implementation Progress Summary
 
 **Total Endpoints:** 133
-**Completed:** 25 (TikTok core + search + songs + shop endpoints, Instagram profile + basic profile + posts, Reddit subreddit posts)
+**Completed:** 25 (TikTok core + search + songs + shop endpoints, Instagram profile + basic profile + posts, Truth Social profile)
 **Remaining:** 108
 
 ### Platform Completion Status
@@ -269,8 +269,8 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 - Google Ad Library: 1/3 endpoints (33%)
 - LinkedIn Ad Library: 0/2 endpoints (0%)
 - Twitter: 0/6 endpoints (0%)
-- Reddit: 1/6 endpoints (17%)
-- Truth Social: 0/3 endpoints (0%)
+- Reddit: 0/6 endpoints (0%)
+- Truth Social: 1/3 endpoints (33%)
 - Threads: 0/5 endpoints (0%)
 - Bluesky: 0/3 endpoints (0%)
 - Pinterest: 0/4 endpoints (0%)
