@@ -364,6 +364,69 @@ module ScrapeCreators
 
         get("/v1/youtube/video", params)
       end
+
+      # Get YouTube video or short transcript
+      #
+      # Retrieves the transcript/captions for a YouTube video or short if available.
+      # Useful for extracting spoken content from videos. Returns detailed transcript
+      # data with timing information and a plain text version.
+      #
+      # @param url [String] YouTube video or short URL (required)
+      # @return [Hash] Transcript data including video metadata and transcript content
+      # @raise [ArgumentError] If url is not provided
+      # @raise [BadRequestError] If the parameters are invalid
+      # @raise [NotFoundError] If the video is not found or has no transcript
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Get video transcript
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   transcript = client.youtube.video_transcript(
+      #     url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+      #   )
+      #   puts transcript[:language]              # => "English"
+      #   puts transcript[:transcript_only_text]  # => "Full transcript as plain text..."
+      #
+      # @example Get short transcript
+      #   transcript = client.youtube.video_transcript(
+      #     url: "https://www.youtube.com/shorts/abc123"
+      #   )
+      #   puts transcript[:type]                  # => "short"
+      #   puts transcript[:transcript].first[:text]
+      #
+      # @example Iterate through transcript segments
+      #   transcript = client.youtube.video_transcript(url: "https://www.youtube.com/watch?v=abc123")
+      #   transcript[:transcript].each do |segment|
+      #     puts "#{segment[:start_time_text]}: #{segment[:text]}"
+      #   end
+      #
+      # @example Response structure
+      #   {
+      #     video_id: "bjVIDXPP7Uk",
+      #     type: "video",
+      #     url: "https://www.youtube.com/watch?v=bjVIDXPP7Uk",
+      #     transcript: [
+      #       {
+      #         text: "welcome back to the hell farm and the",
+      #         start_ms: "160",
+      #         end_ms: "1920",
+      #         start_time_text: "0:00"
+      #       },
+      #       {
+      #         text: "backyard trails we built these jumps two",
+      #         start_ms: "1920",
+      #         end_ms: "3919",
+      #         start_time_text: "0:01"
+      #       }
+      #     ],
+      #     transcript_only_text: "welcome back to the hell farm and the backyard trails...",
+      #     language: "English"
+      #   }
+      def video_transcript(url:)
+        raise ArgumentError, "url is required" if url.nil? || url.to_s.strip.empty?
+
+        get("/v1/youtube/video/transcript", { url: url })
+      end
     end
   end
 end

@@ -414,4 +414,86 @@ describe ScrapeCreators::Resources::FacebookAdLibrary do
       end
     end
   end
+
+  describe "#search_companies" do
+    describe "with valid query" do
+      it "searches companies successfully" do
+        VCR.use_cassette("facebook_ad_library/search_companies_success") do
+          result = facebook_ad_library.search_companies(query: "Nike")
+
+          assert_kind_of Hash, result
+          assert result.key?(:search_results)
+          assert_kind_of Array, result[:search_results]
+        end
+      end
+
+      it "returns company details in search results" do
+        VCR.use_cassette("facebook_ad_library/search_companies_success") do
+          result = facebook_ad_library.search_companies(query: "Nike")
+
+          refute_empty result[:search_results]
+          company = result[:search_results].first
+
+          assert company.key?(:page_id)
+          assert company.key?(:name)
+          assert company.key?(:category)
+        end
+      end
+
+      it "returns Instagram information when available" do
+        VCR.use_cassette("facebook_ad_library/search_companies_success") do
+          result = facebook_ad_library.search_companies(query: "Nike")
+
+          refute_empty result[:search_results]
+          company = result[:search_results].first
+
+          assert company.key?(:ig_username)
+          assert company.key?(:ig_followers)
+          assert company.key?(:ig_verification)
+        end
+      end
+
+      it "returns verification status" do
+        VCR.use_cassette("facebook_ad_library/search_companies_success") do
+          result = facebook_ad_library.search_companies(query: "Nike")
+
+          refute_empty result[:search_results]
+          company = result[:search_results].first
+
+          assert company.key?(:verification)
+          assert company.key?(:likes)
+        end
+      end
+    end
+
+    describe "parameter validation" do
+      it "raises ArgumentError when query is nil" do
+        error = assert_raises(ArgumentError) do
+          facebook_ad_library.search_companies(query: nil)
+        end
+        assert_match(/query is required/, error.message)
+      end
+
+      it "raises ArgumentError when query is empty string" do
+        error = assert_raises(ArgumentError) do
+          facebook_ad_library.search_companies(query: "")
+        end
+        assert_match(/query is required/, error.message)
+      end
+    end
+
+    describe "error handling" do
+      it "raises UnauthorizedError for invalid API key" do
+        VCR.use_cassette("facebook_ad_library/search_companies_unauthorized") do
+          invalid_client = ScrapeCreators::Client.new(api_key: "invalid_key")
+
+          error = assert_raises(ScrapeCreators::UnauthorizedError) do
+            invalid_client.facebook_ad_library.search_companies(query: "Nike")
+          end
+
+          assert_match(/invalid|unauthorized|api.?key/i, error.message)
+        end
+      end
+    end
+  end
 end
