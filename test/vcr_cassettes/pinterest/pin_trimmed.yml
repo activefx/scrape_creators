@@ -1,0 +1,52 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/pinterest/pin?trim=true&url=https://www.pinterest.com/pin/68747564459/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 23 Nov 2025 20:00:00 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      Etag:
+      - W/"def456-wcMU5P7tnESM+1ZpOvAdIPhpc10"
+      Vary:
+      - Accept-Encoding
+      X-Powered-By:
+      - Express
+      X-Render-Origin-Server:
+      - Render
+      Cf-Cache-Status:
+      - DYNAMIC
+      Server:
+      - cloudflare
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"title":"Italian Pot Roast (Straccato)","description":"Italian
+        Pot Roast (Straccato)","entityId":"68747564459","domain":"closetcooking.com","link":"https://www.closetcooking.com/italian-pot-roast-straccato/","imageSpec_orig":{"url":"https://i.pinimg.com/originals/d9/cb/ac/d9cbac6b643a03c096f7fd0566cecaf1.jpg","height":1200,"width":800},"pinner":{"username":"fluffduckie","fullName":"Adrienne
+        James","followerCount":4756},"board":{"name":"Food & Fun","url":"/fluffduckie/food-fun/"},"totalReactionCount":694,"shareCount":162,"repinCount":2208,"createdAt":"Thu,
+        06 Jun 2024 02:33:19 +0000"}'
+  recorded_at: Sun, 23 Nov 2025 20:00:00 GMT
+recorded_with: VCR 6.3.1
