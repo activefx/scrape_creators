@@ -1,0 +1,29 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/reddit/ads/search?budgets=HIGH,MEDIUM&formats=VIDEO&industries=GAMING,ENTERTAINMENT&objectives=CONVERSIONS&placements=FEED&query=gaming
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 23 Nov 2025 12:00:00 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"ads":[{"id":"allparams123","budget_category":"HIGH","industry":"GAMING","placements":["FEED"],"objective":"CONVERSIONS","creative":{"id":"t3_allparams123","type":"VIDEO","content":[{"destination_url":"https://gaming.example.com","display_url":"gaming.example.com","call_to_action":"Play Free","media_url":"https://example.com/gameplay.mp4"}],"headline":"The Ultimate Gaming Experience","body":"Join millions of players worldwide.","thumbnail_url":"https://b.thumbs.redditmedia.com/allparams.jpg","allow_comments":true,"created_at":"2024-10-01T08:00:00+00:00","profile_id":"t2_allparams","post_url":"https://www.reddit.com/r/u_gameco/comments/allparams123/"},"profile_info":{"name":"u_gameco","snoovatar_icon_url":"https://www.redditstatic.com/avatars/defaults/v2/avatar_default_6.png"}}]}'
+  recorded_at: Sun, 23 Nov 2025 12:00:00 GMT
+recorded_with: VCR 6.3.1

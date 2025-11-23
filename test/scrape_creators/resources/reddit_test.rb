@@ -496,4 +496,210 @@ describe ScrapeCreators::Resources::Reddit do
       end
     end
   end
+
+  describe "#ads_search" do
+    it "searches Reddit ads successfully" do
+      VCR.use_cassette("reddit/ads_search_success") do
+        result = reddit.ads_search("technology")
+
+        assert_kind_of Hash, result
+        assert result.key?(:success)
+        assert result.key?(:ads)
+        assert_kind_of Array, result[:ads]
+      end
+    end
+
+    it "returns ads with proper structure" do
+      VCR.use_cassette("reddit/ads_search_success") do
+        result = reddit.ads_search("technology")
+
+        refute_empty result[:ads]
+
+        ad = result[:ads].first
+
+        assert ad.key?(:id)
+        assert ad.key?(:budget_category)
+        assert ad.key?(:industry)
+        assert ad.key?(:placements)
+        assert ad.key?(:objective)
+        assert ad.key?(:creative)
+        assert ad.key?(:profile_info)
+      end
+    end
+
+    it "returns creative with expected fields" do
+      VCR.use_cassette("reddit/ads_search_success") do
+        result = reddit.ads_search("technology")
+
+        refute_empty result[:ads]
+
+        creative = result[:ads].first[:creative]
+
+        assert creative.key?(:id)
+        assert creative.key?(:type)
+        assert creative.key?(:headline)
+        assert creative.key?(:body)
+      end
+    end
+
+    it "returns profile_info with expected fields" do
+      VCR.use_cassette("reddit/ads_search_success") do
+        result = reddit.ads_search("technology")
+
+        refute_empty result[:ads]
+
+        profile_info = result[:ads].first[:profile_info]
+
+        assert profile_info.key?(:name)
+      end
+    end
+
+    it "searches with industries filter" do
+      VCR.use_cassette("reddit/ads_search_with_industries") do
+        result = reddit.ads_search("software", industries: %w[TECH_B2B TECH_B2C])
+
+        assert_kind_of Hash, result
+        assert result.key?(:ads)
+        assert_kind_of Array, result[:ads]
+      end
+    end
+
+    it "searches with budgets filter" do
+      VCR.use_cassette("reddit/ads_search_with_budgets") do
+        result = reddit.ads_search("gaming", budgets: %w[HIGH])
+
+        assert_kind_of Hash, result
+        assert result.key?(:ads)
+        assert_kind_of Array, result[:ads]
+      end
+    end
+
+    it "searches with formats filter" do
+      VCR.use_cassette("reddit/ads_search_with_formats") do
+        result = reddit.ads_search("streaming", formats: %w[VIDEO IMAGE])
+
+        assert_kind_of Hash, result
+        assert result.key?(:ads)
+        assert_kind_of Array, result[:ads]
+      end
+    end
+
+    it "searches with placements filter" do
+      VCR.use_cassette("reddit/ads_search_with_placements") do
+        result = reddit.ads_search("shopping", placements: %w[FEED])
+
+        assert_kind_of Hash, result
+        assert result.key?(:ads)
+        assert_kind_of Array, result[:ads]
+      end
+    end
+
+    it "searches with objectives filter" do
+      VCR.use_cassette("reddit/ads_search_with_objectives") do
+        result = reddit.ads_search("finance", objectives: %w[CONVERSIONS CLICKS])
+
+        assert_kind_of Hash, result
+        assert result.key?(:ads)
+        assert_kind_of Array, result[:ads]
+      end
+    end
+
+    it "searches with all filters" do
+      VCR.use_cassette("reddit/ads_search_all_params") do
+        result = reddit.ads_search(
+          "gaming",
+          industries: %w[GAMING ENTERTAINMENT],
+          budgets: %w[HIGH MEDIUM],
+          formats: %w[VIDEO],
+          placements: %w[FEED],
+          objectives: %w[CONVERSIONS]
+        )
+
+        assert_kind_of Hash, result
+        assert result.key?(:ads)
+      end
+    end
+
+    describe "argument validation" do
+      it "raises ArgumentError when query is nil" do
+        error = assert_raises(ArgumentError) do
+          reddit.ads_search(nil)
+        end
+        assert_match(/query is required/, error.message)
+      end
+
+      it "raises ArgumentError when query is empty" do
+        error = assert_raises(ArgumentError) do
+          reddit.ads_search("")
+        end
+        assert_match(/query is required/, error.message)
+      end
+
+      it "raises ArgumentError for invalid industries" do
+        error = assert_raises(ArgumentError) do
+          reddit.ads_search("test", industries: %w[INVALID_INDUSTRY])
+        end
+        assert_match(/industries must be one of/, error.message)
+      end
+
+      it "raises ArgumentError for invalid budgets" do
+        error = assert_raises(ArgumentError) do
+          reddit.ads_search("test", budgets: %w[INVALID_BUDGET])
+        end
+        assert_match(/budgets must be one of/, error.message)
+      end
+
+      it "raises ArgumentError for invalid formats" do
+        error = assert_raises(ArgumentError) do
+          reddit.ads_search("test", formats: %w[INVALID_FORMAT])
+        end
+        assert_match(/formats must be one of/, error.message)
+      end
+
+      it "raises ArgumentError for invalid placements" do
+        error = assert_raises(ArgumentError) do
+          reddit.ads_search("test", placements: %w[INVALID_PLACEMENT])
+        end
+        assert_match(/placements must be one of/, error.message)
+      end
+
+      it "raises ArgumentError for invalid objectives" do
+        error = assert_raises(ArgumentError) do
+          reddit.ads_search("test", objectives: %w[INVALID_OBJECTIVE])
+        end
+        assert_match(/objectives must be one of/, error.message)
+      end
+
+      it "allows valid filter values" do
+        # This test verifies validation passes for valid values
+        # No error should be raised
+        VCR.use_cassette("reddit/ads_search_valid_filters") do
+          result = reddit.ads_search(
+            "test",
+            industries: %w[RETAIL_AND_ECOMMERCE],
+            budgets: %w[LOW],
+            formats: %w[IMAGE],
+            placements: %w[FEED],
+            objectives: %w[IMPRESSIONS]
+          )
+
+          assert_kind_of Hash, result
+        end
+      end
+    end
+
+    describe "error handling" do
+      it "raises PaymentRequiredError for invalid API key" do
+        VCR.use_cassette("reddit/ads_search_unauthorized") do
+          invalid_client = ScrapeCreators::Client.new(api_key: "invalid_key")
+
+          error = assert_raises(ScrapeCreators::PaymentRequiredError) do
+            invalid_client.reddit.ads_search("test query")
+          end
+
+          assert_match(/credits/i, error.message)
+        end
+      end
+    end
+  end
 end
