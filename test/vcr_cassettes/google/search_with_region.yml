@@ -1,0 +1,90 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/google/search?query=technology%20news&region=UK
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 503
+      message: Service Unavailable
+    headers:
+      Content-Length:
+      - '216'
+      Content-Type:
+      - text/plain
+      Date:
+      - Sun, 23 Nov 2025 19:37:37 GMT
+    body:
+      encoding: UTF-8
+      string: 'upstream connect error or disconnect/reset before headers. reset reason:
+        remote connection failure, transport failure reason: TLS_error:|268435581:SSL
+        routines:OPENSSL_internal:CERTIFICATE_VERIFY_FAILED:TLS_error_end'
+  recorded_at: Sun, 23 Nov 2025 19:37:38 GMT
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/google/search?query=technology%20news&region=UK
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 23 Nov 2025 19:37:40 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      Etag:
+      - W/"a72-fzTkzM8/cji7inwW0JBdTe51VIg"
+      Rndr-Id:
+      - 2e9525ec-1c71-4048
+      Vary:
+      - Accept-Encoding
+      X-Powered-By:
+      - Express
+      X-Render-Origin-Server:
+      - Render
+      Cf-Cache-Status:
+      - DYNAMIC
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 9a331f540ed8fe20-ORD
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eyJzdWNjZXNzIjp0cnVlLCJjcmVkaXRzX3JlbWFpbmluZyI6MjQ2NjUsInJlc3VsdHMiOlt7InRpdGxlIjoiVGVjaG5vbG9neSB8IExhdGVzdCBOZXdzICYgVXBkYXRlcyAtIEJCQyIsInVybCI6Imh0dHBzOi8vd3d3LmJiYy5jby51ay9uZXdzL3RlY2hub2xvZ3kiLCJkZXNjcmlwdGlvbiI6IkdldCBhbGwgdGhlIGxhdGVzdCBuZXdzLCBsaXZlIHVwZGF0ZXMgYW5kIGNvbnRlbnQgYWJvdXQgVGVjaG5vbG9neSBmcm9tIGFjcm9zcyB0aGUgQkJDLlRlY2hub2xvZ3kgwrcgU2NpZW5jZSAmIEVudmlyb25tZW50IMK3ICdGYXN0IHRlY2gnIHdhcm5pbmcgYXMgZGVtYW5kLi4uIn0seyJ0aXRsZSI6IlRlY2ggTmV3cyB8IFRvZGF5J3MgTGF0ZXN0IFRlY2hub2xvZ3kgTmV3cyB8IFJldXRlcnMiLCJ1cmwiOiJodHRwczovL3d3dy5yZXV0ZXJzLmNvbS90ZWNobm9sb2d5LyIsImRlc2NyaXB0aW9uIjoiVGVjaG5vbG9neSDCtyBNZXRhIGJ1cmllZCAnY2F1c2FsJyBldmlkZW5jZSBvZiBzb2NpYWwgbWVkaWEgaGFybSwgVVMgY291cnQgZmlsaW5ncyBhbGxlZ2UgwrcgVVMgbXVsbHMgbGV0dGluZyBOdmlkaWEgc2VsbCBIMjAwIGNoaXBzIHRvIENoaW5hLCBzb3VyY2VzIHNheSDCtyBKdWRnZcKgLi4uIn0seyJ0aXRsZSI6IldJUkVEIC0gVGhlIExhdGVzdCBpbiBUZWNobm9sb2d5LCBTY2llbmNlLCBDdWx0dXJlIGFuZCBCdXNpbmVzcyAuLi4iLCJ1cmwiOiJodHRwczovL3d3dy53aXJlZC5jb20vIiwiZGVzY3JpcHRpb24iOiJXZSBicmluZyB5b3UgdGhlIGZ1dHVyZSBhcyBpdCBoYXBwZW5zLiBGcm9tIHRoZSBsYXRlc3QgaW4gc2NpZW5jZSBhbmQgdGVjaG5vbG9neSB0byB0aGUgYmlnIHN0b3JpZXMgaW4gYnVzaW5lc3MgYW5kIGN1bHR1cmUsIHdlJ3ZlIGdvdCB5b3UgY292ZXJlZC4ifSx7InRpdGxlIjoiVGVjaG5vbG9neSB8IEZpbmFuY2lhbCBUaW1lcyIsInVybCI6Imh0dHBzOi8vd3d3LmZ0LmNvbS90ZWNobm9sb2d5IiwiZGVzY3JpcHRpb24iOiJHZXQgdGhlIGxhdGVzdCB0ZWNobm9sb2d5IG5ld3MgZnJvbSBhcm91bmQgdGhlIGluZHVzdHJ5LiBLZWVwIHVwLXRvLWRhdGUgd2l0aCB0aGUgbW9zdCBpbmZsdWVudGlhbCBhbmQgaW5ub3ZhdGl2ZSB0ZWNobm9sb2d5IGJyYW5kcywgaW5jbHVkaW5nIEFwcGxlLMKgLi4uIn0seyJ0aXRsZSI6IlRlY2hub2xvZ3kg4oCTIEdvb2dsZSBOZXdzIiwidXJsIjoiaHR0cHM6Ly9uZXdzLmdvb2dsZS5jb20vdG9waWNzL0NBQXFKZ2dLSWlCRFFrRlRSV2R2U1V3eU1IWk5SR1JxVFZoWlUwRnRWblZIWjBwV1ZYbG5RVkFCIiwiZGVzY3JpcHRpb24iOiJObyBpbmZvcm1hdGlvbiBpcyBhdmFpbGFibGUgZm9yIHRoaXMgcGFnZS4gwrcgTGVhcm4gd2h5In0seyJ0aXRsZSI6IkJCQyBJbm5vdmF0aW9uIHwgVGVjaG5vbG9neSwgSGVhbHRoLCBFbnZpcm9ubWVudCwgQUkiLCJ1cmwiOiJodHRwczovL3d3dy5iYmMuY29tL2lubm92YXRpb24iLCJkZXNjcmlwdGlvbiI6IkJCQyBJbm5vdmF0aW9uIGJyaW5ncyB5b3UgdGhlIGxhdGVzdCBpbiBUZWNobm9sb2d5IG5ld3MgYW5kIGNvdmVyYWdlIGZyb20gYXJvdW5kIHRoZSB3b3JsZCwgaW5jbHVkaW5nIGhlYWx0aCwgZW52aXJvbm1lbnQsIEFJLCBhbmQgbW9yZS4ifSx7InRpdGxlIjoiVGVjaG5vbG9neSB8IFRoZSBHdWFyZGlhbiIsInVybCI6Imh0dHBzOi8vd3d3LnRoZWd1YXJkaWFuLmNvbS91ay90ZWNobm9sb2d5IiwiZGVzY3JpcHRpb24iOiJMYXRlc3QgVGVjaG5vbG9neSBuZXdzLCBjb21tZW50IGFuZCBhbmFseXNpcyBmcm9tIHRoZSBHdWFyZGlhbiwgdGhlIHdvcmxkJ3MgbGVhZGluZyBsaWJlcmFsIHZvaWNlLiJ9LHsidGl0bGUiOiJUZWNoQ3J1bmNoIHwgU3RhcnR1cCBhbmQgVGVjaG5vbG9neSBOZXdzIiwidXJsIjoiaHR0cHM6Ly90ZWNoY3J1bmNoLmNvbS8iLCJkZXNjcmlwdGlvbiI6IlRlY2hDcnVuY2ggfCBSZXBvcnRpbmcgb24gdGhlIGJ1c2luZXNzIG9mIHRlY2hub2xvZ3ksIHN0YXJ0dXBzLCB2ZW50dXJlIGNhcGl0YWwgZnVuZGluZywgYW5kIFNpbGljb24gVmFsbGV5LkxhdGVzdCBOZXdzIMK3IFNvY2lhbCBNZWRpYSBOZXdzIMK3IEFJIMK3IFN0YXJ0dXBzIn0seyJ0aXRsZSI6IlRlY2ggfCBDTk4gQnVzaW5lc3MiLCJ1cmwiOiJodHRwczovL3d3dy5jbm4uY29tL2J1c2luZXNzL3RlY2giLCJkZXNjcmlwdGlvbiI6IlZpZXcgdGhlIGxhdGVzdCB0ZWNobm9sb2d5IGhlYWRsaW5lcywgZ2FkZ2V0IGFuZCBzbWFydHBob25lIHRyZW5kcywgYW5kIGluc2lnaHRzIGZyb20gdGVjaCBpbmR1c3RyeSBsZWFkZXJzLkhpc3RvcnktbWFraW5nIHByb2JlIMK3IEkgZG9u4oCZdCBoYXZlIGRpYWJldGVzLCBidXQgSS4uLiDCtyBTbmFwY2hhdOKAmXMgbmV3IEFJIGNoYXRib3QgaXMuLi4ifSx7InRpdGxlIjoiVGVjaG5vbG9neSAtIFRoZSBOZXcgWW9yayBUaW1lcyBJbnRlcm5hdGlvbmFsIiwidXJsIjoiaHR0cHM6Ly93d3cubnl0aW1lcy5jb20vaW50ZXJuYXRpb25hbC9zZWN0aW9uL3RlY2hub2xvZ3kiLCJkZXNjcmlwdGlvbiI6IlRlY2hub2xvZ3kgaW5kdXN0cnkgbmV3cywgY29tbWVudGFyeSBhbmQgYW5hbHlzaXMsIHdpdGggcmVwb3J0aW5nIG9uIGJpZyB0ZWNoLCBzdGFydHVwcywgYW5kIGludGVybmV0IGN1bHR1cmUuVGVjaG5vbG9neSAtIFBhZ2UgMiDCtyBQZXJzb25hbCBUZWNoIMK3IE9waW5pb24gwrcgUGFnZSA0In1dfQ==
+  recorded_at: Sun, 23 Nov 2025 19:37:40 GMT
+recorded_with: VCR 6.3.1
