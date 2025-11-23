@@ -218,6 +218,76 @@ module ScrapeCreators
 
         get("/v2/instagram/user/posts", params)
       end
+
+      # Get detailed information about a specific Instagram post or reel
+      #
+      # Retrieves public detailed information about a specific Instagram post or reel
+      # including media details, engagement metrics, comments, and owner information.
+      #
+      # @param url [String] Instagram post or reel URL
+      # @param trim [Boolean, nil] Whether to trim the response data (default: false)
+      # @return [Hash] Post/reel data including media info, engagement, and comments
+      # @raise [ArgumentError] If the url parameter is nil or empty
+      # @raise [BadRequestError] If the url parameter is invalid
+      # @raise [NotFoundError] If the post/reel is not found
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Get Instagram post details
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   post = client.instagram.post("https://www.instagram.com/p/DF5s0duxDts/")
+      #   puts post[:data][:xdt_shortcode_media][:shortcode]  # => "DF5s0duxDts"
+      #   puts post[:data][:xdt_shortcode_media][:owner][:username]  # => "adrianhorning"
+      #
+      # @example Get trimmed post response
+      #   post = client.instagram.post("https://www.instagram.com/reel/DF5s0duxDts/", trim: true)
+      #
+      # @example Response structure
+      #   {
+      #     data: {
+      #       xdt_shortcode_media: {
+      #         __typename: "XDTGraphVideo",
+      #         id: "3565077699422862188",
+      #         shortcode: "DF5s0duxDts",
+      #         thumbnail_src: "https://...",
+      #         dimensions: { height: 1136, width: 640 },
+      #         display_url: "https://...",
+      #         has_audio: true,
+      #         video_url: "https://...",
+      #         video_view_count: 1639,
+      #         video_play_count: 4651,
+      #         video_duration: 71.1,
+      #         is_video: true,
+      #         taken_at_timestamp: 1739210435,
+      #         owner: {
+      #           id: "2700692569",
+      #           username: "adrianhorning",
+      #           is_verified: true,
+      #           full_name: "Adrian Horning",
+      #           profile_pic_url: "https://..."
+      #         },
+      #         edge_media_to_caption: {
+      #           edges: [{ node: { text: "I built my own gumroad in 24 hours with AI" } }]
+      #         },
+      #         edge_media_preview_like: { count: 153 },
+      #         edge_media_to_parent_comment: { count: 17 },
+      #         clips_music_attribution_info: {
+      #           artist_name: "adrianhorning",
+      #           song_name: "Original audio"
+      #         }
+      #       }
+      #     },
+      #     extensions: { is_final: true },
+      #     status: "ok"
+      #   }
+      def post(url, trim: nil)
+        raise ArgumentError, "url is required" if url.nil? || url.to_s.empty?
+
+        params = { url: url }
+        params[:trim] = trim unless trim.nil?
+
+        get("/v1/instagram/post", params)
+      end
     end
   end
 end
