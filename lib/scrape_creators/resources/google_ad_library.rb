@@ -147,6 +147,48 @@ module ScrapeCreators
         get("/v1/google/ad", url: url)
       end
 
+      # Search the Google Ad Transparency Library for advertisers
+      #
+      # Searches for advertisers by name to get their advertiser IDs, which can then
+      # be used with the company_ads method to retrieve their ads.
+      #
+      # @param query [String] The query to search for (required)
+      # @return [Hash] Response containing success status, credits remaining, advertisers array, and websites array
+      # @raise [ArgumentError] If query is not provided
+      # @raise [BadRequestError] If the request parameters are invalid
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Search for advertisers
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   result = client.google_ad_library.search_advertisers(query: "Nike")
+      #   puts result[:advertisers].first[:name]  # => "Nike, Inc."
+      #   puts result[:advertisers].first[:advertiser_id]  # => "AR16735076323512287233"
+      #
+      # @example Response structure
+      #   {
+      #     success: true,
+      #     credits_remaining: 9994695,
+      #     advertisers: [
+      #       {
+      #         name: "Nike, Inc.",
+      #         advertiser_id: "AR16735076323512287233",
+      #         region: "US"
+      #       },
+      #       # ... more advertisers
+      #     ],
+      #     websites: [
+      #       { domain: "nike.com" },
+      #       { domain: "nike.ae" },
+      #       # ... more websites
+      #     ]
+      #   }
+      def search_advertisers(query:)
+        raise ArgumentError, "query is required" if blank?(query)
+
+        get("/v1/google/adLibrary/advertisers/search", query: query)
+      end
+
       private
 
       def validate_company_ads_params!(domain, advertiser_id, topic, region)
