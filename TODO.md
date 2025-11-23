@@ -56,7 +56,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 - [✅] GET Comments - Auto Pagination (`/v1/instagram/post/comments`)
 - [✅] GET Reels (`/v1/instagram/user/reels`)
 - [✅] GET Reels - Auto Pagination (`/v1/instagram/user/reels/simple`)
-- [⏳] GET Story Highlights (`/v1/instagram/user/highlights`)
+- [✅] GET Story Highlights (`/v1/instagram/user/highlights`)
 - [⏳] GET Highlights Details (`/v1/instagram/user/highlight/detail`)
 - [⏳] GET Reels using Song (`/v1/instagram/song/reels`)
 - [⏳] GET Embed HTML (`/v1/instagram/user/embed`)
@@ -70,7 +70,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 - [✅] GET Channel Shorts (`/v1/youtube/channel/shorts`)
 - [✅] GET Channel Shorts - Auto Pagination (`/v1/youtube/channel/shorts/simple`)
 - [✅] GET Video/Short Details (`/v1/youtube/video`)
-- [⏳] GET Transcript (`/v1/youtube/video/transcript`)
+- [✅] GET Transcript (`/v1/youtube/video/transcript`)
 - [⏳] GET Search (`/v1/youtube/search`)
 - [⏳] GET Search by Hashtag (`/v1/youtube/search/hashtag`)
 - [⏳] GET Comments (`/v1/youtube/video/comments`)
@@ -95,7 +95,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 - [✅] GET Facebook Group Posts (`/v1/facebook/group/posts`)
 - [✅] GET Post (`/v1/facebook/post`)
 - [✅] GET Transcript (`/v1/facebook/post/transcript`)
-- [⏳] GET Comments (`/v1/facebook/post/comments`)
+- [✅] GET Comments (`/v1/facebook/post/comments`)
 
 ---
 
@@ -112,7 +112,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 
 - [✅] GET Company Ads (`/v1/google/company/ads`)
 - [✅] GET Ad Details (`/v1/google/ad`)
-- [⏳] GET Advertiser Search (`/v1/google/adLibrary/advertisers/search`)
+- [✅] GET Advertiser Search (`/v1/google/adLibrary/advertisers/search`)
 
 ---
 
@@ -130,7 +130,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 - [✅] GET Tweet Details (`/v1/twitter/tweet`)
 - [✅] GET Transcript (`/v1/twitter/tweet/transcript`)
 - [✅] GET Community (`/v1/twitter/community`)
-- [⏳] GET Community Tweets (`/v1/twitter/community/tweets`)
+- [✅] GET Community Tweets (`/v1/twitter/community/tweets`)
 
 ---
 
@@ -141,7 +141,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 - [✅] GET Simple Comments (`/v1/reddit/post/comments/simple`)
 - [✅] GET Search (`/v1/reddit/search`)
 - [✅] GET Search Ads (`/v1/reddit/ads/search`)
-- [⏳] GET Get Ad (`/v1/reddit/ad`)
+- [✅] GET Get Ad (`/v1/reddit/ad`)
 
 ---
 
@@ -256,15 +256,15 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 ### Platform Completion Status
 - TikTok: 18/18 endpoints (100%)
 - TikTok Shop: 3/3 endpoints (100%)
-- Instagram: 9/13 endpoints (69%)
-- YouTube: 5/12 endpoints (42%)
+- Instagram: 10/13 endpoints (77%)
+- YouTube: 6/12 endpoints (50%)
 - LinkedIn: 3/3 endpoints (100%)
-- Facebook: 5/6 endpoints (83%)
+- Facebook: 6/6 endpoints (100%)
 - Facebook Ad Library: 4/4 endpoints (100%)
-- Google Ad Library: 2/3 endpoints (67%)
+- Google Ad Library: 3/3 endpoints (100%)
 - LinkedIn Ad Library: 2/2 endpoints (100%)
-- Twitter: 5/6 endpoints (83%)
-- Reddit: 5/6 endpoints (83%)
+- Twitter: 6/6 endpoints (100%)
+- Reddit: 6/6 endpoints (100%)
 - Truth Social: 3/3 endpoints (100%)
 - Threads: 1/5 endpoints (20%)
 - Bluesky: 0/3 endpoints (0%)
