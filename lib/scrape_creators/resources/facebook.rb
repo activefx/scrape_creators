@@ -315,6 +315,35 @@ module ScrapeCreators
 
         get("/v1/facebook/post", params)
       end
+
+      # Get the transcript of a Facebook post
+      #
+      # Retrieves the transcript of a Facebook video post or reel. This is useful
+      # for extracting spoken content from video posts.
+      #
+      # @param url [String] Facebook post URL (can be a post or reel)
+      # @return [Hash] Transcript data including the transcript text
+      # @raise [ArgumentError] If the url parameter is nil or empty
+      # @raise [BadRequestError] If the url parameter is invalid
+      # @raise [NotFoundError] If the post is not found or has no transcript
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Get a Facebook post transcript
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   result = client.facebook.transcript("https://www.facebook.com/reel/486651220706068/")
+      #   puts result[:transcript] # => "Hello, world!"
+      #
+      # @example Response structure
+      #   {
+      #     success: true,
+      #     transcript: "Hello, world!"
+      #   }
+      def transcript(url)
+        raise ArgumentError, "url is required" if url.nil? || url.to_s.empty?
+
+        get("/v1/facebook/post/transcript", url: url)
+      end
     end
   end
 end
