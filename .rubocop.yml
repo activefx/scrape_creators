@@ -25,7 +25,7 @@ Metrics/BlockLength:
     - timeout  # Timeout.timeout blocks often wrap complex logic
 
 Metrics/ClassLength:
-  Max: 130  # Slight increase for complex core classes
+  Max: 150  # Increased for API resource classes that grow with each endpoint
   Exclude:
     - 'test/**/*'
     - '**/*_test.rb'

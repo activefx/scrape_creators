@@ -1,0 +1,43 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/tiktok/songs/popular?commercialMusic=true
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 23 Nov 2025 04:26:50 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Powered-By:
+      - Express
+      X-Render-Origin-Server:
+      - Render
+      Cf-Cache-Status:
+      - DYNAMIC
+      Server:
+      - cloudflare
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"credits_remaining":24749,"pagination":{"page":1,"size":20,"total":50,"has_more":true},"sound_list":[{"author":"Commercial Artist","clip_id":"7439295283975702545","country_code":"US","cover":"https://p16-sg.tiktokcdn.com/aweme/720x720/commercial.jpeg","duration":30,"if_cml":true,"is_search":false,"link":"https://www.tiktok.com/music/x-7439295283975702545","on_list_times":null,"promoted":false,"rank":1,"rank_diff":0,"rank_diff_type":1,"related_items":[],"song_id":"7440101671265486865","title":"Commercial Song","trend":[],"url_title":"commercial-song"}]}'
+  recorded_at: Sun, 23 Nov 2025 04:26:50 GMT
+recorded_with: VCR 6.3.1
