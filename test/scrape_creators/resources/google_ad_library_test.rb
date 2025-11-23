@@ -265,4 +265,82 @@ describe ScrapeCreators::Resources::GoogleAdLibrary do
       end
     end
   end
+
+  describe "#search_advertisers" do
+    describe "with valid query" do
+      it "searches for advertisers successfully" do
+        VCR.use_cassette("google_ad_library/search_advertisers") do
+          result = google_ad_library.search_advertisers(query: "Nike")
+
+          assert_kind_of Hash, result
+          assert result[:success]
+          assert result.key?(:credits_remaining)
+          assert result.key?(:advertisers)
+          assert_kind_of Array, result[:advertisers]
+        end
+      end
+
+      it "returns advertiser information with required fields" do
+        VCR.use_cassette("google_ad_library/search_advertisers") do
+          result = google_ad_library.search_advertisers(query: "Nike")
+
+          assert_kind_of Hash, result
+
+          if result[:advertisers].any?
+            advertiser = result[:advertisers].first
+
+            assert advertiser.key?(:name)
+            assert advertiser.key?(:advertiser_id)
+            assert advertiser.key?(:region)
+          end
+        end
+      end
+
+      it "returns websites array when available" do
+        VCR.use_cassette("google_ad_library/search_advertisers") do
+          result = google_ad_library.search_advertisers(query: "Nike")
+
+          assert_kind_of Hash, result
+          assert result.key?(:websites)
+          assert_kind_of Array, result[:websites]
+
+          if result[:websites].any?
+            website = result[:websites].first
+
+            assert website.key?(:domain)
+          end
+        end
+      end
+    end
+
+    describe "parameter validation" do
+      it "raises ArgumentError when query is nil" do
+        error = assert_raises(ArgumentError) do
+          google_ad_library.search_advertisers(query: nil)
+        end
+        assert_match(/query is required/, error.message)
+      end
+
+      it "raises ArgumentError when query is empty string" do
+        error = assert_raises(ArgumentError) do
+          google_ad_library.search_advertisers(query: "")
+        end
+        assert_match(/query is required/, error.message)
+      end
+    end
+
+    describe "error handling" do
+      it "raises UnauthorizedError for invalid API key" do
+        VCR.use_cassette("google_ad_library/search_advertisers_unauthorized") do
+          invalid_client = ScrapeCreators::Client.new(api_key: "invalid_key")
+
+          error = assert_raises(ScrapeCreators::UnauthorizedError) do
+            invalid_client.google_ad_library.search_advertisers(query: "Nike")
+          end
+
+          assert_match(/invalid|unauthorized|api.?key/i, error.message)
+        end
+      end
+    end
+  end
 end
