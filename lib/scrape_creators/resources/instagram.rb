@@ -650,6 +650,66 @@ module ScrapeCreators
 
         get("/v1/instagram/post/comments", params)
       end
+
+      # Get story highlights from an Instagram user
+      #
+      # Retrieves public story highlights from an Instagram profile. Can provide
+      # a user_id or handle, but for faster response times, use user_id.
+      #
+      # @param user_id [String, Integer, nil] Instagram user ID (for faster response times)
+      # @param handle [String, nil] Instagram handle (username)
+      # @return [Hash] Highlights data including success status and highlights array
+      # @raise [ArgumentError] If both user_id and handle are nil or empty
+      # @raise [BadRequestError] If the parameters are invalid
+      # @raise [NotFoundError] If the profile is not found
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Get highlights from an Instagram profile by handle
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   highlights = client.instagram.highlights(handle: "jane")
+      #   puts highlights[:success]                    # => true
+      #   puts highlights[:highlights].count           # => 5
+      #   puts highlights[:highlights].first[:title]   # => "GRWM chats"
+      #
+      # @example Get highlights by user ID (faster)
+      #   highlights = client.instagram.highlights(user_id: "21393171")
+      #   puts highlights[:highlights].first[:id]      # => "18067016518767507"
+      #
+      # @example Response structure
+      #   {
+      #     success: true,
+      #     highlights: [
+      #       {
+      #         __typename: "GraphHighlightReel",
+      #         id: "18067016518767507",
+      #         cover_media: {
+      #           thumbnail_src: "https://..."
+      #         },
+      #         cover_media_cropped_thumbnail: {
+      #           url: "https://..."
+      #         },
+      #         owner: {
+      #           __typename: "GraphUser",
+      #           id: "21393171",
+      #           profile_pic_url: "https://...",
+      #           username: "jane"
+      #         },
+      #         title: "GRWM chats"
+      #       }
+      #     ]
+      #   }
+      def highlights(user_id: nil, handle: nil)
+        if (user_id.nil? || user_id.to_s.empty?) && (handle.nil? || handle.to_s.empty?)
+          raise ArgumentError, "Either user_id or handle is required"
+        end
+
+        params = {}
+        params[:user_id] = user_id unless user_id.nil? || user_id.to_s.empty?
+        params[:handle] = handle unless handle.nil? || handle.to_s.empty?
+
+        get("/v1/instagram/user/highlights", params)
+      end
     end
   end
 end

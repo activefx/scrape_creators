@@ -778,4 +778,92 @@ describe ScrapeCreators::Resources::Instagram do
       end
     end
   end
+
+  describe "#highlights" do
+    it "fetches highlights from an Instagram profile by handle" do
+      VCR.use_cassette("instagram/highlights_by_handle_success") do
+        highlights = instagram.highlights(handle: "jane")
+
+        assert_kind_of Hash, highlights
+        assert highlights[:success]
+
+        # Verify response structure
+        assert highlights.key?(:highlights)
+        assert_kind_of Array, highlights[:highlights]
+        refute_empty highlights[:highlights]
+
+        # Verify first highlight structure
+        highlight = highlights[:highlights].first
+
+        assert highlight.key?(:id)
+        assert highlight.key?(:title)
+        assert highlight.key?(:owner)
+
+        # Verify cover media
+        assert highlight.key?(:cover_media) || highlight.key?(:cover_media_cropped_thumbnail)
+
+        # Verify owner info
+        owner = highlight[:owner]
+
+        assert owner.key?(:id)
+        assert owner.key?(:username)
+      end
+    end
+
+    it "fetches highlights from an Instagram profile by user ID" do
+      VCR.use_cassette("instagram/highlights_by_user_id_success") do
+        highlights = instagram.highlights(user_id: "21393171")
+
+        assert_kind_of Hash, highlights
+        assert highlights[:success]
+
+        # Verify response structure
+        assert highlights.key?(:highlights)
+        assert_kind_of Array, highlights[:highlights]
+      end
+    end
+
+    it "accepts integer user ID" do
+      VCR.use_cassette("instagram/highlights_by_user_id_success") do
+        highlights = instagram.highlights(user_id: 21_393_171)
+
+        assert_kind_of Hash, highlights
+        assert highlights[:success]
+      end
+    end
+
+    it "raises ArgumentError when both user_id and handle are nil" do
+      error = assert_raises(ArgumentError) do
+        instagram.highlights
+      end
+      assert_match(/Either user_id or handle is required/, error.message)
+    end
+
+    it "raises ArgumentError when both user_id and handle are empty" do
+      error = assert_raises(ArgumentError) do
+        instagram.highlights(user_id: "", handle: "")
+      end
+      assert_match(/Either user_id or handle is required/, error.message)
+    end
+
+    it "raises NotFoundError for non-existent profile" do
+      VCR.use_cassette("instagram/highlights_not_found") do
+        assert_raises(ScrapeCreators::NotFoundError) do
+          instagram.highlights(handle: "thisuserdoesnotexist123456789xyz")
+        end
+      end
+    end
+
+    it "raises UnauthorizedError for invalid API key" do
+      VCR.use_cassette("instagram/highlights_unauthorized") do
+        invalid_client = ScrapeCreators::Client.new(api_key: "invalid_key")
+
+        error = assert_raises(ScrapeCreators::UnauthorizedError) do
+          invalid_client.instagram.highlights(handle: "jane")
+        end
+
+        assert_match(/invalid|unauthorized|api.?key/i, error.message)
+      end
+    end
+  end
 end

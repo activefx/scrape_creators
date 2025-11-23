@@ -1,0 +1,29 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/reddit/ads/search?objectives=CONVERSIONS,CLICKS&query=finance
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 23 Nov 2025 12:00:00 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"ads":[{"id":"fin123","budget_category":"HIGH","industry":"FINANCIAL_SERVICES","placements":["FEED","COMMENTS_PAGE"],"objective":"CONVERSIONS","creative":{"id":"t3_fin123","type":"TEXT","content":[{"destination_url":"https://finance.example.com","display_url":"finance.example.com","call_to_action":"Get Started","media_url":null}],"headline":"Smart Investing Made Simple","body":"Build your wealth with expert-backed strategies.","thumbnail_url":"https://b.thumbs.redditmedia.com/finance.jpg","allow_comments":false,"created_at":"2024-09-05T11:00:00+00:00","profile_id":"t2_finance","post_url":"https://www.reddit.com/r/u_financeco/comments/fin123/"},"profile_info":{"name":"u_financeco","snoovatar_icon_url":"https://www.redditstatic.com/avatars/defaults/v2/avatar_default_5.png"}}]}'
+  recorded_at: Sun, 23 Nov 2025 12:00:00 GMT
+recorded_with: VCR 6.3.1
