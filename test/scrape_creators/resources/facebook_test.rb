@@ -382,4 +382,56 @@ describe ScrapeCreators::Resources::Facebook do
       end
     end
   end
+
+  describe "#transcript" do
+    let(:reel_url) { "https://www.facebook.com/reel/486651220706068/" }
+
+    it "fetches transcript from a Facebook post successfully" do
+      VCR.use_cassette("facebook/transcript_success") do
+        result = facebook.transcript(reel_url)
+
+        assert_kind_of Hash, result
+        assert result[:success]
+
+        # Verify transcript is present
+        assert result.key?(:transcript)
+        assert_kind_of String, result[:transcript]
+        refute_empty result[:transcript]
+      end
+    end
+
+    it "raises ArgumentError when url is nil" do
+      error = assert_raises(ArgumentError) do
+        facebook.transcript(nil)
+      end
+      assert_match(/url is required/, error.message)
+    end
+
+    it "raises ArgumentError when url is empty" do
+      error = assert_raises(ArgumentError) do
+        facebook.transcript("")
+      end
+      assert_match(/url is required/, error.message)
+    end
+
+    it "raises NotFoundError for non-existent post" do
+      VCR.use_cassette("facebook/transcript_not_found") do
+        assert_raises(ScrapeCreators::NotFoundError) do
+          facebook.transcript("https://www.facebook.com/reel/999999999999999/")
+        end
+      end
+    end
+
+    it "raises UnauthorizedError for invalid API key" do
+      VCR.use_cassette("facebook/transcript_unauthorized") do
+        invalid_client = ScrapeCreators::Client.new(api_key: "invalid_key")
+
+        error = assert_raises(ScrapeCreators::UnauthorizedError) do
+          invalid_client.facebook.transcript(reel_url)
+        end
+
+        assert_match(/invalid|unauthorized|api.?key/i, error.message)
+      end
+    end
+  end
 end

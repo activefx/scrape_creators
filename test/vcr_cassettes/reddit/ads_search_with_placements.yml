@@ -1,0 +1,29 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/reddit/ads/search?placements=FEED&query=shopping
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 23 Nov 2025 12:00:00 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"ads":[{"id":"shop123","budget_category":"LOW","industry":"RETAIL_AND_ECOMMERCE","placements":["FEED"],"objective":"CLICKS","creative":{"id":"t3_shop123","type":"CAROUSEL","content":[{"destination_url":"https://shop.example.com","display_url":"shop.example.com","call_to_action":"Shop Now","media_url":"https://example.com/product1.jpg"},{"destination_url":"https://shop.example.com/item2","display_url":"shop.example.com","call_to_action":"Shop Now","media_url":"https://example.com/product2.jpg"}],"headline":"Deals You Cannot Miss","body":"Save big on top brands. Limited time offer.","thumbnail_url":"https://b.thumbs.redditmedia.com/shop.jpg","allow_comments":true,"created_at":"2024-08-10T16:00:00+00:00","profile_id":"t2_shop","post_url":"https://www.reddit.com/r/u_shopco/comments/shop123/"},"profile_info":{"name":"u_shopco","snoovatar_icon_url":"https://www.redditstatic.com/avatars/defaults/v2/avatar_default_4.png"}}]}'
+  recorded_at: Sun, 23 Nov 2025 12:00:00 GMT
+recorded_with: VCR 6.3.1

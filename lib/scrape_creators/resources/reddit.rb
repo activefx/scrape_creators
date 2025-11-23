@@ -18,6 +18,28 @@ module ScrapeCreators
       # Valid sort options for search
       VALID_SEARCH_SORTS = %w[relevance new top comment_count].freeze
 
+      # Valid industry options for ad search
+      VALID_AD_INDUSTRIES = %w[
+        RETAIL_AND_ECOMMERCE TECH_B2B TECH_B2C EDUCATION ENTERTAINMENT
+        GAMING FINANCIAL_SERVICES HEALTH_AND_BEAUTY CONSUMER_PACKAGED_GOODS
+        EMPLOYMENT AUTO TRAVEL REAL_ESTATE GAMBLING_AND_FANTASY_SPORTS
+        POLITICS_AND_GOVERNMENT OTHER
+      ].freeze
+
+      # Valid budget options for ad search
+      VALID_AD_BUDGETS = %w[LOW MEDIUM HIGH].freeze
+
+      # Valid format options for ad search
+      VALID_AD_FORMATS = %w[IMAGE VIDEO CAROUSEL FREE_FORM].freeze
+
+      # Valid placement options for ad search
+      VALID_AD_PLACEMENTS = %w[FEED COMMENTS_PAGE].freeze
+
+      # Valid objective options for ad search
+      VALID_AD_OBJECTIVES = %w[
+        IMPRESSIONS CLICKS CONVERSIONS VIDEO_VIEWABLE_IMPRESSIONS APP_INSTALLS
+      ].freeze
+
       # Get recent posts from a subreddit with engagement metrics
       #
       # Retrieves posts from a subreddit including engagement metrics like upvotes,
@@ -338,6 +360,131 @@ module ScrapeCreators
         params[:trim] = trim unless trim.nil?
 
         get("/v1/reddit/search", params)
+      end
+
+      # Search the Reddit Ad Library
+      #
+      # Searches the Reddit Ad Library for ads matching the given query.
+      # Supports filtering by industry, budget, format, placement, and objective.
+      # Returns a maximum of 30 ads per request.
+      #
+      # @param query [String] The search query (required)
+      # @param industries [Array<String>, nil] Industries to filter by
+      #   (RETAIL_AND_ECOMMERCE, TECH_B2B, TECH_B2C, EDUCATION, ENTERTAINMENT,
+      #   GAMING, FINANCIAL_SERVICES, HEALTH_AND_BEAUTY, CONSUMER_PACKAGED_GOODS,
+      #   EMPLOYMENT, AUTO, TRAVEL, REAL_ESTATE, GAMBLING_AND_FANTASY_SPORTS,
+      #   POLITICS_AND_GOVERNMENT, OTHER)
+      # @param budgets [Array<String>, nil] Budgets to filter by (LOW, MEDIUM, HIGH)
+      # @param formats [Array<String>, nil] Formats to filter by (IMAGE, VIDEO, CAROUSEL, FREE_FORM)
+      # @param placements [Array<String>, nil] Placements to filter by (FEED, COMMENTS_PAGE)
+      # @param objectives [Array<String>, nil] Objectives to filter by
+      #   (IMPRESSIONS, CLICKS, CONVERSIONS, VIDEO_VIEWABLE_IMPRESSIONS, APP_INSTALLS)
+      # @return [Hash] Search results including success status and ads array
+      # @raise [ArgumentError] If the query parameter is nil or empty
+      # @raise [ArgumentError] If any filter contains invalid values
+      # @raise [BadRequestError] If the request parameters are invalid
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Search for ads by query
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   results = client.reddit.ads_search("technology")
+      #   results[:ads].each { |ad| puts ad[:creative][:headline] }
+      #
+      # @example Search with industry filter
+      #   results = client.reddit.ads_search("software", industries: ["TECH_B2B", "TECH_B2C"])
+      #
+      # @example Search with multiple filters
+      #   results = client.reddit.ads_search(
+      #     "gaming",
+      #     industries: ["GAMING", "ENTERTAINMENT"],
+      #     budgets: ["HIGH"],
+      #     formats: ["VIDEO"],
+      #     placements: ["FEED"],
+      #     objectives: ["CONVERSIONS"]
+      #   )
+      #
+      # @example Response structure
+      #   {
+      #     success: true,
+      #     ads: [
+      #       {
+      #         id: "79e005f1e09ec72245e904d87d2a0869",
+      #         budget_category: "HIGH",
+      #         industry: "OTHER",
+      #         placements: ["FEED", "COMMENTS_PAGE"],
+      #         objective: "CONVERSIONS",
+      #         creative: {
+      #           id: "t3_1cdt7o6",
+      #           type: "TEXT",
+      #           content: [
+      #             {
+      #               destination_url: nil,
+      #               display_url: "self.thepennyhoarder",
+      #               call_to_action: nil,
+      #               media_url: nil
+      #             }
+      #           ],
+      #           headline: "What is a rich person's money tip...",
+      #           body: "Life would be a whole lot easier...",
+      #           thumbnail_url: "https://b.thumbs.redditmedia.com/...",
+      #           allow_comments: false,
+      #           created_at: "2024-04-26T18:47:57+00:00",
+      #           profile_id: "t2_3usby",
+      #           post_url: "https://www.reddit.com/r/u_thepennyhoarder/..."
+      #         },
+      #         profile_info: {
+      #           name: "u_thepennyhoarder",
+      #           snoovatar_icon_url: "https://www.redditstatic.com/avatars/..."
+      #         }
+      #       }
+      #     ]
+      #   }
+      def ads_search(query, industries: nil, budgets: nil, formats: nil, placements: nil, objectives: nil)
+        raise ArgumentError, "query is required" if query.nil? || query.to_s.empty?
+
+        validate_ad_filters(industries, budgets, formats, placements, objectives)
+
+        params = { query: query }
+        params[:industries] = industries.join(",") if industries&.any?
+        params[:budgets] = budgets.join(",") if budgets&.any?
+        params[:formats] = formats.join(",") if formats&.any?
+        params[:placements] = placements.join(",") if placements&.any?
+        params[:objectives] = objectives.join(",") if objectives&.any?
+
+        get("/v1/reddit/ads/search", params)
+      end
+
+      private
+
+      # Validates ad search filter parameters
+      #
+      # @param industries [Array<String>, nil] Industries to validate
+      # @param budgets [Array<String>, nil] Budgets to validate
+      # @param formats [Array<String>, nil] Formats to validate
+      # @param placements [Array<String>, nil] Placements to validate
+      # @param objectives [Array<String>, nil] Objectives to validate
+      # @raise [ArgumentError] If any filter contains invalid values
+      def validate_ad_filters(industries, budgets, formats, placements, objectives)
+        if industries&.any? { |i| !VALID_AD_INDUSTRIES.include?(i.to_s) }
+          raise ArgumentError, "industries must be one of: #{VALID_AD_INDUSTRIES.join(", ")}"
+        end
+
+        if budgets&.any? { |b| !VALID_AD_BUDGETS.include?(b.to_s) }
+          raise ArgumentError, "budgets must be one of: #{VALID_AD_BUDGETS.join(", ")}"
+        end
+
+        if formats&.any? { |f| !VALID_AD_FORMATS.include?(f.to_s) }
+          raise ArgumentError, "formats must be one of: #{VALID_AD_FORMATS.join(", ")}"
+        end
+
+        if placements&.any? { |p| !VALID_AD_PLACEMENTS.include?(p.to_s) }
+          raise ArgumentError, "placements must be one of: #{VALID_AD_PLACEMENTS.join(", ")}"
+        end
+
+        return unless objectives&.any? { |o| !VALID_AD_OBJECTIVES.include?(o.to_s) }
+
+        raise ArgumentError, "objectives must be one of: #{VALID_AD_OBJECTIVES.join(", ")}"
       end
     end
   end

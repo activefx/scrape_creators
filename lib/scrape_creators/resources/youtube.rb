@@ -280,6 +280,90 @@ module ScrapeCreators
 
         get("/v1/youtube/channel/shorts/simple", params)
       end
+
+      # Get YouTube video or short details
+      #
+      # Retrieves complete information about a video or short including optional transcript.
+      # Provides detailed metadata, engagement stats, channel info, watch next recommendations,
+      # and optionally the full transcript.
+      #
+      # @param url [String] YouTube video or short URL (required)
+      # @param get_transcript [Boolean, nil] Whether to include transcript in response
+      # @return [Hash] Video data including metadata, stats, channel info, and optional transcript
+      # @raise [ArgumentError] If url is not provided
+      # @raise [BadRequestError] If the parameters are invalid
+      # @raise [NotFoundError] If the video is not found
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Get video details without transcript
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   video = client.youtube.video(url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+      #   puts video[:title]          # => "Rick Astley - Never Gonna Give You Up"
+      #   puts video[:view_count_int] # => 1500000000
+      #
+      # @example Get video details with transcript
+      #   video = client.youtube.video(
+      #     url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      #     get_transcript: true
+      #   )
+      #   puts video[:transcript_only_text] # => "We're no strangers to love..."
+      #
+      # @example Get short details
+      #   short = client.youtube.video(url: "https://www.youtube.com/shorts/abc123")
+      #   puts short[:type]           # => "short"
+      #   puts short[:duration_formatted] # => "00:00:45"
+      #
+      # @example Response structure
+      #   {
+      #     id: "Y2Ah_DFr8cw",
+      #     thumbnail: "https://img.youtube.com/vi/G6VTenw0S7o/maxresdefault.jpg",
+      #     type: "video",
+      #     title: "Video Title",
+      #     description: "Video description...",
+      #     comment_count_text: "347",
+      #     comment_count_int: 347,
+      #     like_count_text: "3.8K",
+      #     like_count_int: 3800,
+      #     view_count_text: "358,277",
+      #     view_count_int: 358277,
+      #     publish_date_text: "Feb 22, 2019",
+      #     publish_date: "2019-02-22T00:00:00.000Z",
+      #     channel: {
+      #       id: "UCWH3hing1Qb4LnkRfQdxsxQ",
+      #       url: "https://www.youtube.com/@channelhandle",
+      #       handle: "channelhandle",
+      #       title: "Channel Name"
+      #     },
+      #     duration_ms: 1670000,
+      #     duration_formatted: "00:27:50",
+      #     watch_next_videos: [
+      #       {
+      #         id: "fRfkvQwf9Po",
+      #         title: "Related Video Title",
+      #         thumbnail: "https://i.ytimg.com/vi/fRfkvQwf9Po/hqdefault.jpg",
+      #         channel: { title: "Channel", url: "...", handle: "...", id: "..." },
+      #         publish_date_text: "5 years ago",
+      #         view_count_text: "7,913,223 views",
+      #         view_count_int: 7913223,
+      #         length_text: "19:13",
+      #         video_url: "https://www.youtube.com/watch?v=fRfkvQwf9Po"
+      #       }
+      #     ],
+      #     keywords: ["keyword1", "keyword2"],
+      #     transcript: [
+      #       { text: "transcript text", start_ms: "0", end_ms: "5759", start_time_text: "0:00" }
+      #     ],
+      #     transcript_only_text: "Full transcript as plain text..."
+      #   }
+      def video(url:, get_transcript: nil)
+        raise ArgumentError, "url is required" if url.nil? || url.to_s.strip.empty?
+
+        params = { url: url }
+        params[:get_transcript] = get_transcript unless get_transcript.nil?
+
+        get("/v1/youtube/video", params)
+      end
     end
   end
 end

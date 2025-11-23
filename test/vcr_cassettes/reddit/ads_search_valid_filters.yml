@@ -1,0 +1,29 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/reddit/ads/search?budgets=LOW&formats=IMAGE&industries=RETAIL_AND_ECOMMERCE&objectives=IMPRESSIONS&placements=FEED&query=test
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 23 Nov 2025 12:00:00 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"ads":[{"id":"valid123","budget_category":"LOW","industry":"RETAIL_AND_ECOMMERCE","placements":["FEED"],"objective":"IMPRESSIONS","creative":{"id":"t3_valid123","type":"IMAGE","content":[{"destination_url":"https://retail.example.com","display_url":"retail.example.com","call_to_action":"Browse","media_url":"https://example.com/retail.jpg"}],"headline":"Test Ad Headline","body":"Test ad body content.","thumbnail_url":"https://b.thumbs.redditmedia.com/valid.jpg","allow_comments":false,"created_at":"2024-11-01T12:00:00+00:00","profile_id":"t2_valid","post_url":"https://www.reddit.com/r/u_retailco/comments/valid123/"},"profile_info":{"name":"u_retailco","snoovatar_icon_url":"https://www.redditstatic.com/avatars/defaults/v2/avatar_default_7.png"}}]}'
+  recorded_at: Sun, 23 Nov 2025 12:00:00 GMT
+recorded_with: VCR 6.3.1
