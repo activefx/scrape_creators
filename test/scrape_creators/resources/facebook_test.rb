@@ -434,4 +434,94 @@ describe ScrapeCreators::Resources::Facebook do
       end
     end
   end
+
+  describe "#comments" do
+    let(:post_url) { "https://www.facebook.com/reel/1206903601483960/" }
+
+    it "fetches comments from a Facebook post successfully" do
+      VCR.use_cassette("facebook/comments_success") do
+        result = facebook.comments(post_url)
+
+        assert_kind_of Hash, result
+        assert result[:success]
+
+        # Verify comments array
+        assert result.key?(:comments)
+        assert_kind_of Array, result[:comments]
+        refute_empty result[:comments]
+
+        # Verify comment structure
+        comment = result[:comments].first
+
+        assert comment.key?(:id)
+        assert comment.key?(:text)
+        assert comment.key?(:created_at)
+        assert comment.key?(:reply_count)
+        assert comment.key?(:reaction_count)
+        assert comment.key?(:author)
+
+        # Verify author structure
+        author = comment[:author]
+
+        assert author.key?(:id)
+        assert author.key?(:name)
+        assert author.key?(:gender)
+        assert author.key?(:profile_picture)
+        assert author.key?(:short_name)
+      end
+    end
+
+    it "includes pagination information" do
+      VCR.use_cassette("facebook/comments_success") do
+        result = facebook.comments(post_url)
+
+        assert result.key?(:cursor)
+        assert result.key?(:has_next_page)
+      end
+    end
+
+    it "fetches comments with pagination cursor" do
+      VCR.use_cassette("facebook/comments_paginated") do
+        cursor = "MToxNzU3MTA2NzYyOg"
+        result = facebook.comments(post_url, cursor: cursor)
+
+        assert_kind_of Hash, result
+        assert result.key?(:comments)
+      end
+    end
+
+    it "raises ArgumentError when url is nil" do
+      error = assert_raises(ArgumentError) do
+        facebook.comments(nil)
+      end
+      assert_match(/url is required/, error.message)
+    end
+
+    it "raises ArgumentError when url is empty" do
+      error = assert_raises(ArgumentError) do
+        facebook.comments("")
+      end
+      assert_match(/url is required/, error.message)
+    end
+
+    it "raises NotFoundError for non-existent post" do
+      VCR.use_cassette("facebook/comments_not_found") do
+        assert_raises(ScrapeCreators::NotFoundError) do
+          facebook.comments("https://www.facebook.com/reel/999999999999999/")
+        end
+      end
+    end
+
+    it "raises UnauthorizedError for invalid API key" do
+      VCR.use_cassette("facebook/comments_unauthorized") do
+        invalid_client = ScrapeCreators::Client.new(api_key: "invalid_key")
+
+        error = assert_raises(ScrapeCreators::UnauthorizedError) do
+          invalid_client.facebook.comments(post_url)
+        end
+
+        assert_match(/invalid|unauthorized|api.?key/i, error.message)
+      end
+    end
+  end
 end
