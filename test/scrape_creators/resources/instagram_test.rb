@@ -313,4 +313,77 @@ describe ScrapeCreators::Resources::Instagram do
       end
     end
   end
+
+  describe "#transcript" do
+    it "fetches Instagram transcript successfully" do
+      VCR.use_cassette("instagram/transcript_success") do
+        result = instagram.transcript("https://www.instagram.com/reel/DHsD6HGqJhp/")
+
+        assert_kind_of Hash, result
+        assert result[:success]
+
+        # Verify transcripts array structure
+        assert result.key?(:transcripts)
+        assert_kind_of Array, result[:transcripts]
+        refute_empty result[:transcripts]
+
+        # Verify first transcript structure
+        transcript = result[:transcripts].first
+
+        assert transcript.key?(:id)
+        assert transcript.key?(:shortcode)
+        assert transcript.key?(:text)
+        assert_equal "DHsD6HGqJhp", transcript[:shortcode]
+      end
+    end
+
+    it "handles transcript with no speech detected" do
+      VCR.use_cassette("instagram/transcript_no_speech") do
+        result = instagram.transcript("https://www.instagram.com/p/DI2UdChyFfP/")
+
+        assert_kind_of Hash, result
+        assert result[:success]
+        assert result.key?(:transcripts)
+
+        # Text may be null when no speech is detected
+        transcript = result[:transcripts].first
+
+        assert transcript.key?(:text)
+      end
+    end
+
+    it "raises ArgumentError when url is nil" do
+      error = assert_raises(ArgumentError) do
+        instagram.transcript(nil)
+      end
+      assert_match(/url is required/, error.message)
+    end
+
+    it "raises ArgumentError when url is empty" do
+      error = assert_raises(ArgumentError) do
+        instagram.transcript("")
+      end
+      assert_match(/url is required/, error.message)
+    end
+
+    it "raises NotFoundError for non-existent post" do
+      VCR.use_cassette("instagram/transcript_not_found") do
+        assert_raises(ScrapeCreators::NotFoundError) do
+          instagram.transcript("https://www.instagram.com/p/nonexistent123456789/")
+        end
+      end
+    end
+
+    it "raises UnauthorizedError for invalid API key" do
+      VCR.use_cassette("instagram/transcript_unauthorized") do
+        invalid_client = ScrapeCreators::Client.new(api_key: "invalid_key")
+
+        error = assert_raises(ScrapeCreators::UnauthorizedError) do
+          invalid_client.instagram.transcript("https://www.instagram.com/reel/DHsD6HGqJhp/")
+        end
+
+        assert_match(/invalid|unauthorized|api.?key/i, error.message)
+      end
+    end
+  end
 end
