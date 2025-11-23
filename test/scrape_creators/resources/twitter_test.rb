@@ -372,4 +372,150 @@ describe ScrapeCreators::Resources::Twitter do
       end
     end
   end
+
+  describe "#community" do
+    let(:community_url) { "https://x.com/i/communities/1926186499399139650" }
+
+    it "fetches community details successfully" do
+      VCR.use_cassette("twitter/community_success") do
+        community = twitter.community(community_url)
+
+        assert_kind_of Hash, community
+
+        # Verify top-level structure
+        assert_equal "Community", community[:__typename]
+        assert community[:success]
+        assert community.key?(:rest_id)
+        assert community.key?(:name)
+        assert community.key?(:description)
+      end
+    end
+
+    it "returns community name and description" do
+      VCR.use_cassette("twitter/community_success") do
+        community = twitter.community(community_url)
+
+        assert_equal "The First Thousand", community[:name]
+        assert_includes community[:description], "creators and builders"
+      end
+    end
+
+    it "returns membership information" do
+      VCR.use_cassette("twitter/community_success") do
+        community = twitter.community(community_url)
+
+        assert community.key?(:is_member)
+        assert community.key?(:role)
+        assert community.key?(:member_count)
+        assert community.key?(:join_policy)
+
+        refute community[:is_member]
+        assert_equal "NonMember", community[:role]
+        assert_equal "Open", community[:join_policy]
+        assert_predicate community[:member_count], :positive?
+      end
+    end
+
+    it "returns community rules" do
+      VCR.use_cassette("twitter/community_success") do
+        community = twitter.community(community_url)
+
+        assert community.key?(:rules)
+        assert_kind_of Array, community[:rules]
+        refute_empty community[:rules]
+
+        rule = community[:rules].first
+
+        assert rule.key?(:rest_id)
+        assert rule.key?(:name)
+        assert rule.key?(:id)
+      end
+    end
+
+    it "returns creator information" do
+      VCR.use_cassette("twitter/community_success") do
+        community = twitter.community(community_url)
+
+        assert community.key?(:creator_results)
+        assert community[:creator_results].key?(:result)
+
+        creator = community[:creator_results][:result]
+
+        assert_equal "User", creator[:__typename]
+        assert creator.key?(:id)
+        assert creator.key?(:is_blue_verified)
+        assert creator.key?(:core)
+        assert creator[:core].key?(:screen_name)
+      end
+    end
+
+    it "returns member facepile" do
+      VCR.use_cassette("twitter/community_success") do
+        community = twitter.community(community_url)
+
+        assert community.key?(:members_facepile_results)
+        assert_kind_of Array, community[:members_facepile_results]
+        refute_empty community[:members_facepile_results]
+
+        member = community[:members_facepile_results].first
+
+        assert member.key?(:result)
+        assert member[:result].key?(:avatar)
+        assert member[:result][:avatar].key?(:image_url)
+      end
+    end
+
+    it "returns community actions" do
+      VCR.use_cassette("twitter/community_success") do
+        community = twitter.community(community_url)
+
+        assert community.key?(:actions)
+        assert community[:actions].key?(:join_action_result)
+        assert community[:actions].key?(:id)
+      end
+    end
+
+    it "returns created_at timestamp" do
+      VCR.use_cassette("twitter/community_success") do
+        community = twitter.community(community_url)
+
+        assert community.key?(:created_at)
+        assert_kind_of Integer, community[:created_at]
+      end
+    end
+
+    it "raises ArgumentError when url is nil" do
+      error = assert_raises(ArgumentError) do
+        twitter.community(nil)
+      end
+      assert_match(/url is required/, error.message)
+    end
+
+    it "raises ArgumentError when url is empty" do
+      error = assert_raises(ArgumentError) do
+        twitter.community("")
+      end
+      assert_match(/url is required/, error.message)
+    end
+
+    it "raises NotFoundError for non-existent community" do
+      VCR.use_cassette("twitter/community_not_found") do
+        assert_raises(ScrapeCreators::NotFoundError) do
+          twitter.community("https://x.com/i/communities/999999999999999999999")
+        end
+      end
+    end
+
+    it "raises UnauthorizedError for invalid API key" do
+      VCR.use_cassette("twitter/community_unauthorized") do
+        invalid_client = ScrapeCreators::Client.new(api_key: "invalid_key")
+
+        error = assert_raises(ScrapeCreators::UnauthorizedError) do
+          invalid_client.twitter.community(community_url)
+        end
+
+        assert_match(/invalid|unauthorized|api.?key/i, error.message)
+      end
+    end
+  end
 end
