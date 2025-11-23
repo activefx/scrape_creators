@@ -1,0 +1,39 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/linkedin/ads/search?company=Microsoft&countries=US,CA
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 23 Nov 2025 10:00:00 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Powered-By:
+      - Express
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"success":true,"ads":[{"id":"823975056","description":"The countdown has begun – grab your discounted tickets now for #FabConEurope!","headline":null,"poster":"Microsoft","posterTitle":"Promoted","promotedBy":null,"targeting":{"language":"Targeting includes English","location":"Targeting includes United States, Canada"},"image":"https://media.licdn.com/example.jpg","video":null,"carouselImages":[],"adType":"Single Image Ad","advertiser":"Microsoft","advertiserLinkedinPage":"https://www.linkedin.com/company/1035","cta":null,"destinationUrl":"http://msft.it/example","adDuration":"Ran from Aug 10, 2025 to Aug 10, 2025","startDate":"2025-08-10T05:00:00.000Z","endDate":"2025-08-10T05:00:00.000Z","totalImpressions":"< 1k","impressionsByCountry":[{"country":"US","impressions":"500"},{"country":"CA","impressions":"200"}]}],"paginationToken":"756412693-1754569518292","isLastPage":false}'
+  recorded_at: Sat, 23 Nov 2025 10:00:00 GMT
+recorded_with: VCR 6.3.1

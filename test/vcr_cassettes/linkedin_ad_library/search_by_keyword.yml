@@ -1,0 +1,39 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/linkedin/ads/search?keyword=cloud%20computing
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 23 Nov 2025 10:00:00 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Powered-By:
+      - Express
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"success":true,"ads":[{"id":"890123456","description":"Transform your business with cutting-edge cloud computing solutions.","headline":"Cloud Computing Excellence","poster":"TechCorp","posterTitle":"Promoted","promotedBy":null,"targeting":{"language":"Targeting includes English"},"image":"https://media.licdn.com/example-image.jpg","video":null,"carouselImages":[],"adType":"Single Image Ad","advertiser":"TechCorp","advertiserLinkedinPage":"https://www.linkedin.com/company/12345","cta":"Learn more","destinationUrl":"https://example.com/cloud","adDuration":"Ran from Jan 1, 2024 to Dec 31, 2024","startDate":"2024-01-01T00:00:00.000Z","endDate":"2024-12-31T23:59:59.000Z","totalImpressions":"10k-50k","impressionsByCountry":[]}],"paginationToken":"890123456-1754569518292","isLastPage":false}'
+  recorded_at: Sat, 23 Nov 2025 10:00:00 GMT
+recorded_with: VCR 6.3.1

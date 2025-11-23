@@ -1,0 +1,39 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/linkedin/ads/search?company=Microsoft&endDate=2024-12-31&startDate=2024-01-01
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 23 Nov 2025 10:00:00 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Powered-By:
+      - Express
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"success":true,"ads":[{"id":"823975056","description":"Microsoft 365 helps you work smarter.","headline":"Work Smarter with Microsoft 365","poster":"Microsoft","posterTitle":"Promoted","promotedBy":null,"targeting":{"language":"Targeting includes English"},"image":"https://media.licdn.com/example.jpg","video":null,"carouselImages":[],"adType":"Single Image Ad","advertiser":"Microsoft","advertiserLinkedinPage":"https://www.linkedin.com/company/1035","cta":"Learn more","destinationUrl":"https://microsoft.com/365","adDuration":"Ran from Jan 1, 2024 to Dec 31, 2024","startDate":"2024-01-01T00:00:00.000Z","endDate":"2024-12-31T23:59:59.000Z","totalImpressions":"100k-500k","impressionsByCountry":[]}],"paginationToken":"756412693-1754569518292","isLastPage":true}'
+  recorded_at: Sat, 23 Nov 2025 10:00:00 GMT
+recorded_with: VCR 6.3.1
