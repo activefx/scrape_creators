@@ -47,7 +47,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 
 ## Instagram
 
-- [⏳] GET Profile (`/v1/instagram/profile`)
+- [✅] GET Profile (`/v1/instagram/profile`)
 - [⏳] GET Basic Profile (`/v1/instagram/basic-profile`)
 - [⏳] GET Posts (`/v2/instagram/user/posts`)
 - [⏳] GET Post/Reel Info (`/v1/instagram/post`)
@@ -250,13 +250,13 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 ## Implementation Progress Summary
 
 **Total Endpoints:** 133
-**Completed:** 21 (TikTok core + search + songs + shop endpoints)
-**Remaining:** 112
+**Completed:** 22 (TikTok core + search + songs + shop endpoints, Instagram profile)
+**Remaining:** 111
 
 ### Platform Completion Status
 - TikTok: 18/18 endpoints (100%)
 - TikTok Shop: 3/3 endpoints (100%)
-- Instagram: 0/13 endpoints (0%)
+- Instagram: 1/13 endpoints (8%)
 - YouTube: 0/12 endpoints (0%)
 - LinkedIn: 0/3 endpoints (0%)
 - Facebook: 0/6 endpoints (0%)
