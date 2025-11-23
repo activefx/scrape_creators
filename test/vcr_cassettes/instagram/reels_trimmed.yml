@@ -1,0 +1,39 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/instagram/user/reels?handle=adrianhorning&trim=true
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 23 Nov 2025 10:00:00 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Powered-By:
+      - Express
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"items":[{"media":{"pk":"3540614075954356349","id":"3540614075954356349_2700692569","code":"DEiyb48AeB9","media_type":2,"play_count":3865,"like_count":126,"comment_count":12,"video_duration":76.783,"has_audio":true,"product_type":"clips","user":{"pk":"2700692569","username":"adrianhorning","full_name":"Adrian Horning","is_verified":true},"url":"https://www.instagram.com/reel/DEiyb48AeB9"}}],"paging_info":{"max_id":"QVFCMmhBOFROQXFVbVJGSXR0WUpSNzdSd2FRTUQ=","more_available":true},"status":"ok"}'
+  recorded_at: Sat, 23 Nov 2025 10:00:00 GMT
+recorded_with: VCR 6.3.1

@@ -464,4 +464,133 @@ describe ScrapeCreators::Resources::Instagram do
       end
     end
   end
+
+  describe "#reels" do
+    it "fetches reels from an Instagram profile by handle" do
+      VCR.use_cassette("instagram/reels_by_handle_success") do
+        reels = instagram.reels(handle: "adrianhorning")
+
+        assert_kind_of Hash, reels
+
+        # Verify response structure
+        assert reels.key?(:items)
+        assert reels.key?(:paging_info)
+        assert_equal "ok", reels[:status]
+
+        # Verify items array
+        assert_kind_of Array, reels[:items]
+        refute_empty reels[:items]
+
+        # Verify first reel structure
+        item = reels[:items].first
+
+        assert item.key?(:media)
+        media = item[:media]
+
+        assert media.key?(:pk)
+        assert media.key?(:id)
+        assert media.key?(:code)
+        assert media.key?(:taken_at)
+        assert media.key?(:media_type)
+        assert media.key?(:product_type)
+        assert_equal "clips", media[:product_type]
+
+        # Verify user info in reel
+        assert media.key?(:user)
+        assert_equal "adrianhorning", media[:user][:username]
+
+        # Verify video properties
+        assert media.key?(:video_duration)
+        assert media.key?(:has_audio)
+      end
+    end
+
+    it "fetches reels from an Instagram profile by user ID" do
+      VCR.use_cassette("instagram/reels_by_user_id_success") do
+        reels = instagram.reels(user_id: "2700692569")
+
+        assert_kind_of Hash, reels
+
+        # Verify response structure
+        assert reels.key?(:items)
+        assert reels.key?(:paging_info)
+        assert_equal "ok", reels[:status]
+
+        # Verify items array
+        assert_kind_of Array, reels[:items]
+        refute_empty reels[:items]
+      end
+    end
+
+    it "accepts integer user ID" do
+      VCR.use_cassette("instagram/reels_by_user_id_success") do
+        reels = instagram.reels(user_id: 2_700_692_569)
+
+        assert_kind_of Hash, reels
+        assert reels.key?(:items)
+      end
+    end
+
+    it "fetches reels with trim parameter" do
+      VCR.use_cassette("instagram/reels_trimmed") do
+        reels = instagram.reels(handle: "adrianhorning", trim: true)
+
+        assert_kind_of Hash, reels
+        assert reels.key?(:items)
+        assert_equal "ok", reels[:status]
+      end
+    end
+
+    it "returns pagination info for more results" do
+      VCR.use_cassette("instagram/reels_by_handle_success") do
+        reels = instagram.reels(handle: "adrianhorning")
+
+        # Verify paging_info structure
+        assert reels.key?(:paging_info)
+        paging_info = reels[:paging_info]
+
+        assert paging_info.key?(:more_available)
+
+        # If more_available is true, max_id should be present
+        if paging_info[:more_available]
+          assert paging_info.key?(:max_id)
+          refute_nil paging_info[:max_id]
+        end
+      end
+    end
+
+    it "raises ArgumentError when both user_id and handle are nil" do
+      error = assert_raises(ArgumentError) do
+        instagram.reels
+      end
+      assert_match(/Either user_id or handle is required/, error.message)
+    end
+
+    it "raises ArgumentError when both user_id and handle are empty" do
+      error = assert_raises(ArgumentError) do
+        instagram.reels(user_id: "", handle: "")
+      end
+      assert_match(/Either user_id or handle is required/, error.message)
+    end
+
+    it "raises NotFoundError for non-existent profile" do
+      VCR.use_cassette("instagram/reels_not_found") do
+        assert_raises(ScrapeCreators::NotFoundError) do
+          instagram.reels(handle: "thisuserdoesnotexist123456789xyz")
+        end
+      end
+    end
+
+    it "raises UnauthorizedError for invalid API key" do
+      VCR.use_cassette("instagram/reels_unauthorized") do
+        invalid_client = ScrapeCreators::Client.new(api_key: "invalid_key")
+
+        error = assert_raises(ScrapeCreators::UnauthorizedError) do
+          invalid_client.instagram.reels(handle: "adrianhorning")
+        end
+
+        assert_match(/invalid|unauthorized|api.?key/i, error.message)
+      end
+    end
+  end
 end
