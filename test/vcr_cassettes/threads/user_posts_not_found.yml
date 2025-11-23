@@ -1,0 +1,57 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/threads/user/posts?handle=thisuserdoesnotexist123456789xyz
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Date:
+      - Sun, 23 Nov 2025 19:31:59 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      Etag:
+      - W/"c5-8YT26j4eHFgJruApx2nT4WctUlo"
+      Rndr-Id:
+      - 2ec189bc-ae3f-499e
+      Vary:
+      - Accept-Encoding
+      X-Powered-By:
+      - Express
+      X-Render-Origin-Server:
+      - Render
+      Cf-Cache-Status:
+      - DYNAMIC
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 9a3316fddc66233c-ORD
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"success":true,"credits_remaining":24671,"error":"not_found","errorStatus":404,"message":"Shoot
+        looks like the user is not found, or is private and needs to be accessed by
+        a logged in account :("}'
+  recorded_at: Sun, 23 Nov 2025 19:31:59 GMT
+recorded_with: VCR 6.3.1

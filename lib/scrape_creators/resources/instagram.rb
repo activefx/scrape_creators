@@ -710,6 +710,83 @@ module ScrapeCreators
 
         get("/v1/instagram/user/highlights", params)
       end
+
+      # Get details about a specific Instagram story highlight
+      #
+      # Retrieves detailed information about a specific highlight including all
+      # items (stories), cover media, user info, and metadata.
+      #
+      # @param id [String] The ID of the highlight to get details for
+      # @return [Hash] Highlight details including items, cover media, and user info
+      # @raise [ArgumentError] If the id parameter is nil or empty
+      # @raise [BadRequestError] If the id parameter is invalid
+      # @raise [NotFoundError] If the highlight is not found
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Get highlight details by ID
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   highlight = client.instagram.highlight_detail("highlight:18067016518767507")
+      #   puts highlight[:success]                    # => true
+      #   puts highlight[:title]                      # => "GRWM chats"
+      #   puts highlight[:media_count]                # => 25
+      #   puts highlight[:items].first[:code]         # => "DF8pmFZySYS"
+      #
+      # @example Response structure
+      #   {
+      #     success: true,
+      #     id: "highlight:18067016518767507",
+      #     latest_reel_media: 1745272279,
+      #     can_reply: false,
+      #     can_reshare: true,
+      #     reel_type: "highlight_reel",
+      #     cover_media: {
+      #       cropped_image_version: {
+      #         width: 150,
+      #         height: 150,
+      #         url: "https://..."
+      #       },
+      #       crop_rect: [0, 0.178, 1, 0.742],
+      #       media_id: "3574665805209826888_21393171"
+      #     },
+      #     user: {
+      #       pk: "21393171",
+      #       full_name: "Jane Williamson",
+      #       is_private: false,
+      #       username: "jane",
+      #       is_verified: true,
+      #       profile_pic_url: "https://..."
+      #     },
+      #     items: [
+      #       {
+      #         pk: "3565907942018983442",
+      #         id: "3565907942018983442_21393171",
+      #         code: "DF8pmFZySYS",
+      #         media_type: 2,
+      #         taken_at: 1739309361,
+      #         video_duration: 55.85,
+      #         has_audio: true,
+      #         product_type: "story",
+      #         user: {
+      #           full_name: "Jane Williamson",
+      #           username: "jane"
+      #         },
+      #         image_versions2: { candidates: [...] },
+      #         video_versions: [...]
+      #       }
+      #     ],
+      #     title: "GRWM chats",
+      #     created_at: 1743889595,
+      #     is_pinned_highlight: false,
+      #     media_count: 25,
+      #     media_ids: ["3565907942018983442", ...],
+      #     highlight_reel_type: "DEFAULT"
+      #   }
+      def highlight_detail(id)
+        raise ArgumentError, "id is required" if id.nil? || id.to_s.empty?
+
+        get("/v1/instagram/user/highlight/detail", id: id)
+      end
     end
   end
 end
