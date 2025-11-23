@@ -882,4 +882,59 @@ describe ScrapeCreators::Resources::Tiktok do
       end
     end
   end
+
+  describe "#song_videos" do
+    it "fetches videos using a song successfully" do
+      VCR.use_cassette("tiktok/song_videos_success") do
+        videos = tiktok.song_videos("7439295283975702544")
+
+        assert_kind_of Hash, videos
+        assert videos.key?(:aweme_list)
+        assert_kind_of Array, videos[:aweme_list]
+
+        unless videos[:aweme_list].empty?
+          first_video = videos[:aweme_list].first
+
+          assert first_video.key?(:aweme_id)
+          assert first_video.key?(:desc)
+          assert first_video.key?(:author)
+          assert first_video.key?(:statistics)
+          assert first_video.key?(:music)
+        end
+      end
+    end
+
+    it "fetches videos with cursor pagination" do
+      VCR.use_cassette("tiktok/song_videos_with_cursor") do
+        videos = tiktok.song_videos("7439295283975702544", cursor: 12)
+
+        assert_kind_of Hash, videos
+        assert videos.key?(:aweme_list)
+      end
+    end
+
+    it "returns pagination info" do
+      VCR.use_cassette("tiktok/song_videos_pagination") do
+        videos = tiktok.song_videos("7439295283975702544")
+
+        assert_kind_of Hash, videos
+        assert videos.key?(:cursor)
+        assert videos.key?(:has_more)
+      end
+    end
+
+    it "raises ArgumentError when clip_id is nil" do
+      error = assert_raises(ArgumentError) do
+        tiktok.song_videos(nil)
+      end
+      assert_match(/clip_id is required/, error.message)
+    end
+
+    it "raises ArgumentError when clip_id is empty" do
+      error = assert_raises(ArgumentError) do
+        tiktok.song_videos("")
+      end
+      assert_match(/clip_id is required/, error.message)
+    end
+  end
 end

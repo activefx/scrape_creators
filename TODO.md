@@ -32,7 +32,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 ### Songs & Discovery
 - [✅] GET Get popular songs (`/v1/tiktok/songs/popular`)
 - [✅] GET Get Song Details (`/v1/tiktok/song`)
-- [⏳] GET TikToks using Song (`/v1/tiktok/song/videos`)
+- [✅] GET TikToks using Song (`/v1/tiktok/song/videos`)
 - [⏳] GET Trending Feed (`/v1/tiktok/get-trending-feed`)
 
 ---
@@ -250,11 +250,11 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 ## Implementation Progress Summary
 
 **Total Endpoints:** 133
-**Completed:** 16 (TikTok core + search + songs endpoints)
-**Remaining:** 117
+**Completed:** 17 (TikTok core + search + songs endpoints)
+**Remaining:** 116
 
 ### Platform Completion Status
-- TikTok: 16/18 endpoints (89%)
+- TikTok: 17/18 endpoints (94%)
 - TikTok Shop: 0/3 endpoints (0%)
 - Instagram: 0/13 endpoints (0%)
 - YouTube: 0/12 endpoints (0%)
