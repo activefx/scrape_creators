@@ -1,0 +1,58 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/threads/profile?handle=sportsillustrated
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 23 Nov 2025 06:42:42 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      Etag:
+      - W/"a3d-iZiEj4TUiPGEj15ItS6OzhyCg/Y"
+      Rndr-Id:
+      - ee985551-c65b-43bf
+      Vary:
+      - Accept-Encoding
+      X-Powered-By:
+      - Express
+      X-Render-Origin-Server:
+      - Render
+      Cf-Cache-Status:
+      - DYNAMIC
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 9a2eb01d1b53aca6-ORD
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"success":true,"credits_remaining":24722,"pk":"63496592589","text_post_app_is_private":false,"has_onboarded_to_text_post_app":true,"friendship_status":null,"profile_pic_url":"https://scontent-atl3-1.cdninstagram.com/v/t51.2885-19/483433564_655589117415062_7541542786235693538_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-atl3-1.cdninstagram.com&_nc_cat=1&_nc_oc=Q6cZ2QEQUpu8718XVFZioLeeQGOU83Nj1khu8LieETmGvl3WMWU5K1svjAZJus3Qlfzf6xk&_nc_ohc=I_-rSRuDd2kQ7kNvwG6Q3TN&_nc_gid=8kikbbgNNcwyJcIYpq9kPA&edm=APs17CUBAAAA&ccb=7-5&oh=00_Afj7W6OE4zr-8j6ObtCtEot2chySactFBgKslOgTVgooSA&oe=69288988&_nc_sid=10d13b","username":"sportsillustrated","text_post_app_remove_mention_entrypoint":null,"show_text_post_app_replies_tab":true,"text_app_custom_feeds":null,"gating":null,"follower_count":615490,"profile_context_facepile_users":null,"hd_profile_pic_versions":[{"height":320,"url":"https://scontent-atl3-1.cdninstagram.com/v/t51.2885-19/483433564_655589117415062_7541542786235693538_n.jpg?stp=dst-jpg_s320x320_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-atl3-1.cdninstagram.com&_nc_cat=1&_nc_oc=Q6cZ2QEQUpu8718XVFZioLeeQGOU83Nj1khu8LieETmGvl3WMWU5K1svjAZJus3Qlfzf6xk&_nc_ohc=I_-rSRuDd2kQ7kNvwG6Q3TN&_nc_gid=8kikbbgNNcwyJcIYpq9kPA&edm=APs17CUBAAAA&ccb=7-5&oh=00_AfgkxgGLLeDehvgtLF85J-9b5i0dOvy0j2BtTO125XEoLw&oe=69288988&_nc_sid=10d13b","width":320},{"height":640,"url":"https://scontent-atl3-1.cdninstagram.com/v/t51.2885-19/483433564_655589117415062_7541542786235693538_n.jpg?stp=dst-jpg_s640x640_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-atl3-1.cdninstagram.com&_nc_cat=1&_nc_oc=Q6cZ2QEQUpu8718XVFZioLeeQGOU83Nj1khu8LieETmGvl3WMWU5K1svjAZJus3Qlfzf6xk&_nc_ohc=I_-rSRuDd2kQ7kNvwG6Q3TN&_nc_gid=8kikbbgNNcwyJcIYpq9kPA&edm=APs17CUBAAAA&ccb=7-5&oh=00_AfgRrg-jMZk9RPbNn4AXCKu1psAfzfhAXoViUz8tntGVsA&oe=69288988&_nc_sid=10d13b","width":640}],"is_verified":true,"biography":"Sports,
+        sports and more sports.","text_app_biography":{"text_fragments":{"fragments":[{"fragment_type":"plaintext","link_fragment":null,"mention_fragment":null,"plaintext":"Sports,
+        sports and more sports.","linkified_web_url":null,"styling_info":null}]}},"full_name":"Sports
+        Illustrated","bio_links":[{"url":"https://lnk.bio/sportsillustrated","link_id":"17882982429146262","title":"","is_verified":false}],"profile_tags":{"edges":[]},"transparency_label":null,"is_ig_threads_connected_user":true,"show_text_post_app_badge":true,"platform_podcast_info":null,"platform_podcast_episode_info":null,"id":"63496592589"}'
+  recorded_at: Sun, 23 Nov 2025 06:42:42 GMT
+recorded_with: VCR 6.3.1
