@@ -1,0 +1,45 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/reddit/search?query=python%20programming&sort=top
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 23 Nov 2025 07:00:00 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Cf-Ray:
+      - 9a2eb046589e2310-ORD
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Powered-By:
+      - Express
+      Cf-Cache-Status:
+      - DYNAMIC
+      Server:
+      - cloudflare
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"posts":[{"subreddit":"learnpython","selftext":"Python tips for beginners","author":"learn_python_123","title":"Top Python Tips for 2024","subreddit_name_prefixed":"r/learnpython","ups":1500,"score":1500,"upvote_ratio":0.97,"id":"toppy123","name":"t3_toppy123","author_fullname":"t2_toppy","created":1726850000,"created_utc":1726850000,"num_comments":200,"permalink":"/r/learnpython/comments/toppy123/top_python_tips_for_2024/","url":"https://www.reddit.com/r/learnpython/comments/toppy123/top_python_tips_for_2024/","is_self":true,"over_18":false,"spoiler":false,"locked":false,"stickied":false,"archived":false,"is_video":false,"subreddit_subscribers":800000,"created_at_iso":"2024-09-20T16:33:20.000Z"}],"after":"t3_next123"}'
+  recorded_at: Sun, 23 Nov 2025 07:00:00 GMT
+recorded_with: VCR 6.3.1

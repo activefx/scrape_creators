@@ -1,0 +1,45 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/reddit/search?query=javascript&timeframe=week
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 23 Nov 2025 07:00:00 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Cf-Ray:
+      - 9a2eb046589e2310-ORD
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Powered-By:
+      - Express
+      Cf-Cache-Status:
+      - DYNAMIC
+      Server:
+      - cloudflare
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"posts":[{"subreddit":"javascript","selftext":"JavaScript ES2024 features discussion","author":"js_enthusiast","title":"New JavaScript Features in 2024","subreddit_name_prefixed":"r/javascript","ups":890,"score":890,"upvote_ratio":0.94,"id":"jsweek123","name":"t3_jsweek123","author_fullname":"t2_jsdev","created":1732300000,"created_utc":1732300000,"num_comments":156,"permalink":"/r/javascript/comments/jsweek123/new_javascript_features_in_2024/","url":"https://www.reddit.com/r/javascript/comments/jsweek123/new_javascript_features_in_2024/","is_self":true,"over_18":false,"spoiler":false,"locked":false,"stickied":false,"archived":false,"is_video":false,"subreddit_subscribers":2000000,"created_at_iso":"2024-11-22T20:26:40.000Z"}],"after":"t3_jsnext456"}'
+  recorded_at: Sun, 23 Nov 2025 07:00:00 GMT
+recorded_with: VCR 6.3.1

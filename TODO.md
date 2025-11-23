@@ -139,7 +139,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 - [✅] GET Subreddit Posts (`/v1/reddit/subreddit`)
 - [✅] GET Post Comments (`/v1/reddit/post/comments`)
 - [✅] GET Simple Comments (`/v1/reddit/post/comments/simple`)
-- [⏳] GET Search (`/v1/reddit/search`)
+- [✅] GET Search (`/v1/reddit/search`)
 - [⏳] GET Search Ads (`/v1/reddit/ads/search`)
 - [⏳] GET Get Ad (`/v1/reddit/ad`)
 
@@ -266,7 +266,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 - Google Ad Library: 1/3 endpoints (33%)
 - LinkedIn Ad Library: 1/2 endpoints (50%)
 - Twitter: 2/6 endpoints (33%)
-- Reddit: 3/6 endpoints (50%)
+- Reddit: 4/6 endpoints (67%)
 - Truth Social: 0/3 endpoints (0%)
 - Threads: 1/5 endpoints (20%)
 - Bluesky: 0/3 endpoints (0%)
