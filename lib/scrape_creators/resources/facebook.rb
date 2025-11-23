@@ -264,6 +264,48 @@ module ScrapeCreators
       #       music_album_art: "https://..."
       #     }
       #   }
+      def group_posts(url: nil, group_id: nil, sort_by: nil, cursor: nil)
+        if (url.nil? || url.to_s.empty?) && (group_id.nil? || group_id.to_s.empty?)
+          raise ArgumentError, "url or group_id is required"
+        end
+
+        params = {}
+        params[:url] = url unless url.nil? || url.to_s.empty?
+        params[:groupId] = group_id unless group_id.nil? || group_id.to_s.empty?
+        params[:sort_by] = sort_by unless sort_by.nil?
+        params[:cursor] = cursor unless cursor.nil?
+
+        get("/v1/facebook/group/posts", params)
+      end
+
+      # Get detailed information about a specific Facebook post
+      #
+      # Retrieves detailed information about a public Facebook post including
+      # engagement metrics, content, and optional comments and transcript.
+      #
+      # @param url [String] Facebook post URL
+      # @param get_comments [Boolean, nil] Whether to include comments in the response
+      # @param get_transcript [Boolean, nil] Whether to include video transcript in the response
+      # @return [Hash] Post data including content, engagement metrics, and optional comments/transcript
+      # @raise [ArgumentError] If the url parameter is nil or empty
+      # @raise [BadRequestError] If the url parameter is invalid
+      # @raise [NotFoundError] If the post is not found
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Get a Facebook post
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   post = client.facebook.post("https://www.facebook.com/reel/486651220706068/")
+      #   puts post[:description]
+      #   puts post[:like_count]
+      #
+      # @example Get a Facebook post with comments
+      #   post = client.facebook.post("https://www.facebook.com/reel/486651220706068/", get_comments: true)
+      #   puts post[:comments]
+      #
+      # @example Get a Facebook post with transcript
+      #   post = client.facebook.post("https://www.facebook.com/reel/486651220706068/", get_transcript: true)
+      #   puts post[:transcript]
       def post(url, get_comments: nil, get_transcript: nil)
         raise ArgumentError, "url is required" if url.nil? || url.to_s.empty?
 

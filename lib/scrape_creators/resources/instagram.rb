@@ -511,6 +511,8 @@ module ScrapeCreators
         params[:trim] = trim unless trim.nil?
 
         get("/v1/instagram/user/reels", params)
+      end
+
       # Get comments from an Instagram post or reel
       #
       # Retrieves comments from a public Instagram post or reel. Note that this
