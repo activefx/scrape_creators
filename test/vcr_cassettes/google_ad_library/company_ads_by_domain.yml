@@ -1,0 +1,39 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/google/company/ads?domain=foreplay.co
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 23 Nov 2025 10:00:00 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Powered-By:
+      - Express
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"success":true,"credits_remaining":9926561,"ads":[{"advertiserId":"AR09628680369637163009","creativeId":"CR15036700036807262209","format":"text","adUrl":"https://adstransparency.google.com/advertiser/AR09628680369637163009/creative/CR15036700036807262209","advertiserName":"Foreplay Ventures Inc","domain":"foreplay.co","imageUrl":null,"firstShown":"2024-08-02T12:33:35.000Z","lastShown":"2025-11-10T19:31:13.000Z"},{"advertiserId":"AR09628680369637163009","creativeId":"CR04077090219323555841","format":"video","adUrl":"https://adstransparency.google.com/advertiser/AR09628680369637163009/creative/CR04077090219323555841","advertiserName":"Foreplay Ventures Inc","domain":"foreplay.co","imageUrl":null,"firstShown":"2024-06-22T06:45:18.000Z","lastShown":"2025-11-10T17:56:32.000Z"},{"advertiserId":"AR09628680369637163009","creativeId":"CR09593715710895325185","format":"video","adUrl":"https://adstransparency.google.com/advertiser/AR09628680369637163009/creative/CR09593715710895325185","advertiserName":"Foreplay Ventures Inc","domain":"foreplay.co","imageUrl":null,"firstShown":"2025-08-27T14:17:12.000Z","lastShown":"2025-11-10T17:17:46.000Z"},{"advertiserId":"AR09628680369637163009","creativeId":"CR10027703979854528513","format":"text","adUrl":"https://adstransparency.google.com/advertiser/AR09628680369637163009/creative/CR10027703979854528513","advertiserName":"Foreplay Ventures Inc","domain":"foreplay.co","imageUrl":null,"firstShown":"2025-01-12T03:38:24.000Z","lastShown":"2025-11-10T16:36:38.000Z"},{"advertiserId":"AR09628680369637163009","creativeId":"CR15742167484830056449","format":"image","adUrl":"https://adstransparency.google.com/advertiser/AR09628680369637163009/creative/CR15742167484830056449","advertiserName":"Foreplay Ventures Inc","domain":"foreplay.co","imageUrl":null,"firstShown":"2025-08-09T14:24:28.000Z","lastShown":"2025-11-10T06:47:43.000Z"}],"cursor":"CgoAP7zm82Y5sMRjEhBwPifBwIMxRttsqvUAAAAAGgn8+IddU"}'
+  recorded_at: Sat, 23 Nov 2025 10:00:00 GMT
+recorded_with: VCR 6.3.1

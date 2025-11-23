@@ -110,7 +110,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 
 ## Google Ad Library
 
-- [⏳] GET Company Ads (`/v1/google/company/ads`)
+- [✅] GET Company Ads (`/v1/google/company/ads`)
 - [⏳] GET Ad Details (`/v1/google/ad`)
 - [⏳] GET Advertiser Search (`/v1/google/adLibrary/advertisers/search`)
 
@@ -272,7 +272,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 - LinkedIn: 1/3 endpoints (33%)
 - Facebook: 0/6 endpoints (0%)
 - Facebook Ad Library: 0/4 endpoints (0%)
-- Google Ad Library: 0/3 endpoints (0%)
+- Google Ad Library: 1/3 endpoints (33%)
 - LinkedIn Ad Library: 0/2 endpoints (0%)
 - Twitter: 0/6 endpoints (0%)
 - Reddit: 0/6 endpoints (0%)
