@@ -1228,6 +1228,25 @@ describe ScrapeCreators::Resources::Tiktok do
           first_category = product[:categories].first
 
           assert first_category.key?(:category_id) || first_category.key?(:category_name)
+        end
+      end
+    end
+
+    it "raises ArgumentError when url is nil" do
+      error = assert_raises(ArgumentError) do
+        tiktok.shop_product(nil)
+      end
+      assert_match(/url is required/, error.message)
+    end
+
+    it "raises ArgumentError when url is empty" do
+      error = assert_raises(ArgumentError) do
+        tiktok.shop_product("")
+      end
+      assert_match(/url is required/, error.message)
+    end
+  end
+
   describe "#shop_products" do
     it "fetches shop products successfully" do
       VCR.use_cassette("tiktok/shop_products_success") do
@@ -1314,8 +1333,14 @@ describe ScrapeCreators::Resources::Tiktok do
 
     it "raises ArgumentError when url is nil" do
       error = assert_raises(ArgumentError) do
-        tiktok.shop_product(nil)
         tiktok.shop_products(nil)
+      end
+      assert_match(/url is required/, error.message)
+    end
+
+    it "raises ArgumentError when url is empty" do
+      error = assert_raises(ArgumentError) do
+        tiktok.shop_products("")
       end
       assert_match(/url is required/, error.message)
     end

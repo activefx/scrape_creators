@@ -1206,6 +1206,8 @@ module ScrapeCreators
       #   product = client.tiktok.shop_product(
       #     "https://www.tiktok.com/shop/product/123",
       #     region: "US"
+      #   )
+      #
       # Get products from a TikTok Shop
       #
       # Retrieves all products from a TikTok Shop by its URL. This endpoint handles
@@ -1313,6 +1315,8 @@ module ScrapeCreators
         params[:region] = region if region
 
         get("/v1/tiktok/product", params)
+      end
+
       #     shop_info: {
       #       seller_id: "7495794203056835079",
       #       sold_count: 3767605,
