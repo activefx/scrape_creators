@@ -1,0 +1,55 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/youtube/search/hashtag?hashtag=funny&type=shorts
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 23 Nov 2025 20:16:18 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      Etag:
+      - W/"14a3-Cv1HVfvMf6GXmjRFXuw5cJGqW80"
+      Rndr-Id:
+      - 2b6c0d78-92b8-46d4
+      Vary:
+      - Accept-Encoding
+      X-Powered-By:
+      - Express
+      X-Render-Origin-Server:
+      - Render
+      Cf-Cache-Status:
+      - DYNAMIC
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 9a3357ea89400046-ORD
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"success":true,"credits_remaining":24618,"results":{"videos":[],"channels":[],"playlists":[],"shorts":[{"type":"short","id":"l3tdk8T582Q","url":"https://www.youtube.com/watch?v=l3tdk8T582Q","viewCountText":"83M","viewCountInt":83000000},{"type":"short","id":"VWzx_M8j-1U","url":"https://www.youtube.com/watch?v=VWzx_M8j-1U","viewCountText":"79M","viewCountInt":79000000},{"type":"short","id":"edQ2gsAKSNI","url":"https://www.youtube.com/watch?v=edQ2gsAKSNI","viewCountText":"27M","viewCountInt":27000000},{"type":"short","id":"0VNAzK36-4g","url":"https://www.youtube.com/watch?v=0VNAzK36-4g","viewCountText":"35M","viewCountInt":35000000},{"type":"short","id":"tWbzxx1qHAI","url":"https://www.youtube.com/watch?v=tWbzxx1qHAI","viewCountText":"27M","viewCountInt":27000000},{"type":"short","id":"K1MgO57v-zo","url":"https://www.youtube.com/watch?v=K1MgO57v-zo","viewCountText":"25M","viewCountInt":25000000},{"type":"short","id":"f89AtY7JR9Q","url":"https://www.youtube.com/watch?v=f89AtY7JR9Q","viewCountText":"31M","viewCountInt":31000000},{"type":"short","id":"dwMO-e2m_L4","url":"https://www.youtube.com/watch?v=dwMO-e2m_L4","viewCountText":"66M","viewCountInt":66000000},{"type":"short","id":"8cVMhqB8clU","url":"https://www.youtube.com/watch?v=8cVMhqB8clU","viewCountText":"156M","viewCountInt":156000000},{"type":"short","id":"EI1fJttURIE","url":"https://www.youtube.com/watch?v=EI1fJttURIE","viewCountText":"28M","viewCountInt":28000000},{"type":"short","id":"Urwd81D6zhc","url":"https://www.youtube.com/watch?v=Urwd81D6zhc","viewCountText":"74M","viewCountInt":74000000},{"type":"short","id":"qooxM_1dx64","url":"https://www.youtube.com/watch?v=qooxM_1dx64","viewCountText":"25M","viewCountInt":25000000},{"type":"short","id":"Tw68sJEzd_g","url":"https://www.youtube.com/watch?v=Tw68sJEzd_g","viewCountText":"62M","viewCountInt":62000000},{"type":"short","id":"BUfBWJt5HNI","url":"https://www.youtube.com/watch?v=BUfBWJt5HNI","viewCountText":"36M","viewCountInt":36000000},{"type":"short","id":"uf_bUE-DNlg","url":"https://www.youtube.com/watch?v=uf_bUE-DNlg","viewCountText":"27M","viewCountInt":27000000},{"type":"short","id":"_9b4Mr_DgWw","url":"https://www.youtube.com/watch?v=_9b4Mr_DgWw","viewCountText":"28M","viewCountInt":28000000},{"type":"short","id":"D4eNalESGes","url":"https://www.youtube.com/watch?v=D4eNalESGes","viewCountText":"27M","viewCountInt":27000000},{"type":"short","id":"Qo92SA1DtE8","url":"https://www.youtube.com/watch?v=Qo92SA1DtE8","viewCountText":"34M","viewCountInt":34000000},{"type":"short","id":"d8o1mLQ4EEs","url":"https://www.youtube.com/watch?v=d8o1mLQ4EEs","viewCountText":"43M","viewCountInt":43000000},{"type":"short","id":"WOpNFzogYTA","url":"https://www.youtube.com/watch?v=WOpNFzogYTA","viewCountText":"147M","viewCountInt":147000000},{"type":"short","id":"d0QPMLyOW-s","url":"https://www.youtube.com/watch?v=d0QPMLyOW-s","viewCountText":"50M","viewCountInt":50000000},{"type":"short","id":"I6IS9AYFKIU","url":"https://www.youtube.com/watch?v=I6IS9AYFKIU","viewCountText":"112M","viewCountInt":112000000},{"type":"short","id":"SZpg-nnL8bw","url":"https://www.youtube.com/watch?v=SZpg-nnL8bw","viewCountText":"155M","viewCountInt":155000000},{"type":"short","id":"EG4Qbs5jOX0","url":"https://www.youtube.com/watch?v=EG4Qbs5jOX0","viewCountText":"54M","viewCountInt":54000000},{"type":"short","id":"Q8be7x2OkHI","url":"https://www.youtube.com/watch?v=Q8be7x2OkHI","viewCountText":"74M","viewCountInt":74000000},{"type":"short","id":"R-wZKkoIq3Y","url":"https://www.youtube.com/watch?v=R-wZKkoIq3Y","viewCountText":"54M","viewCountInt":54000000},{"type":"short","id":"KymykJQpSvM","url":"https://www.youtube.com/watch?v=KymykJQpSvM","viewCountText":"143M","viewCountInt":143000000},{"type":"short","id":"BFYuHTWze64","url":"https://www.youtube.com/watch?v=BFYuHTWze64","viewCountText":"25M","viewCountInt":25000000},{"type":"short","id":"4dcGvkT9rvM","url":"https://www.youtube.com/watch?v=4dcGvkT9rvM","viewCountText":"50M","viewCountInt":50000000},{"type":"short","id":"rWqqGVraHmU","url":"https://www.youtube.com/watch?v=rWqqGVraHmU","viewCountText":"34M","viewCountInt":34000000},{"type":"short","id":"eg9mNlEBPnA","url":"https://www.youtube.com/watch?v=eg9mNlEBPnA","viewCountText":"28M","viewCountInt":28000000},{"type":"short","id":"vHKqx15nK0g","url":"https://www.youtube.com/watch?v=vHKqx15nK0g","viewCountText":"68M","viewCountInt":68000000},{"type":"short","id":"Ylkxe9MYRto","url":"https://www.youtube.com/watch?v=Ylkxe9MYRto","viewCountText":"69M","viewCountInt":69000000},{"type":"short","id":"ITKCucDvRGM","url":"https://www.youtube.com/watch?v=ITKCucDvRGM","viewCountText":"99M","viewCountInt":99000000},{"type":"short","id":"mgoXdfZo-A8","url":"https://www.youtube.com/watch?v=mgoXdfZo-A8","viewCountText":"22M","viewCountInt":22000000},{"type":"short","id":"qLytHQwdqTg","url":"https://www.youtube.com/watch?v=qLytHQwdqTg","viewCountText":"92M","viewCountInt":92000000}],"shelves":[],"lives":[]},"continuationToken":"4qmFsgLXARIJRkVoYXNodGFnGrIBQ0NSNmMwTkRUVkZDVW05MWQyZFpja05uVm0xa1Z6VjFaVkpKYVZOR1VYbFRiV3h2VW0xNGQxUlhOV0ZWUm14dFZVTXhUR1ZJWkd0aWJEZ3lVV3MwTTJOdFVscGhlbXMwWldsSlVrTm5PREZQYWtVelRtcE5OVTFxWnpWT2VtTXpUMVJOY1VSUmIweGpWWGcxWkVWb1VtUXlVbmhXUjJQcUJRa0tCV1oxYm01NUdBTSUzRJoCFGJyb3dzZS1mZWVkRkVoYXNodGFn"}'
+  recorded_at: Sun, 23 Nov 2025 20:16:18 GMT
+recorded_with: VCR 6.3.1

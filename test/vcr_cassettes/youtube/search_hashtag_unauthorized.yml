@@ -1,0 +1,90 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/youtube/search/hashtag?hashtag=funny
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - invalid_key
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 503
+      message: Service Unavailable
+    headers:
+      Content-Length:
+      - '216'
+      Content-Type:
+      - text/plain
+      Date:
+      - Sun, 23 Nov 2025 20:15:12 GMT
+    body:
+      encoding: UTF-8
+      string: 'upstream connect error or disconnect/reset before headers. reset reason:
+        remote connection failure, transport failure reason: TLS_error:|268435581:SSL
+        routines:OPENSSL_internal:CERTIFICATE_VERIFY_FAILED:TLS_error_end'
+  recorded_at: Sun, 23 Nov 2025 20:15:12 GMT
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/youtube/search/hashtag?hashtag=funny
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - invalid_key
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 402
+      message: Payment Required
+    headers:
+      Date:
+      - Sun, 23 Nov 2025 20:15:14 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Cf-Ray:
+      - 9a335660581cdd00-ORD
+      Access-Control-Allow-Origin:
+      - "*"
+      Etag:
+      - W/"68-XPLV6cfURqd0qEMUNXkHBrOV3/s"
+      Rndr-Id:
+      - 453ed025-b0bd-4aae
+      Vary:
+      - Accept-Encoding
+      X-Powered-By:
+      - Express
+      X-Render-Origin-Server:
+      - Render
+      Cf-Cache-Status:
+      - DYNAMIC
+      Server:
+      - cloudflare
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '{"message":"Looks like you''re out of credits :( You''ll need to buy
+        more to continue using the service."}'
+  recorded_at: Sun, 23 Nov 2025 20:15:14 GMT
+recorded_with: VCR 6.3.1
