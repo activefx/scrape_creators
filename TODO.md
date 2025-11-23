@@ -165,7 +165,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 
 ## Bluesky
 
-- [⏳] GET Profile (`/bluesky/profile`)
+- [✅] GET Profile (`/bluesky/profile`)
 - [⏳] GET Posts (`/bluesky/user/posts`)
 - [⏳] GET Post (`/bluesky/post`)
 
@@ -267,7 +267,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 - Reddit: 6/6 endpoints (100%)
 - Truth Social: 3/3 endpoints (100%)
 - Threads: 2/5 endpoints (40%)
-- Bluesky: 0/3 endpoints (0%)
+- Bluesky: 1/3 endpoints (33%)
 - Pinterest: 0/4 endpoints (0%)
 - Google: 0/1 endpoints (0%)
 - Twitch: 0/2 endpoints (0%)

@@ -1,0 +1,56 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/bluesky/profile?handle=espn.com
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 23 Nov 2025 19:34:13 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      Etag:
+      - W/"374-C91Y9jOiLBLSW/4bGw0U7L52WNA"
+      Rndr-Id:
+      - 0d74803e-7a38-48ed
+      Vary:
+      - Accept-Encoding
+      X-Powered-By:
+      - Express
+      X-Render-Origin-Server:
+      - Render
+      Cf-Cache-Status:
+      - DYNAMIC
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 9a331a401b4cfa1f-ORD
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"success":true,"credits_remaining":24668,"did":"did:plc:x7d6j54pm22ufehkes6jo4jf","handle":"espn.com","displayName":"ESPN","avatar":"https://cdn.bsky.app/img/avatar/plain/did:plc:x7d6j54pm22ufehkes6jo4jf/bafkreie4oxawqqsfzvk47ysr3unsnmviedzpylxmwxnpa534to2bzas4ie@jpeg","associated":{"lists":0,"feedgens":0,"starterPacks":0,"labeler":false,"activitySubscription":{"allowSubscriptions":"followers"}},"labels":[],"createdAt":"2024-11-25T21:49:49.345Z","verification":{"verifications":[{"issuer":"did:plc:z72i7hdynmk6r22z27h6tvur","uri":"at://did:plc:z72i7hdynmk6r22z27h6tvur/app.bsky.graph.verification/3lndppjqgb72f","isValid":true,"createdAt":"2025-04-21T10:44:20.398Z"}],"verifiedStatus":"valid","trustedVerifierStatus":"none"},"description":"Serving
+        sports fans. Anytime. Anywhere.","indexedAt":"2024-12-19T20:49:48.843Z","followersCount":223971,"followsCount":32,"postsCount":856}'
+  recorded_at: Sun, 23 Nov 2025 19:34:13 GMT
+recorded_with: VCR 6.3.1
