@@ -1,0 +1,39 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/twitter/community?url=https://x.com/i/communities/1926186499399139650
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 23 Nov 2025 10:00:00 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Powered-By:
+      - Express
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"success":true,"__typename":"Community","is_member":false,"name":"The First Thousand","role":"NonMember","rest_id":"1926186499399139650","actions":{"join_action_result":{"__typename":"CommunityJoinActionUnavailable"},"id":"Q29tbXVuaXR5QWN0aW9uczoxOTI2MTg2NDk5Mzk5MTM5NjUw"},"description":"This community is for creators and builders who are growing to their first 1,000 followers. Give insights, build your brand, and grow a loyal audience.","creator_results":{"result":{"__typename":"User","id":"VXNlcjoxOTIxMzY4NDU0NDQ5MjAxMTUy","is_blue_verified":true,"core":{"screen_name":"CanaCarson"},"verification":{"verified":false}},"id":"VXNlclJlc3VsdHM6MTkyMTM2ODQ1NDQ0OTIwMTE1Mg=="},"join_policy":"Open","created_at":1748073622931,"rules":[{"rest_id":"1926189963793609186","description":"This isn''t the space to drop ChatGPT engineered empty platitudes","name":"No Empty Platitudes","id":"Q29tbXVuaXR5UnVsZToxOTI2MTg5OTYzNzkzNjA5MTg2"},{"rest_id":"1926190339016048686","description":"Show how you''re cracking the algorithm","name":"Post What''s Working","id":"Q29tbXVuaXR5UnVsZToxOTI2MTkwMzM5MDE2MDQ4Njg2"},{"rest_id":"1926190261610135711","description":"Post your analytics. Let''s compete to see who is going the hardest","name":"Share Your Stats","id":"Q29tbXVuaXR5UnVsZToxOTI2MTkwMjYxNjEwMTM1NzEx"},{"rest_id":"1941739813725467051","description":"That''s not the point of this community. It''s to share wins of how you grow, and growing the right audience. If someone interests you, follow them.","name":"No F4F posts","id":"Q29tbXVuaXR5UnVsZToxOTQxNzM5ODEzNzI1NDY3MDUx"},{"rest_id":"1941742414554603805","name":"No fake accounts","id":"Q29tbXVuaXR5UnVsZToxOTQxNzQyNDE0NTU0NjAzODA1"}],"members_facepile_results":[{"result":{"__typename":"User","avatar":{"image_url":"https://pbs.twimg.com/profile_images/1944871269775601664/Ho7tiGd2_normal.jpg"},"id":"VXNlcjoxOTIxMzY4NDU0NDQ5MjAxMTUy"},"id":"VXNlclJlc3VsdHM6MTkyMTM2ODQ1NDQ0OTIwMTE1Mg=="},{"result":{"__typename":"User","avatar":{"image_url":"https://pbs.twimg.com/profile_images/1905068543885864961/lsxmrv8l_normal.jpg"},"id":"VXNlcjo0MDA2ODgyNzYx"},"id":"VXNlclJlc3VsdHM6NDAwNjg4Mjc2MQ=="},{"result":{"__typename":"User","avatar":{"image_url":"https://pbs.twimg.com/profile_images/1932171291362279424/7z8KirkZ_normal.jpg"},"id":"VXNlcjoxOTI0NTI2MDM1NTUyNjMyODMy"},"id":"VXNlclJlc3VsdHM6MTkyNDUyNjAzNTU1MjYzMjgzMg=="},{"result":{"__typename":"User","avatar":{"image_url":"https://pbs.twimg.com/profile_images/1936175360355246080/ut_hvG-K_normal.jpg"},"id":"VXNlcjoxMDExNjE5NTY4NTA5NTA5NjMy"},"id":"VXNlclJlc3VsdHM6MTAxMTYxOTU2ODUwOTUwOTYzMg=="},{"result":{"__typename":"User","avatar":{"image_url":"https://pbs.twimg.com/profile_images/1790570742247043072/uyEKz7o__normal.jpg"},"id":"VXNlcjoxMTkyNTYxNzY4NTc0NDcyMTky"},"id":"VXNlclJlc3VsdHM6MTE5MjU2MTc2ODU3NDQ3MjE5Mg=="}],"member_count":1896,"id":"Q29tbXVuaXR5OjE5MjYxODY0OTkzOTkxMzk2NTA="}'
+  recorded_at: Sun, 23 Nov 2025 10:00:00 GMT
+recorded_with: VCR 6.3.1
