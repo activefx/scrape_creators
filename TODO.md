@@ -71,7 +71,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 - [✅] GET Channel Shorts - Auto Pagination (`/v1/youtube/channel/shorts/simple`)
 - [✅] GET Video/Short Details (`/v1/youtube/video`)
 - [✅] GET Transcript (`/v1/youtube/video/transcript`)
-- [⏳] GET Search (`/v1/youtube/search`)
+- [✅] GET Search (`/v1/youtube/search`)
 - [⏳] GET Search by Hashtag (`/v1/youtube/search/hashtag`)
 - [⏳] GET Comments (`/v1/youtube/video/comments`)
 - [⏳] GET Trending Shorts (`/v1/youtube/shorts/trending`)
@@ -156,7 +156,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 ## Threads
 
 - [✅] GET Profile (`/v1/threads/profile`)
-- [⏳] GET Posts (`/v1/threads/user/posts`)
+- [✅] GET Posts (`/v1/threads/user/posts`)
 - [⏳] GET Post (`/v1/threads/post`)
 - [⏳] GET Search by Keyword (`/v1/threads/search`)
 - [⏳] GET Search Users (`/v1/threads/search/users`)
@@ -165,7 +165,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 
 ## Bluesky
 
-- [⏳] GET Profile (`/bluesky/profile`)
+- [✅] GET Profile (`/bluesky/profile`)
 - [⏳] GET Posts (`/bluesky/user/posts`)
 - [⏳] GET Post (`/bluesky/post`)
 
@@ -173,7 +173,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 
 ## Pinterest
 
-- [⏳] GET Search (`/v1/pinterest/search`)
+- [✅] GET Search (`/v1/pinterest/search`)
 - [⏳] GET Pin (`/v1/pinterest/pin`)
 - [⏳] GET User Boards (`/v1/pinterest/user/boards`)
 - [⏳] GET Board (`/v1/pinterest/board`)
@@ -182,7 +182,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 
 ## Google
 
-- [⏳] GET Search (`/v1/google/search`)
+- [✅] GET Search (`/v1/google/search`)
 
 ---
 
@@ -257,7 +257,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 - TikTok: 18/18 endpoints (100%)
 - TikTok Shop: 3/3 endpoints (100%)
 - Instagram: 11/13 endpoints (85%)
-- YouTube: 6/12 endpoints (50%)
+- YouTube: 7/12 endpoints (58%)
 - LinkedIn: 3/3 endpoints (100%)
 - Facebook: 6/6 endpoints (100%)
 - Facebook Ad Library: 4/4 endpoints (100%)
@@ -266,10 +266,10 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 - Twitter: 6/6 endpoints (100%)
 - Reddit: 6/6 endpoints (100%)
 - Truth Social: 3/3 endpoints (100%)
-- Threads: 1/5 endpoints (20%)
-- Bluesky: 0/3 endpoints (0%)
-- Pinterest: 0/4 endpoints (0%)
-- Google: 0/1 endpoints (0%)
+- Threads: 2/5 endpoints (40%)
+- Bluesky: 1/3 endpoints (33%)
+- Pinterest: 1/4 endpoints (25%)
+- Google: 1/1 endpoints (100%)
 - Twitch: 1/2 endpoints (50%)
 - Kick: 0/1 endpoints (0%)
 - Snapchat: 0/1 endpoints (0%)

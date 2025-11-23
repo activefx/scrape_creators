@@ -946,4 +946,122 @@ describe ScrapeCreators::Resources::Instagram do
       end
     end
   end
+
+  describe "#song_reels" do
+    it "fetches reels using a song/audio by audio ID" do
+      VCR.use_cassette("instagram/song_reels_success") do
+        reels = instagram.song_reels("18151049539042235")
+
+        assert_kind_of Hash, reels
+        assert reels[:success]
+
+        # Verify response structure
+        assert reels.key?(:items)
+        assert reels.key?(:paging_info)
+        assert reels.key?(:music_canonical_id)
+        assert reels.key?(:formatted_media_count)
+        assert_equal "ok", reels[:status]
+
+        # Verify items array
+        assert_kind_of Array, reels[:items]
+        refute_empty reels[:items]
+
+        # Verify first reel structure
+        item = reels[:items].first
+
+        assert item.key?(:media)
+        media = item[:media]
+
+        assert media.key?(:pk)
+        assert media.key?(:id)
+        assert media.key?(:code)
+        assert media.key?(:taken_at)
+        assert media.key?(:media_type)
+        assert media.key?(:product_type)
+        assert_equal "clips", media[:product_type]
+
+        # Verify user info in reel
+        assert media.key?(:user)
+        assert media[:user].key?(:username)
+
+        # Verify video properties
+        assert media.key?(:video_duration)
+        assert media.key?(:has_audio)
+      end
+    end
+
+    it "accepts integer audio ID" do
+      VCR.use_cassette("instagram/song_reels_success") do
+        reels = instagram.song_reels(18_151_049_539_042_235)
+
+        assert_kind_of Hash, reels
+        assert reels[:success]
+        assert reels.key?(:items)
+      end
+    end
+
+    it "returns pagination info for more results" do
+      VCR.use_cassette("instagram/song_reels_success") do
+        reels = instagram.song_reels("18151049539042235")
+
+        # Verify paging_info structure
+        assert reels.key?(:paging_info)
+        paging_info = reels[:paging_info]
+
+        assert paging_info.key?(:more_available)
+
+        # If more_available is true, max_id should be present
+        if paging_info[:more_available]
+          assert paging_info.key?(:max_id)
+          refute_nil paging_info[:max_id]
+        end
+      end
+    end
+
+    it "returns metadata about the song" do
+      VCR.use_cassette("instagram/song_reels_success") do
+        reels = instagram.song_reels("18151049539042235")
+
+        assert reels.key?(:metadata)
+        metadata = reels[:metadata]
+
+        # Metadata should have original_sound_info or music_info
+        assert metadata.key?(:original_sound_info) || metadata.key?(:music_info)
+      end
+    end
+
+    it "raises ArgumentError when audio_id is nil" do
+      error = assert_raises(ArgumentError) do
+        instagram.song_reels(nil)
+      end
+      assert_match(/audio_id is required/, error.message)
+    end
+
+    it "raises ArgumentError when audio_id is empty" do
+      error = assert_raises(ArgumentError) do
+        instagram.song_reels("")
+      end
+      assert_match(/audio_id is required/, error.message)
+    end
+
+    it "raises NotFoundError for non-existent audio ID" do
+      VCR.use_cassette("instagram/song_reels_not_found") do
+        assert_raises(ScrapeCreators::NotFoundError) do
+          instagram.song_reels("999999999999999999")
+        end
+      end
+    end
+
+    it "raises UnauthorizedError for invalid API key" do
+      VCR.use_cassette("instagram/song_reels_unauthorized") do
+        invalid_client = ScrapeCreators::Client.new(api_key: "invalid_key")
+
+        error = assert_raises(ScrapeCreators::UnauthorizedError) do
+          invalid_client.instagram.song_reels("18151049539042235")
+        end
+
+        assert_match(/invalid|unauthorized|api.?key/i, error.message)
+      end
+    end
+  end
 end
