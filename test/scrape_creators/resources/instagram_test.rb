@@ -866,4 +866,84 @@ describe ScrapeCreators::Resources::Instagram do
       end
     end
   end
+
+  describe "#highlight_detail" do
+    it "fetches highlight details by ID" do
+      VCR.use_cassette("instagram/highlight_detail_success") do
+        highlight = instagram.highlight_detail("highlight:18067016518767507")
+
+        assert_kind_of Hash, highlight
+        assert highlight[:success]
+
+        # Verify response structure
+        assert highlight.key?(:id)
+        assert highlight.key?(:title)
+        assert highlight.key?(:items)
+        assert highlight.key?(:user)
+        assert highlight.key?(:cover_media)
+
+        # Verify highlight metadata
+        assert_equal "highlight:18067016518767507", highlight[:id]
+        assert_equal "highlight_reel", highlight[:reel_type]
+        assert highlight.key?(:media_count)
+        assert highlight.key?(:media_ids)
+        assert highlight.key?(:created_at)
+
+        # Verify items array
+        assert_kind_of Array, highlight[:items]
+        refute_empty highlight[:items]
+
+        # Verify first item structure
+        item = highlight[:items].first
+
+        assert item.key?(:pk)
+        assert item.key?(:id)
+        assert item.key?(:code)
+        assert item.key?(:media_type)
+        assert item.key?(:taken_at)
+
+        # Verify user info
+        user = highlight[:user]
+
+        assert user.key?(:pk)
+        assert user.key?(:username)
+        assert user.key?(:full_name)
+        assert user.key?(:is_verified)
+      end
+    end
+
+    it "raises ArgumentError when id is nil" do
+      error = assert_raises(ArgumentError) do
+        instagram.highlight_detail(nil)
+      end
+      assert_match(/id is required/, error.message)
+    end
+
+    it "raises ArgumentError when id is empty" do
+      error = assert_raises(ArgumentError) do
+        instagram.highlight_detail("")
+      end
+      assert_match(/id is required/, error.message)
+    end
+
+    it "raises NotFoundError for non-existent highlight" do
+      VCR.use_cassette("instagram/highlight_detail_not_found") do
+        assert_raises(ScrapeCreators::NotFoundError) do
+          instagram.highlight_detail("highlight:999999999999999999")
+        end
+      end
+    end
+
+    it "raises UnauthorizedError for invalid API key" do
+      VCR.use_cassette("instagram/highlight_detail_unauthorized") do
+        invalid_client = ScrapeCreators::Client.new(api_key: "invalid_key")
+
+        error = assert_raises(ScrapeCreators::UnauthorizedError) do
+          invalid_client.instagram.highlight_detail("highlight:18067016518767507")
+        end
+
+        assert_match(/invalid|unauthorized|api.?key/i, error.message)
+      end
+    end
+  end
 end

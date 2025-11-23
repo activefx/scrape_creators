@@ -1,0 +1,29 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/reddit/ad?id=79e005f1e09ec72245e904d87d2a0869
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 23 Nov 2025 12:00:00 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"data":{"analysis_summary":{"headline":["Direct Question/Engagement: The headline poses a direct question to the reader. This is highly effective on Reddit as it immediately invites user participation and sparks curiosity.","Intrigue/Curiosity Gap: The headline uses the phrase rich persons money tip creating a sense of mystery.","Relatability/Aspiration: The headline addresses a common desire: financial success."],"media":[]},"inspiration_creative":{"id":"79e005f1e09ec72245e904d87d2a0869","budget_category":"HIGH","industry":"OTHER","placements":["FEED","COMMENTS_PAGE"],"objective":"CONVERSIONS","creative":{"id":"t3_1cdt7o6","type":"TEXT","content":[{"destination_url":null,"display_url":"self.thepennyhoarder","call_to_action":null,"media_url":null}],"headline":"What is a rich persons money tip you wish you knew sooner?","body":"Life would be a whole lot easier if someone would just Venmo us $1 million, but unfortunately the chance of that happening is, well, probably zero.","thumbnail_url":"https://b.thumbs.redditmedia.com/9gzdjvf9fDu1vN2zxxVrvGqOJizhLf80W701zzkml2k.jpg","allow_comments":false,"created_at":"2024-04-26T18:47:57+00:00","profile_id":"t2_3usby","post_url":"https://www.reddit.com/r/u_thepennyhoarder/comments/1cdt7o6/what_is_a_rich_persons_money_tip_you_wish_you/"},"profile_info":{"name":"u_thepennyhoarder","snoovatar_icon_url":"https://www.redditstatic.com/avatars/defaults/v2/avatar_default_6.png"}}}}'
+  recorded_at: Sun, 23 Nov 2025 12:00:00 GMT
+recorded_with: VCR 6.3.1
