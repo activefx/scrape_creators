@@ -1,0 +1,39 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/instagram/reels/search?amount=5&query=fitness
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 23 Nov 2025 10:00:00 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Powered-By:
+      - Express
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"credits_remaining":9981693,"reels":[{"id":"3744043036998479424","__typename":"XDTGraphVideo","shortcode":"DP1g04sEa5A","url":"https://www.instagram.com/reel/DP1g04sEa5A/","caption":"Fitness tips for beginners.","thumbnail_src":"https://instagram.fsac1-1.fna.fbcdn.net/v/example.jpg","display_url":"https://instagram.fsac1-1.fna.fbcdn.net/v/example.jpg","video_url":"https://instagram.fsac1-1.fna.fbcdn.net/o1/v/example.mp4","has_audio":true,"accessibility_caption":null,"video_view_count":5000,"video_play_count":20000,"product_type":"clips","video_duration":45.5,"clips_music_attribution_info":{"artist_name":"fitnesscoach","song_name":"Original audio","uses_original_audio":true,"should_mute_audio":false,"should_mute_audio_reason":"","audio_id":"123456789"},"is_video":true,"owner":{"id":"12345678","username":"fitnesscoach","is_verified":true,"profile_pic_url":"https://instagram.fsac1-1.fna.fbcdn.net/v/example.jpg","full_name":"Fitness Coach","is_private":false,"is_unpublished":false,"follower_count":50000,"post_count":200},"taken_at":"2025-10-10T12:00:00.000Z","is_ad":false,"like_count":500,"is_affiliate":false,"is_paid_partnership":false,"location":null,"comment_count":10,"comments":[]}]}'
+  recorded_at: Sat, 23 Nov 2025 10:00:00 GMT
+recorded_with: VCR 6.3.1
