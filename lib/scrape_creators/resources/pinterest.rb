@@ -166,6 +166,77 @@ module ScrapeCreators
 
         get("/v1/pinterest/pin", params)
       end
+
+      # Get a user's Pinterest boards
+      #
+      # Fetches all boards for a specific Pinterest user including board metadata,
+      # pin counts, follower counts, cover images, and collaborator information.
+      #
+      # @param handle [String] The username of the user to get boards for (required)
+      #   (e.g. "broadstbullycom" from https://www.pinterest.com/broadstbullycom/)
+      # @param trim [Boolean, nil] Whether to return a trimmed response (default: false)
+      # @return [Hash] User boards including success status, boards array, and pagination cursor
+      # @raise [ArgumentError] If the handle parameter is nil or empty
+      # @raise [BadRequestError] If the request parameters are invalid
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      # @raise [NotFoundError] If the user is not found
+      #
+      # @example Get user boards
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   result = client.pinterest.user_boards("broadstbullycom")
+      #   result[:boards].each { |board| puts board[:name] }
+      #
+      # @example Get trimmed response
+      #   result = client.pinterest.user_boards("broadstbullycom", trim: true)
+      #
+      # @example Response structure
+      #   {
+      #     success: true,
+      #     boards: [
+      #       {
+      #         node_id: "Qm9hcmQ6MjgyODEyMTIwMjg5NDIzMDQ0",
+      #         name: "Anthony Edwards",
+      #         description: "The best Anthony Edwards pins by 🚨 BSB 🚨",
+      #         url: "https://www.pinterest.com/broadstbullycom/anthony-edwards/",
+      #         id: "282812120289423044",
+      #         pin_count: 317,
+      #         follower_count: 1833,
+      #         privacy: "public",
+      #         type: "board",
+      #         is_collaborative: false,
+      #         collaborator_count: 0,
+      #         section_count: 0,
+      #         created_at: "Thu, 18 Apr 2024 22:56:33 +0000",
+      #         owner: {
+      #           node_id: "VXNlcjoyODI4MTIxODkwMDg0NzU1NDk=",
+      #           username: "BroadStBullycom",
+      #           full_name: "🚨BSB🚨",
+      #           id: "282812189008475549",
+      #           is_verified_merchant: false
+      #         },
+      #         images: {
+      #           "170x": [{ url: "...", width: 170, height: 301 }],
+      #           "236x": [{ url: "...", width: 236, height: 419 }]
+      #         },
+      #         cover_images: {
+      #           "200x150": { url: "...", width: 200, height: 150 },
+      #           "222x": { url: "...", width: 222, height: nil }
+      #         },
+      #         image_cover_url: "https://i.pinimg.com/200x150/...",
+      #         image_cover_hd_url: "https://i.pinimg.com/474x/..."
+      #       }
+      #     ],
+      #     cursor: "LT4yODI4MTIxMjAyODk0M..."
+      #   }
+      def user_boards(handle, trim: nil)
+        raise ArgumentError, "handle is required" if handle.nil? || handle.to_s.empty?
+
+        params = { handle: handle }
+        params[:trim] = trim unless trim.nil?
+
+        get("/v1/pinterest/user/boards", params)
+      end
     end
   end
 end

@@ -183,4 +183,97 @@ describe ScrapeCreators::Resources::Bluesky do
       end
     end
   end
+
+  describe "#post" do
+    it "fetches a Bluesky post successfully" do
+      VCR.use_cassette("bluesky/post_success") do
+        response = bluesky.post("https://bsky.app/profile/espn.com/post/3lqdfq7fkvm2g")
+
+        assert_kind_of Hash, response
+        assert response[:success]
+
+        # Verify post object exists
+        assert response.key?(:post)
+        post = response[:post]
+
+        # Basic post identifiers
+        assert post.key?(:uri)
+        assert post[:uri].start_with?("at://")
+        assert post.key?(:cid)
+
+        # Author info
+        assert post.key?(:author)
+        assert_kind_of Hash, post[:author]
+        assert post[:author].key?(:did)
+        assert post[:author][:did].start_with?("did:plc:")
+        assert post[:author].key?(:handle)
+        assert post[:author].key?(:display_name)
+        assert post[:author].key?(:avatar)
+
+        # Post record/content
+        assert post.key?(:record)
+        assert_kind_of Hash, post[:record]
+        assert post[:record].key?(:text)
+        assert post[:record].key?(:created_at)
+
+        # Engagement metrics
+        assert post.key?(:like_count)
+        assert_kind_of Integer, post[:like_count]
+        assert post.key?(:repost_count)
+        assert post.key?(:reply_count)
+        assert post.key?(:quote_count)
+
+        # Timestamps
+        assert post.key?(:indexed_at)
+
+        # Labels
+        assert post.key?(:labels)
+        assert_kind_of Array, post[:labels]
+      end
+    end
+
+    it "includes replies in the response" do
+      VCR.use_cassette("bluesky/post_success") do
+        response = bluesky.post("https://bsky.app/profile/espn.com/post/3lqdfq7fkvm2g")
+
+        # Replies may or may not be present
+        assert response.key?(:replies)
+        assert_kind_of Array, response[:replies]
+      end
+    end
+
+    it "raises ArgumentError when url is nil" do
+      error = assert_raises(ArgumentError) do
+        bluesky.post(nil)
+      end
+      assert_match(/url is required/, error.message)
+    end
+
+    it "raises ArgumentError when url is empty" do
+      error = assert_raises(ArgumentError) do
+        bluesky.post("")
+      end
+      assert_match(/url is required/, error.message)
+    end
+
+    it "raises NotFoundError for non-existent post" do
+      VCR.use_cassette("bluesky/post_not_found") do
+        assert_raises(ScrapeCreators::NotFoundError) do
+          bluesky.post("https://bsky.app/profile/espn.com/post/nonexistentpost123456")
+        end
+      end
+    end
+
+    it "raises UnauthorizedError for invalid API key" do
+      VCR.use_cassette("bluesky/post_unauthorized") do
+        invalid_client = ScrapeCreators::Client.new(api_key: "invalid_key")
+
+        error = assert_raises(ScrapeCreators::UnauthorizedError) do
+          invalid_client.bluesky.post("https://bsky.app/profile/espn.com/post/3lqdfq7fkvm2g")
+        end
+
+        assert_match(/invalid|unauthorized|api.?key/i, error.message)
+      end
+    end
+  end
 end
