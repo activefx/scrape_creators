@@ -1,0 +1,39 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/instagram/user/reels/simple?user_id=2700692569
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 23 Nov 2025 10:00:00 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Powered-By:
+      - Express
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '[{"media":{"taken_at":1736294201,"pk":"3540614075954356349","id":"3540614075954356349_2700692569","fbid":"17882057793200056","media_type":2,"code":"DEiyb48AeB9","caption":null,"play_count":3865,"ig_play_count":3865,"display_uri":"https://scontent.cdninstagram.com/v/t51.2885-15/472965900_18326364268092570.jpg","user":{"full_name":"Adrian Horning","id":"2700692569","is_private":false,"pk":"2700692569","username":"adrianhorning","is_verified":true,"profile_pic_url":"https://scontent.cdninstagram.com/v/t51.2885-19/430086429_362220943449758.jpg"},"owner":{"full_name":"Adrian Horning","id":"2700692569","pk":"2700692569","username":"adrianhorning","is_verified":true},"image_versions2":{"candidates":[{"width":1125,"height":2000,"url":"https://scontent.cdninstagram.com/v/t51.2885-15/472965900_18326364268092570.jpg"}]},"original_width":720,"original_height":1280,"product_type":"clips","comment_count":12,"like_count":126,"video_versions":[{"height":853,"type":101,"url":"https://scontent.cdninstagram.com/o1/v/t16/f2/m86/video.mp4","width":480}],"video_duration":76.783,"has_audio":true,"clips_metadata":{"audio_type":"original_sounds"},"url":"https://www.instagram.com/reel/DEiyb48AeB9"}}]'
+  recorded_at: Sat, 23 Nov 2025 10:00:00 GMT
+recorded_with: VCR 6.3.1
