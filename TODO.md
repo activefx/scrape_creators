@@ -149,7 +149,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 
 - [✅] GET Profile (`/v1/truthsocial/profile`)
 - [✅] GET User Posts (`/v1/truthsocial/user/posts`)
-- [⏳] GET Post (`/v1/truthsocial/post`)
+- [✅] GET Post (`/v1/truthsocial/post`)
 
 ---
 
@@ -265,7 +265,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 - LinkedIn Ad Library: 2/2 endpoints (100%)
 - Twitter: 6/6 endpoints (100%)
 - Reddit: 6/6 endpoints (100%)
-- Truth Social: 2/3 endpoints (67%)
+- Truth Social: 3/3 endpoints (100%)
 - Threads: 1/5 endpoints (20%)
 - Bluesky: 0/3 endpoints (0%)
 - Pinterest: 0/4 endpoints (0%)
