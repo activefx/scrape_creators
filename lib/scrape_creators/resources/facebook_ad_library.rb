@@ -180,6 +180,91 @@ module ScrapeCreators
       end
       # rubocop:enable Metrics/ParameterLists
 
+      # Get all ads a company has running
+      #
+      # Retrieves all ads from a company's Facebook Ad Library page. You can identify
+      # the company either by their page ID or company name.
+      #
+      # @param page_id [String, nil] The company's ad library page ID. Can use this or company_name
+      # @param company_name [String, nil] The name of the company. Can use this or page_id
+      # @param country [String, nil] Two-letter country code (e.g., "US", "GB"). Defaults to ALL
+      # @param status [String, nil] Ad status: "ALL", "ACTIVE", or "INACTIVE". Defaults to ACTIVE
+      # @param media_type [String, nil] Media type: "ALL", "IMAGE", "VIDEO", "MEME",
+      #   "IMAGE_AND_MEME", or "NONE". Defaults to ALL. Note: MEME refers to ads with image and text
+      # @param cursor [String, nil] Cursor to paginate through results
+      # @param trim [Boolean, nil] Set to true for a trimmed down version of the response
+      # @return [Hash] Response containing results array and cursor for pagination
+      # @raise [ArgumentError] If neither page_id nor company_name is provided
+      # @raise [BadRequestError] If the request parameters are invalid
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      # @raise [NotFoundError] If the company is not found
+      #
+      # @example Get company ads by page ID
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   result = client.facebook_ad_library.company_ads(page_id: "367152833370567")
+      #   puts result[:results].first[:page_name]  # => "Instagram"
+      #
+      # @example Get company ads by company name
+      #   result = client.facebook_ad_library.company_ads(company_name: "Instagram")
+      #   result[:results].each { |ad| puts ad[:ad_archive_id] }
+      #
+      # @example Get company ads with filters
+      #   result = client.facebook_ad_library.company_ads(
+      #     page_id: "367152833370567",
+      #     country: "US",
+      #     status: "ACTIVE",
+      #     media_type: "VIDEO"
+      #   )
+      #
+      # @example Paginate through results
+      #   first_page = client.facebook_ad_library.company_ads(page_id: "367152833370567")
+      #   if first_page[:cursor]
+      #     next_page = client.facebook_ad_library.company_ads(
+      #       page_id: "367152833370567",
+      #       cursor: first_page[:cursor]
+      #     )
+      #   end
+      #
+      # @example Response structure (key fields)
+      #   {
+      #     results: [
+      #       {
+      #         ad_archive_id: "1162496978867592",
+      #         page_id: "367152833370567",
+      #         page_name: "Instagram",
+      #         is_active: true,
+      #         start_date: 1740643200,
+      #         end_date: 1740902400,
+      #         publisher_platform: ["INSTAGRAM"],
+      #         snapshot: {
+      #           body: { text: "Ad body text..." },
+      #           display_format: "VIDEO",
+      #           cta_text: "Learn more",
+      #           videos: [...],
+      #           images: [...]
+      #         }
+      #       }
+      #     ],
+      #     cursor: "AQHRBUAxNmFlxBVMFL6uTb1ICFsV65O4..."
+      #   }
+      def company_ads(
+        page_id: nil,
+        company_name: nil,
+        country: nil,
+        status: nil,
+        media_type: nil,
+        cursor: nil,
+        trim: nil
+      )
+        validate_company_ads_params!(page_id, company_name)
+
+        params = build_company_ads_params(
+          page_id, company_name, country, status, media_type, cursor, trim
+        )
+        get("/v1/facebook/adLibrary/company/ads", params)
+      end
+
       private
 
       def validate_ad_params!(id)
@@ -188,6 +273,12 @@ module ScrapeCreators
 
       def validate_search_params!(query)
         raise ArgumentError, "query is required" if blank?(query)
+      end
+
+      def validate_company_ads_params!(page_id, company_name)
+        return unless blank?(page_id) && blank?(company_name)
+
+        raise ArgumentError, "Either page_id or company_name is required"
       end
 
       def build_ad_params(id, get_transcript, trim)
@@ -215,6 +306,18 @@ module ScrapeCreators
         params
       end
       # rubocop:enable Metrics/ParameterLists
+
+      def build_company_ads_params(page_id, company_name, country, status, media_type, cursor, trim)
+        params = {}
+        params[:pageId] = page_id unless page_id.nil?
+        params[:companyName] = company_name unless company_name.nil?
+        params[:country] = country unless country.nil?
+        params[:status] = status unless status.nil?
+        params[:media_type] = media_type unless media_type.nil?
+        params[:cursor] = cursor unless cursor.nil?
+        params[:trim] = trim unless trim.nil?
+        params
+      end
 
       def blank?(value)
         value.nil? || value.to_s.empty?

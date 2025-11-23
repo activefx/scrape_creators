@@ -1,0 +1,39 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/facebook/adLibrary/company/ads?pageId=367152833370567
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 23 Nov 2025 10:00:00 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Powered-By:
+      - Express
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"results":[{"ad_archive_id":"1162496978867592","ad_id":null,"archive_types":[],"categories":["UNKNOWN"],"collation_count":3,"collation_id":"596215693307098","contains_digital_created_media":false,"contains_sensitive_content":false,"currency":"","end_date":1740902400,"entity_type":"PERSON_PROFILE","fev_info":null,"finserv_ad_data":{"is_deemed_finserv":false,"is_limited_delivery":false},"gated_type":"ELIGIBLE","has_user_reported":false,"hidden_safety_data":false,"hide_data_status":"NONE","impressions_with_index":{"impressions_text":null,"impressions_index":-1},"is_aaa_eligible":false,"is_active":true,"is_profile_page":false,"menu_items":[],"page_id":"367152833370567","page_is_deleted":false,"page_name":"Instagram","political_countries":[],"publisher_platform":["INSTAGRAM"],"reach_estimate":null,"regional_regulation_data":{"finserv":{"is_deemed_finserv":false,"is_limited_delivery":false},"tw_anti_scam":{"is_limited_delivery":false}},"report_count":null,"snapshot":{"body":{"text":"Bendito el día que seguí a mi compa en Insta que se la pasa viajando a Japón :)"},"branded_content":{"current_page_name":"Instagram","page_categories":["App page"],"page_id":"367152833370567","page_is_deleted":false,"page_name":"Instagram","page_profile_pic_url":"https://scontent.ford4-1.fna.fbcdn.net/v/t39.35426-6/example.jpg","page_profile_uri":"https://www.facebook.com/instagram/"},"brazil_tax_id":null,"byline":null,"caption":"fb.me","cards":[],"cta_text":"Learn more","cta_type":"LEARN_MORE","country_iso_code":null,"current_page_name":"Lalobri","disclaimer_label":null,"display_format":"VIDEO","event":null,"images":[],"is_reshared":false,"link_description":null,"link_url":"http://fb.me/1171219090745394","page_categories":["Digital Creator"],"page_entity_type":"PERSON_PROFILE","page_id":"378515988682204","page_is_deleted":false,"page_is_profile_page":false,"page_like_count":841,"page_name":"Lalobri","page_profile_picture_url":"https://scontent.ford4-1.fna.fbcdn.net/v/t39.35426-6/example.jpg","page_profile_uri":"https://www.facebook.com/61564084618363/","root_reshared_post":null,"title":null,"videos":[{"video_hd_url":"https://scontent.ford4-1.fna.fbcdn.net/v/t42.1790-2/example.mp4","video_preview_image_url":"https://scontent.ford4-1.fna.fbcdn.net/v/t39.35426-6/example.jpg","video_sd_url":"https://scontent.ford4-1.fna.fbcdn.net/v/t42.1790-2/example.mp4","watermarked_video_hd_url":"","watermarked_video_sd_url":""}],"additional_info":null,"ec_certificates":[],"extra_images":[],"extra_links":[],"extra_texts":[],"extra_videos":[]},"spend":null,"start_date":1740643200,"state_media_run_label":null,"targeted_or_reached_countries":[],"total_active_time":null}],"cursor":"AQHRBUAxNmFlxBVMFL6uTb1ICFsV65O4SqmPbcVZJhiveBpPS1hFHAmL6yCJcF760cXP"}'
+  recorded_at: Sat, 23 Nov 2025 10:00:00 GMT
+recorded_with: VCR 6.3.1

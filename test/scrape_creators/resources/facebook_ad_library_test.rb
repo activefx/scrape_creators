@@ -258,4 +258,160 @@ describe ScrapeCreators::Resources::FacebookAdLibrary do
       end
     end
   end
+
+  describe "#company_ads" do
+    describe "with valid page_id" do
+      it "fetches company ads successfully" do
+        VCR.use_cassette("facebook_ad_library/company_ads_success") do
+          result = facebook_ad_library.company_ads(page_id: "367152833370567")
+
+          assert_kind_of Hash, result
+          assert result.key?(:results)
+          assert_kind_of Array, result[:results]
+        end
+      end
+
+      it "returns ad details in results" do
+        VCR.use_cassette("facebook_ad_library/company_ads_success") do
+          result = facebook_ad_library.company_ads(page_id: "367152833370567")
+
+          refute_empty result[:results]
+          ad = result[:results].first
+
+          assert ad.key?(:ad_archive_id)
+          assert ad.key?(:page_name)
+          assert ad.key?(:snapshot)
+        end
+      end
+
+      it "returns pagination cursor" do
+        VCR.use_cassette("facebook_ad_library/company_ads_success") do
+          result = facebook_ad_library.company_ads(page_id: "367152833370567")
+
+          assert result.key?(:cursor)
+        end
+      end
+    end
+
+    describe "with valid company_name" do
+      it "fetches company ads by name" do
+        VCR.use_cassette("facebook_ad_library/company_ads_by_name") do
+          result = facebook_ad_library.company_ads(company_name: "Instagram")
+
+          assert_kind_of Hash, result
+          assert result.key?(:results)
+          assert_kind_of Array, result[:results]
+        end
+      end
+    end
+
+    describe "with optional parameters" do
+      it "accepts country filter" do
+        VCR.use_cassette("facebook_ad_library/company_ads_with_country") do
+          result = facebook_ad_library.company_ads(
+            page_id: "367152833370567",
+            country: "US"
+          )
+
+          assert_kind_of Hash, result
+          assert result.key?(:results)
+        end
+      end
+
+      it "accepts status filter" do
+        VCR.use_cassette("facebook_ad_library/company_ads_with_status") do
+          result = facebook_ad_library.company_ads(
+            page_id: "367152833370567",
+            status: "ACTIVE"
+          )
+
+          assert_kind_of Hash, result
+          assert result.key?(:results)
+        end
+      end
+
+      it "accepts media_type filter" do
+        VCR.use_cassette("facebook_ad_library/company_ads_with_media_type") do
+          result = facebook_ad_library.company_ads(
+            page_id: "367152833370567",
+            media_type: "VIDEO"
+          )
+
+          assert_kind_of Hash, result
+          assert result.key?(:results)
+        end
+      end
+
+      it "accepts trim parameter" do
+        VCR.use_cassette("facebook_ad_library/company_ads_trimmed") do
+          result = facebook_ad_library.company_ads(
+            page_id: "367152833370567",
+            trim: true
+          )
+
+          assert_kind_of Hash, result
+          assert result.key?(:results)
+        end
+      end
+
+      it "accepts cursor for pagination" do
+        VCR.use_cassette("facebook_ad_library/company_ads_with_cursor") do
+          result = facebook_ad_library.company_ads(
+            page_id: "367152833370567",
+            cursor: "AQHRBUAxNmFlxBVMFL6u"
+          )
+
+          assert_kind_of Hash, result
+          assert result.key?(:results)
+        end
+      end
+    end
+
+    describe "parameter validation" do
+      it "raises ArgumentError when both page_id and company_name are nil" do
+        error = assert_raises(ArgumentError) do
+          facebook_ad_library.company_ads(page_id: nil, company_name: nil)
+        end
+        assert_match(/Either page_id or company_name is required/, error.message)
+      end
+
+      it "raises ArgumentError when both page_id and company_name are empty strings" do
+        error = assert_raises(ArgumentError) do
+          facebook_ad_library.company_ads(page_id: "", company_name: "")
+        end
+        assert_match(/Either page_id or company_name is required/, error.message)
+      end
+
+      it "raises ArgumentError when no parameters provided" do
+        error = assert_raises(ArgumentError) do
+          facebook_ad_library.company_ads
+        end
+        assert_match(/Either page_id or company_name is required/, error.message)
+      end
+    end
+
+    describe "error handling" do
+      it "raises UnauthorizedError for invalid API key" do
+        VCR.use_cassette("facebook_ad_library/company_ads_unauthorized") do
+          invalid_client = ScrapeCreators::Client.new(api_key: "invalid_key")
+
+          error = assert_raises(ScrapeCreators::UnauthorizedError) do
+            invalid_client.facebook_ad_library.company_ads(page_id: "367152833370567")
+          end
+
+          assert_match(/invalid|unauthorized|api.?key/i, error.message)
+        end
+      end
+
+      it "raises NotFoundError for non-existent company" do
+        VCR.use_cassette("facebook_ad_library/company_ads_not_found") do
+          error = assert_raises(ScrapeCreators::NotFoundError) do
+            facebook_ad_library.company_ads(page_id: "999999999999999")
+          end
+
+          assert_match(/not found/i, error.message)
+        end
+      end
+    end
+  end
 end

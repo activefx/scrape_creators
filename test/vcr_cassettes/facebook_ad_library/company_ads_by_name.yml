@@ -1,0 +1,39 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/facebook/adLibrary/company/ads?companyName=Instagram
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 23 Nov 2025 10:00:00 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Powered-By:
+      - Express
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"results":[{"ad_archive_id":"1162496978867592","ad_id":null,"archive_types":[],"categories":["UNKNOWN"],"collation_count":3,"collation_id":"596215693307098","contains_digital_created_media":false,"contains_sensitive_content":false,"currency":"","end_date":1740902400,"entity_type":"PERSON_PROFILE","fev_info":null,"finserv_ad_data":{"is_deemed_finserv":false,"is_limited_delivery":false},"gated_type":"ELIGIBLE","has_user_reported":false,"hidden_safety_data":false,"hide_data_status":"NONE","impressions_with_index":{"impressions_text":null,"impressions_index":-1},"is_aaa_eligible":false,"is_active":true,"is_profile_page":false,"menu_items":[],"page_id":"367152833370567","page_is_deleted":false,"page_name":"Instagram","political_countries":[],"publisher_platform":["INSTAGRAM"],"reach_estimate":null,"regional_regulation_data":{"finserv":{"is_deemed_finserv":false,"is_limited_delivery":false},"tw_anti_scam":{"is_limited_delivery":false}},"report_count":null,"snapshot":{"body":{"text":"Sample ad body text"},"display_format":"VIDEO","cta_text":"Learn more","cta_type":"LEARN_MORE","images":[],"videos":[],"cards":[]},"spend":null,"start_date":1740643200,"state_media_run_label":null,"targeted_or_reached_countries":[],"total_active_time":null}],"cursor":"AQHRBUAxNmFlxBVMFL6uTb1ICFsV65O4"}'
+  recorded_at: Sat, 23 Nov 2025 10:00:00 GMT
+recorded_with: VCR 6.3.1
