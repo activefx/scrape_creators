@@ -1098,6 +1098,80 @@ module ScrapeCreators
 
         get("/v1/tiktok/get-trending-feed", params)
       end
+
+      # Search TikTok Shop products
+      #
+      # Scrapes TikTok Shop products from a search query. This endpoint handles pagination
+      # automatically and can return up to around 500 products per search.
+      #
+      # @note This endpoint costs more than 1 credit! Since pagination is handled automatically,
+      #   it costs 1 credit per page (TikTok returns 30 products per page). This endpoint may
+      #   take a while to respond.
+      #
+      # @param query [String] Search term for products
+      # @param amount [Integer, nil] Number of products to scrape (limited by TikTok's restrictions)
+      # @return [Hash] Search results with products array
+      # @raise [ArgumentError] If the query parameter is nil or empty
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Search for products
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   results = client.tiktok.shop_search("shoes")
+      #   puts results[:total_products]  # => 100
+      #   puts results[:products].first[:title]  # => "Crocs Adult Classic Clogs"
+      #
+      # @example Search with specific amount
+      #   results = client.tiktok.shop_search("electronics", amount: 50)
+      #   puts results[:products].length
+      #
+      # @example Response structure
+      #   {
+      #     success: true,
+      #     query: "shoes",
+      #     total_products: 100,
+      #     products: [
+      #       {
+      #         product_id: "1730213444857467838",
+      #         title: "Crocs Adult Classic Clogs",
+      #         image: {
+      #           height: 1200,
+      #           width: 1200,
+      #           uri: "tos-useast5-i-omjb5zjo8w-tx/...",
+      #           url_list: ["https://..."]
+      #         },
+      #         product_price_info: {
+      #           currency_symbol: "$",
+      #           sale_price_decimal: "49.99",
+      #           sale_price_format: "49.99"
+      #         },
+      #         rate_info: {
+      #           score: 4.8,
+      #           review_count: "2493"
+      #         },
+      #         sold_info: {
+      #           sold_count: 24737
+      #         },
+      #         seller_info: {
+      #           seller_id: "7495832567110863806",
+      #           shop_name: "Crocs",
+      #           shop_logo: { ... }
+      #         },
+      #         seo_url: {
+      #           canonical_url: "https://www.tiktok.com/shop/pdp/...",
+      #           slug: "classic-clogs-by-crocs-..."
+      #         }
+      #       }
+      #     ]
+      #   }
+      def shop_search(query, amount: nil)
+        raise ArgumentError, "query is required" if query.nil? || query.to_s.empty?
+
+        params = { query: query }
+        params[:amount] = amount if amount
+
+        get("/v1/tiktok/shop/search", params)
+      end
     end
   end
 end
