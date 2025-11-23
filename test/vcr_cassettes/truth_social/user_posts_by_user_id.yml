@@ -1,0 +1,39 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/truthsocial/user/posts?user_id=107780257626128497
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 23 Nov 2025 07:00:00 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Powered-By:
+      - Express
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"success":true,"credits_remaining":24699,"posts":[{"text":"Another great day for America!","id":"114315232218538122","created_at":"2025-04-10T20:00:00.000Z","in_reply_to_id":null,"quote_id":null,"in_reply_to_account_id":null,"sensitive":false,"spoiler_text":"","visibility":"public","language":null,"uri":"https://truthsocial.com/@realDonaldTrump/114315232218538122","url":"https://truthsocial.com/@realDonaldTrump/114315232218538122","content":"<p>Another great day for America!</p>","account":{"id":"107780257626128497","username":"realDonaldTrump","acct":"realDonaldTrump","display_name":"Donald J. Trump","locked":false,"bot":false,"discoverable":false,"group":false,"created_at":"2022-02-11T16:16:57.705Z","note":"<p></p>","url":"https://truthsocial.com/@realDonaldTrump","avatar":"https://static-assets-1.truthsocial.com/tmtg:prime-ts-assets/accounts/avatars/107/780/257/626/128/497/original/454286ac07a6f6e6.jpeg","avatar_static":"https://static-assets-1.truthsocial.com/tmtg:prime-ts-assets/accounts/avatars/107/780/257/626/128/497/original/454286ac07a6f6e6.jpeg","header":"https://static-assets-1.truthsocial.com/tmtg:prime-ts-assets/accounts/headers/107/780/257/626/128/497/original/ba3b910ba387bf4e.jpeg","header_static":"https://static-assets-1.truthsocial.com/tmtg:prime-ts-assets/accounts/headers/107/780/257/626/128/497/original/ba3b910ba387bf4e.jpeg","followers_count":9528800,"following_count":72,"statuses_count":26249,"last_status_at":"2025-04-10","verified":true,"location":"","website":"www.DonaldJTrump.com","unauth_visibility":true,"chats_onboarded":true,"feeds_onboarded":true,"accepting_messages":false,"show_nonmember_group_statuses":null,"emojis":[],"fields":[],"tv_onboarded":false,"tv_account":false},"media_attachments":[],"mentions":[],"tags":[],"card":null,"group":null,"quote":null,"in_reply_to":null,"reblog":null,"sponsored":false,"replies_count":500,"reblogs_count":1500,"favourites_count":6000,"favourited":false,"reblogged":false,"muted":false,"pinned":false,"bookmarked":false,"poll":null,"emojis":[]}],"next_max_id":"114308258545250118"}'
+  recorded_at: Sun, 23 Nov 2025 07:00:00 GMT
+recorded_with: VCR 6.3.1
