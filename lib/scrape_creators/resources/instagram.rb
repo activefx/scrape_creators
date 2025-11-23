@@ -787,6 +787,93 @@ module ScrapeCreators
 
         get("/v1/instagram/user/highlight/detail", id: id)
       end
+
+      # Get reels using a specific song/audio
+      #
+      # Retrieves reels that use a specific audio track by its audio ID.
+      # Supports pagination through the max_id parameter.
+      #
+      # @param audio_id [String, Integer] Audio ID (required)
+      # @param max_id [String, nil] Cursor for pagination from previous response
+      # @return [Hash] Reels data including items array and pagination info
+      # @raise [ArgumentError] If the audio_id parameter is nil or empty
+      # @raise [BadRequestError] If the audio_id parameter is invalid
+      # @raise [NotFoundError] If the audio is not found
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Get reels using a song
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   reels = client.instagram.song_reels("18151049539042235")
+      #   puts reels[:success]                                 # => true
+      #   puts reels[:formatted_media_count]                   # => "73.2K reels"
+      #   puts reels[:items].first[:media][:code]              # => "DKvyjsyREXo"
+      #
+      # @example Get next page of reels using cursor
+      #   first_page = client.instagram.song_reels("18151049539042235")
+      #   next_page = client.instagram.song_reels(
+      #     "18151049539042235",
+      #     max_id: first_page[:paging_info][:max_id]
+      #   )
+      #
+      # @example Response structure
+      #   {
+      #     success: true,
+      #     items: [
+      #       {
+      #         media: {
+      #           pk: "3652360178415977960",
+      #           id: "3652360178415977960_4396457",
+      #           code: "DKvyjsyREXo",
+      #           taken_at: 1749615300,
+      #           media_type: 2,
+      #           product_type: "clips",
+      #           play_count: 66233,
+      #           like_count: 4570,
+      #           comment_count: 59,
+      #           video_duration: 26.574,
+      #           has_audio: true,
+      #           user: {
+      #             pk: "4396457",
+      #             username: "teresitassen",
+      #             full_name: "Winwyn Marquez",
+      #             is_verified: true
+      #           },
+      #           caption: {
+      #             text: "Here for the soft wins and good energy"
+      #           },
+      #           image_versions2: { candidates: [...] },
+      #           video_versions: [...]
+      #         }
+      #       }
+      #     ],
+      #     paging_info: {
+      #       max_id: "Gpa-z7y0tM7mzmXMutubrcuPvmXQ...",
+      #       more_available: true
+      #     },
+      #     music_canonical_id: "18151049539042235",
+      #     formatted_media_count: "73.2K reels",
+      #     metadata: {
+      #       original_sound_info: {
+      #         audio_asset_id: "571995655694687",
+      #         original_audio_title: "Original audio",
+      #         duration_in_ms: 11920,
+      #         ig_artist: {
+      #           username: "wingfoilracing",
+      #           full_name: "WingFoil Racing World Cup Series"
+      #         }
+      #       }
+      #     },
+      #     status: "ok"
+      #   }
+      def song_reels(audio_id, max_id: nil)
+        raise ArgumentError, "audio_id is required" if audio_id.nil? || audio_id.to_s.empty?
+
+        params = { audio_id: audio_id }
+        params[:max_id] = max_id unless max_id.nil?
+
+        get("/v1/instagram/song/reels", params)
+      end
     end
   end
 end
