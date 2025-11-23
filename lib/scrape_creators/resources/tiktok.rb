@@ -900,6 +900,72 @@ module ScrapeCreators
 
         get("/v1/tiktok/songs/popular", params)
       end
+
+      # Get TikTok song details
+      #
+      # Scrapes detailed information about a specific TikTok song/sound by its clip ID.
+      # Note: The parameter is called clipId (not songId) because TikTok allows
+      # clipping different portions of a song.
+      #
+      # @param clip_id [String] The clip ID of the song (found in popular_songs response as clip_id)
+      # @return [Hash] Song details including music info, metadata, and share information
+      # @raise [ArgumentError] If the clip_id parameter is nil or empty
+      # @raise [NotFoundError] If the song is not found
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Get song details
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   song = client.tiktok.song("6717159721276540930")
+      #   puts song[:music_info][:title]  # => "Different (Acoustic)"
+      #   puts song[:music_info][:author]  # => "Micah Tyler"
+      #
+      # @example Get song from popular_songs response
+      #   songs = client.tiktok.popular_songs
+      #   clip_id = songs[:sound_list].first[:clip_id]
+      #   song_details = client.tiktok.song(clip_id)
+      #
+      # @example Response structure
+      #   {
+      #     music_info: {
+      #       album: "Different",
+      #       author: "Micah Tyler",
+      #       title: "Different (Acoustic)",
+      #       duration: 60,
+      #       id: 6717159721276541000,
+      #       id_str: "6717159721276540930",
+      #       play_url: { uri: "https://...", url_list: [...] },
+      #       cover_large: { uri: "...", url_list: [...] },
+      #       cover_medium: { uri: "...", url_list: [...] },
+      #       cover_thumb: { uri: "...", url_list: [...] },
+      #       artists: [...],
+      #       user_count: 358,
+      #       is_commerce_music: true,
+      #       is_original: false,
+      #       share_info: {
+      #         share_url: "https://www.tiktok.com/music/...",
+      #         share_title: "...",
+      #         share_desc: "..."
+      #       },
+      #       matched_song: {
+      #         title: "Different (Acoustic)",
+      #         author: "Micah Tyler",
+      #         full_duration: 195120
+      #       },
+      #       full_song: {
+      #         full_song_duration: 195,
+      #         full_song_id: "6739983931317159937",
+      #         full_song_play_url: { uri: "...", url_list: [...] }
+      #       }
+      #     },
+      #     status_code: 0,
+      #     status_msg: ""
+      #   }
+      def song(clip_id)
+        raise ArgumentError, "clip_id is required" if clip_id.nil? || clip_id.to_s.empty?
+
+        get("/v1/tiktok/song", { clipId: clip_id })
+      end
     end
   end
 end

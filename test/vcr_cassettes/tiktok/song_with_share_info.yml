@@ -1,0 +1,134 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/tiktok/song?clipId=6717159721276540930
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 503
+      message: Service Unavailable
+    headers:
+      Content-Length:
+      - '216'
+      Content-Type:
+      - text/plain
+      Date:
+      - Sun, 23 Nov 2025 04:38:21 GMT
+    body:
+      encoding: UTF-8
+      string: 'upstream connect error or disconnect/reset before headers. reset reason:
+        remote connection failure, transport failure reason: TLS_error:|268435581:SSL
+        routines:OPENSSL_internal:CERTIFICATE_VERIFY_FAILED:TLS_error_end'
+  recorded_at: Sun, 23 Nov 2025 04:38:21 GMT
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/tiktok/song?clipId=6717159721276540930
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 503
+      message: Service Unavailable
+    headers:
+      Content-Length:
+      - '216'
+      Content-Type:
+      - text/plain
+      Date:
+      - Sun, 23 Nov 2025 04:38:22 GMT
+    body:
+      encoding: UTF-8
+      string: 'upstream connect error or disconnect/reset before headers. reset reason:
+        remote connection failure, transport failure reason: TLS_error:|268435581:SSL
+        routines:OPENSSL_internal:CERTIFICATE_VERIFY_FAILED:TLS_error_end'
+  recorded_at: Sun, 23 Nov 2025 04:38:22 GMT
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/tiktok/song?clipId=6717159721276540930
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 23 Nov 2025 04:38:26 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      Etag:
+      - W/"2fbf-Kq+LQW0TlPYeQLrVFHwtUj15Nl0"
+      Rndr-Id:
+      - 43857102-7be8-45f6
+      Vary:
+      - Accept-Encoding
+      X-Powered-By:
+      - Express
+      X-Render-Origin-Server:
+      - Render
+      Cf-Cache-Status:
+      - DYNAMIC
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 9a2dfa153b642330-ORD
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"success":true,"credits_remaining":24740,"music_info":{"album":"Different","allow_offline_music_to_detail_page":false,"artists":[{"avatar":{"uri":"tos-maliva-avt-0068/e7d4971260ccf9834d92fe6a3c63e848","url_list":["https://p77-sign-va.tiktokcdn.com/tos-maliva-avt-0068/e7d4971260ccf9834d92fe6a3c63e848~tplv-tiktokx-cropcenter:168:168.webp?dr=10397&refresh_token=2ea3ab1c&x-expires=1763956800&x-signature=rx%2FXqQGgc70ROvvcmeyyYd6zc7U%3D&t=4d5b0474&ps=13740610&shp=544a444f&shcp=f6441914&idc=no1a","https://p16-sign-va.tiktokcdn.com/tos-maliva-avt-0068/e7d4971260ccf9834d92fe6a3c63e848~tplv-tiktokx-cropcenter:168:168.webp?dr=10397&refresh_token=9cbfe6cb&x-expires=1763956800&x-signature=bf9BU2acGnYW8K6%2BspRayR3mNYk%3D&t=4d5b0474&ps=13740610&shp=544a444f&shcp=f6441914&idc=no1a","https://p77-sign-va.tiktokcdn.com/tos-maliva-avt-0068/e7d4971260ccf9834d92fe6a3c63e848~tplv-tiktokx-cropcenter:168:168.jpeg?dr=10397&refresh_token=39d6c608&x-expires=1763956800&x-signature=NeEslU6myZkBNJ1CjtT5%2Fx341sQ%3D&t=4d5b0474&ps=13740610&shp=544a444f&shcp=f6441914&idc=no1a"],"url_prefix":null},"enter_type":2,"follow_status":0,"follower_status":0,"handle":"micahtylertok","is_block":false,"is_blocked":false,"is_private_account":false,"is_verified":false,"is_visible":false,"nick_name":"Micah
+        Tyler","sec_uid":"MS4wLjABAAAAEdwuYUJfZcFMddE2j_F7VdBPJ-mFgfmhvS_OEZc_CwP9mgiFLDBlqsJOgEaAaHR5","status":1,"uid":"7086245766293226538"}],"audition_duration":60,"author":"Micah
+        Tyler","author_deleted":false,"author_position":null,"avatar_medium":{"height":720,"uri":"musically-maliva-obj/1594805258216454","url_list":["https://p16-sign-va.tiktokcdn.com/musically-maliva-obj/1594805258216454~tplv-tiktokx-cropcenter:720:720.webp?dr=10399&refresh_token=b2b830b4&x-expires=1763956800&x-signature=xvFUvNJgqqL1Td2yaeL5%2FJLmgRc%3D&t=4d5b0474&ps=13740610&shp=544a444f&shcp=f6441914&idc=no1a","https://p77-sign-va.tiktokcdn.com/musically-maliva-obj/1594805258216454~tplv-tiktokx-cropcenter:720:720.webp?dr=10399&refresh_token=a07a3afe&x-expires=1763956800&x-signature=nApxVxqgc%2F9oQoLuB9nUm%2FGOx8w%3D&t=4d5b0474&ps=13740610&shp=544a444f&shcp=f6441914&idc=no1a","https://p16-sign-va.tiktokcdn.com/musically-maliva-obj/1594805258216454~tplv-tiktokx-cropcenter:720:720.jpeg?dr=10399&refresh_token=f8f855ef&x-expires=1763956800&x-signature=IorvrHH%2Br2hvqC2Y2Y1A8Tm68%2BI%3D&t=4d5b0474&ps=13740610&shp=544a444f&shcp=f6441914&idc=no1a"],"url_prefix":null,"width":720},"avatar_thumb":{"height":720,"uri":"musically-maliva-obj/1594805258216454","url_list":["https://p16-sign-va.tiktokcdn.com/musically-maliva-obj/1594805258216454~tplv-tiktokx-cropcenter:100:100.webp?dr=10399&refresh_token=e8b00bf2&x-expires=1763956800&x-signature=mtg4jmGZXkqdCfVpcdwvFf6yp6s%3D&t=4d5b0474&ps=13740610&shp=544a444f&shcp=f6441914&idc=no1a","https://p77-sign-va-lite.tiktokcdn.com/musically-maliva-obj/1594805258216454~tplv-tiktokx-cropcenter:100:100.webp?dr=10399&refresh_token=d5eb317d&x-expires=1763956800&x-signature=zZgfQg9a4mTA9DK0sA6IWe4a%2B28%3D&t=4d5b0474&ps=13740610&shp=544a444f&shcp=f6441914&idc=no1a","https://p16-sign-va.tiktokcdn.com/musically-maliva-obj/1594805258216454~tplv-tiktokx-cropcenter:100:100.jpeg?dr=10399&refresh_token=02a91868&x-expires=1763956800&x-signature=eTrbXKhCwNvBGD%2Bnv%2FUKoyQYPZ8%3D&t=4d5b0474&ps=13740610&shp=544a444f&shcp=f6441914&idc=no1a"],"url_prefix":null,"width":720},"binded_challenge_id":0,"can_be_stitched":false,"can_not_reuse":false,"collect_stat":0,"commercial_right_type":3,"cover_large":{"height":720,"uri":"tos-alisg-v-2774/okeuMAAZnBBv88JZBjFEgjDOtWCZQ4AEEwfoQb","url_list":["https://p16-sg.tiktokcdn.com/aweme/720x720/tos-alisg-v-2774/okeuMAAZnBBv88JZBjFEgjDOtWCZQ4AEEwfoQb.jpeg"],"url_prefix":null,"width":720},"cover_medium":{"height":720,"uri":"tos-alisg-v-2774/okeuMAAZnBBv88JZBjFEgjDOtWCZQ4AEEwfoQb","url_list":["https://p16-sg.tiktokcdn.com/aweme/200x200/tos-alisg-v-2774/okeuMAAZnBBv88JZBjFEgjDOtWCZQ4AEEwfoQb.jpeg"],"url_prefix":null,"width":720},"cover_thumb":{"height":720,"uri":"tos-alisg-v-2774/okeuMAAZnBBv88JZBjFEgjDOtWCZQ4AEEwfoQb","url_list":["https://p16-sg.tiktokcdn.com/aweme/100x100/tos-alisg-v-2774/okeuMAAZnBBv88JZBjFEgjDOtWCZQ4AEEwfoQb.jpeg"],"url_prefix":null,"width":720},"create_time":1563960621,"dmv_auto_show":false,"duration":60,"duration_high_precision":{"audition_duration_precision":60,"duration_precision":60,"shoot_duration_precision":60,"video_duration_precision":60},"external_song_info":[],"extra":"{\"aed_music_dur\":35.15,\"amplitude_peak\":0.90573657,\"apple_song_id\":1294619219,\"beats\":{\"audio_effect_onset\":\"https://sf16-ies-music-sg.tiktokcdn.com/obj/tos-alisg-v-2774/oUAUk8ZzzEAU6HBiB7fAhDsjbAN8yAAEhqQTWg\",\"beats_tracker\":\"https://sf77-ies-music-sg.tiktokcdn.com/obj/tos-alisg-v-2774/oAF3bCnBfkAAUeZDlsqGFACtgETHBYaEAAH5DZ\",\"energy_trace\":\"https://sf16-ies-music-sg.tiktokcdn.com/obj/tos-alisg-v-2774/ow8bhfzzsWgaaEAjQHhEKiABkApQUJA5gyNpRA\",\"merged_beats\":\"https://sf77-ies-music-sg.tiktokcdn.com/obj/tos-alisg-v-2774/oUIygAzuEAAhAAHCNWBQEYAfF8HjMRdiUFZshk\"},\"can_read\":true,\"can_reuse\":true,\"erase_type\":0,\"erase_uid\":0,\"from_user_id\":7369767187307021345,\"full_song_beat_info\":{},\"full_song_beats\":{},\"has_edited\":0,\"is_batch_take_down_music\":false,\"is_ugc_mapping\":false,\"is_used\":0,\"loudness_lufs\":-11.893368,\"music_vid\":\"v10ad6g50000ctcrhlvog65o48qsdm1g\",\"owner_id\":0,\"resource_status\":0,\"review_unshelve_reason\":0,\"reviewed\":0,\"schedule_search_time\":0}","has_commerce_right":false,"id":6717159721276541000,"id_str":"6717159721276540930","is_audio_url_with_cookie":false,"is_author_artist":true,"is_commerce_music":true,"is_matched_metadata":false,"is_original":false,"is_original_sound":false,"is_pgc":true,"is_shooting_allow":true,"log_extra":"{\"meta_song_matched_type\":\"pgc\",\"ttm_matched_type\":\"\",\"ttm_track_id\":\"\",\"matched_meta_song_id\":\"\",\"vid\":\"\",\"owner_id\":\"\"}","lyric_short_position":null,"matched_song":{"author":"Micah
+        Tyler","chorus_info":{"duration_ms":85824,"start_ms":91968},"cover_medium":{"height":720,"uri":"tos-alisg-v-2774/okeuMAAZnBBv88JZBjFEgjDOtWCZQ4AEEwfoQb","url_list":["https://p16-sg.tiktokcdn.com/aweme/200x200/tos-alisg-v-2774/okeuMAAZnBBv88JZBjFEgjDOtWCZQ4AEEwfoQb.jpeg"],"url_prefix":null,"width":720},"full_duration":195120,"h5_url":"","id":"6717159725093390337","performers":null,"title":"Different
+        - Acoustic"},"meme_song_info":{},"mid":"6717159721276540930","multi_bit_rate_play_info":[{"bit_rate":65661,"dub_infos":null,"gear_name":"medium","play_addr":{"url_list":["https://v77.tiktokcdn-eu.com/afa2365a1c176f54a97f679e37c69a9e/6923e17d/video/tos/alisg/tos-alisg-ve-2774/oYtuQXQgQfCFGEbcSQZswWfG2jDABBBYNPbnRz/?a=1233&bti=OnYpenFxQGo4NDZAOm1rbGhyYCMvNTNg&ch=0&cr=0&dr=0&er=0&cd=0%7C0%7C0%7C0&br=128&bt=64&ft=.NpOcInz7ThlwLCPXq8Zmo&mime_type=audio_mp4&qs=3&rc=OWY0O2VlPDM2Omk8aDtpOEBpanB2O3I5cm91dzMzODlkNEAyYV8tMy9eXi4xYS1fMzQvYSMuYW4xMmRzZWBgLS1kYS1zcw%3D%3D&vvpl=1&l=20251123043825870F153BA194DB003D35&btag=e00090000","https://v58.tiktokcdn-eu.com/video/tos/alisg/tos-alisg-ve-2774/oYtuQXQgQfCFGEbcSQZswWfG2jDABBBYNPbnRz/?a=1233&bti=OnYpenFxQGo4NDZAOm1rbGhyYCMvNTNg&ch=0&cr=0&dr=0&er=0&cd=0%7C0%7C0%7C0&br=128&bt=64&ft=.NpOcInz7ThlwLCPXq8Zmo&mime_type=audio_mp4&qs=3&rc=OWY0O2VlPDM2Omk8aDtpOEBpanB2O3I5cm91dzMzODlkNEAyYV8tMy9eXi4xYS1fMzQvYSMuYW4xMmRzZWBgLS1kYS1zcw%3D%3D&vvpl=1&l=20251123043825870F153BA194DB003D35&VExpiration=1763959165&VSignature=N2NrVe0wUuFREMUHr62eQQ&btag=e00090000"],"url_prefix":null},"quality_type":3},{"bit_rate":257710,"dub_infos":null,"gear_name":"highest","play_addr":{"url_list":["https://v77.tiktokcdn-eu.com/8b59a6632c311706683924709c240509/6923e17d/video/tos/alisg/tos-alisg-ve-2774/o42ZrIxi1jsXQMuItAizBu9BwDoCBAsNfNrWG4/?a=1233&bti=OnYpenFxQGo4NDZAOm1rbGhyYCMvNTNg&ch=0&cr=0&dr=0&er=0&cd=0%7C0%7C0%7C0&br=502&bt=251&ft=.NpOcInz7ThlwLCPXq8Zmo&mime_type=audio_mp4&qs=7&rc=ZmczaDY1NTQzOGRnNGVkO0BpanB2O3I5cm91dzMzODlkNEAtNS42LjUyXzMxYS0tMS0vYSMuYW4xMmRzZWBgLS1kYS1zcw%3D%3D&vvpl=1&l=20251123043825870F153BA194DB003D35&btag=e00090000","https://v58.tiktokcdn-eu.com/video/tos/alisg/tos-alisg-ve-2774/o42ZrIxi1jsXQMuItAizBu9BwDoCBAsNfNrWG4/?a=1233&bti=OnYpenFxQGo4NDZAOm1rbGhyYCMvNTNg&ch=0&cr=0&dr=0&er=0&cd=0%7C0%7C0%7C0&br=502&bt=251&ft=.NpOcInz7ThlwLCPXq8Zmo&mime_type=audio_mp4&qs=7&rc=ZmczaDY1NTQzOGRnNGVkO0BpanB2O3I5cm91dzMzODlkNEAtNS42LjUyXzMxYS0tMS0vYSMuYW4xMmRzZWBgLS1kYS1zcw%3D%3D&vvpl=1&l=20251123043825870F153BA194DB003D35&VExpiration=1763959165&VSignature=D0YyzsexTzTu3SsqaXibzg&btag=e00090000"],"url_prefix":null},"quality_type":7},{"bit_rate":129653,"dub_infos":null,"gear_name":"higher","play_addr":{"url_list":["https://v77.tiktokcdn-eu.com/705f42e3fc6e2ea27a9e7238c643363b/6923e17d/video/tos/alisg/tos-alisg-ve-2774/oIBIZNfxOX2Nzi1WRH4ABroDirMAuIjwsGVov9/?a=1233&bti=OnYpenFxQGo4NDZAOm1rbGhyYCMvNTNg&ch=0&cr=0&dr=0&er=0&cd=0%7C0%7C0%7C0&br=252&bt=126&ft=.NpOcInz7ThlwLCPXq8Zmo&mime_type=audio_mp4&qs=6&rc=PDw1aTU5ZDhpZjU8OTM2NUBpanB2O3I5cm91dzMzODlkNEBeLWM2Xy8zXjIxNWIuMC0xYSMuYW4xMmRzZWBgLS1kYS1zcw%3D%3D&vvpl=1&l=20251123043825870F153BA194DB003D35&btag=e00090000","https://v58.tiktokcdn-eu.com/video/tos/alisg/tos-alisg-ve-2774/oIBIZNfxOX2Nzi1WRH4ABroDirMAuIjwsGVov9/?a=1233&bti=OnYpenFxQGo4NDZAOm1rbGhyYCMvNTNg&ch=0&cr=0&dr=0&er=0&cd=0%7C0%7C0%7C0&br=252&bt=126&ft=.NpOcInz7ThlwLCPXq8Zmo&mime_type=audio_mp4&qs=6&rc=PDw1aTU5ZDhpZjU8OTM2NUBpanB2O3I5cm91dzMzODlkNEBeLWM2Xy8zXjIxNWIuMC0xYSMuYW4xMmRzZWBgLS1kYS1zcw%3D%3D&vvpl=1&l=20251123043825870F153BA194DB003D35&VExpiration=1763959165&VSignature=KANmub2RkrRxoK4A_XzkRQ&btag=e00090000"],"url_prefix":null},"quality_type":6}],"music_release_info":{"group_release_date":1507852800,"is_new_release_song":false},"mute_share":false,"offline_desc":"","owner_handle":"","owner_nickname":"","play_url":{"height":720,"uri":"https://sf16-ies-music-sg.tiktokcdn.com/obj/tos-alisg-ve-2774/oIBIZNfxOX2Nzi1WRH4ABroDirMAuIjwsGVov9","url_list":["https://sf16-ies-music-sg.tiktokcdn.com/obj/tos-alisg-ve-2774/oIBIZNfxOX2Nzi1WRH4ABroDirMAuIjwsGVov9"],"url_prefix":null,"width":720},"position":null,"prevent_download":false,"preview_end_time":0,"preview_start_time":0,"recommend_status":100,"same_group_id_v3":6815114269403646000,"share_info":{"bool_persist":0,"now_invitation_card_image_urls":null,"share_desc":"Dai
+        un''occhiata a questa canzone! Different - Acoustic #TikTok","share_desc_info":"Utenti
+        da ogni parte del mondo si stanno scatenando con la propria interpretazione
+        del brano Different - Acoustic su TikTok! Tocca qui >>","share_quote":"","share_signature_desc":"","share_signature_url":"","share_title":"Che
+        meraviglia! Ho appena scoperto un sacco di video divertenti! #TikTok > Different
+        - Acoustic","share_title_myself":"","share_title_other":"","share_url":"https://www.tiktok.com/music/Different-Acoustic-6717159721276540930?_r=1&sharer_language=it&source=h5_m&u_code=ee6hhl1976l8l5&_d=emka43fm0gied3&share_music_id=6717159721276540930"},"shoot_duration":60,"sim_group_id_v3":54930579458,"source_platform":10033,"status":1,"strong_beat_url":{"height":720,"uri":"https://sf77-ies-music-sg.tiktokcdn.com/obj/tos-alisg-v-2774/c8b6aea87f2f430e93a4c5e75515cbce","url_list":["https://sf77-ies-music-sg.tiktokcdn.com/obj/tos-alisg-v-2774/c8b6aea87f2f430e93a4c5e75515cbce"],"url_prefix":null,"width":720},"suggest_words":{"suggest_words":[{"scene":"search_hint","words":[{"word":"Different
+        - Acoustic","word_id":"8409708786272527651"}]}]},"tag_list":null,"theme_tags":["Love","Wedding"],"title":"Different
+        - Acoustic","tt_to_dsp_song_infos":[{"button_type":2,"platform":1,"song_id":"1545544887","token":{"apple_music_token":{"developer_token":"eyJhbGciOiJFUzI1NiIsImtpZCI6Ikc2Q0dLMjdWQzMifQ.eyJleHAiOjE3NjQzOTIwNjgsImlhdCI6MTc2Mzc4NzI2OCwiaXNzIjoiTUo3OTdEOFU2RiJ9.GkUpQDpn-O9994qJxoorBnddAY4VqkXGAr0gNs9uwTveayV5_Y0XWG4AJ1gv3iQXaETbFjEZotJ8eMJUmaTl3g"}}},{"button_type":2,"platform":2,"song_id":"B0767P5MLZ"},{"button_type":2,"platform":3,"song_id":"0hxxRQOLZLdbGDl4dgrsPV"},{"button_type":2,"platform":8,"song_id":"1182565822"},{"button_type":2,"platform":9,"song_id":"346405346"},{"button_type":2,"platform":10,"song_id":"IFM0fkr2I5k"}],"uncert_artists":null,"user_count":434,"vid_volume_info":"{\"Peak\":0.90157,\"Loudness\":-11.9}","video_duration":60}}'
+  recorded_at: Sun, 23 Nov 2025 04:38:26 GMT
+recorded_with: VCR 6.3.1
