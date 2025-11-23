@@ -937,4 +937,91 @@ describe ScrapeCreators::Resources::Tiktok do
       assert_match(/clip_id is required/, error.message)
     end
   end
+
+  describe "#trending_feed" do
+    it "fetches trending feed successfully" do
+      VCR.use_cassette("tiktok/trending_feed_success") do
+        trending = tiktok.trending_feed("US")
+
+        assert_kind_of Hash, trending
+        assert trending.key?(:aweme_list)
+        assert_kind_of Array, trending[:aweme_list]
+
+        unless trending[:aweme_list].empty?
+          first_video = trending[:aweme_list].first
+
+          assert first_video.key?(:aweme_id)
+          assert first_video.key?(:desc)
+          assert first_video.key?(:region)
+          assert first_video.key?(:statistics)
+          assert first_video.key?(:author)
+        end
+      end
+    end
+
+    it "fetches trending feed with trim parameter" do
+      VCR.use_cassette("tiktok/trending_feed_with_trim") do
+        trending = tiktok.trending_feed("US", trim: true)
+
+        assert_kind_of Hash, trending
+        assert trending.key?(:aweme_list)
+      end
+    end
+
+    it "fetches trending feed with different region" do
+      VCR.use_cassette("tiktok/trending_feed_different_region") do
+        trending = tiktok.trending_feed("GB")
+
+        assert_kind_of Hash, trending
+        assert trending.key?(:aweme_list)
+      end
+    end
+
+    it "returns video statistics" do
+      VCR.use_cassette("tiktok/trending_feed_with_statistics") do
+        trending = tiktok.trending_feed("US")
+
+        assert_kind_of Hash, trending
+        assert trending.key?(:aweme_list)
+
+        unless trending[:aweme_list].empty?
+          first_video = trending[:aweme_list].first
+          statistics = first_video[:statistics]
+
+          assert statistics.key?(:play_count) || statistics.key?(:digg_count)
+        end
+      end
+    end
+
+    it "returns author information" do
+      VCR.use_cassette("tiktok/trending_feed_with_author") do
+        trending = tiktok.trending_feed("US")
+
+        assert_kind_of Hash, trending
+        assert trending.key?(:aweme_list)
+
+        unless trending[:aweme_list].empty?
+          first_video = trending[:aweme_list].first
+          author = first_video[:author]
+
+          assert author.key?(:uid)
+          assert author.key?(:nickname)
+        end
+      end
+    end
+
+    it "raises ArgumentError when region is nil" do
+      error = assert_raises(ArgumentError) do
+        tiktok.trending_feed(nil)
+      end
+      assert_match(/region is required/, error.message)
+    end
+
+    it "raises ArgumentError when region is empty" do
+      error = assert_raises(ArgumentError) do
+        tiktok.trending_feed("")
+      end
+      assert_match(/region is required/, error.message)
+    end
+  end
 end

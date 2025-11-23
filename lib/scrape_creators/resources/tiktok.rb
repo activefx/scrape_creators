@@ -1032,6 +1032,72 @@ module ScrapeCreators
 
         get("/v1/tiktok/song/videos", params)
       end
+
+      # Get the trending feed from TikTok
+      #
+      # Retrieves trending videos from TikTok's For You feed based on a specific region.
+      # The region parameter sets the proxy location for scraping, which affects what
+      # content is accessible (content that isn't banned in that region).
+      #
+      # @param region [String] Two-letter country code for proxy location (e.g., "US", "GB", "FR")
+      #   This doesn't filter videos by region, it sets the proxy location for scraping
+      # @param trim [Boolean, nil] Whether to trim the response data (default: false)
+      # @return [Hash] Trending videos data with aweme_list array
+      # @raise [ArgumentError] If the region parameter is nil or empty
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Get trending videos from US region
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   trending = client.tiktok.trending_feed("US")
+      #   puts trending[:aweme_list].first[:desc]  # Video description
+      #   puts trending[:aweme_list].first[:statistics][:play_count]  # View count
+      #
+      # @example Get trending videos with trimmed response
+      #   trending = client.tiktok.trending_feed("US", trim: true)
+      #
+      # @example Response structure
+      #   {
+      #     aweme_list: [
+      #       {
+      #         aweme_id: "7540000301621841183",
+      #         desc: "#hudsonvalley #fallgetaway #farm #upstateny #resort",
+      #         desc_language: "un",
+      #         region: "US",
+      #         statistics: {
+      #           aweme_id: "7540000301621841183",
+      #           comment_count: 646,
+      #           digg_count: 71423,
+      #           download_count: 130,
+      #           play_count: 1443873,
+      #           share_count: 8440,
+      #           collect_count: 21957
+      #         },
+      #         video: {
+      #           play_addr: { uri: "...", url_list: [...] },
+      #           cover: { uri: "...", url_list: [...] }
+      #         },
+      #         author: {
+      #           uid: "6754760670083138566",
+      #           nickname: "Bre 🤍",
+      #           signature: "3rd grade teacher 🍎...",
+      #           sec_uid: "MS4wLjABAAAA..."
+      #         },
+      #         create_time: 1755543133,
+      #         create_time_utc: "2025-08-18T18:52:13.000Z",
+      #         url: "https://www.tiktok.com/@breannafriedman0/photo/7540000301621841183",
+      #         is_ad: false
+      #       }
+      #     ]
+      #   }
+      def trending_feed(region, trim: nil)
+        raise ArgumentError, "region is required" if region.nil? || region.to_s.empty?
+
+        params = { region: region }
+        params[:trim] = trim unless trim.nil?
+
+        get("/v1/tiktok/get-trending-feed", params)
+      end
     end
   end
 end

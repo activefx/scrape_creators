@@ -1,0 +1,41 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/tiktok/get-trending-feed?region=GB
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 23 Nov 2025 06:05:26 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Powered-By:
+      - Express
+      Server:
+      - cloudflare
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"aweme_list":[{"aweme_id":"7540123456789012345","desc":"Trending in UK #fyp #viral","desc_language":"en","region":"GB","statistics":{"aweme_id":"7540123456789012345","comment_count":500,"digg_count":50000,"play_count":1000000,"share_count":5000,"collect_count":15000},"video":{"play_addr":{"uri":"https://v16m.tiktokcdn-us.com/video_gb.mp4","url_list":["https://v16m.tiktokcdn-us.com/video_gb.mp4"]}},"author":{"uid":"6754760670083138000","nickname":"UKCreator","region":"GB","sec_uid":"MS4wLjABAAAAGBRegion"},"create_time":1755543133,"is_ad":false,"url":"https://www.tiktok.com/@ukcreator/video/7540123456789012345"}]}'
+  recorded_at: Sun, 23 Nov 2025 06:05:26 GMT
+recorded_with: VCR 6.3.1
