@@ -1,0 +1,39 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/threads/search/users?query=shams
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 23 Nov 2025 20:00:00 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Powered-By:
+      - Express
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"users":[{"username":"shams","pk":"5951152863","is_active_on_text_post_app":true,"full_name":"Shams Charania","profile_pic_url":"https://instagram.example.com/v/t51.2885-19/482795192_3376548399146227_6340123271493467395_n.jpg","is_verified":true,"has_onboarded_to_text_post_app":true,"id":"5951152863"},{"username":"shamscharania","pk":"5951152864","is_active_on_text_post_app":true,"full_name":"Shams C","profile_pic_url":"https://instagram.example.com/v/t51.2885-19/profile2.jpg","is_verified":false,"has_onboarded_to_text_post_app":true,"id":"5951152864"}]}'
+  recorded_at: Sun, 23 Nov 2025 20:00:00 GMT
+recorded_with: VCR 6.3.1
