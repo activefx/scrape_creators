@@ -223,6 +223,71 @@ module ScrapeCreators
 
         get("/v1/threads/post", params)
       end
+
+      # Search for posts by keyword
+      #
+      # Searches Threads for posts matching the given keyword. Note that Threads
+      # only returns 20-30 results at a time.
+      #
+      # @param query [String] Keyword to search for
+      # @param trim [Boolean] Set to true for a trimmed down version of the response (optional)
+      # @return [Hash] Search results including array of matching posts
+      # @raise [ArgumentError] If the query parameter is nil or empty
+      # @raise [BadRequestError] If the query parameter is invalid
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Search for posts by keyword
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   response = client.threads.search("basketball")
+      #   puts response[:posts].length
+      #   response[:posts].each do |post|
+      #     puts post[:caption][:text]
+      #     puts post[:like_count]
+      #   end
+      #
+      # @example Search with trimmed response
+      #   response = client.threads.search("basketball", trim: true)
+      #
+      # @example Response structure
+      #   {
+      #     success: true,
+      #     posts: [
+      #       {
+      #         id: "3623717915788120086_63263616227",
+      #         pk: "3623717915788120086",
+      #         code: "DJKCD7AxRAW",
+      #         user: {
+      #           pk: "63263616227",
+      #           username: "shams",
+      #           profile_pic_url: "https://...",
+      #           is_verified: true
+      #         },
+      #         caption: {
+      #           text: "BREAKING: Gregg Popovich will no longer be Head Coach...",
+      #           pk: "17901829044168955"
+      #         },
+      #         like_count: 4093,
+      #         taken_at: 1746200860,
+      #         media_type: 19,
+      #         text_post_app_info: {
+      #           reshare_count: 260,
+      #           direct_reply_count: 75,
+      #           repost_count: 200,
+      #           quote_count: 59,
+      #           reply_control: "everyone"
+      #         }
+      #       }
+      #     ]
+      #   }
+      def search(query, trim: nil)
+        raise ArgumentError, "query is required" if query.nil? || query.to_s.empty?
+
+        params = { query: query }
+        params[:trim] = trim unless trim.nil?
+
+        get("/v1/threads/search", params)
+      end
     end
   end
 end
