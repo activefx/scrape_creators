@@ -1,0 +1,39 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v2/instagram/user/posts?handle=barstoolsports&trim=true
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 23 Nov 2025 10:00:00 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Powered-By:
+      - Express
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"num_results":12,"more_available":true,"items":[{"pk":"3600545900919030401","id":"3600545900919030401_260462810","media_type":2,"code":"DH3tWudxIKB","taken_at":1743438570,"caption":{"text":"Dana is neglecting a pretty important level of the food pyramid"},"user":{"pk":"260462810","username":"barstoolsports","is_verified":true},"like_count":387,"comment_count":12,"url":"https://www.instagram.com/barstoolsports/p/DH3tWudxIKB/"}],"next_max_id":"3599731065704772932_260462810","user":{"pk":"260462810","username":"barstoolsports","is_verified":true},"status":"ok"}'
+  recorded_at: Sat, 23 Nov 2025 10:00:00 GMT
+recorded_with: VCR 6.3.1
