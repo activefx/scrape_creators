@@ -543,6 +543,79 @@ module ScrapeCreators
 
         get("/v1/youtube/search", params)
       end
+
+      # Search YouTube by hashtag
+      #
+      # Searches YouTube for videos associated with a specific hashtag.
+      # Returns matching videos with optional filtering for shorts only.
+      #
+      # @param hashtag [String] Hashtag to search for (required)
+      # @param continuation_token [String, nil] Token from previous response for pagination
+      # @param type [String, nil] Filter content type
+      #   Options: "all" (default), "shorts"
+      # @return [Hash] Search results including videos array and continuation_token
+      # @raise [ArgumentError] If hashtag is not provided
+      # @raise [BadRequestError] If the parameters are invalid
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Basic hashtag search
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   results = client.youtube.search_hashtag(hashtag: "funny")
+      #   results[:videos].each do |video|
+      #     puts "#{video[:title]} - #{video[:view_count_text]}"
+      #   end
+      #
+      # @example Search for shorts only
+      #   results = client.youtube.search_hashtag(hashtag: "fails", type: "shorts")
+      #   results[:videos].each do |video|
+      #     puts video[:title]
+      #   end
+      #
+      # @example Paginate through results
+      #   results = client.youtube.search_hashtag(hashtag: "cooking")
+      #   while results[:continuation_token]
+      #     results = client.youtube.search_hashtag(
+      #       hashtag: "cooking",
+      #       continuation_token: results[:continuation_token]
+      #     )
+      #   end
+      #
+      # @example Response structure
+      #   {
+      #     videos: [
+      #       {
+      #         type: "video",
+      #         id: "jXMISgQq9MM",
+      #         url: "https://www.youtube.com/watch?v=jXMISgQq9MM",
+      #         title: "Epic fails 🤣🤣🤣 #shorts #funny #fails",
+      #         description: "",
+      #         thumbnail: "https://i.ytimg.com/vi/jXMISgQq9MM/hqdefault.jpg?...",
+      #         channel: {
+      #           id: "UCvUzWu1Whyw1FWuLl9GOo_g",
+      #           title: "ZZang Funny",
+      #           thumbnail: "https://yt3.ggpht.com/..."
+      #         },
+      #         view_count_text: "22,668,056 views",
+      #         view_count_int: 22668056,
+      #         published_time_text: "4 weeks ago",
+      #         published_time: "2025-01-04T23:12:42.919Z",
+      #         length_text: "1:00",
+      #         length_seconds: 60,
+      #         badges: []
+      #       }
+      #     ],
+      #     continuation_token: "4qmFsgLtBRIJRkVoYX...."
+      #   }
+      def search_hashtag(hashtag:, continuation_token: nil, type: nil)
+        raise ArgumentError, "hashtag is required" if hashtag.nil? || hashtag.to_s.strip.empty?
+
+        params = { hashtag: hashtag }
+        params[:continuationToken] = continuation_token if continuation_token
+        params[:type] = type if type
+
+        get("/v1/youtube/search/hashtag", params)
+      end
     end
   end
 end
