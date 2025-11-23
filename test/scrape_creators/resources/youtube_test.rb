@@ -542,4 +542,93 @@ describe ScrapeCreators::Resources::Youtube do
       end
     end
   end
+
+  describe "#video_transcript" do
+    describe "with video URL" do
+      it "fetches video transcript" do
+        VCR.use_cassette("youtube/video_transcript_by_url") do
+          transcript = youtube.video_transcript(url: "https://www.youtube.com/watch?v=bjVIDXPP7Uk")
+
+          assert_kind_of Hash, transcript
+
+          # Verify transcript data structure
+          assert transcript.key?(:video_id) || transcript.key?(:videoId)
+          assert transcript.key?(:type)
+          assert transcript.key?(:url)
+          assert transcript.key?(:transcript)
+          assert transcript.key?(:transcript_only_text) || transcript.key?(:transcriptOnlyText)
+          assert transcript.key?(:language)
+
+          # Verify transcript array structure
+          assert_kind_of Array, transcript[:transcript]
+          if transcript[:transcript].any?
+            segment = transcript[:transcript].first
+
+            assert segment.key?(:text)
+            assert segment.key?(:start_ms) || segment.key?(:startMs)
+            assert segment.key?(:end_ms) || segment.key?(:endMs)
+            assert segment.key?(:start_time_text) || segment.key?(:startTimeText)
+          end
+        end
+      end
+
+      it "returns video type and url" do
+        VCR.use_cassette("youtube/video_transcript_metadata") do
+          transcript = youtube.video_transcript(url: "https://www.youtube.com/watch?v=bjVIDXPP7Uk")
+
+          assert_kind_of Hash, transcript
+          assert transcript.key?(:type)
+          assert transcript.key?(:url)
+        end
+      end
+    end
+
+    describe "with short URL" do
+      it "fetches short transcript" do
+        VCR.use_cassette("youtube/video_transcript_short") do
+          transcript = youtube.video_transcript(url: "https://www.youtube.com/shorts/ydPkyvWtmg4")
+
+          assert_kind_of Hash, transcript
+          # Short may have transcript or may not, but response should be valid
+          assert transcript.key?(:video_id) || transcript.key?(:videoId) || transcript.key?(:type)
+        end
+      end
+    end
+
+    describe "parameter validation" do
+      it "raises ArgumentError when url is not provided" do
+        error = assert_raises(ArgumentError) do
+          youtube.video_transcript(url: nil)
+        end
+        assert_match(/url is required/, error.message)
+      end
+
+      it "raises ArgumentError when url is empty string" do
+        error = assert_raises(ArgumentError) do
+          youtube.video_transcript(url: "")
+        end
+        assert_match(/url is required/, error.message)
+      end
+
+      it "raises ArgumentError when url is whitespace only" do
+        error = assert_raises(ArgumentError) do
+          youtube.video_transcript(url: "   ")
+        end
+        assert_match(/url is required/, error.message)
+      end
+    end
+
+    describe "error handling" do
+      it "raises authentication error for invalid API key" do
+        VCR.use_cassette("youtube/video_transcript_unauthorized") do
+          invalid_client = ScrapeCreators::Client.new(api_key: "invalid_key")
+
+          # API may return UnauthorizedError or PaymentRequiredError for invalid credentials
+          assert_raises(ScrapeCreators::UnauthorizedError, ScrapeCreators::PaymentRequiredError) do
+            invalid_client.youtube.video_transcript(url: "https://www.youtube.com/watch?v=bjVIDXPP7Uk")
+          end
+        end
+      end
+    end
+  end
 end
