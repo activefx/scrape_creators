@@ -511,6 +511,63 @@ module ScrapeCreators
         params[:trim] = trim unless trim.nil?
 
         get("/v1/instagram/user/reels", params)
+      # Get comments from an Instagram post or reel
+      #
+      # Retrieves comments from a public Instagram post or reel. Note that this
+      # endpoint costs more than 1 credit - it costs 1 credit per 15 comments.
+      # This won't return all comments, but a good number of them.
+      #
+      # @param url [String] Instagram post or reel URL
+      # @param amount [Integer, nil] Number of comments to return (default: 15, max: ~300)
+      # @return [Hash] Comments data including success status, credit cost, and comments array
+      # @raise [ArgumentError] If the url parameter is nil or empty
+      # @raise [BadRequestError] If the url parameter is invalid
+      # @raise [NotFoundError] If the post/reel is not found
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Get comments from an Instagram post
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   result = client.instagram.comments("https://www.instagram.com/p/ABC123/")
+      #   puts result[:success]             # => true
+      #   puts result[:num_comments_grabbed] # => 15
+      #   puts result[:credit_cost]          # => 1
+      #   puts result[:comments].first[:text] # => "Great post!"
+      #
+      # @example Get more comments with amount parameter
+      #   result = client.instagram.comments("https://www.instagram.com/reel/XYZ789/", amount: 100)
+      #   puts result[:num_comments_grabbed] # => 100
+      #   puts result[:credit_cost]          # => 7
+      #
+      # @example Response structure
+      #   {
+      #     success: true,
+      #     num_comments_grabbed: 343,
+      #     credit_cost: 24,
+      #     comments: [
+      #       {
+      #         id: "17916526530048829",
+      #         text: "Great post!",
+      #         created_at: "2025-01-17T14:07:40.000Z",
+      #         user: {
+      #           is_verified: false,
+      #           id: "64101106104",
+      #           pk: "64101106104",
+      #           is_unpublished: nil,
+      #           profile_pic_url: "https://...",
+      #           username: "example_user",
+      #           fbid_v2: "17841464143122638"
+      #         }
+      #       }
+      #     ]
+      #   }
+      def comments(url, amount: nil)
+        raise ArgumentError, "url is required" if url.nil? || url.to_s.empty?
+
+        params = { url: url }
+        params[:amount] = amount unless amount.nil?
+
+        get("/v1/instagram/post/comments", params)
       end
     end
   end

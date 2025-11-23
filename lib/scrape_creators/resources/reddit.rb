@@ -15,6 +15,9 @@ module ScrapeCreators
       # Valid sort options for subreddit posts
       VALID_SORTS = %w[best hot new top rising].freeze
 
+      # Valid sort options for search
+      VALID_SEARCH_SORTS = %w[relevance new top comment_count].freeze
+
       # Get recent posts from a subreddit with engagement metrics
       #
       # Retrieves posts from a subreddit including engagement metrics like upvotes,
@@ -249,6 +252,92 @@ module ScrapeCreators
         params[:trim] = trim unless trim.nil?
 
         get("/v1/reddit/post/comments/simple", params)
+      end
+
+      # Search Reddit for posts
+      #
+      # Searches Reddit for posts matching the given query. Supports various
+      # sorting options and timeframe filtering.
+      #
+      # @param query [String] The search query
+      # @param sort [String, nil] Sort order (relevance, new, top, comment_count)
+      # @param timeframe [String, nil] Timeframe to filter results (all, day, week, month, year)
+      # @param after [String, nil] Pagination cursor from previous response to get more posts
+      # @param trim [Boolean, nil] Whether to return a trimmed response (default: false)
+      # @return [Hash] Search results including posts array and pagination cursor
+      # @raise [ArgumentError] If the query parameter is nil or empty
+      # @raise [ArgumentError] If sort is invalid
+      # @raise [ArgumentError] If timeframe is invalid
+      # @raise [BadRequestError] If the request parameters are invalid
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Search for posts about web scraping
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   results = client.reddit.search("web scraping")
+      #   results[:posts].each { |post| puts post[:title] }
+      #
+      # @example Search with sorting and timeframe
+      #   results = client.reddit.search("python", sort: "top", timeframe: "week")
+      #
+      # @example Paginate through search results
+      #   first_page = client.reddit.search("javascript")
+      #   next_page = client.reddit.search("javascript", after: first_page[:after])
+      #
+      # @example Get trimmed response
+      #   results = client.reddit.search("ruby", trim: true)
+      #
+      # @example Response structure
+      #   {
+      #     success: true,
+      #     posts: [
+      #       {
+      #         id: "1flgwup",
+      #         name: "t3_1flgwup",
+      #         title: "After 2 months learning scraping...",
+      #         selftext: "1. Don't try putting scraping tools in Lambda.",
+      #         author: "Sea_Cardiologist_212",
+      #         subreddit: "webscraping",
+      #         subreddit_name_prefixed: "r/webscraping",
+      #         score: 361,
+      #         ups: 361,
+      #         downs: 0,
+      #         upvote_ratio: 0.99,
+      #         num_comments: 102,
+      #         created: 1726851591,
+      #         created_utc: 1726851591,
+      #         created_at_iso: "2024-09-20T16:59:51.000Z",
+      #         permalink: "/r/webscraping/comments/1flgwup/...",
+      #         url: "https://www.reddit.com/r/webscraping/comments/1flgwup/...",
+      #         is_self: true,
+      #         is_video: false,
+      #         over_18: false,
+      #         spoiler: false,
+      #         locked: false,
+      #         stickied: false,
+      #         archived: true
+      #       }
+      #     ],
+      #     after: "t3_1ihh437"
+      #   }
+      def search(query, sort: nil, timeframe: nil, after: nil, trim: nil)
+        raise ArgumentError, "query is required" if query.nil? || query.to_s.empty?
+
+        if sort && !VALID_SEARCH_SORTS.include?(sort.to_s)
+          raise ArgumentError, "sort must be one of: #{VALID_SEARCH_SORTS.join(", ")}"
+        end
+
+        if timeframe && !VALID_TIMEFRAMES.include?(timeframe.to_s)
+          raise ArgumentError, "timeframe must be one of: #{VALID_TIMEFRAMES.join(", ")}"
+        end
+
+        params = { query: query }
+        params[:sort] = sort unless sort.nil?
+        params[:timeframe] = timeframe unless timeframe.nil?
+        params[:after] = after unless after.nil?
+        params[:trim] = trim unless trim.nil?
+
+        get("/v1/reddit/search", params)
       end
     end
   end

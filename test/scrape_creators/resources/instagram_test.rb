@@ -577,6 +577,67 @@ describe ScrapeCreators::Resources::Instagram do
       VCR.use_cassette("instagram/reels_not_found") do
         assert_raises(ScrapeCreators::NotFoundError) do
           instagram.reels(handle: "thisuserdoesnotexist123456789xyz")
+  describe "#comments" do
+    it "fetches comments from an Instagram post" do
+      VCR.use_cassette("instagram/comments_success") do
+        result = instagram.comments("https://www.instagram.com/reel/DGg3aQqvOkv/")
+
+        assert_kind_of Hash, result
+        assert result[:success]
+
+        # Verify response structure
+        assert result.key?(:comments)
+        assert result.key?(:num_comments_grabbed)
+        assert result.key?(:credit_cost)
+        assert_kind_of Array, result[:comments]
+        refute_empty result[:comments]
+
+        # Verify first comment structure
+        comment = result[:comments].first
+
+        assert comment.key?(:id)
+        assert comment.key?(:text)
+        assert comment.key?(:created_at)
+        assert comment.key?(:user)
+
+        # Verify user info in comment
+        user = comment[:user]
+
+        assert user.key?(:id)
+        assert user.key?(:username)
+        assert user.key?(:profile_pic_url)
+      end
+    end
+
+    it "fetches comments with amount parameter" do
+      VCR.use_cassette("instagram/comments_with_amount") do
+        result = instagram.comments("https://www.instagram.com/reel/DGg3aQqvOkv/", amount: 30)
+
+        assert_kind_of Hash, result
+        assert result[:success]
+        assert result.key?(:comments)
+        assert_kind_of Array, result[:comments]
+      end
+    end
+
+    it "raises ArgumentError when url is nil" do
+      error = assert_raises(ArgumentError) do
+        instagram.comments(nil)
+      end
+      assert_match(/url is required/, error.message)
+    end
+
+    it "raises ArgumentError when url is empty" do
+      error = assert_raises(ArgumentError) do
+        instagram.comments("")
+      end
+      assert_match(/url is required/, error.message)
+    end
+
+    it "raises NotFoundError for non-existent post" do
+      VCR.use_cassette("instagram/comments_not_found") do
+        assert_raises(ScrapeCreators::NotFoundError) do
+          instagram.comments("https://www.instagram.com/p/nonexistent123456789/")
         end
       end
     end
@@ -587,6 +648,11 @@ describe ScrapeCreators::Resources::Instagram do
 
         error = assert_raises(ScrapeCreators::UnauthorizedError) do
           invalid_client.instagram.reels(handle: "adrianhorning")
+      VCR.use_cassette("instagram/comments_unauthorized") do
+        invalid_client = ScrapeCreators::Client.new(api_key: "invalid_key")
+
+        error = assert_raises(ScrapeCreators::UnauthorizedError) do
+          invalid_client.instagram.comments("https://www.instagram.com/reel/DGg3aQqvOkv/")
         end
 
         assert_match(/invalid|unauthorized|api.?key/i, error.message)

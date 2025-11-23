@@ -1,0 +1,61 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/youtube/channel/shorts/simple?amount=10&handle=upflip
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 23 Nov 2025 18:28:04 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      Etag:
+      - W/"85a-rtPvXAiSLnKhymV9Nk6sz7SS+Go"
+      Rndr-Id:
+      - 330d9727-8637-46ea
+      Vary:
+      - Accept-Encoding
+      X-Powered-By:
+      - Express
+      X-Render-Origin-Server:
+      - Render
+      Cf-Cache-Status:
+      - DYNAMIC
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 9a32b95fbc3661e4-ORD
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '[{"type":"short","id":"S7zXalTgO6I","url":"https://www.youtube.com/watch?v=S7zXalTgO6I","title":"Live
+        Tomorrow! How to Grow from 0 to 700K Instagram Followers","thumbnail":"https://i.ytimg.com/vi/S7zXalTgO6I/oar2.jpg?sqp=-oaymwEoCJUDENAFSFqQAgHyq4qpAxcIARUAAIhC2AEB4gEKCBgQAhgGOAFAAQ==&rs=AOn4CLDUDPgMaFIY27ZSShTEpR6FQVJG_Q","viewCountText":"2.5K","viewCountInt":2500},{"type":"short","id":"qGo5WDGay6s","url":"https://www.youtube.com/watch?v=qGo5WDGay6s","title":"How
+        to Get Clients Fast without Paid Ads (Live Tomorrow!)","thumbnail":"https://i.ytimg.com/vi/qGo5WDGay6s/oar2.jpg?sqp=-oaymwEoCJUDENAFSFqQAgHyq4qpAxcIARUAAIhC2AEB4gEKCBgQAhgGOAFAAQ==&rs=AOn4CLBSPmneBpkNOJtiw6bVCyMdEb_ClQ","viewCountText":"3.6K","viewCountInt":3600},{"type":"short","id":"xubzguEp_mA","url":"https://www.youtube.com/watch?v=xubzguEp_mA","title":"How
+        to Build your Service Business from $0 to $20K/month","thumbnail":"https://i.ytimg.com/vi/xubzguEp_mA/oar2.jpg?sqp=-oaymwEoCJUDENAFSFqQAgHyq4qpAxcIARUAAIhC2AEB4gEKCBgQAhgGOAFAAQ==&rs=AOn4CLCaQ3FXkkJsOxWZ2C3oW3xrYGXk3g","viewCountText":"4.1K","viewCountInt":4100},{"type":"short","id":"mxpwZqPhC3Q","url":"https://www.youtube.com/watch?v=mxpwZqPhC3Q","title":"Live
+        on UpFlip tomorrow!","thumbnail":"https://i.ytimg.com/vi/mxpwZqPhC3Q/oar2.jpg?sqp=-oaymwEoCJUDENAFSFqQAgHyq4qpAxcIARUAAIhC2AEB4gEKCBgQAhgGOAFAAQ==&rs=AOn4CLDDcx-XfHp4gh9DR1Ojk2C2KYoPOg","viewCountText":"2.7K","viewCountInt":2700},{"type":"short","id":"1YySaynSZM8","url":"https://www.youtube.com/watch?v=1YySaynSZM8","title":"Tomorrow,
+        Parker Olson Goes Live on UpFlip!","thumbnail":"https://i.ytimg.com/vi/1YySaynSZM8/oar2.jpg?sqp=-oaymwEoCJUDENAFSFqQAgHyq4qpAxcIARUAAIhC2AEB4gEKCBgQAhgGOAFAAQ==&rs=AOn4CLBymDMmI9niwlbBzy9w961pJGrTKQ","viewCountText":"2.2K","viewCountInt":2200},{"type":"short","id":"gKoiXP-7TF4","url":"https://www.youtube.com/watch?v=gKoiXP-7TF4","title":"3
+        Days to Go: Get Paid Before You Launch Your Business","thumbnail":"https://i.ytimg.com/vi/gKoiXP-7TF4/oar2.jpg?sqp=-oaymwEoCJUDENAFSFqQAgHyq4qpAxcIARUAAIhC2AEB4gEKCBgQAhgGOAFAAQ==&rs=AOn4CLAluYCCX7PE9iP8xvp_NHbHehlqdw","viewCountText":"3.9K","viewCountInt":3900}]'
+  recorded_at: Sun, 23 Nov 2025 18:28:04 GMT
+recorded_with: VCR 6.3.1

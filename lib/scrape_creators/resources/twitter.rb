@@ -220,6 +220,37 @@ module ScrapeCreators
 
         get("/v1/twitter/tweet", params)
       end
+
+      # Get the transcript of a video tweet
+      #
+      # Retrieves an AI-generated transcript of the audio from a video tweet.
+      # Note: This endpoint may be slower than others because it uses AI to
+      # generate the transcript.
+      #
+      # @param url [String] The full URL of the video tweet (e.g., "https://x.com/user/status/123")
+      # @return [Hash] Transcript data including success status and transcript text
+      # @raise [ArgumentError] If the url parameter is nil or empty
+      # @raise [BadRequestError] If the url parameter is invalid or tweet has no video
+      # @raise [NotFoundError] If the tweet is not found
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Get video tweet transcript
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   result = client.twitter.transcript("https://x.com/zaborovic/status/1855587637938598309")
+      #   puts result[:success]     # => true
+      #   puts result[:transcript]  # => "Since you're kind of like a leader..."
+      #
+      # @example Response structure
+      #   {
+      #     success: true,
+      #     transcript: "Since you're kind of like a leader in innovation and technology..."
+      #   }
+      def transcript(url)
+        raise ArgumentError, "url is required" if url.nil? || url.to_s.empty?
+
+        get("/v1/twitter/tweet/transcript", url: url)
+      end
     end
   end
 end

@@ -375,4 +375,125 @@ describe ScrapeCreators::Resources::Reddit do
       end
     end
   end
+
+  describe "#search" do
+    it "searches Reddit posts successfully" do
+      VCR.use_cassette("reddit/search_success") do
+        result = reddit.search("web scraping")
+
+        assert_kind_of Hash, result
+        assert result.key?(:posts)
+        assert_kind_of Array, result[:posts]
+        refute_empty result[:posts]
+
+        # Verify first post structure
+        post = result[:posts].first
+
+        assert post.key?(:id)
+        assert post.key?(:title)
+        assert post.key?(:author)
+        assert post.key?(:subreddit)
+        assert post.key?(:score)
+        assert post.key?(:num_comments)
+        assert post.key?(:created_utc)
+        assert post.key?(:permalink)
+        assert post.key?(:url)
+      end
+    end
+
+    it "includes pagination cursor in response" do
+      VCR.use_cassette("reddit/search_success") do
+        result = reddit.search("web scraping")
+
+        assert result.key?(:after)
+      end
+    end
+
+    it "searches with sort parameter" do
+      VCR.use_cassette("reddit/search_with_sort") do
+        result = reddit.search("python programming", sort: "top")
+
+        assert_kind_of Hash, result
+        assert result.key?(:posts)
+        assert_kind_of Array, result[:posts]
+      end
+    end
+
+    it "searches with timeframe parameter" do
+      VCR.use_cassette("reddit/search_with_timeframe") do
+        result = reddit.search("javascript", timeframe: "week")
+
+        assert_kind_of Hash, result
+        assert result.key?(:posts)
+        assert_kind_of Array, result[:posts]
+      end
+    end
+
+    it "searches with trim parameter" do
+      VCR.use_cassette("reddit/search_trimmed") do
+        result = reddit.search("ruby gems", trim: true)
+
+        assert_kind_of Hash, result
+        assert result.key?(:posts)
+      end
+    end
+
+    it "searches with all parameters" do
+      VCR.use_cassette("reddit/search_all_params") do
+        result = reddit.search(
+          "machine learning",
+          sort: "top",
+          timeframe: "month",
+          trim: true
+        )
+
+        assert_kind_of Hash, result
+        assert result.key?(:posts)
+      end
+    end
+
+    describe "argument validation" do
+      it "raises ArgumentError when query is nil" do
+        error = assert_raises(ArgumentError) do
+          reddit.search(nil)
+        end
+        assert_match(/query is required/, error.message)
+      end
+
+      it "raises ArgumentError when query is empty" do
+        error = assert_raises(ArgumentError) do
+          reddit.search("")
+        end
+        assert_match(/query is required/, error.message)
+      end
+
+      it "raises ArgumentError for invalid sort" do
+        error = assert_raises(ArgumentError) do
+          reddit.search("test", sort: "invalid")
+        end
+        assert_match(/sort must be one of/, error.message)
+      end
+
+      it "raises ArgumentError for invalid timeframe" do
+        error = assert_raises(ArgumentError) do
+          reddit.search("test", timeframe: "invalid")
+        end
+        assert_match(/timeframe must be one of/, error.message)
+      end
+    end
+
+    describe "error handling" do
+      it "raises PaymentRequiredError for invalid API key" do
+        VCR.use_cassette("reddit/search_unauthorized") do
+          invalid_client = ScrapeCreators::Client.new(api_key: "invalid_key")
+
+          error = assert_raises(ScrapeCreators::PaymentRequiredError) do
+            invalid_client.reddit.search("test query")
+          end
+
+          assert_match(/credits/i, error.message)
+        end
+      end
+    end
+  end
 end
