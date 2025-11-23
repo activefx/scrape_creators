@@ -1,0 +1,55 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/youtube/channel/shorts?handle=upflip&sort=popular
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 23 Nov 2025 18:17:16 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      Etag:
+      - W/"90-Epxn+8Ra4xEsbOGOGacvDHzqsF8"
+      Rndr-Id:
+      - 89aa7264-0650-417c
+      Vary:
+      - Accept-Encoding
+      X-Powered-By:
+      - Express
+      X-Render-Origin-Server:
+      - Render
+      Cf-Cache-Status:
+      - DYNAMIC
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 9a32a98b6e3ee826-ORD
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"success":true,"credits_remaining":24689,"videos":[],"channels":[],"playlists":[],"shorts":[],"shelves":[],"lives":[],"continuationToken":null}'
+  recorded_at: Sun, 23 Nov 2025 18:17:16 GMT
+recorded_with: VCR 6.3.1

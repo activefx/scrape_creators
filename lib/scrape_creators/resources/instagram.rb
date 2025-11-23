@@ -338,6 +338,93 @@ module ScrapeCreators
 
         get("/v2/instagram/media/transcript", url: url)
       end
+
+      # Search for Instagram reels by keyword
+      #
+      # Searches for reels matching a keyword. Can return a maximum of 60 reels.
+      # Costs 1 credit per 10 reels. May be slower if requesting more than 20 reels
+      # due to scraping search results first, then scraping each reel.
+      #
+      # @param query [String] Keyword to search for
+      # @param amount [Integer, nil] Number of reels to return (max 60)
+      # @return [Hash] Search results including reels array and credits remaining
+      # @raise [ArgumentError] If the query parameter is nil or empty
+      # @raise [BadRequestError] If the query parameter is invalid
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Search for reels by keyword
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   results = client.instagram.search_reels("running")
+      #   puts results[:success]           # => true
+      #   puts results[:reels].count       # => 10
+      #   puts results[:credits_remaining] # => 9981694
+      #
+      # @example Search with specific amount
+      #   results = client.instagram.search_reels("fitness", amount: 20)
+      #   puts results[:reels].count       # => 20
+      #
+      # @example Response structure
+      #   {
+      #     success: true,
+      #     credits_remaining: 9981694,
+      #     reels: [
+      #       {
+      #         id: "3744043036998479424",
+      #         __typename: "XDTGraphVideo",
+      #         shortcode: "DP1g04sEa5A",
+      #         url: "https://www.instagram.com/reel/DP1g04sEa5A/",
+      #         caption: "With the rising popularity of hybrid training...",
+      #         thumbnail_src: "https://...",
+      #         display_url: "https://...",
+      #         video_url: "https://...",
+      #         has_audio: false,
+      #         video_view_count: 3770,
+      #         video_play_count: 14750,
+      #         product_type: "clips",
+      #         video_duration: 49.866,
+      #         clips_music_attribution_info: {
+      #           artist_name: "joinladder",
+      #           song_name: "Original audio",
+      #           uses_original_audio: true,
+      #           audio_id: "24452552341111704"
+      #         },
+      #         is_video: true,
+      #         owner: {
+      #           id: "2028540658",
+      #           username: "joinladder",
+      #           is_verified: true,
+      #           profile_pic_url: "https://...",
+      #           full_name: "Ladder",
+      #           is_private: false,
+      #           follower_count: 411575,
+      #           post_count: 1107
+      #         },
+      #         taken_at: "2025-10-15T16:13:09.000Z",
+      #         is_ad: false,
+      #         like_count: 350,
+      #         comment_count: 5,
+      #         comments: [
+      #           {
+      #             id: "18012401585627100",
+      #             text: "HYBRID 🐐!",
+      #             owner: { id: "370586152", username: "edsel" },
+      #             like_count: 1,
+      #             created_at: "2025-10-15T17:20:33.000Z"
+      #           }
+      #         ],
+      #         location: null
+      #       }
+      #     ]
+      #   }
+      def search_reels(query, amount: nil)
+        raise ArgumentError, "query is required" if query.nil? || query.to_s.empty?
+
+        params = { query: query }
+        params[:amount] = amount unless amount.nil?
+
+        get("/v1/instagram/reels/search", params)
+      end
     end
   end
 end
