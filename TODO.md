@@ -136,7 +136,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 
 ## Reddit
 
-- [⏳] GET Subreddit Posts (`/v1/reddit/subreddit`)
+- [✅] GET Subreddit Posts (`/v1/reddit/subreddit`)
 - [⏳] GET Post Comments (`/v1/reddit/post/comments`)
 - [⏳] GET Simple Comments (`/v1/reddit/post/comments/simple`)
 - [⏳] GET Search (`/v1/reddit/search`)
@@ -250,7 +250,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 ## Implementation Progress Summary
 
 **Total Endpoints:** 133
-**Completed:** 25 (TikTok core + search + songs + shop endpoints, Instagram profile + basic profile + posts, Twitter profile)
+**Completed:** 25 (TikTok core + search + songs + shop endpoints, Instagram profile + basic profile + posts, Reddit subreddit posts)
 **Remaining:** 108
 
 ### Platform Completion Status
@@ -268,8 +268,8 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 - Facebook Ad Library: 0/4 endpoints (0%)
 - Google Ad Library: 1/3 endpoints (33%)
 - LinkedIn Ad Library: 0/2 endpoints (0%)
-- Twitter: 1/6 endpoints (17%)
-- Reddit: 0/6 endpoints (0%)
+- Twitter: 0/6 endpoints (0%)
+- Reddit: 1/6 endpoints (17%)
 - Truth Social: 0/3 endpoints (0%)
 - Threads: 0/5 endpoints (0%)
 - Bluesky: 0/3 endpoints (0%)
