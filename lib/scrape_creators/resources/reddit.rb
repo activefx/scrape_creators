@@ -104,6 +104,86 @@ module ScrapeCreators
 
         get("/v1/reddit/subreddit", params)
       end
+
+      # Get comments and post information from a Reddit post
+      #
+      # Retrieves all comments and the original post data from a Reddit post URL.
+      # Comments are returned in a nested structure with replies. Supports pagination
+      # for fetching additional comments and replies using cursors.
+      #
+      # @param url [String] The full Reddit post URL
+      # @param cursor [String, nil] Cursor to get more comments or replies from a previous response
+      # @param trim [Boolean, nil] Whether to return a trimmed response (default: false)
+      # @return [Hash] Post data with comments including nested replies and pagination cursors
+      # @raise [ArgumentError] If the url parameter is nil or empty
+      # @raise [BadRequestError] If the request parameters are invalid
+      # @raise [NotFoundError] If the post is not found
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Get comments from a Reddit post
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   result = client.reddit.post_comments("https://www.reddit.com/r/AskReddit/comments/abc123/...")
+      #   puts result[:post][:title]
+      #   result[:comments].each { |comment| puts comment[:body] }
+      #
+      # @example Paginate through more comments
+      #   result = client.reddit.post_comments("https://www.reddit.com/r/AskReddit/comments/abc123/...")
+      #   if result[:more][:has_more]
+      #     more_comments = client.reddit.post_comments(
+      #       "https://www.reddit.com/r/AskReddit/comments/abc123/...",
+      #       cursor: result[:more][:cursor]
+      #     )
+      #   end
+      #
+      # @example Get trimmed response
+      #   result = client.reddit.post_comments(
+      #     "https://www.reddit.com/r/AskReddit/comments/abc123/...",
+      #     trim: true
+      #   )
+      #
+      # @example Response structure
+      #   {
+      #     post: {
+      #       id: "ablzuq",
+      #       title: "People who haven't pooped in 2019 yet...",
+      #       author: "ShoddySubstance",
+      #       subreddit: "AskReddit",
+      #       subreddit_name_prefixed: "r/AskReddit",
+      #       score: 221995,
+      #       num_comments: 7925,
+      #       created_utc: 1546376787,
+      #       permalink: "/r/AskReddit/comments/ablzuq/...",
+      #       url: "https://www.reddit.com/r/AskReddit/comments/ablzuq/..."
+      #     },
+      #     comments: [
+      #       {
+      #         id: "ed1czme",
+      #         author: "sweatybeard",
+      #         body: "But when I finally do...",
+      #         score: 12211,
+      #         created_utc: 1546378524,
+      #         depth: 0,
+      #         replies: {
+      #           items: [...],
+      #           more: { has_more: true, cursor: "..." }
+      #         }
+      #       }
+      #     ],
+      #     more: {
+      #       has_more: true,
+      #       cursor: "ed1jhoi,ed1f3kw,..."
+      #     }
+      #   }
+      def post_comments(url, cursor: nil, trim: nil)
+        raise ArgumentError, "url is required" if url.nil? || url.to_s.empty?
+
+        params = { url: url }
+        params[:cursor] = cursor unless cursor.nil?
+        params[:trim] = trim unless trim.nil?
+
+        get("/v1/reddit/post/comments", params)
+      end
     end
   end
 end

@@ -1,0 +1,39 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/linkedin/post?url=https://www.linkedin.com/pulse/being-father-has-made-me-better-leader-vice-versa-austen-allred
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 23 Nov 2025 10:00:00 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Powered-By:
+      - Express
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"success":true,"url":"https://www.linkedin.com/pulse/being-father-has-made-me-better-leader-vice-versa-austen-allred","name":"Being a Father Has Made me a Better Leader, and Vice Versa","headline":"It''s not all that unique to be a 26-year-old founder in Silicon Valley. What was far more surprising to people in 2017 when I joined the S17 Y Combinator cohort is that I already had a family of my own.","commentCount":17,"likeCount":210,"datePublished":"2020-06-21T14:35:59.000+00:00","description":"It''s not all that unique to be a 26-year-old founder in Silicon Valley. What was far more surprising to people in 2017 when I joined the S17 Y Combinator cohort is that I already had a family of my own. When you think about it, it actually makes a lot of sense. If you can lead a household, you can learn to lead a company. I was just given a few extra years of practice before most.","author":{"name":"Austen Allred","url":"https://www.linkedin.com/in/austenallred","followers":30863},"comments":[{"author":"Jeremy M.","text":"Austen, thanks for sharing!","linkedinUrl":"https://uk.linkedin.com/in/jeremymurray"},{"author":"Sarah K.","text":"Great insights on leadership and family balance.","linkedinUrl":"https://www.linkedin.com/in/sarahk"}],"moreArticles":[{"link":"https://www.linkedin.com/pulse/note-outcomes-data-lambda-school-austen-allred","title":"A Note About Outcomes Data at Lambda School","datePublished":"Feb 24, 2020","description":"Due to some recent online media, there''s been some confusion recently about student outcomes at Lambda School - which is frustrating because we work hard to be transparent.","reactionCount":168,"commentCount":15},{"link":"https://www.linkedin.com/pulse/why-i-started-lambda-school-austen-allred","title":"Why I Started Lambda School","datePublished":"Jan 15, 2019","description":"The story behind Lambda School and why I believe education needs to change.","reactionCount":245,"commentCount":32}]}'
+  recorded_at: Sat, 23 Nov 2025 10:00:00 GMT
+recorded_with: VCR 6.3.1
