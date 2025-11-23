@@ -1,0 +1,90 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/facebook/profile/posts?pageId=100063669491743
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 503
+      message: Service Unavailable
+    headers:
+      Content-Length:
+      - '216'
+      Content-Type:
+      - text/plain
+      Date:
+      - Sun, 23 Nov 2025 17:54:35 GMT
+    body:
+      encoding: UTF-8
+      string: 'upstream connect error or disconnect/reset before headers. reset reason:
+        remote connection failure, transport failure reason: TLS_error:|268435581:SSL
+        routines:OPENSSL_internal:CERTIFICATE_VERIFY_FAILED:TLS_error_end'
+  recorded_at: Sun, 23 Nov 2025 17:54:35 GMT
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/facebook/profile/posts?pageId=100063669491743
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Date:
+      - Sun, 23 Nov 2025 17:54:36 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Cf-Ray:
+      - 9a328861ff5ec0a8-ORD
+      Access-Control-Allow-Origin:
+      - "*"
+      Etag:
+      - W/"94-Iw/8Q8JudHfKAn1kJC4G80t/21E"
+      Rndr-Id:
+      - 3e1480c6-6375-4cfc
+      Vary:
+      - Accept-Encoding
+      X-Powered-By:
+      - Express
+      X-Render-Origin-Server:
+      - Render
+      Cf-Cache-Status:
+      - DYNAMIC
+      Server:
+      - cloudflare
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '{"success":false,"credits_remaining":24712,"error":"missing_parameter","errorStatus":400,"message":"You
+        must provide a ''url'' that includes ''https''"}'
+  recorded_at: Sun, 23 Nov 2025 17:54:36 GMT
+recorded_with: VCR 6.3.1

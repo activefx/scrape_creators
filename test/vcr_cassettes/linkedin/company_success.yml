@@ -1,0 +1,39 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/linkedin/company?url=https://www.linkedin.com/company/shopify
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 23 Nov 2025 10:00:00 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Powered-By:
+      - Express
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"success":true,"id":"784652","name":"Shopify","description":"Shopify is a leading global commerce company, providing trusted tools to start, grow, market, and manage a retail business of any size. Shopify makes commerce better for everyone with a platform and services that are engineered for reliability, while delivering a better shopping experience for consumers everywhere. Shopify powers millions of businesses in more than 175 countries and is trusted by brands such as Allbirds, Gymshark, PepsiCo, Staples, and many more.","location":{"city":"Ottawa","state":"ON","country":"CA"},"employeeCount":23591,"website":"https://www.shopify.com","logo":"https://media.licdn.com/dms/image/v2/D560BAQG_KjTcNcrLVw/company-logo_200_200/B56ZZolTV.HUAU-/0/1745511331439/shopify_logo?e=2147483647&v=beta&t=D2saVg58cKnwEiDQgFgzvwL24mTRM_cPuU1ndv6kL2U","coverImage":"https://media.licdn.com/dms/image/v2/D563DAQGruQL8kvBvnw/image-scale_191_1128/B56ZanR4DSGoAs-/0/1746563203576/shopify_cover?e=2147483647&v=beta&t=rHubhVZZZSU_1V8tCeBpwL80OG3bNBjzBNEWFO24qa4","slogan":"Make commerce better for everyone","similarPages":[{"link":"https://www.linkedin.com/company/airbnb","name":"Airbnb","image":"https://media.licdn.com/dms/image/v2/C560BAQFhfl32crIGIw/company-logo_100_100/company-logo_100_100/0/1630637496980/airbnb_logo?e=2147483647&v=beta&t=idNQqoBZi6dZq6iG78J5GTOsNV_ltJf7ITo7zYZ6VWg"},{"link":"https://se.linkedin.com/company/spotify","name":"Spotify","image":"https://media.licdn.com/dms/image/v2/C560BAQFkDzx_7dqq3A/company-logo_100_100/company-logo_100_100/0/1631377935713?e=2147483647&v=beta&t=AiRi3YW2R5kYKHbxsjkdQ_d1RuH6Yk98ePBwANPPDhc"}],"industry":"Software Development","size":"10,001+ employees","founded":2006,"headquarters":"Ottawa, ON","type":"Public Company","specialties":["ecommerce","API","applications","customer service","hardware","marketplace","AR/VR","marketing automation","User Experience","Design","Production Engineering","POS","Payments","Software Engineering","Finance","Retail","Mobile Apps","Instagram","Google Pay","Dropshipping","and Shipping"],"funding":{"numberOfRounds":4,"lastRound":{"type":"Series C","date":"2014-01-11T00:00:00.000Z","amount":"US$ 100.0M"},"investors":[{"name":"OMERS Ventures","crunchbaseUrl":"https://www.crunchbase.com/organization/omers-ventures","image":"https://media.licdn.com/dms/image/sync/v2/D4E38AQEnDf6SgPOjAQ/crunchbase_investor_logo_100/crunchbase_investor_logo_100/0/1748147400909?e=1749146400&v=beta&t=V974RcVsrtQI1mZcqXPoKT8kutQoYneu8pjbjm5Un8E"},{"name":"Insight Partners","crunchbaseUrl":"https://www.crunchbase.com/organization/insight-partners","image":"https://media.licdn.com/dms/image/sync/v2/D4D38AQFO97oeFlJ74A/crunchbase_investor_logo_100/crunchbase_investor_logo_100/0/1748455429708?e=1749146400&v=beta&t=tRrAum9TLOKCquXN5bY65BaBsv_04RXSVKRzPt3BTcE"}]},"employees":[{"name":"Todd Jefferson","title":"Staff Software Developer at Shopify","link":"https://ca.linkedin.com/in/toddjefferson","image":"https://media.licdn.com/dms/image/v2/C4E03AQHg-rFtEf9qpw/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1583259322606?e=2147483647&v=beta&t=uBFwlGCBbgFmwrP8f29P4nIDJCgZ1YEyyntBzpR9j30"},{"name":"Joseph Smarr","title":"Principal Engineer @ Shopify","link":"https://www.linkedin.com/in/jsmarr","image":"https://media.licdn.com/dms/image/v2/C5603AQG6JPHHDSVF_g/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1600306045236?e=2147483647&v=beta&t=SYwM63n268TcHjRQFbsz1EXXcGkXxKnYKNqNVUwDjA8"}],"posts":[{"url":"https://www.linkedin.com/posts/shopify_shopifys-design-vision-brings-horizon-into-activity-7331699854873620480-R_N8","datePublished":"2025-05-23T15:17:41.770Z","text":"In the era of AI, design matters more than ever. And we are not just keeping pace—we are leading the way."}]}'
+  recorded_at: Sun, 23 Nov 2025 10:00:00 GMT
+recorded_with: VCR 6.3.1
