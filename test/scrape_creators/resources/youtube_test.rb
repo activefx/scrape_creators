@@ -1046,4 +1046,105 @@ describe ScrapeCreators::Resources::Youtube do
       end
     end
   end
+
+  describe "#trending_shorts" do
+    describe "fetching trending shorts" do
+      it "fetches trending YouTube shorts" do
+        VCR.use_cassette("youtube/trending_shorts") do
+          result = youtube.trending_shorts
+
+          assert_kind_of Hash, result
+          assert result.key?(:success)
+          assert result.key?(:shorts)
+          assert_kind_of Array, result[:shorts]
+        end
+      end
+
+      it "returns shorts with expected structure" do
+        VCR.use_cassette("youtube/trending_shorts_structure") do
+          result = youtube.trending_shorts
+
+          assert_kind_of Hash, result
+          assert result.key?(:shorts)
+
+          if result[:shorts].any?
+            short = result[:shorts].first
+
+            # Verify core short fields
+            assert short.key?(:id)
+            assert short.key?(:title)
+            assert short.key?(:url)
+            assert short.key?(:thumbnail)
+
+            # Verify engagement fields
+            assert short.key?(:view_count_text) || short.key?(:view_count_int)
+          end
+        end
+      end
+
+      it "returns shorts with channel information" do
+        VCR.use_cassette("youtube/trending_shorts_with_channel") do
+          result = youtube.trending_shorts
+
+          assert_kind_of Hash, result
+          assert result.key?(:shorts)
+
+          if result[:shorts].any?
+            short = result[:shorts].first
+
+            assert short.key?(:channel)
+            assert_kind_of Hash, short[:channel] if short[:channel]
+
+            if short[:channel]
+              assert short[:channel].key?(:id)
+              assert short[:channel].key?(:title)
+            end
+          end
+        end
+      end
+
+      it "returns shorts with duration information" do
+        VCR.use_cassette("youtube/trending_shorts_with_duration") do
+          result = youtube.trending_shorts
+
+          assert_kind_of Hash, result
+          assert result.key?(:shorts)
+
+          if result[:shorts].any?
+            short = result[:shorts].first
+
+            assert short.key?(:duration_ms) || short.key?(:duration_formatted)
+          end
+        end
+      end
+
+      it "returns shorts with publish date information" do
+        VCR.use_cassette("youtube/trending_shorts_with_publish_date") do
+          result = youtube.trending_shorts
+
+          assert_kind_of Hash, result
+          assert result.key?(:shorts)
+
+          if result[:shorts].any?
+            short = result[:shorts].first
+
+            assert short.key?(:publish_date_text) || short.key?(:publish_date)
+          end
+        end
+      end
+    end
+
+    describe "error handling" do
+      it "raises authentication error for invalid API key" do
+        VCR.use_cassette("youtube/trending_shorts_unauthorized") do
+          invalid_client = ScrapeCreators::Client.new(api_key: "invalid_key")
+
+          # API may return UnauthorizedError or PaymentRequiredError for invalid credentials
+          assert_raises(ScrapeCreators::UnauthorizedError, ScrapeCreators::PaymentRequiredError) do
+            invalid_client.youtube.trending_shorts
+          end
+        end
+      end
+    end
+  end
 end

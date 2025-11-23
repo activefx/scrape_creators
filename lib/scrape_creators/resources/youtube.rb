@@ -690,6 +690,64 @@ module ScrapeCreators
 
         get("/v1/youtube/search/hashtag", params)
       end
+
+      # Get trending YouTube shorts
+      #
+      # Retrieves approximately 48 currently trending shorts on YouTube.
+      # No parameters required - returns the current trending shorts.
+      #
+      # @return [Hash] Trending shorts data including success status and array of shorts
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Get trending shorts
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   result = client.youtube.trending_shorts
+      #   result[:shorts].each do |short|
+      #     puts "#{short[:title]} - #{short[:view_count_text]}"
+      #   end
+      #
+      # @example Access short details
+      #   result = client.youtube.trending_shorts
+      #   short = result[:shorts].first
+      #   puts short[:channel][:title]     # => "Dame Universe"
+      #   puts short[:view_count_int]      # => 13798774
+      #   puts short[:duration_formatted]  # => "00:00:19"
+      #
+      # @example Response structure
+      #   {
+      #     success: true,
+      #     shorts: [
+      #       {
+      #         id: "ou0nl5ET0HA",
+      #         thumbnail: "https://img.youtube.com/vi/ou0nl5ET0HA/maxresdefault.jpg",
+      #         url: "https://www.youtube.com/watch?v=ou0nl5ET0HA",
+      #         title: "That hooper who says their just shoes",
+      #         description: nil,
+      #         comment_count_text: "168",
+      #         comment_count_int: 168,
+      #         like_count_text: "151957",
+      #         like_count_int: 151957,
+      #         view_count_text: "13,798,774",
+      #         view_count_int: 13798774,
+      #         publish_date_text: "Aug 7, 2025",
+      #         publish_date: "2025-08-07T13:00:22-07:00",
+      #         channel: {
+      #           id: "UC3iObCgKLKr9xquQw7fCang",
+      #           url: "https://www.youtube.com/@dameuniverse",
+      #           handle: "dameuniverse",
+      #           title: "Dame Universe"
+      #         },
+      #         chapters: [],
+      #         keywords: ["Kobe", "Sneaker heads", ...],
+      #         duration_ms: 19000,
+      #         duration_formatted: "00:00:19"
+      #       }
+      #     ]
+      #   }
+      def trending_shorts
+        get("/v1/youtube/shorts/trending", {})
+      end
     end
   end
 end
