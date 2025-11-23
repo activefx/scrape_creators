@@ -188,7 +188,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 
 ## Twitch
 
-- [⏳] GET Profile (`/v1/twitch/profile`)
+- [✅] GET Profile (`/v1/twitch/profile`)
 - [⏳] GET Clip (`/v1/twitch/clip`)
 
 ---
@@ -250,8 +250,8 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 ## Implementation Progress Summary
 
 **Total Endpoints:** 103
-**Completed:** 59
-**Remaining:** 44
+**Completed:** 60
+**Remaining:** 43
 
 ### Platform Completion Status
 - TikTok: 18/18 endpoints (100%)
@@ -270,7 +270,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 - Bluesky: 0/3 endpoints (0%)
 - Pinterest: 0/4 endpoints (0%)
 - Google: 0/1 endpoints (0%)
-- Twitch: 0/2 endpoints (0%)
+- Twitch: 1/2 endpoints (50%)
 - Kick: 0/1 endpoints (0%)
 - Snapchat: 0/1 endpoints (0%)
 - Linktree: 0/1 endpoints (0%)
