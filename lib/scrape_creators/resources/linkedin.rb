@@ -217,6 +217,66 @@ module ScrapeCreators
 
         get("/v1/linkedin/company", url: url)
       end
+
+      # Get a LinkedIn post or article
+      #
+      # Scrapes a public LinkedIn post or article including the content, author information,
+      # engagement metrics (likes, comments), publication date, and related articles.
+      #
+      # @param url [String] The URL of the LinkedIn post or article to get
+      # @return [Hash] Post data including name, headline, description, like count,
+      #   comment count, date published, author info, comments, and related articles
+      # @raise [ArgumentError] If the url parameter is nil or empty
+      # @raise [BadRequestError] If the url parameter is invalid
+      # @raise [NotFoundError] If the post is not found
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Get a LinkedIn post
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   post = client.linkedin.post("https://www.linkedin.com/pulse/being-father-has-made-me-better-leader-vice-versa-austen-allred")
+      #   puts post[:name]         # => "Being a Father Has Made me a Better Leader, and Vice Versa"
+      #   puts post[:like_count]   # => 210
+      #   puts post[:comment_count] # => 17
+      #
+      # @example Response structure
+      #   {
+      #     success: true,
+      #     url: "https://www.linkedin.com/pulse/being-father-has-made-me...",
+      #     name: "Being a Father Has Made me a Better Leader, and Vice Versa",
+      #     headline: "It's not all that unique to be a 26-year-old founder...",
+      #     comment_count: 17,
+      #     like_count: 210,
+      #     date_published: "2020-06-21T14:35:59.000+00:00",
+      #     description: "It's not all that unique to be a 26-year-old founder...",
+      #     author: {
+      #       name: "Austen Allred",
+      #       url: "https://www.linkedin.com/in/austenallred",
+      #       followers: 30863
+      #     },
+      #     comments: [
+      #       {
+      #         author: "Jeremy M.",
+      #         text: "Austen, thanks for sharing!",
+      #         linkedin_url: "https://uk.linkedin.com/in/jeremymurray"
+      #       }
+      #     ],
+      #     more_articles: [
+      #       {
+      #         link: "https://www.linkedin.com/pulse/note-outcomes-data...",
+      #         title: "A Note About Outcomes Data at Lambda School",
+      #         date_published: "Feb 24, 2020",
+      #         description: "Due to some recent online media...",
+      #         reaction_count: 168,
+      #         comment_count: 15
+      #       }
+      #     ]
+      #   }
+      def post(url)
+        raise ArgumentError, "url is required" if url.nil? || url.to_s.empty?
+
+        get("/v1/linkedin/post", url: url)
+      end
     end
   end
 end

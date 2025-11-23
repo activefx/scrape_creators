@@ -1,0 +1,39 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/instagram/reels/search?query=running
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 23 Nov 2025 10:00:00 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Powered-By:
+      - Express
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"credits_remaining":9981694,"reels":[{"id":"3744043036998479424","__typename":"XDTGraphVideo","shortcode":"DP1g04sEa5A","url":"https://www.instagram.com/reel/DP1g04sEa5A/","caption":"With the rising popularity of hybrid training, here''s everything you need to know as a runner.","thumbnail_src":"https://instagram.fsac1-1.fna.fbcdn.net/v/example.jpg","display_url":"https://instagram.fsac1-1.fna.fbcdn.net/v/example.jpg","video_url":"https://instagram.fsac1-1.fna.fbcdn.net/o1/v/example.mp4","has_audio":false,"accessibility_caption":null,"video_view_count":3770,"video_play_count":14750,"product_type":"clips","video_duration":49.866,"clips_music_attribution_info":{"artist_name":"joinladder","song_name":"Original audio","uses_original_audio":true,"should_mute_audio":false,"should_mute_audio_reason":"","audio_id":"24452552341111704"},"is_video":true,"owner":{"id":"2028540658","username":"joinladder","is_verified":true,"profile_pic_url":"https://instagram.fsac1-1.fna.fbcdn.net/v/example.jpg","full_name":"Ladder","is_private":false,"is_unpublished":false,"follower_count":411575,"post_count":1107},"taken_at":"2025-10-15T16:13:09.000Z","is_ad":false,"like_count":350,"is_affiliate":false,"is_paid_partnership":false,"location":null,"comment_count":5,"comments":[{"id":"18012401585627100","text":"HYBRID!","owner":{"id":"370586152","is_verified":false,"profile_pic_url":"https://instagram.fsac1-1.fna.fbcdn.net/v/example.jpg","username":"edsel"},"like_count":1,"created_at":"2025-10-15T17:20:33.000Z"}]},{"id":"3688898324799754410","__typename":"XDTGraphVideo","shortcode":"DMxmXtWORCq","url":"https://www.instagram.com/reel/DMxmXtWORCq/","caption":"Running IS SO NATURAL! So let''s bring it back down to basics.","thumbnail_src":"https://scontent-atl3-1.cdninstagram.com/v/example.jpg","display_url":"https://scontent-atl3-1.cdninstagram.com/v/example.jpg","video_url":"https://scontent-atl3-3.cdninstagram.com/o1/v/example.mp4","has_audio":true,"accessibility_caption":null,"video_view_count":129901,"video_play_count":354617,"product_type":"clips","video_duration":50.958,"clips_music_attribution_info":{"artist_name":"_charihawkins","song_name":"Original audio","uses_original_audio":true,"should_mute_audio":false,"should_mute_audio_reason":"","audio_id":"4028176267394486"},"is_video":true,"owner":{"id":"18391047","username":"_charihawkins","is_verified":true,"profile_pic_url":"https://scontent-atl3-1.cdninstagram.com/v/example.jpg","full_name":"Chari Hawkins","is_private":false,"is_unpublished":false,"follower_count":1156482,"post_count":1718},"taken_at":"2025-07-31T14:18:17.000Z","is_ad":false,"like_count":13463,"is_affiliate":false,"is_paid_partnership":false,"location":null,"comment_count":143,"comments":[{"id":"17964623390993367","text":"Awesome but which trainers pls","owner":{"id":"1631532406","is_verified":false,"profile_pic_url":"https://scontent-atl3-3.cdninstagram.com/v/example.jpg","username":"bhupsgill"},"like_count":0,"created_at":"2025-10-11T19:59:00.000Z"}]}]}'
+  recorded_at: Sat, 23 Nov 2025 10:00:00 GMT
+recorded_with: VCR 6.3.1

@@ -76,6 +76,81 @@ module ScrapeCreators
 
         get("/v1/twitter/profile", handle: handle)
       end
+
+      # Get tweets from a user's profile
+      #
+      # Retrieves tweets from a Twitter user's profile. Note: Twitter publicly only returns
+      # up to 100 of the user's most popular tweets, not their latest tweets.
+      #
+      # @param handle [String] Twitter handle (username without @)
+      # @param trim [Boolean] Set to true for a trimmed down version of the response
+      # @return [Hash] Hash containing tweets array with tweet data including content,
+      #   engagement metrics, media, and user information
+      # @raise [ArgumentError] If the handle parameter is nil or empty
+      # @raise [BadRequestError] If the handle parameter is invalid
+      # @raise [NotFoundError] If the profile is not found
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Get tweets from a user's profile
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   result = client.twitter.user_tweets("adrian_horning_")
+      #   result[:tweets].each do |tweet|
+      #     puts tweet[:legacy][:full_text]
+      #     puts "Likes: #{tweet[:legacy][:favorite_count]}"
+      #     puts "Retweets: #{tweet[:legacy][:retweet_count]}"
+      #   end
+      #
+      # @example Get trimmed tweets
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   result = client.twitter.user_tweets("adrian_horning_", trim: true)
+      #
+      # @example Response structure
+      #   {
+      #     tweets: [
+      #       {
+      #         __typename: "Tweet",
+      #         rest_id: "1828402665845322123",
+      #         core: {
+      #           user_results: {
+      #             result: {
+      #               __typename: "User",
+      #               id: "VXNlcjo0NTIwMjQxMjA5",
+      #               rest_id: "4520241209",
+      #               is_blue_verified: true,
+      #               legacy: {
+      #                 name: "Adrian | The Web Scraping Guy",
+      #                 screen_name: "adrian_horning_",
+      #                 followers_count: 17297
+      #               }
+      #             }
+      #           }
+      #         },
+      #         views: {
+      #           count: "493762",
+      #           state: "EnabledWithCount"
+      #         },
+      #         legacy: {
+      #           bookmark_count: 1030,
+      #           created_at: "Tue Aug 27 12:02:20 +0000 2024",
+      #           favorite_count: 1722,
+      #           full_text: "I just scraped 2.8 million companies...",
+      #           quote_count: 12,
+      #           reply_count: 3186,
+      #           retweet_count: 64
+      #         },
+      #         url: "https://x.com/Austen/status/1935730646267158797"
+      #       }
+      #     ]
+      #   }
+      def user_tweets(handle, trim: nil)
+        raise ArgumentError, "handle is required" if handle.nil? || handle.to_s.empty?
+
+        params = { handle: handle }
+        params[:trim] = trim unless trim.nil?
+
+        get("/v1/twitter/user-tweets", params)
+      end
     end
   end
 end
