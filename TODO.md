@@ -182,7 +182,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 
 ## Google
 
-- [⏳] GET Search (`/v1/google/search`)
+- [✅] GET Search (`/v1/google/search`)
 
 ---
 
@@ -269,7 +269,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 - Threads: 2/5 endpoints (40%)
 - Bluesky: 1/3 endpoints (33%)
 - Pinterest: 1/4 endpoints (25%)
-- Google: 0/1 endpoints (0%)
+- Google: 1/1 endpoints (100%)
 - Twitch: 0/2 endpoints (0%)
 - Kick: 0/1 endpoints (0%)
 - Snapchat: 0/1 endpoints (0%)
