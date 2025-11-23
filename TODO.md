@@ -84,7 +84,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 
 - [✅] GET Person's Profile (`/v1/linkedin/profile`)
 - [✅] GET Company Page (`/v1/linkedin/company`)
-- [⏳] GET Post (`/v1/linkedin/post`)
+- [✅] GET Post (`/v1/linkedin/post`)
 
 ---
 
@@ -261,9 +261,8 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 - YouTube: 2/12 endpoints (17%)
 - Instagram: 3/13 endpoints (23%)
 - YouTube: 0/12 endpoints (0%)
-- LinkedIn: 2/3 endpoints (67%)
+- LinkedIn: 3/3 endpoints (100%)
 - YouTube: 2/12 endpoints (17%)
-- LinkedIn: 2/3 endpoints (67%)
 - Facebook: 1/6 endpoints (17%)
 - Facebook: 0/6 endpoints (0%)
 - Facebook Ad Library: 0/4 endpoints (0%)
