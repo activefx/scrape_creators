@@ -1,0 +1,124 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/linkedin/ad?url=https://www.linkedin.com/ad-library/detail/664291126
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 503
+      message: Service Unavailable
+    headers:
+      Content-Length:
+      - '216'
+      Content-Type:
+      - text/plain
+      Date:
+      - Sun, 23 Nov 2025 18:11:39 GMT
+    body:
+      encoding: UTF-8
+      string: 'upstream connect error or disconnect/reset before headers. reset reason:
+        remote connection failure, transport failure reason: TLS_error:|268435581:SSL
+        routines:OPENSSL_internal:CERTIFICATE_VERIFY_FAILED:TLS_error_end'
+  recorded_at: Sun, 23 Nov 2025 18:11:39 GMT
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/linkedin/ad?url=https://www.linkedin.com/ad-library/detail/664291126
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 503
+      message: Service Unavailable
+    headers:
+      Content-Length:
+      - '216'
+      Content-Type:
+      - text/plain
+      Date:
+      - Sun, 23 Nov 2025 18:11:40 GMT
+    body:
+      encoding: UTF-8
+      string: 'upstream connect error or disconnect/reset before headers. reset reason:
+        remote connection failure, transport failure reason: TLS_error:|268435581:SSL
+        routines:OPENSSL_internal:CERTIFICATE_VERIFY_FAILED:TLS_error_end'
+  recorded_at: Sun, 23 Nov 2025 18:11:40 GMT
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/linkedin/ad?url=https://www.linkedin.com/ad-library/detail/664291126
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 23 Nov 2025 18:11:44 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      Etag:
+      - W/"a4e-ZoRvhFwK5rmplGGLSgeU+2y6Vqo"
+      Rndr-Id:
+      - 29441ebc-e2cf-4dd4
+      Vary:
+      - Accept-Encoding
+      X-Powered-By:
+      - Express
+      X-Render-Origin-Server:
+      - Render
+      Cf-Cache-Status:
+      - DYNAMIC
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 9a32a1709c6ee81e-ORD
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eyJzdWNjZXNzIjp0cnVlLCJjcmVkaXRzX3JlbWFpbmluZyI6MjQ3MDIsImlkIjoiNjY0MjkxMTI2IiwiZGVzY3JpcHRpb24iOiJMZWFybiB0byBzdGFydCBidWlsZGluZyBhbiBBSSBzdHJhdGVneSB0aGF0IGhlbHBzIHlvdXIgc21hbGwgYnVzaW5lc3MgYXV0b21hdGUgcm91dGluZSB0YXNrcyBhbmQga2VlcCB0ZWFtcyBmb2N1c2VkIG9uIGhpZ2gtdmFsdWUgYWN0aXZpdGllcy4iLCJoZWFkbGluZSI6IlJlYWQg4oCcVGhlIEd1aWRlIHRvIEFJIGZvciBTbWFsbCBCdXNpbmVzc2Vz4oCdIiwicG9zdGVyIjoiU2FsZXNmb3JjZSIsInBvc3RlclRpdGxlIjoiUHJvbW90ZWQiLCJwcm9tb3RlZEJ5IjpudWxsLCJ0YXJnZXRpbmciOnsibGFuZ3VhZ2UiOiJUYXJnZXRpbmcgaW5jbHVkZXMgRW5nbGlzaCIsImxvY2F0aW9uIjoiVGFyZ2V0aW5nIGluY2x1ZGVzIFBvcnR1Z2FsIiwiYXVkaWVuY2UiOiJJbmNsdXNpb24gYW5kIGV4Y2x1c2lvbiB0YXJnZXRpbmcgYXBwbGllZCJ9LCJpbWFnZSI6Imh0dHBzOi8vbWVkaWEubGljZG4uY29tL2Rtcy9pbWFnZS92Mi9ENTYxMEFRSEVqUUF5ZEhXTGF3L2ltYWdlLXNocmlua18xMjgwL2ltYWdlLXNocmlua18xMjgwLzAvMTczNjk1MDUwMjAwNS9BaS1ndWlkZS1mb3Itc21icz9lPTIxNDc0ODM2NDcmdj1iZXRhJnQ9ZEMtaVB6MWZyOHBpTjZZdXRkRGdLSU9tUlBKdkZhajRIcjBnX3JhSFo3MCIsInZpZGVvIjpudWxsLCJjYXJvdXNlbEltYWdlcyI6W10sInVybCI6Imh0dHBzOi8vd3d3LmxpbmtlZGluLmNvbS9hZC1saWJyYXJ5L2RldGFpbC82NjQyOTExMjYiLCJhZFR5cGUiOiJTaW5nbGUgSW1hZ2UgQWQiLCJhZHZlcnRpc2VyIjoiU2FsZXNmb3JjZSIsImFkdmVydGlzZXJMaW5rZWRpblBhZ2UiOiJodHRwczovL3d3dy5saW5rZWRpbi5jb20vY29tcGFueS8zMTg1IiwiY3RhIjpudWxsLCJkZXN0aW5hdGlvblVybCI6Imh0dHBzOi8vd3d3LnNhbGVzZm9yY2UuY29tL2V1L2Zvcm0vc21hbGwtYnVzaW5lc3MvYWktZ3VpZGUtZm9yLXNtYnMvP2Q9NzAxZWQwMDAwMENYMEdmQUFMJm5jPTcwMWVkMDAwMDA3VVlUTUFBNCZ1dG1fc291cmNlPWxpbmtlZGluJnV0bV9tZWRpdW09cGFpZF9zb2NpYWwmdXRtX2NhbXBhaWduPWVtZWFfcHRfZWluc3RlaW5haV9hbGxpbmR1c3RyaWVzJnV0bV9jb250ZW50PWVudGVycHJpc2VzbWFsbGJ1c2luZXNzX3BwLWRtLWFsbC1jcngtbXVsdGktdGFsLWxpbmtlZGluLXByb3NwZWN0LXRhbHMtZXNtYl83MDFlZDAwMDAwQ1gwR2ZBQUxfZW5nbGlzaF9haS1ndWlkZS1mb3Itc21icyZ0cms9YWRfbGlicmFyeV9hZF9wcmV2aWV3X2hlYWRsaW5lX2NvbnRlbnQiLCJhZER1cmF0aW9uIjoiUmFuIGZyb20gQXByIDEsIDIwMjUgdG8gSnVsIDMxLCAyMDI1Iiwic3RhcnREYXRlIjoiMjAyNS0wNC0wMVQwMDowMDowMC4wMDBaIiwiZW5kRGF0ZSI6IjIwMjUtMDctMzFUMDA6MDA6MDAuMDAwWiIsInRvdGFsSW1wcmVzc2lvbnMiOiIxMDBrLTIwMGsiLCJpbXByZXNzaW9uc0J5Q291bnRyeSI6W3siY291bnRyeSI6IlBvcnR1Z2FsIiwiaW1wcmVzc2lvbnMiOiIxMDAlIn0seyJjb3VudHJ5IjoiQnJhemlsIiwiaW1wcmVzc2lvbnMiOiJsZXNzIHRoYW4gMSUifSx7ImNvdW50cnkiOiJVbml0ZWQgU3RhdGVzIiwiaW1wcmVzc2lvbnMiOiJsZXNzIHRoYW4gMSUifSx7ImNvdW50cnkiOiJBbmdvbGEiLCJpbXByZXNzaW9ucyI6Imxlc3MgdGhhbiAxJSJ9LHsiY291bnRyeSI6Ikl0YWx5IiwiaW1wcmVzc2lvbnMiOiJsZXNzIHRoYW4gMSUifSx7ImNvdW50cnkiOiJTcGFpbiIsImltcHJlc3Npb25zIjoibGVzcyB0aGFuIDElIn0seyJjb3VudHJ5IjoiVW5pdGVkIEtpbmdkb20iLCJpbXByZXNzaW9ucyI6Imxlc3MgdGhhbiAxJSJ9LHsiY291bnRyeSI6Ikdlcm1hbnkiLCJpbXByZXNzaW9ucyI6Imxlc3MgdGhhbiAxJSJ9LHsiY291bnRyeSI6IkZyYW5jZSIsImltcHJlc3Npb25zIjoibGVzcyB0aGFuIDElIn0seyJjb3VudHJ5IjoiTmV0aGVybGFuZHMiLCJpbXByZXNzaW9ucyI6Imxlc3MgdGhhbiAxJSJ9LHsiY291bnRyeSI6IkJhbmdsYWRlc2giLCJpbXByZXNzaW9ucyI6Imxlc3MgdGhhbiAxJSJ9LHsiY291bnRyeSI6IkJlbGdpdW0iLCJpbXByZXNzaW9ucyI6Imxlc3MgdGhhbiAxJSJ9LHsiY291bnRyeSI6IkxhdHZpYSIsImltcHJlc3Npb25zIjoibGVzcyB0aGFuIDElIn0seyJjb3VudHJ5IjoiUGFraXN0YW4iLCJpbXByZXNzaW9ucyI6Imxlc3MgdGhhbiAxJSJ9LHsiY291bnRyeSI6IkF1c3RyYWxpYSIsImltcHJlc3Npb25zIjoibGVzcyB0aGFuIDElIn0seyJjb3VudHJ5IjoiQ2FuYWRhIiwiaW1wcmVzc2lvbnMiOiJsZXNzIHRoYW4gMSUifSx7ImNvdW50cnkiOiJTd2l0emVybGFuZCIsImltcHJlc3Npb25zIjoibGVzcyB0aGFuIDElIn0seyJjb3VudHJ5IjoiSW5kaWEiLCJpbXByZXNzaW9ucyI6Imxlc3MgdGhhbiAxJSJ9LHsiY291bnRyeSI6Ikx1eGVtYm91cmciLCJpbXByZXNzaW9ucyI6Imxlc3MgdGhhbiAxJSJ9LHsiY291bnRyeSI6Ik5pZ2VyaWEiLCJpbXByZXNzaW9ucyI6Imxlc3MgdGhhbiAxJSJ9LHsiY291bnRyeSI6IlVrcmFpbmUiLCJpbXByZXNzaW9ucyI6Imxlc3MgdGhhbiAxJSJ9LHsiY291bnRyeSI6IlNvdXRoIEFmcmljYSIsImltcHJlc3Npb25zIjoibGVzcyB0aGFuIDElIn1dfQ==
+  recorded_at: Sun, 23 Nov 2025 18:11:44 GMT
+recorded_with: VCR 6.3.1

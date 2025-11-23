@@ -344,4 +344,124 @@ describe ScrapeCreators::Resources::Linkedin do
       end
     end
   end
+
+  describe "#post" do
+    it "fetches a LinkedIn post successfully" do
+      VCR.use_cassette("linkedin/post_success") do
+        post = linkedin.post("https://www.linkedin.com/pulse/being-father-has-made-me-better-leader-vice-versa-austen-allred")
+
+        assert_kind_of Hash, post
+        assert post[:success]
+
+        # Verify basic post data
+        assert_equal "Being a Father Has Made me a Better Leader, and Vice Versa", post[:name]
+        assert post.key?(:url)
+        assert post.key?(:headline)
+        assert post.key?(:description)
+        assert post.key?(:date_published)
+      end
+    end
+
+    it "fetches post with engagement metrics" do
+      VCR.use_cassette("linkedin/post_success") do
+        post = linkedin.post("https://www.linkedin.com/pulse/being-father-has-made-me-better-leader-vice-versa-austen-allred")
+
+        # Verify engagement metrics
+        assert post.key?(:like_count)
+        assert_kind_of Integer, post[:like_count]
+
+        assert post.key?(:comment_count)
+        assert_kind_of Integer, post[:comment_count]
+      end
+    end
+
+    it "fetches post with author information" do
+      VCR.use_cassette("linkedin/post_success") do
+        post = linkedin.post("https://www.linkedin.com/pulse/being-father-has-made-me-better-leader-vice-versa-austen-allred")
+
+        # Verify author structure
+        assert post.key?(:author)
+        assert_kind_of Hash, post[:author]
+
+        author = post[:author]
+
+        assert author.key?(:name)
+        assert author.key?(:url)
+        assert author.key?(:followers)
+      end
+    end
+
+    it "fetches post with comments" do
+      VCR.use_cassette("linkedin/post_success") do
+        post = linkedin.post("https://www.linkedin.com/pulse/being-father-has-made-me-better-leader-vice-versa-austen-allred")
+
+        # Verify comments structure
+        assert post.key?(:comments)
+        assert_kind_of Array, post[:comments]
+
+        if post[:comments].any?
+          comment = post[:comments].first
+
+          assert comment.key?(:author)
+          assert comment.key?(:text)
+          assert comment.key?(:linkedin_url)
+        end
+      end
+    end
+
+    it "fetches post with more articles" do
+      VCR.use_cassette("linkedin/post_success") do
+        post = linkedin.post("https://www.linkedin.com/pulse/being-father-has-made-me-better-leader-vice-versa-austen-allred")
+
+        # Verify more articles structure
+        assert post.key?(:more_articles)
+        assert_kind_of Array, post[:more_articles]
+
+        if post[:more_articles].any?
+          article = post[:more_articles].first
+
+          assert article.key?(:link)
+          assert article.key?(:title)
+          assert article.key?(:date_published)
+          assert article.key?(:description)
+          assert article.key?(:reaction_count)
+          assert article.key?(:comment_count)
+        end
+      end
+    end
+
+    it "raises ArgumentError when url is nil" do
+      error = assert_raises(ArgumentError) do
+        linkedin.post(nil)
+      end
+      assert_match(/url is required/, error.message)
+    end
+
+    it "raises ArgumentError when url is empty" do
+      error = assert_raises(ArgumentError) do
+        linkedin.post("")
+      end
+      assert_match(/url is required/, error.message)
+    end
+
+    it "raises NotFoundError for non-existent post" do
+      VCR.use_cassette("linkedin/post_not_found") do
+        assert_raises(ScrapeCreators::NotFoundError) do
+          linkedin.post("https://www.linkedin.com/pulse/this-post-does-not-exist-123456789xyz")
+        end
+      end
+    end
+
+    it "raises UnauthorizedError for invalid API key" do
+      VCR.use_cassette("linkedin/post_unauthorized") do
+        invalid_client = ScrapeCreators::Client.new(api_key: "invalid_key")
+
+        error = assert_raises(ScrapeCreators::UnauthorizedError) do
+          invalid_client.linkedin.post("https://www.linkedin.com/pulse/being-father-has-made-me-better-leader-vice-versa-austen-allred")
+        end
+
+        assert_match(/invalid|unauthorized|api.?key/i, error.message)
+      end
+    end
+  end
 end

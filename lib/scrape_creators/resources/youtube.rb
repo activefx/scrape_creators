@@ -145,6 +145,78 @@ module ScrapeCreators
 
         get("/v1/youtube/channel-videos", params)
       end
+
+      # Get shorts from a YouTube channel
+      #
+      # Retrieves shorts from a channel with engagement metrics. For more details about
+      # a short like description, publish date, etc., use the Video/Short Details endpoint.
+      # You must provide at least one of: channel_id or handle.
+      #
+      # @param channel_id [String, nil] YouTube channel ID (e.g., "UCX6OQ3DkcsbYNE6H8uQQuVA")
+      # @param handle [String, nil] YouTube handle/username (e.g., "mrbeast" or "@mrbeast")
+      # @param sort [String, nil] Sort order - "newest" or "popular"
+      # @param continuation_token [String, nil] Token from previous response to get more shorts
+      # @return [Hash] Shorts data with array of shorts and optional continuation token
+      # @raise [ArgumentError] If no identifier (channel_id or handle) is provided
+      # @raise [BadRequestError] If the parameters are invalid
+      # @raise [NotFoundError] If the channel is not found
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Get shorts from a channel by handle
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   result = client.youtube.channel_shorts(handle: "mrbeast")
+      #   result[:shorts].each do |short|
+      #     puts "#{short[:title]} - #{short[:view_count_text]}"
+      #   end
+      #
+      # @example Get popular shorts sorted
+      #   result = client.youtube.channel_shorts(handle: "mrbeast", sort: "popular")
+      #
+      # @example Get newest shorts
+      #   result = client.youtube.channel_shorts(handle: "mrbeast", sort: "newest")
+      #
+      # @example Paginate through shorts
+      #   result = client.youtube.channel_shorts(handle: "mrbeast")
+      #   while result[:continuation_token]
+      #     result = client.youtube.channel_shorts(
+      #       handle: "mrbeast",
+      #       continuation_token: result[:continuation_token]
+      #     )
+      #   end
+      #
+      # @example Response structure
+      #   {
+      #     success: true,
+      #     credits_remaining: 9998708,
+      #     shorts: [
+      #       {
+      #         type: "short",
+      #         id: "Rdr8357wIRA",
+      #         url: "https://www.youtube.com/watch?v=Rdr8357wIRA",
+      #         title: "My app failed, then I changed one thing, and made $80K",
+      #         view_count_text: "8,035",
+      #         view_count_int: 8035,
+      #         description: "Praneeth quit his $250K/year job...",
+      #         comment_count_text: "12",
+      #         comment_count_int: 12,
+      #         like_count_int: 253,
+      #         like_count_text: "253"
+      #       }
+      #     ],
+      #     continuation_token: "4qmFsgK9DBIYVUNoaHc2RGxLS1..."
+      #   }
+      def channel_shorts(channel_id: nil, handle: nil, sort: nil, continuation_token: nil)
+        raise ArgumentError, "At least one of channel_id or handle is required" if channel_id.nil? && handle.nil?
+
+        params = {}
+        params[:channelId] = channel_id if channel_id
+        params[:handle] = handle if handle
+        params[:sort] = sort if sort
+        params[:continuationToken] = continuation_token if continuation_token
+
+        get("/v1/youtube/channel/shorts", params)
+      end
     end
   end
 end

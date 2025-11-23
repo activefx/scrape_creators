@@ -97,6 +97,59 @@ module ScrapeCreators
         get("/v1/linkedin/ads/search", params)
       end
 
+      # Get details for a LinkedIn ad
+      #
+      # Retrieves detailed information about a specific ad from the LinkedIn Ad Library.
+      #
+      # @param url [String] The URL of the LinkedIn ad (required)
+      # @return [Hash] Response containing ad details including targeting, impressions, and metadata
+      # @raise [ArgumentError] If url is not provided
+      # @raise [BadRequestError] If the request parameters are invalid
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      # @raise [NotFoundError] If the ad is not found
+      #
+      # @example Get ad details
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   result = client.linkedin_ad_library.ad(url: "https://www.linkedin.com/ad-library/detail/664291126")
+      #   puts result[:advertiser]  # => "Salesforce"
+      #   puts result[:headline]    # => "Read "The Guide to AI for Small Businesses""
+      #
+      # @example Response structure
+      #   {
+      #     success: true,
+      #     id: "664291126",
+      #     description: "Learn to start building an AI strategy...",
+      #     headline: "Read "The Guide to AI for Small Businesses"",
+      #     poster: "Salesforce",
+      #     poster_title: "Promoted",
+      #     promoted_by: nil,
+      #     targeting: {
+      #       language: "Targeting includes English",
+      #       location: "Targeting includes Portugal",
+      #       audience: "Inclusion and exclusion targeting applied"
+      #     },
+      #     image: "https://media.licdn.com/...",
+      #     ad_type: "Single Image Ad",
+      #     advertiser: "Salesforce",
+      #     advertiser_linkedin_page: "https://www.linkedin.com/company/3185",
+      #     cta: nil,
+      #     destination_url: "https://www.salesforce.com/...",
+      #     ad_duration: "Ran from Apr 1, 2025 to Apr 3, 2025",
+      #     start_date: "2025-04-01T00:00:00.000Z",
+      #     end_date: "2025-04-03T00:00:00.000Z",
+      #     total_impressions: "5k-10k",
+      #     impressions_by_country: [
+      #       { country: "Portugal", impressions: "100%" },
+      #       { country: "Angola", impressions: "less than 1%" }
+      #     ]
+      #   }
+      def ad(url:)
+        raise ArgumentError, "url is required" if blank?(url)
+
+        get("/v1/linkedin/ad", url: url)
+      end
+
       private
 
       def validate_search_params!(company, keyword)

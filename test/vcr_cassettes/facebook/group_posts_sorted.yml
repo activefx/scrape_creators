@@ -1,0 +1,39 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/facebook/group/posts?sort_by=TOP_POSTS&url=https://www.facebook.com/groups/742354120555345
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 23 Nov 2025 18:00:00 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Powered-By:
+      - Express
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"posts":[{"id":"1286064029517682","text":"Top post from the group","url":"https://www.facebook.com/groups/742354120555345/permalink/1286064029517682/","permalink":"https://www.facebook.com/sofiyati.942655/videos/1390174998770652/","author":{"__typename":"User","name":"Sofiyati","short_name":"Sofiyati","id":"61552766652796"},"reactionCount":5000,"commentCount":1000,"videoViewCount":null,"publishTime":1748615813,"videoDetails":null,"topComments":[]}],"cursor":"AQHRBjJCelTopPosts"}'
+  recorded_at: Sun, 23 Nov 2025 18:00:00 GMT
+recorded_with: VCR 6.3.1

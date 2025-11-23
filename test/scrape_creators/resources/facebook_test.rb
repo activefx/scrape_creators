@@ -236,4 +236,150 @@ describe ScrapeCreators::Resources::Facebook do
       end
     end
   end
+
+  describe "#group_posts" do
+    let(:group_url) { "https://www.facebook.com/groups/742354120555345" }
+
+    it "fetches posts from a Facebook group using URL" do
+      VCR.use_cassette("facebook/group_posts_success") do
+        posts = facebook.group_posts(url: group_url)
+
+        assert_kind_of Hash, posts
+        assert posts[:success]
+
+        # Verify posts array
+        assert posts.key?(:posts)
+        assert_kind_of Array, posts[:posts]
+        refute_empty posts[:posts]
+
+        # Verify post structure
+        post = posts[:posts].first
+
+        assert post.key?(:id)
+        assert post.key?(:text)
+        assert post.key?(:url)
+        assert post.key?(:permalink)
+        assert post.key?(:author)
+        assert post.key?(:reaction_count)
+        assert post.key?(:comment_count)
+        assert post.key?(:publish_time)
+
+        # Verify author structure
+        author = post[:author]
+
+        assert author.key?(:name)
+        assert author.key?(:id)
+      end
+    end
+
+    it "allows group_id parameter in addition to url" do
+      VCR.use_cassette("facebook/group_posts_success") do
+        posts = facebook.group_posts(url: group_url)
+
+        assert_kind_of Hash, posts
+        assert posts[:success]
+        assert posts.key?(:posts)
+        assert_kind_of Array, posts[:posts]
+        refute_empty posts[:posts]
+      end
+    end
+
+    it "includes pagination cursor for more results" do
+      VCR.use_cassette("facebook/group_posts_success") do
+        posts = facebook.group_posts(url: group_url)
+
+        # API returns cursor for pagination
+        assert posts.key?(:cursor)
+      end
+    end
+
+    it "fetches posts with pagination cursor" do
+      VCR.use_cassette("facebook/group_posts_paginated") do
+        cursor = "AQHRBjJCelNvdGRjH8s2j"
+        posts = facebook.group_posts(url: group_url, cursor: cursor)
+
+        assert_kind_of Hash, posts
+        assert posts.key?(:posts)
+      end
+    end
+
+    it "fetches posts with sort_by parameter" do
+      VCR.use_cassette("facebook/group_posts_sorted") do
+        posts = facebook.group_posts(url: group_url, sort_by: "TOP_POSTS")
+
+        assert_kind_of Hash, posts
+        assert posts[:success]
+        assert posts.key?(:posts)
+      end
+    end
+
+    it "includes video details when post has video" do
+      VCR.use_cassette("facebook/group_posts_success") do
+        posts = facebook.group_posts(url: group_url)
+
+        # Find a post with video details
+        video_post = posts[:posts].find { |p| p[:video_details] }
+
+        if video_post
+          video_details = video_post[:video_details]
+
+          assert video_details.key?(:sd_url) || video_details.key?(:hd_url)
+          assert video_details.key?(:thumbnail_url)
+        end
+      end
+    end
+
+    it "includes top comments when available" do
+      VCR.use_cassette("facebook/group_posts_success") do
+        posts = facebook.group_posts(url: group_url)
+
+        # Find a post with top comments
+        post_with_comments = posts[:posts].find { |p| p[:top_comments] && !p[:top_comments].empty? }
+
+        if post_with_comments
+          comment = post_with_comments[:top_comments].first
+
+          assert comment.key?(:id)
+          assert comment.key?(:text)
+          assert comment.key?(:author)
+        end
+      end
+    end
+
+    it "raises ArgumentError when both url and group_id are nil" do
+      error = assert_raises(ArgumentError) do
+        facebook.group_posts
+      end
+      assert_match(/url or group_id is required/, error.message)
+    end
+
+    it "raises ArgumentError when both url and group_id are empty" do
+      error = assert_raises(ArgumentError) do
+        facebook.group_posts(url: "", group_id: "")
+      end
+      assert_match(/url or group_id is required/, error.message)
+    end
+
+    it "returns error info for non-existent group" do
+      VCR.use_cassette("facebook/group_posts_not_found") do
+        result = facebook.group_posts(url: "https://www.facebook.com/groups/thisgrouupdoesnotexist123456789xyz/")
+
+        assert_kind_of Hash, result
+        assert_equal "not_found", result[:error]
+        assert_equal 404, result[:error_status]
+      end
+    end
+
+    it "raises PaymentRequiredError for invalid API key" do
+      VCR.use_cassette("facebook/group_posts_unauthorized") do
+        invalid_client = ScrapeCreators::Client.new(api_key: "invalid_key")
+
+        error = assert_raises(ScrapeCreators::PaymentRequiredError) do
+          invalid_client.facebook.group_posts(url: group_url)
+        end
+
+        assert_match(/credit/i, error.message)
+      end
+    end
+  end
 end
