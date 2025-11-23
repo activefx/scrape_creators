@@ -1024,4 +1024,103 @@ describe ScrapeCreators::Resources::Tiktok do
       assert_match(/region is required/, error.message)
     end
   end
+
+  describe "#shop_search" do
+    it "searches for shop products successfully" do
+      VCR.use_cassette("tiktok/shop_search_success") do
+        results = tiktok.shop_search("shoes")
+
+        assert_kind_of Hash, results
+        assert results.key?(:success)
+        assert results.key?(:query)
+        assert results.key?(:total_products)
+        assert results.key?(:products)
+        assert_kind_of Array, results[:products]
+
+        unless results[:products].empty?
+          first_product = results[:products].first
+
+          assert first_product.key?(:product_id)
+          assert first_product.key?(:title)
+          assert first_product.key?(:image)
+          assert first_product.key?(:product_price_info)
+          assert first_product.key?(:seller_info)
+        end
+      end
+    end
+
+    it "searches for shop products with amount parameter" do
+      VCR.use_cassette("tiktok/shop_search_with_amount") do
+        results = tiktok.shop_search("electronics", amount: 50)
+
+        assert_kind_of Hash, results
+        assert results.key?(:products)
+      end
+    end
+
+    it "returns product price information" do
+      VCR.use_cassette("tiktok/shop_search_with_price_info") do
+        results = tiktok.shop_search("shoes")
+
+        assert_kind_of Hash, results
+        assert results.key?(:products)
+
+        unless results[:products].empty?
+          first_product = results[:products].first
+          price_info = first_product[:product_price_info]
+
+          assert price_info.key?(:currency_symbol)
+          assert price_info.key?(:sale_price_decimal) || price_info.key?(:sale_price_format)
+        end
+      end
+    end
+
+    it "returns seller information" do
+      VCR.use_cassette("tiktok/shop_search_with_seller_info") do
+        results = tiktok.shop_search("shoes")
+
+        assert_kind_of Hash, results
+        assert results.key?(:products)
+
+        unless results[:products].empty?
+          first_product = results[:products].first
+          seller_info = first_product[:seller_info]
+
+          assert seller_info.key?(:seller_id)
+          assert seller_info.key?(:shop_name)
+        end
+      end
+    end
+
+    it "returns product ratings and sold info" do
+      VCR.use_cassette("tiktok/shop_search_with_ratings") do
+        results = tiktok.shop_search("shoes")
+
+        assert_kind_of Hash, results
+        assert results.key?(:products)
+
+        unless results[:products].empty?
+          first_product = results[:products].first
+
+          assert first_product[:rate_info].key?(:score) if first_product.key?(:rate_info)
+
+          assert first_product[:sold_info].key?(:sold_count) if first_product.key?(:sold_info)
+        end
+      end
+    end
+
+    it "raises ArgumentError when query is nil" do
+      error = assert_raises(ArgumentError) do
+        tiktok.shop_search(nil)
+      end
+      assert_match(/query is required/, error.message)
+    end
+
+    it "raises ArgumentError when query is empty" do
+      error = assert_raises(ArgumentError) do
+        tiktok.shop_search("")
+      end
+      assert_match(/query is required/, error.message)
+    end
+  end
 end
