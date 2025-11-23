@@ -93,7 +93,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 - [✅] GET Profile (`/v1/facebook/profile`)
 - [✅] GET Profile Posts (`/v1/facebook/profile/posts`)
 - [✅] GET Facebook Group Posts (`/v1/facebook/group/posts`)
-- [⏳] GET Post (`/v1/facebook/post`)
+- [✅] GET Post (`/v1/facebook/post`)
 - [⏳] GET Transcript (`/v1/facebook/post/transcript`)
 - [⏳] GET Comments (`/v1/facebook/post/comments`)
 

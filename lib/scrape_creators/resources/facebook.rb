@@ -230,56 +230,48 @@ module ScrapeCreators
       # @example Response structure
       #   {
       #     success: true,
-      #     posts: [
-      #       {
-      #         id: "1286289372828481",
-      #         text: nil,
-      #         url: "https://www.facebook.com/groups/742354120555345/permalink/1286289372828481/",
-      #         permalink: "https://www.facebook.com/sofiyati.942655/videos/996458202287759/",
-      #         author: {
-      #           __typename: "User",
-      #           name: "Sofiyati",
-      #           short_name: "Sofiyati",
-      #           id: "61552766652796"
-      #         },
-      #         reaction_count: 198,
-      #         comment_count: 100,
-      #         video_view_count: nil,
-      #         publish_time: 1748639389,
-      #         video_details: {
-      #           sd_url: "https://...",
-      #           hd_url: "https://...",
-      #           thumbnail_url: "https://..."
-      #         },
-      #         top_comments: [
-      #           {
-      #             id: "Y29...",
-      #             text: "Comment text here...",
-      #             publish_time: 1748666375,
-      #             author: {
-      #               id: "pfbid...",
-      #               name: "User Name",
-      #               gender: "MALE",
-      #               url: nil
-      #             }
-      #           }
-      #         ]
-      #       }
-      #     ],
-      #     cursor: "AQHRBjJCelNvdGRjH8s2j-...."
+      #     credits_remaining: 48026,
+      #     post_id: "25118307061088489",
+      #     like_count: 2095,
+      #     comment_count: 48,
+      #     share_count: 133,
+      #     view_count: 133000,
+      #     description: "Air Fryer Chocolate Cake...",
+      #     feedback_id: "ZmVlZGJhY2s6MjUxMDIxMDY3OTkzNzUxODI=",
+      #     url: "https://www.facebook.com/reel/1535656380759655",
+      #     image_url: nil,
+      #     video: {
+      #       id: "1535656380759655",
+      #       sd_url: "https://...",
+      #       hd_url: "https://...",
+      #       height: 1920,
+      #       width: 1080,
+      #       length_in_second: 23.36,
+      #       thumbnail: "https://...",
+      #       captions_url: "https://..."
+      #     },
+      #     author: {
+      #       id: "100000076236457",
+      #       name: "Matt West",
+      #       is_verified: true,
+      #       url: "https://www.facebook.com/matt.west.184",
+      #       image: "https://..."
+      #     },
+      #     music: {
+      #       id: "1506592770696336",
+      #       type: "CUSTOM_AUDIO",
+      #       track_title: "Matt West · Original audio",
+      #       music_album_art: "https://..."
+      #     }
       #   }
-      def group_posts(url: nil, group_id: nil, sort_by: nil, cursor: nil)
-        if (url.nil? || url.to_s.empty?) && (group_id.nil? || group_id.to_s.empty?)
-          raise ArgumentError, "url or group_id is required"
-        end
+      def post(url, get_comments: nil, get_transcript: nil)
+        raise ArgumentError, "url is required" if url.nil? || url.to_s.empty?
 
-        params = {}
-        params[:url] = url unless url.nil? || url.to_s.empty?
-        params[:group_id] = group_id unless group_id.nil? || group_id.to_s.empty?
-        params[:sort_by] = sort_by unless sort_by.nil?
-        params[:cursor] = cursor unless cursor.nil?
+        params = { url: url }
+        params[:get_comments] = get_comments unless get_comments.nil?
+        params[:get_transcript] = get_transcript unless get_transcript.nil?
 
-        get("/v1/facebook/group/posts", params)
+        get("/v1/facebook/post", params)
       end
     end
   end
