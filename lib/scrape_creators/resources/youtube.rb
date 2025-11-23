@@ -428,6 +428,80 @@ module ScrapeCreators
         get("/v1/youtube/video/transcript", { url: url })
       end
 
+      # Get comments from a YouTube video
+      #
+      # Retrieves comments from a video with engagement metrics and author information.
+      # Supports pagination with continuation tokens. Can only get approximately 1k top
+      # comments and about 7k newest comments.
+      #
+      # @param url [String] YouTube video URL (required)
+      # @param continuation_token [String, nil] Token from previous response for pagination
+      # @param order [String, nil] Order of comments
+      #   Options: "top" (most relevant/popular), "newest" (most recent)
+      # @return [Hash] Comments data with array of comments and optional continuation token
+      # @raise [ArgumentError] If url is not provided
+      # @raise [BadRequestError] If the parameters are invalid
+      # @raise [NotFoundError] If the video is not found
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Get top comments from a video
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   result = client.youtube.video_comments(url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+      #   result[:comments].each do |comment|
+      #     puts "#{comment[:author][:name]}: #{comment[:content]}"
+      #   end
+      #
+      # @example Get newest comments
+      #   result = client.youtube.video_comments(
+      #     url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      #     order: "newest"
+      #   )
+      #
+      # @example Paginate through comments
+      #   result = client.youtube.video_comments(url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+      #   while result[:continuation_token]
+      #     result = client.youtube.video_comments(
+      #       url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      #       continuation_token: result[:continuation_token]
+      #     )
+      #   end
+      #
+      # @example Response structure
+      #   {
+      #     comments: [
+      #       {
+      #         id: "UgwVfRopfS2F-WB3aF14AaABAg",
+      #         content: "I love this video!",
+      #         published_time_text: "9 days ago",
+      #         published_time: "2025-01-23T23:14:02.948Z",
+      #         reply_level: 0,
+      #         author: {
+      #           name: "@username",
+      #           channel_id: "UC8JC3uSUmmXTCTKl-bgr1DA",
+      #           is_verified: false,
+      #           is_creator: false,
+      #           avatar_url: "https://yt3.ggpht.com/...",
+      #           channel_url: "https://youtube.com/@username"
+      #         },
+      #         engagement: {
+      #           likes: 110,
+      #           replies: 5
+      #         }
+      #       }
+      #     ],
+      #     continuation_token: "Eg0SCzVFV2F4bVd...."
+      #   }
+      def video_comments(url:, continuation_token: nil, order: nil)
+        raise ArgumentError, "url is required" if url.nil? || url.to_s.strip.empty?
+
+        params = { url: url }
+        params[:continuationToken] = continuation_token if continuation_token
+        params[:order] = order if order
+
+        get("/v1/youtube/video/comments", params)
+      end
+
       # Search YouTube for videos, channels, playlists, shorts, and lives
       #
       # Searches YouTube and returns matching content across various types.
