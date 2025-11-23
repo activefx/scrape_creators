@@ -1173,6 +1173,39 @@ module ScrapeCreators
         get("/v1/tiktok/shop/search", params)
       end
 
+      # Get TikTok Shop product details
+      #
+      # Retrieves detailed information about a TikTok Shop product including stock levels,
+      # related affiliate videos promoting the product, seller information, and more.
+      #
+      # @param url [String] The URL of the TikTok Shop product to get details for
+      # @param get_related_videos [Boolean, nil] Whether to get related videos for the product.
+      #   These are affiliate videos promoting the product. Note: This will take longer to process.
+      # @param region [String, nil] Region the proxy will be set to so you can access products
+      #   from that country. Use 2 letter country codes like US, GB, FR, etc.
+      # @return [Hash] Product details including product_info, shop_info, categories, and optionally related_videos
+      # @raise [ArgumentError] If the url parameter is nil or empty
+      # @raise [NotFoundError] If the product is not found
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Get product details
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   product = client.tiktok.shop_product("https://www.tiktok.com/shop/product/123")
+      #   puts product[:product_info][:product_base][:title]  # => "Product Name"
+      #   puts product[:product_info][:skus].first[:stock]  # => 1824
+      #
+      # @example Get product with related affiliate videos
+      #   product = client.tiktok.shop_product(
+      #     "https://www.tiktok.com/shop/product/123",
+      #     get_related_videos: true
+      #   )
+      #   puts product[:related_videos].first[:title]
+      #
+      # @example Get product from specific region
+      #   product = client.tiktok.shop_product(
+      #     "https://www.tiktok.com/shop/product/123",
+      #     region: "US"
       # Get products from a TikTok Shop
       #
       # Retrieves all products from a TikTok Shop by its URL. This endpoint handles
@@ -1204,6 +1237,82 @@ module ScrapeCreators
       # @example Response structure
       #   {
       #     success: true,
+      #     categories: [
+      #       {
+      #         category_id: "601450",
+      #         category_name: "Beauty & Personal Care",
+      #         level: 1,
+      #         is_leaf: false
+      #       }
+      #     ],
+      #     sale_region: "US",
+      #     product_info: {
+      #       product_id: "1730383241618035288",
+      #       status: 1,
+      #       seller: {
+      #         seller_id: "7496021452055022168",
+      #         name: "Manspot",
+      #         avatar: { ... },
+      #         product_count: 14,
+      #         seller_location: "United States of America"
+      #       },
+      #       product_base: {
+      #         title: "Product Title",
+      #         images: [...],
+      #         sold_count: 7160,
+      #         price: {
+      #           original_price: "$39.99",
+      #           real_price: "$21.99",
+      #           discount: "-47%",
+      #           currency: "USD"
+      #         }
+      #       },
+      #       sale_props: [...],
+      #       skus: [
+      #         {
+      #           sku_id: "1730384306561520216",
+      #           stock: 1824,
+      #           purchase_limit: 20,
+      #           price: { ... }
+      #         }
+      #       ],
+      #       product_detail_review: {
+      #         product_rating: 4.3,
+      #         review_count: 595,
+      #         review_items: [...]
+      #       }
+      #     },
+      #     shop_info: {
+      #       seller_id: "7496021452055022168",
+      #       shop_name: "Manspot",
+      #       sold_count: 50887,
+      #       review_count: 4215,
+      #       shop_rating: "4.4",
+      #       shop_link: "https://www.tiktok.com/shop/store/manspot/..."
+      #     },
+      #     shop_performance: [
+      #       { score_percentile: 98, type: 1 },
+      #       { score_percentile: 97, type: 2 }
+      #     ],
+      #     related_videos: [  # Only present if get_related_videos is true
+      #       {
+      #         item_id: "7527142083258305822",
+      #         title: "Video title",
+      #         play_count: 324944,
+      #         like_count: 1812,
+      #         author_name: "Author Name",
+      #         url: "https://www.tiktok.com/@user/video/123"
+      #       }
+      #     ]
+      #   }
+      def shop_product(url, get_related_videos: nil, region: nil)
+        raise ArgumentError, "url is required" if url.nil? || url.to_s.empty?
+
+        params = { url: url }
+        params[:get_related_videos] = get_related_videos unless get_related_videos.nil?
+        params[:region] = region if region
+
+        get("/v1/tiktok/product", params)
       #     shop_info: {
       #       seller_id: "7495794203056835079",
       #       sold_count: 3767605,
