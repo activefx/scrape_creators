@@ -1,0 +1,39 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/facebook/post?url=https://www.facebook.com/reel/1535656380759655
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 23 Nov 2025 10:00:00 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Powered-By:
+      - Express
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"success":true,"creditsRemaining":48026,"postId":"25118307061088489","likeCount":2095,"commentCount":48,"shareCount":133,"viewCount":133000,"description":"Air Fryer Chocolate Cake \n\n100% f*cks, super simple and comes out gooey in the middle.","feedbackId":"ZmVlZGJhY2s6MjUxMDIxMDY3OTkzNzUxODI=","url":"https://www.facebook.com/reel/1535656380759655","imageUrl":null,"video":{"id":"1535656380759655","sdUrl":"https://video-fml1-1.xx.fbcdn.net/o1/v/t2/f2/m69/test_sd_video.mp4","hdUrl":"https://video-fml1-1.xx.fbcdn.net/o1/v/t2/f2/m69/test_hd_video.mp4","height":1920,"width":1080,"lengthInSecond":23.36,"thumbnail":"https://scontent-fml1-1.xx.fbcdn.net/v/test_thumbnail.jpg","captionsUrl":"https://scontent-fml1-1.xx.fbcdn.net/v/test_captions.srt"},"author":{"id":"100000076236457","name":"Matt West","isVerified":true,"url":"https://www.facebook.com/matt.west.184","image":"https://scontent-fml1-1.xx.fbcdn.net/v/test_author_image.jpg"},"music":{"id":"1506592770696336","type":"CUSTOM_AUDIO","trackTitle":"Matt West · Original audio","musicAlbumArt":"https://scontent-fml1-1.xx.fbcdn.net/v/test_album_art.jpg"}}'
+  recorded_at: Sat, 23 Nov 2025 10:00:00 GMT
+recorded_with: VCR 6.3.1

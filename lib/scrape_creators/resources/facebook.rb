@@ -185,6 +185,84 @@ module ScrapeCreators
 
         get("/v1/facebook/profile/posts", params)
       end
+
+      # Get a public Facebook post or reel by URL
+      #
+      # Retrieves detailed information about a public Facebook post or reel including
+      # engagement metrics, content, media details, author information, and optional
+      # comments and transcript.
+      #
+      # @param url [String] The URL of the Facebook post or reel to get
+      # @param get_comments [Boolean, nil] Whether to get the first several comments of the post
+      # @param get_transcript [Boolean, nil] Whether to get the transcript of the post
+      # @return [Hash] Post data including engagement metrics, content, and media details
+      # @raise [ArgumentError] If the url parameter is nil or empty
+      # @raise [BadRequestError] If the url parameter is invalid
+      # @raise [NotFoundError] If the post is not found
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Get a Facebook post
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   post = client.facebook.post("https://www.facebook.com/reel/1535656380759655")
+      #   puts post[:description]
+      #   puts post[:like_count]      # => 2095
+      #   puts post[:comment_count]   # => 48
+      #
+      # @example Get a post with comments
+      #   post = client.facebook.post("https://www.facebook.com/reel/1535656380759655", get_comments: true)
+      #   puts post[:comments]
+      #
+      # @example Get a post with transcript
+      #   post = client.facebook.post("https://www.facebook.com/reel/1535656380759655", get_transcript: true)
+      #   puts post[:transcript]
+      #
+      # @example Response structure
+      #   {
+      #     success: true,
+      #     credits_remaining: 48026,
+      #     post_id: "25118307061088489",
+      #     like_count: 2095,
+      #     comment_count: 48,
+      #     share_count: 133,
+      #     view_count: 133000,
+      #     description: "Air Fryer Chocolate Cake...",
+      #     feedback_id: "ZmVlZGJhY2s6MjUxMDIxMDY3OTkzNzUxODI=",
+      #     url: "https://www.facebook.com/reel/1535656380759655",
+      #     image_url: nil,
+      #     video: {
+      #       id: "1535656380759655",
+      #       sd_url: "https://...",
+      #       hd_url: "https://...",
+      #       height: 1920,
+      #       width: 1080,
+      #       length_in_second: 23.36,
+      #       thumbnail: "https://...",
+      #       captions_url: "https://..."
+      #     },
+      #     author: {
+      #       id: "100000076236457",
+      #       name: "Matt West",
+      #       is_verified: true,
+      #       url: "https://www.facebook.com/matt.west.184",
+      #       image: "https://..."
+      #     },
+      #     music: {
+      #       id: "1506592770696336",
+      #       type: "CUSTOM_AUDIO",
+      #       track_title: "Matt West · Original audio",
+      #       music_album_art: "https://..."
+      #     }
+      #   }
+      def post(url, get_comments: nil, get_transcript: nil)
+        raise ArgumentError, "url is required" if url.nil? || url.to_s.empty?
+
+        params = { url: url }
+        params[:get_comments] = get_comments unless get_comments.nil?
+        params[:get_transcript] = get_transcript unless get_transcript.nil?
+
+        get("/v1/facebook/post", params)
+      end
     end
   end
 end

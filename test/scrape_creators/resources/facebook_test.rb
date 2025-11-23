@@ -236,4 +236,120 @@ describe ScrapeCreators::Resources::Facebook do
       end
     end
   end
+
+  describe "#post" do
+    let(:post_url) { "https://www.facebook.com/reel/1535656380759655" }
+
+    it "fetches a Facebook post successfully" do
+      VCR.use_cassette("facebook/post_success") do
+        post = facebook.post(post_url)
+
+        assert_kind_of Hash, post
+        assert post[:success]
+
+        # Verify basic post data
+        assert post.key?(:post_id)
+        assert post.key?(:description)
+        assert post.key?(:url)
+
+        # Verify engagement metrics
+        assert post.key?(:like_count)
+        assert post.key?(:comment_count)
+        assert post.key?(:share_count)
+        assert post.key?(:view_count)
+
+        # Verify author information
+        assert post.key?(:author)
+        author = post[:author]
+
+        assert author.key?(:id)
+        assert author.key?(:name)
+        assert author.key?(:url)
+      end
+    end
+
+    it "includes video details for video posts" do
+      VCR.use_cassette("facebook/post_success") do
+        post = facebook.post(post_url)
+
+        assert post.key?(:video)
+        video = post[:video]
+
+        if video
+          assert video.key?(:id)
+          assert video.key?(:sd_url) || video.key?(:hd_url)
+          assert video.key?(:height)
+          assert video.key?(:width)
+          assert video.key?(:length_in_second)
+          assert video.key?(:thumbnail)
+        end
+      end
+    end
+
+    it "includes music details when available" do
+      VCR.use_cassette("facebook/post_success") do
+        post = facebook.post(post_url)
+
+        if post[:music]
+          music = post[:music]
+
+          assert music.key?(:id)
+          assert music.key?(:type)
+          assert music.key?(:track_title)
+        end
+      end
+    end
+
+    it "fetches post with comments when requested" do
+      VCR.use_cassette("facebook/post_with_comments") do
+        post = facebook.post(post_url, get_comments: true)
+
+        assert_kind_of Hash, post
+        assert post[:success]
+      end
+    end
+
+    it "fetches post with transcript when requested" do
+      VCR.use_cassette("facebook/post_with_transcript") do
+        post = facebook.post(post_url, get_transcript: true)
+
+        assert_kind_of Hash, post
+        assert post[:success]
+      end
+    end
+
+    it "raises ArgumentError when url is nil" do
+      error = assert_raises(ArgumentError) do
+        facebook.post(nil)
+      end
+      assert_match(/url is required/, error.message)
+    end
+
+    it "raises ArgumentError when url is empty" do
+      error = assert_raises(ArgumentError) do
+        facebook.post("")
+      end
+      assert_match(/url is required/, error.message)
+    end
+
+    it "raises NotFoundError for non-existent post" do
+      VCR.use_cassette("facebook/post_not_found") do
+        assert_raises(ScrapeCreators::NotFoundError) do
+          facebook.post("https://www.facebook.com/reel/99999999999999999999")
+        end
+      end
+    end
+
+    it "raises UnauthorizedError for invalid API key" do
+      VCR.use_cassette("facebook/post_unauthorized") do
+        invalid_client = ScrapeCreators::Client.new(api_key: "invalid_key")
+
+        error = assert_raises(ScrapeCreators::UnauthorizedError) do
+          invalid_client.facebook.post(post_url)
+        end
+
+        assert_match(/invalid|unauthorized|api.?key/i, error.message)
+      end
+    end
+  end
 end
