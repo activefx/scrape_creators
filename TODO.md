@@ -158,7 +158,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 - [✅] GET Profile (`/v1/threads/profile`)
 - [✅] GET Posts (`/v1/threads/user/posts`)
 - [✅] GET Post (`/v1/threads/post`)
-- [⏳] GET Search by Keyword (`/v1/threads/search`)
+- [✅] GET Search by Keyword (`/v1/threads/search`)
 - [⏳] GET Search Users (`/v1/threads/search/users`)
 
 ---
@@ -250,8 +250,8 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 ## Implementation Progress Summary
 
 **Total Endpoints:** 103
-**Completed:** 60
-**Remaining:** 43
+**Completed:** 61
+**Remaining:** 42
 
 ### Platform Completion Status
 - TikTok: 18/18 endpoints (100%)
@@ -266,7 +266,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 - Twitter: 6/6 endpoints (100%)
 - Reddit: 6/6 endpoints (100%)
 - Truth Social: 3/3 endpoints (100%)
-- Threads: 3/5 endpoints (60%)
+- Threads: 4/5 endpoints (80%)
 - Bluesky: 1/3 endpoints (33%)
 - Pinterest: 1/4 endpoints (25%)
 - Google: 1/1 endpoints (100%)
