@@ -140,6 +140,89 @@ module ScrapeCreators
 
         get("/v1/threads/user/posts", params)
       end
+
+      # Get a single Threads post by URL
+      #
+      # Retrieves a post by its URL, including the post content, comments, and related posts.
+      #
+      # @param url [String] The URL of the Threads post
+      # @param trim [Boolean] Set to true for a trimmed down version of the response (optional)
+      # @return [Hash] Post data including post details, comments, and related posts
+      # @raise [ArgumentError] If the url parameter is nil or empty
+      # @raise [BadRequestError] If the url parameter is invalid
+      # @raise [NotFoundError] If the post is not found
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Get a Threads post
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   response = client.threads.post("https://www.threads.com/@trendspider/post/DIU8naHS6q_")
+      #   puts response[:post][:caption][:text]
+      #   puts response[:post][:like_count]
+      #   puts response[:comments].length
+      #   puts response[:related_posts].length
+      #
+      # @example Get trimmed post data
+      #   response = client.threads.post("https://www.threads.com/@trendspider/post/DIU8naHS6q_", trim: true)
+      #
+      # @example Response structure
+      #   {
+      #     success: true,
+      #     post: {
+      #       id: "3608775792320555711_63069450921",
+      #       pk: "3608775792320555711",
+      #       code: "DIU8naHS6q_",
+      #       user: {
+      #         pk: "63069450921",
+      #         username: "trendspider",
+      #         profile_pic_url: "https://...",
+      #         is_verified: false
+      #       },
+      #       caption: {
+      #         text: "NVDA 🟢 = 36x P/E...",
+      #         pk: "18109768954486098"
+      #       },
+      #       like_count: 28,
+      #       taken_at: 1744419624,
+      #       media_type: 1,
+      #       image_versions2: {
+      #         candidates: [
+      #           { height: 790, url: "https://...", width: 1079 }
+      #         ]
+      #       },
+      #       text_post_app_info: {
+      #         reshare_count: 1,
+      #         direct_reply_count: 6,
+      #         repost_count: 1,
+      #         quote_count: 0,
+      #         reply_control: "everyone"
+      #       }
+      #     },
+      #     comments: [
+      #       {
+      #         id: "3623864305260810977_63153846014",
+      #         user: { username: "gringo.ronin", ... },
+      #         caption: { text: "UNLIMITED FIREPOWAHHH", ... },
+      #         like_count: 11
+      #       }
+      #     ],
+      #     related_posts: [
+      #       {
+      #         id: "3608818157045893190_63438622220",
+      #         user: { username: "jim.chuong", ... },
+      #         caption: { text: "There is no reason to fear...", ... },
+      #         like_count: 3
+      #       }
+      #     ]
+      #   }
+      def post(url, trim: nil)
+        raise ArgumentError, "url is required" if url.nil? || url.to_s.empty?
+
+        params = { url: url }
+        params[:trim] = trim unless trim.nil?
+
+        get("/v1/threads/post", params)
+      end
     end
   end
 end

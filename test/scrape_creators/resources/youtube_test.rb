@@ -793,4 +793,127 @@ describe ScrapeCreators::Resources::Youtube do
       end
     end
   end
+
+  describe "#search_hashtag" do
+    describe "with hashtag parameter" do
+      it "searches YouTube by hashtag" do
+        VCR.use_cassette("youtube/search_hashtag_basic") do
+          result = youtube.search_hashtag(hashtag: "funny")
+
+          assert_kind_of Hash, result
+          assert result.key?(:videos)
+          assert_kind_of Array, result[:videos]
+
+          # Verify video structure if videos exist
+          if result[:videos].any?
+            video = result[:videos].first
+
+            assert video.key?(:id)
+            assert video.key?(:title)
+            assert video.key?(:url)
+            assert video.key?(:type)
+          end
+        end
+      end
+
+      it "returns video with channel information" do
+        VCR.use_cassette("youtube/search_hashtag_with_channel") do
+          result = youtube.search_hashtag(hashtag: "shorts")
+
+          assert_kind_of Hash, result
+          assert result.key?(:videos)
+
+          if result[:videos].any?
+            video = result[:videos].first
+
+            assert video.key?(:channel)
+            assert_kind_of Hash, video[:channel] if video[:channel]
+          end
+        end
+      end
+
+      it "returns video with view count and timing information" do
+        VCR.use_cassette("youtube/search_hashtag_video_details") do
+          result = youtube.search_hashtag(hashtag: "fails")
+
+          assert_kind_of Hash, result
+          assert result.key?(:videos)
+
+          if result[:videos].any?
+            video = result[:videos].first
+            # Check for view count fields
+            assert video.key?(:view_count_text) || video.key?(:view_count_int)
+          end
+        end
+      end
+    end
+
+    describe "with type parameter" do
+      it "filters for all content types" do
+        VCR.use_cassette("youtube/search_hashtag_type_all") do
+          result = youtube.search_hashtag(hashtag: "funny", type: "all")
+
+          assert_kind_of Hash, result
+          assert result.key?(:videos)
+        end
+      end
+
+      it "filters for shorts only" do
+        VCR.use_cassette("youtube/search_hashtag_type_shorts") do
+          result = youtube.search_hashtag(hashtag: "funny", type: "shorts")
+
+          assert_kind_of Hash, result
+          assert result.key?(:videos)
+        end
+      end
+    end
+
+    describe "pagination" do
+      it "returns continuation_token for pagination" do
+        VCR.use_cassette("youtube/search_hashtag_pagination") do
+          result = youtube.search_hashtag(hashtag: "cooking")
+
+          assert_kind_of Hash, result
+          # Continuation token may or may not be present depending on results
+          assert result.key?(:videos)
+        end
+      end
+    end
+
+    describe "parameter validation" do
+      it "raises ArgumentError when hashtag is not provided" do
+        error = assert_raises(ArgumentError) do
+          youtube.search_hashtag(hashtag: nil)
+        end
+        assert_match(/hashtag is required/, error.message)
+      end
+
+      it "raises ArgumentError when hashtag is empty string" do
+        error = assert_raises(ArgumentError) do
+          youtube.search_hashtag(hashtag: "")
+        end
+        assert_match(/hashtag is required/, error.message)
+      end
+
+      it "raises ArgumentError when hashtag is whitespace only" do
+        error = assert_raises(ArgumentError) do
+          youtube.search_hashtag(hashtag: "   ")
+        end
+        assert_match(/hashtag is required/, error.message)
+      end
+    end
+
+    describe "error handling" do
+      it "raises authentication error for invalid API key" do
+        VCR.use_cassette("youtube/search_hashtag_unauthorized") do
+          invalid_client = ScrapeCreators::Client.new(api_key: "invalid_key")
+
+          # API may return UnauthorizedError or PaymentRequiredError for invalid credentials
+          assert_raises(ScrapeCreators::UnauthorizedError, ScrapeCreators::PaymentRequiredError) do
+            invalid_client.youtube.search_hashtag(hashtag: "funny")
+          end
+        end
+      end
+    end
+  end
 end

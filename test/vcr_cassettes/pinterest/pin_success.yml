@@ -1,0 +1,69 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/pinterest/pin?url=https://www.pinterest.com/pin/68747564459/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 23 Nov 2025 20:00:00 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      Etag:
+      - W/"abc123-wcMU5P7tnESM+1ZpOvAdIPhpc10"
+      Vary:
+      - Accept-Encoding
+      X-Powered-By:
+      - Express
+      X-Render-Origin-Server:
+      - Render
+      Cf-Cache-Status:
+      - DYNAMIC
+      Server:
+      - cloudflare
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"altText":null,"autoAltText":"a white bowl filled with
+        meat and tomato sauce on top of a wooden cutting board","closeupUnifiedDescription":"Italian
+        Pot Roast (Straccato)","description":"Italian Pot Roast (Straccato)","descriptionHtml":"Italian
+        Pot Roast (Straccato)","dominantColor":"#714426","originPinner":{"entityId":"91268467356860596","id":"VXNlcjo5MTI2ODQ2NzM1Njg2MDU5Ng==","username":"ClosetCooking","imageMediumUrl":"https://i.pinimg.com/75x75_RS/71/1a/ce/711ace70f2f6f846692993a7ec3da426.jpg","blockedByMe":false,"explicitlyFollowedByMe":false,"followerCount":780870,"fullName":"Closet
+        Cooking","imageLargeUrl":"https://i.pinimg.com/140x140_RS/71/1a/ce/711ace70f2f6f846692993a7ec3da426.jpg","imageSmallUrl":"https://i.pinimg.com/30x30_RS/71/1a/ce/711ace70f2f6f846692993a7ec3da426.jpg","isVerifiedMerchant":false,"verifiedIdentity":{"verified":null}},"embed":null,"gridTitle":"Italian
+        Pot Roast (Straccato)","imageSignature":"d9cbac6b643a03c096f7fd0566cecaf1","isGoLinkless":false,"digitalMediaSourceType":null,"link":"https://www.closetcooking.com/italian-pot-roast-straccato/","mobileLink":null,"pinner":{"blockedByMe":false,"id":"VXNlcjoyMDYxNTg0MzUxNTI=","entityId":"206158435152","__typename":"User","fullName":"Adrienne
+        James","imageSmallUrl":"https://i.pinimg.com/30x30_RS/00/60/87/0060871118d040a1ad20ace0148923da.jpg","imageLargeUrl":"https://i.pinimg.com/140x140_RS/00/60/87/0060871118d040a1ad20ace0148923da.jpg","isVerifiedMerchant":false,"verifiedIdentity":{"verified":null},"username":"fluffduckie","imageMediumUrl":"https://i.pinimg.com/75x75_RS/00/60/87/0060871118d040a1ad20ace0148923da.jpg","explicitlyFollowedByMe":false,"firstName":"Adrienne","followerCount":4756},"pinJoin":{"visualAnnotation":["Over
+        The Top Recipes","Recipes Using Rump Roast"],"seoCanonicalDomain":"www.pinterest.com","seoCanonicalUrl":"/pin/italian-pot-roast-stracotto--79657487154121436/"},"title":"Italian
+        Pot Roast (Straccato)","trackedLink":"https://www.closetcooking.com/italian-pot-roast-straccato/","imageSpec_236x":{"height":354,"width":236,"url":"https://i.pinimg.com/236x/d9/cb/ac/d9cbac6b643a03c096f7fd0566cecaf1.jpg"},"imageSpec_474x":{"url":"https://i.pinimg.com/474x/d9/cb/ac/d9cbac6b643a03c096f7fd0566cecaf1.jpg","height":711,"width":474},"imageSpec_564x":{"url":"https://i.pinimg.com/564x/d9/cb/ac/d9cbac6b643a03c096f7fd0566cecaf1.jpg","height":846,"width":564},"imageSpec_736x":{"url":"https://i.pinimg.com/736x/d9/cb/ac/d9cbac6b643a03c096f7fd0566cecaf1.jpg","height":1104,"width":736},"imageSpec_orig":{"url":"https://i.pinimg.com/originals/d9/cb/ac/d9cbac6b643a03c096f7fd0566cecaf1.jpg","height":1200,"width":800},"entityId":"68747564459","isDownstreamPromotion":false,"category":"","domain":"closetcooking.com","isPromoted":false,"linkDomain":{"officialUser":{"imageMediumUrl":"https://i.pinimg.com/75x75_RS/71/1a/ce/711ace70f2f6f846692993a7ec3da426.jpg","id":"VXNlcjo5MTI2ODQ2NzM1Njg2MDU5Ng==","entityId":"91268467356860596","fullName":"Closet
+        Cooking","imageSmallUrl":"https://i.pinimg.com/30x30_RS/71/1a/ce/711ace70f2f6f846692993a7ec3da426.jpg","isPrimaryWebsiteVerified":true,"username":"ClosetCooking","blockedByMe":false,"explicitlyFollowedByMe":false,"followerCount":780870,"imageLargeUrl":"https://i.pinimg.com/140x140_RS/71/1a/ce/711ace70f2f6f846692993a7ec3da426.jpg","isVerifiedMerchant":false,"verifiedIdentity":{"verified":null}},"id":"RG9tYWluOjMxMDk1OTgyNDExODQ4MTM1Ng=="},"promoter":null,"isEligibleForPdp":false,"aggregatedPinData":{"entityId":"5359304635312036251","id":"QWdncmVnYXRlZFBpbkRhdGE6NTM1OTMwNDYzNTMxMjAzNjI1MQ==","aggregatedStats":{"saves":49054},"commentCount":55,"didItData":{"imagesCount":3}},"isEligibleForAggregatedComments":true,"richMetadata":{"recipe":{"name":"Italian
+        Pot Roast (Stracotto)","fromAggregatedData":false},"description":"A slow braised
+        Italian style pot roast in a tasty tomato sauce.","title":"Italian Pot Roast
+        (Stracotto)","siteName":"Closet Cooking","url":"https://www.closetcooking.com/italian-pot-roast-straccato/"},"totalReactionCount":694,"board":{"privacy":"public","url":"/fluffduckie/food-fun/","name":"Food
+        & Fun","id":"Qm9hcmQ6MTM3NDM4OTk5MjE1","entityId":"137438999215","pinCount":1880,"sectionCount":18},"richSummary":{"displayName":"Italian
+        Pot Roast (Stracotto)","products":[]},"nativeCreator":{"isVerifiedMerchant":false,"verifiedIdentity":{"verified":null},"id":"VXNlcjo5MTI2ODQ2NzM1Njg2MDU5Ng==","entityId":"91268467356860596","fullName":"Closet
+        Cooking","imageMediumUrl":"https://i.pinimg.com/75x75_RS/71/1a/ce/711ace70f2f6f846692993a7ec3da426.jpg","imageSmallUrl":"https://i.pinimg.com/30x30_RS/71/1a/ce/711ace70f2f6f846692993a7ec3da426.jpg","username":"ClosetCooking","blockedByMe":false,"explicitlyFollowedByMe":false,"followerCount":780870,"imageLargeUrl":"https://i.pinimg.com/140x140_RS/71/1a/ce/711ace70f2f6f846692993a7ec3da426.jpg","profileUrl":"https://www.pinterest.com/ClosetCooking/"},"shareCount":162,"reactionCountsData":[{"reactionCount":690,"reactionType":1},{"reactionCount":2,"reactionType":13}],"closeupDescription":"A
+        slow braised Italian style pot roast in a tasty tomato sauce.","commentsDisabled":false,"doneByMe":false,"isHidden":false,"isUnsafe":false,"image236x":{"height":354,"url":"https://i.pinimg.com/236x/d9/cb/ac/d9cbac6b643a03c096f7fd0566cecaf1.jpg","width":236},"image474x":{"height":711,"url":"https://i.pinimg.com/474x/d9/cb/ac/d9cbac6b643a03c096f7fd0566cecaf1.jpg","width":474},"image564x":{"height":846,"url":"https://i.pinimg.com/564x/d9/cb/ac/d9cbac6b643a03c096f7fd0566cecaf1.jpg","width":564},"image736x":{"height":1104,"url":"https://i.pinimg.com/736x/d9/cb/ac/d9cbac6b643a03c096f7fd0566cecaf1.jpg","width":736},"isRepin":true,"favoriteUserCount":0,"favoritedByMe":false,"createdAt":"Thu,
+        06 Jun 2024 02:33:19 +0000","seoDescription":"Jun 12, 2024 - A slow braised
+        Italian style pot roast in a tasty tomato sauce.","seoTitle":"Italian Pot Roast
+        (Stracotto) | Recipe | Roast beef recipes, Italian pot roast, Beef recipes
+        easy","repinCount":2208,"seoUrl":"/pin/68747564459/","priceCurrency":"USD","id":"UGluOjY4NzQ3NTY0NDU5"}'
+  recorded_at: Sun, 23 Nov 2025 20:00:00 GMT
+recorded_with: VCR 6.3.1
