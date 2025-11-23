@@ -186,36 +186,46 @@ module ScrapeCreators
         get("/v1/facebook/profile/posts", params)
       end
 
-      # Get a public Facebook post or reel by URL
+      # Get posts from a public Facebook group
       #
-      # Retrieves detailed information about a public Facebook post or reel including
-      # engagement metrics, content, media details, author information, and optional
-      # comments and transcript.
+      # Retrieves posts from a public Facebook group including engagement metrics,
+      # content, media details, and timestamps. Only returns 3 posts at a time due
+      # to Facebook API limitations.
       #
-      # @param url [String] The URL of the Facebook post or reel to get
-      # @param get_comments [Boolean, nil] Whether to get the first several comments of the post
-      # @param get_transcript [Boolean, nil] Whether to get the transcript of the post
-      # @return [Hash] Post data including engagement metrics, content, and media details
-      # @raise [ArgumentError] If the url parameter is nil or empty
-      # @raise [BadRequestError] If the url parameter is invalid
-      # @raise [NotFoundError] If the post is not found
+      # @param url [String, nil] Facebook group URL (either url or group_id is required)
+      # @param group_id [String, nil] Facebook group ID (faster than url lookup)
+      # @param sort_by [String, nil] How to sort the posts
+      #   (TOP_POSTS, RECENT_ACTIVITY, CHRONOLOGICAL, CHRONOLOGICAL_LISTINGS)
+      # @param cursor [String, nil] Pagination cursor to get the next page of posts
+      # @return [Hash] Posts data including posts array and pagination cursor
+      # @raise [ArgumentError] If both url and group_id are nil or empty
+      # @raise [NotFoundError] If the group is not found
       # @raise [UnauthorizedError] If the API key is invalid
       # @raise [PaymentRequiredError] If credits are insufficient
       #
-      # @example Get a Facebook post
+      # @example Get group posts using URL
       #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
-      #   post = client.facebook.post("https://www.facebook.com/reel/1535656380759655")
-      #   puts post[:description]
-      #   puts post[:like_count]      # => 2095
-      #   puts post[:comment_count]   # => 48
+      #   posts = client.facebook.group_posts(url: "https://www.facebook.com/groups/742354120555345")
+      #   puts posts[:posts].first[:text]
       #
-      # @example Get a post with comments
-      #   post = client.facebook.post("https://www.facebook.com/reel/1535656380759655", get_comments: true)
-      #   puts post[:comments]
+      # @example Get group posts using group ID (faster)
+      #   posts = client.facebook.group_posts(group_id: "742354120555345")
+      #   posts[:posts].each { |post| puts post[:text] }
       #
-      # @example Get a post with transcript
-      #   post = client.facebook.post("https://www.facebook.com/reel/1535656380759655", get_transcript: true)
-      #   puts post[:transcript]
+      # @example Get top posts from a group
+      #   posts = client.facebook.group_posts(
+      #     url: "https://www.facebook.com/groups/742354120555345",
+      #     sort_by: "TOP_POSTS"
+      #   )
+      #
+      # @example Paginate through posts
+      #   first_page = client.facebook.group_posts(url: "https://www.facebook.com/groups/742354120555345")
+      #   if first_page[:cursor]
+      #     next_page = client.facebook.group_posts(
+      #       url: "https://www.facebook.com/groups/742354120555345",
+      #       cursor: first_page[:cursor]
+      #     )
+      #   end
       #
       # @example Response structure
       #   {

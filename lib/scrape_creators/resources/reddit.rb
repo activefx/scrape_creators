@@ -184,6 +184,72 @@ module ScrapeCreators
 
         get("/v1/reddit/post/comments", params)
       end
+
+      # Get a simplified list of comments from a Reddit post
+      #
+      # Convenience API to get a specific number of comments from a Reddit post.
+      # Returns a flattened array of comments without nested replies structure,
+      # making it easier to work with for simple use cases.
+      #
+      # @param url [String] The full Reddit post URL
+      # @param amount [Integer, nil] Number of comments to return
+      # @param trim [Boolean, nil] Whether to return a trimmed response (default: false)
+      # @return [Array<Hash>] Array of comment objects
+      # @raise [ArgumentError] If the url parameter is nil or empty
+      # @raise [BadRequestError] If the request parameters are invalid
+      # @raise [NotFoundError] If the post is not found
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Get 10 comments from a Reddit post
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   comments = client.reddit.simple_comments(
+      #     "https://www.reddit.com/r/AskReddit/comments/abc123/...",
+      #     amount: 10
+      #   )
+      #   comments.each { |comment| puts comment[:body] }
+      #
+      # @example Get trimmed comments
+      #   comments = client.reddit.simple_comments(
+      #     "https://www.reddit.com/r/AskReddit/comments/abc123/...",
+      #     amount: 5,
+      #     trim: true
+      #   )
+      #
+      # @example Response structure
+      #   [
+      #     {
+      #       subreddit_id: "t5_2qh1i",
+      #       author: "sweatybeard",
+      #       body: "But when I finally do...",
+      #       body_html: "<div class=\"md\">...</div>",
+      #       score: 12207,
+      #       ups: 12207,
+      #       downs: 0,
+      #       created_utc: 1546378524,
+      #       id: "ed1czme",
+      #       name: "t1_ed1czme",
+      #       parent_id: "t3_ablzuq",
+      #       link_id: "t3_ablzuq",
+      #       subreddit: "AskReddit",
+      #       subreddit_name_prefixed: "r/AskReddit",
+      #       permalink: "/r/AskReddit/comments/ablzuq/.../ed1czme/",
+      #       depth: 0,
+      #       gilded: 2,
+      #       archived: true,
+      #       controversiality: 0,
+      #       is_submitter: false
+      #     }
+      #   ]
+      def simple_comments(url, amount: nil, trim: nil)
+        raise ArgumentError, "url is required" if url.nil? || url.to_s.empty?
+
+        params = { url: url }
+        params[:amount] = amount unless amount.nil?
+        params[:trim] = trim unless trim.nil?
+
+        get("/v1/reddit/post/comments/simple", params)
+      end
     end
   end
 end

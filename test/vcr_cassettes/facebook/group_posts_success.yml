@@ -1,0 +1,39 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/facebook/group/posts?url=https://www.facebook.com/groups/742354120555345
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 23 Nov 2025 18:00:00 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Powered-By:
+      - Express
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"posts":[{"id":"1286289372828481","text":null,"url":"https://www.facebook.com/groups/742354120555345/permalink/1286289372828481/","permalink":"https://www.facebook.com/sofiyati.942655/videos/996458202287759/?idorvanity=742354120555345","author":{"__typename":"User","name":"Sofiyati","short_name":"Sofiyati","id":"61552766652796"},"reactionCount":198,"commentCount":100,"videoViewCount":null,"publishTime":1748639389,"videoDetails":{"sdUrl":"https://video-sea1-1.xx.fbcdn.net/example_sd.mp4","hdUrl":"https://video-sea1-1.xx.fbcdn.net/example_hd.mp4","thumbnailUrl":"https://scontent-sea1-1.xx.fbcdn.net/example_thumb.jpg"},"topComments":[{"id":"Y29tbWVudDoxMjg2Mjg5MzcyODI4NDgxXzEyODY1MTY1MjYxMzkwOTk=","text":"I can find thousands of videos with the same exact trend. And we all know what I am referring to","publishTime":1748666375,"author":{"id":"pfbid0haqAQZCvs4cTVyfGwxCGPidvLYRNhFiboXkCH45LmPLAF1oQ7kJxaVig19KT8nZvl","name":"Trent Slushy","gender":"MALE","url":null}},{"id":"Y29tbWVudDoxMjg2Mjg5MzcyODI4NDgxXzEyODYzMTY4NDYxNTkwNjc=","text":"Nothing new when the brother gets knocked down another brother jumps in from behind.. very disrespectful","publishTime":1748642672,"author":{"id":"pfbid02fRnV4WmvHpX7sx48W2dmfetXpZHCLF5NhE3G4odMC8BniyRA3p4cQ3QYa4fzo57Sl","name":"Paul Demeo","gender":"MALE","url":null}}]},{"id":"1280901910033894","text":null,"url":"https://www.facebook.com/groups/742354120555345/permalink/1280901910033894/","permalink":"https://www.facebook.com/Eat.tohato/videos/1241112417643324/?idorvanity=742354120555345","author":{"__typename":"User","name":"Eat Tohato","short_name":"Tohato","id":"100023215682191"},"reactionCount":1671,"commentCount":214,"videoViewCount":null,"publishTime":1748056476,"videoDetails":{"sdUrl":"https://video-sea1-1.xx.fbcdn.net/example2_sd.mp4","hdUrl":"https://video-sea1-1.xx.fbcdn.net/example2_hd.mp4","thumbnailUrl":"https://scontent-sea1-1.xx.fbcdn.net/example2_thumb.jpg"},"topComments":[{"id":"Y29tbWVudDoxMjgwOTAxOTEwMDMzODk0XzEyODA5MDg1ODY2OTk4OTM=","text":"Did a powerbomb... stole a bat and he coulda ended that dude great self control","publishTime":1748057315,"author":{"id":"pfbid0DheZGgjMQgRTz5MPPHnkxaEDerz1v7Eq6mNgac85wAShJdU6oHPXQ9feQSSLytiEl","name":"Marcos Mendoza","gender":"MALE","url":"https://www.facebook.com/marcos.mendoza.560854"}}]},{"id":"1286064029517682","text":null,"url":"https://www.facebook.com/groups/742354120555345/permalink/1286064029517682/","permalink":"https://www.facebook.com/sofiyati.942655/videos/1390174998770652/?idorvanity=742354120555345","author":{"__typename":"User","name":"Sofiyati","short_name":"Sofiyati","id":"61552766652796"},"reactionCount":2064,"commentCount":413,"videoViewCount":null,"publishTime":1748615813,"videoDetails":{"sdUrl":"https://video-sea1-1.xx.fbcdn.net/example3_sd.mp4","hdUrl":"https://video-sea1-1.xx.fbcdn.net/example3_hd.mp4","thumbnailUrl":"https://scontent-sea1-1.xx.fbcdn.net/example3_thumb.jpg"},"topComments":[{"id":"Y29tbWVudDoxMjg2MDY0MDI5NTE3NjgyXzEyODYwOTMwMDI4NDgxMTg=","text":"No fight to see here, just a chump","publishTime":1748618582,"author":{"id":"pfbid06cUKaQWnFynREjde2E8RDsiiwAN7aZxfNAzmM58wkyCGApd8wSaxRyPT7iBXrodal","name":"Sky Parker","gender":"MALE","url":"https://www.facebook.com/OfficerWubWub"}}]}],"cursor":"AQHRBjJCelNvdGRjH8s2j"}'
+  recorded_at: Sun, 23 Nov 2025 18:00:00 GMT
+recorded_with: VCR 6.3.1
