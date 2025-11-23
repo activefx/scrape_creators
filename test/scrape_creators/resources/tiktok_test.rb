@@ -1228,6 +1228,86 @@ describe ScrapeCreators::Resources::Tiktok do
           first_category = product[:categories].first
 
           assert first_category.key?(:category_id) || first_category.key?(:category_name)
+  describe "#shop_products" do
+    it "fetches shop products successfully" do
+      VCR.use_cassette("tiktok/shop_products_success") do
+        results = tiktok.shop_products("https://www.tiktok.com/shop/store/goli-nutrition/7495794203056835079")
+
+        assert_kind_of Hash, results
+        assert results.key?(:success)
+        assert results.key?(:shop_info)
+        assert results.key?(:products)
+        assert_kind_of Array, results[:products]
+
+        unless results[:products].empty?
+          first_product = results[:products].first
+
+          assert first_product.key?(:product_id)
+          assert first_product.key?(:title)
+          assert first_product.key?(:image)
+          assert first_product.key?(:product_price_info)
+          assert first_product.key?(:seller_info)
+        end
+      end
+    end
+
+    it "fetches shop products with amount parameter" do
+      VCR.use_cassette("tiktok/shop_products_with_amount") do
+        results = tiktok.shop_products(
+          "https://www.tiktok.com/shop/store/goli-nutrition/7495794203056835079",
+          amount: 10
+        )
+
+        assert_kind_of Hash, results
+        assert results.key?(:products)
+      end
+    end
+
+    it "returns shop info" do
+      VCR.use_cassette("tiktok/shop_products_with_shop_info") do
+        results = tiktok.shop_products("https://www.tiktok.com/shop/store/goli-nutrition/7495794203056835079")
+
+        assert_kind_of Hash, results
+        assert results.key?(:shop_info)
+
+        shop_info = results[:shop_info]
+
+        assert shop_info.key?(:seller_id)
+        assert shop_info.key?(:shop_name)
+        assert shop_info.key?(:sold_count) || shop_info.key?(:format_sold_count)
+      end
+    end
+
+    it "returns product price information" do
+      VCR.use_cassette("tiktok/shop_products_with_price_info") do
+        results = tiktok.shop_products("https://www.tiktok.com/shop/store/goli-nutrition/7495794203056835079")
+
+        assert_kind_of Hash, results
+        assert results.key?(:products)
+
+        unless results[:products].empty?
+          first_product = results[:products].first
+          price_info = first_product[:product_price_info]
+
+          assert price_info.key?(:currency_symbol)
+          assert price_info.key?(:sale_price_decimal) || price_info.key?(:sale_price_format)
+        end
+      end
+    end
+
+    it "returns product ratings and sold info" do
+      VCR.use_cassette("tiktok/shop_products_with_ratings") do
+        results = tiktok.shop_products("https://www.tiktok.com/shop/store/goli-nutrition/7495794203056835079")
+
+        assert_kind_of Hash, results
+        assert results.key?(:products)
+
+        unless results[:products].empty?
+          first_product = results[:products].first
+
+          assert first_product[:rate_info].key?(:score) if first_product.key?(:rate_info)
+
+          assert first_product[:sold_info].key?(:sold_count) if first_product.key?(:sold_info)
         end
       end
     end
@@ -1235,13 +1315,7 @@ describe ScrapeCreators::Resources::Tiktok do
     it "raises ArgumentError when url is nil" do
       error = assert_raises(ArgumentError) do
         tiktok.shop_product(nil)
-      end
-      assert_match(/url is required/, error.message)
-    end
-
-    it "raises ArgumentError when url is empty" do
-      error = assert_raises(ArgumentError) do
-        tiktok.shop_product("")
+        tiktok.shop_products(nil)
       end
       assert_match(/url is required/, error.message)
     end

@@ -1206,6 +1206,32 @@ module ScrapeCreators
       #   product = client.tiktok.shop_product(
       #     "https://www.tiktok.com/shop/product/123",
       #     region: "US"
+      # Get products from a TikTok Shop
+      #
+      # Retrieves all products from a TikTok Shop by its URL. This endpoint handles
+      # pagination automatically and can take a while to respond.
+      #
+      # @note This endpoint costs more than 1 credit! Since pagination is handled
+      #   automatically, it costs 1 credit per page (TikTok returns 30 products per page).
+      #   This endpoint may take a while and is new, so please be patient.
+      #
+      # @param url [String] The URL of the TikTok Shop
+      # @param amount [Integer, nil] The amount of products to get
+      # @return [Hash] Shop info and products data
+      # @raise [ArgumentError] If the url parameter is nil or empty
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Get products from a shop
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   results = client.tiktok.shop_products("https://www.tiktok.com/shop/store/goli-nutrition/7495794203056835079")
+      #   puts results[:shop_info][:shop_name]  # => "Goli Nutrition"
+      #   puts results[:products].first[:title]  # => "Goli Ashwagandha..."
+      #
+      # @example Get specific amount of products
+      #   results = client.tiktok.shop_products(
+      #     "https://www.tiktok.com/shop/store/goli-nutrition/7495794203056835079",
+      #     amount: 50
       #   )
       #
       # @example Response structure
@@ -1287,6 +1313,53 @@ module ScrapeCreators
         params[:region] = region if region
 
         get("/v1/tiktok/product", params)
+      #     shop_info: {
+      #       seller_id: "7495794203056835079",
+      #       sold_count: 3767605,
+      #       on_sell_product_count: 36,
+      #       review_count: 284185,
+      #       shop_name: "Goli Nutrition",
+      #       shop_logo: { ... },
+      #       shop_rating: "4.6",
+      #       shop_link: "https://www.tiktok.com/shop/store/goli-nutrition/...",
+      #       format_sold_count: "3.7M",
+      #       region: "US",
+      #       followers_count: "237879",
+      #       store_sub_score: [...]
+      #     },
+      #     products: [
+      #       {
+      #         product_id: "1729527313880355335",
+      #         title: "Goli Ashwagandha & Vitamin D Gummy...",
+      #         image: { ... },
+      #         product_price_info: {
+      #           currency_symbol: "$",
+      #           sale_price_decimal: "14.96",
+      #           origin_price_decimal: "24.99",
+      #           discount_format: "40%"
+      #         },
+      #         rate_info: {
+      #           score: 4.5,
+      #           review_count: "91316"
+      #         },
+      #         sold_info: {
+      #           sold_count: 1235089
+      #         },
+      #         seller_info: { ... },
+      #         seo_url: {
+      #           canonical_url: "https://www.tiktok.com/shop/pdp/...",
+      #           slug: "ashwagandha-gummies-by-goli-..."
+      #         }
+      #       }
+      #     ]
+      #   }
+      def shop_products(url, amount: nil)
+        raise ArgumentError, "url is required" if url.nil? || url.to_s.empty?
+
+        params = { url: url }
+        params[:amount] = amount if amount
+
+        get("/v1/tiktok/shop/products", params)
       end
     end
   end
