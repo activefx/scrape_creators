@@ -148,4 +148,94 @@ describe ScrapeCreators::Resources::Instagram do
       end
     end
   end
+
+  describe "#posts" do
+    it "fetches posts from an Instagram profile" do
+      VCR.use_cassette("instagram/posts_success") do
+        posts = instagram.posts("barstoolsports")
+
+        assert_kind_of Hash, posts
+
+        # Verify response structure
+        assert posts.key?(:items)
+        assert posts.key?(:num_results)
+        assert posts.key?(:more_available)
+        assert posts.key?(:user)
+        assert_equal "ok", posts[:status]
+
+        # Verify items array
+        assert_kind_of Array, posts[:items]
+        refute_empty posts[:items]
+
+        # Verify first post structure
+        post = posts[:items].first
+
+        assert post.key?(:pk)
+        assert post.key?(:id)
+        assert post.key?(:code)
+        assert post.key?(:media_type)
+        assert post.key?(:taken_at)
+        assert post.key?(:user)
+
+        # Verify user info in post
+        assert_equal "barstoolsports", post[:user][:username]
+      end
+    end
+
+    it "fetches posts with trim parameter" do
+      VCR.use_cassette("instagram/posts_trimmed") do
+        posts = instagram.posts("barstoolsports", trim: true)
+
+        assert_kind_of Hash, posts
+        assert posts.key?(:items)
+        assert_equal "ok", posts[:status]
+      end
+    end
+
+    it "returns pagination cursor for more results" do
+      VCR.use_cassette("instagram/posts_success") do
+        posts = instagram.posts("barstoolsports")
+
+        # If more_available is true, next_max_id should be present
+        if posts[:more_available]
+          assert posts.key?(:next_max_id)
+          refute_nil posts[:next_max_id]
+        end
+      end
+    end
+
+    it "raises ArgumentError when handle is nil" do
+      error = assert_raises(ArgumentError) do
+        instagram.posts(nil)
+      end
+      assert_match(/handle is required/, error.message)
+    end
+
+    it "raises ArgumentError when handle is empty" do
+      error = assert_raises(ArgumentError) do
+        instagram.posts("")
+      end
+      assert_match(/handle is required/, error.message)
+    end
+
+    it "raises NotFoundError for non-existent profile" do
+      VCR.use_cassette("instagram/posts_not_found") do
+        assert_raises(ScrapeCreators::NotFoundError) do
+          instagram.posts("thisuserdoesnotexist123456789xyz")
+        end
+      end
+    end
+
+    it "raises UnauthorizedError for invalid API key" do
+      VCR.use_cassette("instagram/posts_unauthorized") do
+        invalid_client = ScrapeCreators::Client.new(api_key: "invalid_key")
+
+        error = assert_raises(ScrapeCreators::UnauthorizedError) do
+          invalid_client.instagram.posts("barstoolsports")
+        end
+
+        assert_match(/invalid|unauthorized|api.?key/i, error.message)
+      end
+    end
+  end
 end
