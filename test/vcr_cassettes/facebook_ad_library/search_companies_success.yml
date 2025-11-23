@@ -1,0 +1,39 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/facebook/adLibrary/search/companies?query=Nike
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 23 Nov 2025 10:00:00 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Powered-By:
+      - Express
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"searchResults":[{"page_id":"51212153078","category":"Product/service","image_uri":"https://scontent.ford4-1.fna.fbcdn.net/v/t39.30808-1/387181570_863325755161415_3589774989337788111_n.jpg","likes":41136495,"verification":"BLUE_VERIFIED","name":"Nike Football","country":null,"entity_type":"PERSON_PROFILE","ig_username":"nikefootball","ig_followers":46451228,"ig_verification":true,"page_alias":"nikefootball","page_is_deleted":false},{"page_id":"15087023444","category":"Sportswear Store","image_uri":"https://scontent.ford4-1.fna.fbcdn.net/v/t39.30808-1/284964043_10159903868513445_7696353984967674128_n.jpg","likes":39558683,"verification":"BLUE_VERIFIED","name":"Nike","country":null,"entity_type":"PERSON_PROFILE","ig_username":"nike","ig_followers":302060936,"ig_verification":true,"page_alias":"nike","page_is_deleted":false}]}'
+  recorded_at: Sat, 23 Nov 2025 10:00:00 GMT
+recorded_with: VCR 6.3.1

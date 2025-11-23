@@ -265,6 +265,52 @@ module ScrapeCreators
         get("/v1/facebook/adLibrary/company/ads", params)
       end
 
+      # Search for companies by name in the Facebook Ad Library
+      #
+      # Searches for companies/pages by name and returns their ad library page IDs
+      # along with other information like category, likes, and Instagram data.
+      #
+      # @param query [String] Keyword to search for (required)
+      # @return [Hash] Response containing search_results array with company information
+      # @raise [ArgumentError] If query is not provided
+      # @raise [BadRequestError] If the request parameters are invalid
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Search for companies by name
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   result = client.facebook_ad_library.search_companies(query: "Nike")
+      #   result[:search_results].each do |company|
+      #     puts "#{company[:name]} - Page ID: #{company[:page_id]}"
+      #   end
+      #
+      # @example Response structure (key fields)
+      #   {
+      #     search_results: [
+      #       {
+      #         page_id: "51212153078",
+      #         category: "Product/service",
+      #         image_uri: "https://scontent.ford4-1.fna.fbcdn.net/...",
+      #         likes: 41136495,
+      #         verification: "BLUE_VERIFIED",
+      #         name: "Nike Football",
+      #         country: nil,
+      #         entity_type: "PERSON_PROFILE",
+      #         ig_username: "nikefootball",
+      #         ig_followers: 46451228,
+      #         ig_verification: true,
+      #         page_alias: "nikefootball",
+      #         page_is_deleted: false
+      #       }
+      #     ]
+      #   }
+      def search_companies(query:)
+        validate_search_companies_params!(query)
+
+        params = { query: query }
+        get("/v1/facebook/adLibrary/search/companies", params)
+      end
+
       private
 
       def validate_ad_params!(id)
@@ -279,6 +325,10 @@ module ScrapeCreators
         return unless blank?(page_id) && blank?(company_name)
 
         raise ArgumentError, "Either page_id or company_name is required"
+      end
+
+      def validate_search_companies_params!(query)
+        raise ArgumentError, "query is required" if blank?(query)
       end
 
       def build_ad_params(id, get_transcript, trim)
