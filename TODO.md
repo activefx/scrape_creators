@@ -90,7 +90,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 
 ## Facebook
 
-- [⏳] GET Profile (`/v1/facebook/profile`)
+- [✅] GET Profile (`/v1/facebook/profile`)
 - [⏳] GET Profile Posts (`/v1/facebook/profile/posts`)
 - [⏳] GET Facebook Group Posts (`/v1/facebook/group/posts`)
 - [⏳] GET Post (`/v1/facebook/post`)
@@ -250,8 +250,8 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 ## Implementation Progress Summary
 
 **Total Endpoints:** 133
-**Completed:** 24 (TikTok core + search + songs + shop endpoints, Instagram profile + basic profile + posts)
-**Remaining:** 109
+**Completed:** 25 (TikTok core + search + songs + shop endpoints, Instagram profile + basic profile + posts, Facebook profile)
+**Remaining:** 108
 
 ### Platform Completion Status
 - TikTok: 18/18 endpoints (100%)
@@ -259,7 +259,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 - Instagram: 3/13 endpoints (23%)
 - YouTube: 0/12 endpoints (0%)
 - LinkedIn: 0/3 endpoints (0%)
-- Facebook: 0/6 endpoints (0%)
+- Facebook: 1/6 endpoints (17%)
 - Facebook Ad Library: 0/4 endpoints (0%)
 - Google Ad Library: 0/3 endpoints (0%)
 - LinkedIn Ad Library: 0/2 endpoints (0%)
