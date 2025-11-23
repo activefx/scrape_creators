@@ -142,6 +142,68 @@ module ScrapeCreators
 
         get("/v1/truthsocial/user/posts", params)
       end
+
+      # Get a specific Truth Social post
+      #
+      # Retrieves detailed information about a specific Truth Social post (also known as a "Truth")
+      # including the content, engagement metrics, media attachments, and author information.
+      #
+      # @param url [String] The full URL of the Truth Social post
+      #   (e.g., "https://truthsocial.com/@realDonaldTrump/114315219437063160")
+      # @return [Hash] Post data including content, account info, and engagement metrics
+      # @raise [ArgumentError] If the url parameter is nil or empty
+      # @raise [BadRequestError] If the url parameter is invalid
+      # @raise [NotFoundError] If the post is not found
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Get a Truth Social post
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   post = client.truth_social.post("https://truthsocial.com/@realDonaldTrump/114315219437063160")
+      #   puts post[:text]             # => "It's so hard to watch as..."
+      #   puts post[:replies_count]    # => 797
+      #   puts post[:reblogs_count]    # => 2423
+      #   puts post[:favourites_count] # => 8552
+      #
+      # @example Response structure
+      #   {
+      #     success: true,
+      #     text: "Post text content...",
+      #     id: "114315219437063160",
+      #     created_at: "2025-04-10T19:03:40.023Z",
+      #     in_reply_to_id: nil,
+      #     quote_id: nil,
+      #     sensitive: false,
+      #     spoiler_text: "",
+      #     visibility: "public",
+      #     language: "en",
+      #     uri: "https://truthsocial.com/@realDonaldTrump/114315219437063160",
+      #     url: "https://truthsocial.com/@realDonaldTrump/114315219437063160",
+      #     content: "<p>HTML content...</p>",
+      #     account: {
+      #       id: "107780257626128497",
+      #       username: "realDonaldTrump",
+      #       display_name: "Donald J. Trump",
+      #       followers_count: 9528704,
+      #       following_count: 72,
+      #       statuses_count: 26249,
+      #       verified: true,
+      #       ...
+      #     },
+      #     media_attachments: [],
+      #     mentions: [],
+      #     tags: [],
+      #     card: nil,
+      #     replies_count: 797,
+      #     reblogs_count: 2423,
+      #     favourites_count: 8552,
+      #     emojis: []
+      #   }
+      def post(url)
+        raise ArgumentError, "url is required" if url.nil? || url.to_s.empty?
+
+        get("/v1/truthsocial/post", url: url)
+      end
     end
   end
 end

@@ -518,4 +518,179 @@ describe ScrapeCreators::Resources::Twitter do
       end
     end
   end
+
+  describe "#community_tweets" do
+    let(:community_url) { "https://x.com/i/communities/1926186499399139650" }
+
+    it "fetches community tweets successfully" do
+      VCR.use_cassette("twitter/community_tweets_success") do
+        result = twitter.community_tweets(community_url)
+
+        assert_kind_of Hash, result
+
+        # Verify success status
+        assert result[:success]
+
+        # Verify tweets array
+        assert result.key?(:tweets)
+        assert_kind_of Array, result[:tweets]
+        refute_empty result[:tweets]
+      end
+    end
+
+    it "returns tweet content and metadata" do
+      VCR.use_cassette("twitter/community_tweets_success") do
+        result = twitter.community_tweets(community_url)
+
+        tweet = result[:tweets].first
+
+        # Verify tweet structure
+        assert tweet.key?(:id)
+        assert tweet.key?(:id_str)
+        assert tweet.key?(:full_text)
+        assert tweet.key?(:created_at)
+        assert tweet.key?(:lang)
+      end
+    end
+
+    it "returns engagement metrics for tweets" do
+      VCR.use_cassette("twitter/community_tweets_success") do
+        result = twitter.community_tweets(community_url)
+
+        tweet = result[:tweets].first
+
+        # Verify engagement metrics
+        assert tweet.key?(:favorite_count)
+        assert tweet.key?(:retweet_count)
+        assert tweet.key?(:reply_count)
+        assert tweet.key?(:quote_count)
+        assert tweet.key?(:bookmark_count)
+        assert tweet.key?(:view_count)
+      end
+    end
+
+    it "returns tweet status flags" do
+      VCR.use_cassette("twitter/community_tweets_success") do
+        result = twitter.community_tweets(community_url)
+
+        tweet = result[:tweets].first
+
+        # Verify status flags
+        assert tweet.key?(:favorited)
+        assert tweet.key?(:retweeted)
+        assert tweet.key?(:bookmarked)
+        assert tweet.key?(:is_quote_status)
+      end
+    end
+
+    it "returns user information for tweet authors" do
+      VCR.use_cassette("twitter/community_tweets_success") do
+        result = twitter.community_tweets(community_url)
+
+        tweet = result[:tweets].first
+
+        # Verify user structure
+        assert tweet.key?(:user)
+        assert tweet.key?(:user_id_str)
+
+        user = tweet[:user]
+
+        assert_equal "User", user[:__typename]
+        assert user.key?(:id)
+        assert user.key?(:rest_id)
+        assert user.key?(:is_blue_verified)
+      end
+    end
+
+    it "returns user core information" do
+      VCR.use_cassette("twitter/community_tweets_success") do
+        result = twitter.community_tweets(community_url)
+
+        tweet = result[:tweets].first
+        user = tweet[:user]
+
+        # Verify user core data
+        assert user.key?(:core)
+        assert user[:core].key?(:name)
+        assert user[:core].key?(:screen_name)
+        assert user[:core].key?(:created_at)
+      end
+    end
+
+    it "returns user avatar information" do
+      VCR.use_cassette("twitter/community_tweets_success") do
+        result = twitter.community_tweets(community_url)
+
+        tweet = result[:tweets].first
+        user = tweet[:user]
+
+        # Verify avatar data
+        assert user.key?(:avatar)
+        assert user[:avatar].key?(:image_url)
+      end
+    end
+
+    it "returns user legacy data" do
+      VCR.use_cassette("twitter/community_tweets_success") do
+        result = twitter.community_tweets(community_url)
+
+        tweet = result[:tweets].first
+        user = tweet[:user]
+
+        # Verify legacy data structure
+        assert user.key?(:legacy)
+        assert user[:legacy].key?(:description)
+        assert user[:legacy].key?(:followers_count)
+        assert user[:legacy].key?(:friends_count)
+        assert user[:legacy].key?(:statuses_count)
+      end
+    end
+
+    it "returns tweet source information" do
+      VCR.use_cassette("twitter/community_tweets_success") do
+        result = twitter.community_tweets(community_url)
+
+        tweet = result[:tweets].first
+
+        # Verify source and conversation data
+        assert tweet.key?(:source)
+        assert tweet.key?(:conversation_id_str)
+        assert tweet.key?(:display_text_range)
+      end
+    end
+
+    it "raises ArgumentError when url is nil" do
+      error = assert_raises(ArgumentError) do
+        twitter.community_tweets(nil)
+      end
+      assert_match(/url is required/, error.message)
+    end
+
+    it "raises ArgumentError when url is empty" do
+      error = assert_raises(ArgumentError) do
+        twitter.community_tweets("")
+      end
+      assert_match(/url is required/, error.message)
+    end
+
+    it "raises NotFoundError for non-existent community" do
+      VCR.use_cassette("twitter/community_tweets_not_found") do
+        assert_raises(ScrapeCreators::NotFoundError) do
+          twitter.community_tweets("https://x.com/i/communities/999999999999999999999")
+        end
+      end
+    end
+
+    it "raises UnauthorizedError for invalid API key" do
+      VCR.use_cassette("twitter/community_tweets_unauthorized") do
+        invalid_client = ScrapeCreators::Client.new(api_key: "invalid_key")
+
+        error = assert_raises(ScrapeCreators::UnauthorizedError) do
+          invalid_client.twitter.community_tweets(community_url)
+        end
+
+        assert_match(/invalid|unauthorized|api.?key/i, error.message)
+      end
+    end
+  end
 end
