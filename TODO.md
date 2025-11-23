@@ -49,7 +49,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 
 - [✅] GET Profile (`/v1/instagram/profile`)
 - [✅] GET Basic Profile (`/v1/instagram/basic-profile`)
-- [⏳] GET Posts (`/v2/instagram/user/posts`)
+- [✅] GET Posts (`/v2/instagram/user/posts`)
 - [⏳] GET Post/Reel Info (`/v1/instagram/post`)
 - [⏳] GET Transcript (`/v2/instagram/media/transcript`)
 - [⏳] GET Search Reels (`/v1/instagram/reels/search`)
@@ -65,7 +65,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 
 ## YouTube
 
-- [⏳] GET Channel Details (`/v1/youtube/channel`)
+- [✅] GET Channel Details (`/v1/youtube/channel`)
 - [⏳] GET Channel Videos (`/v1/youtube/channel-videos`)
 - [⏳] GET Channel Shorts (`/v1/youtube/channel/shorts`)
 - [⏳] GET Channel Shorts - Auto Pagination (`/v1/youtube/channel/shorts/simple`)
@@ -251,12 +251,16 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 
 **Total Endpoints:** 133
 **Completed:** 24 (TikTok core + search + songs + shop endpoints, Instagram profile + basic profile, LinkedIn profile)
+**Completed:** 24 (TikTok core + search + songs + shop endpoints, Instagram profile + basic profile, YouTube channel)
+**Completed:** 24 (TikTok core + search + songs + shop endpoints, Instagram profile + basic profile + posts)
 **Remaining:** 109
 
 ### Platform Completion Status
 - TikTok: 18/18 endpoints (100%)
 - TikTok Shop: 3/3 endpoints (100%)
 - Instagram: 2/13 endpoints (15%)
+- YouTube: 1/12 endpoints (8%)
+- Instagram: 3/13 endpoints (23%)
 - YouTube: 0/12 endpoints (0%)
 - LinkedIn: 1/3 endpoints (33%)
 - Facebook: 0/6 endpoints (0%)
