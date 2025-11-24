@@ -75,7 +75,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 - [✅] GET Search by Hashtag (`/v1/youtube/search/hashtag`)
 - [✅] GET Comments (`/v1/youtube/video/comments`)
 - [✅] GET Trending Shorts (`/v1/youtube/shorts/trending`)
-- [⏳] GET Playlist (`/v1/youtube/playlist`)
+- [✅] GET Playlist (`/v1/youtube/playlist`)
 - [⏳] GET Community Post Details (`/v1/youtube/community-post`)
 
 ---
@@ -213,7 +213,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 
 ## Komi
 
-- [⏳] GET Komi page (`/v1/komi`)
+- [✅] GET Komi page (`/v1/komi`)
 
 ---
 
@@ -257,7 +257,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 - TikTok: 18/18 endpoints (100%)
 - TikTok Shop: 3/3 endpoints (100%)
 - Instagram: 13/13 endpoints (100%)
-- YouTube: 10/12 endpoints (83%)
+- YouTube: 11/12 endpoints (92%)
 - LinkedIn: 3/3 endpoints (100%)
 - Facebook: 6/6 endpoints (100%)
 - Facebook Ad Library: 4/4 endpoints (100%)
@@ -274,7 +274,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 - Kick: 1/1 endpoints (100%)
 - Snapchat: 1/1 endpoints (100%)
 - Linktree: 1/1 endpoints (100%)
-- Komi: 0/1 endpoints (0%)
+- Komi: 1/1 endpoints (100%)
 - Pillar: 1/1 endpoints (100%)
 - Linkbio: 0/1 endpoints (0%)
 - Amazon Shop: 0/1 endpoints (0%)

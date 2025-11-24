@@ -748,6 +748,74 @@ module ScrapeCreators
       def trending_shorts
         get("/v1/youtube/shorts/trending", {})
       end
+
+      # Get videos from a YouTube playlist
+      #
+      # Retrieves videos from a YouTube playlist with detailed information including
+      # video titles, thumbnails, duration, and channel information.
+      #
+      # @param playlist_id [String] YouTube playlist ID (required). In the YouTube URL
+      #   it will be the 'list' parameter.
+      # @return [Hash] Playlist data including title, owner, total videos, and videos array
+      # @raise [ArgumentError] If playlist_id is not provided
+      # @raise [BadRequestError] If the parameters are invalid
+      # @raise [NotFoundError] If the playlist is not found
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Get videos from a playlist
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   result = client.youtube.playlist(playlist_id: "PLrAXtmErZgOeiKm4sgNOknGvNjby9efdf")
+      #   puts result[:title]         # => "Songs with Lyrics 2025 - New Songs 2025"
+      #   puts result[:totalVideos]   # => 98
+      #   result[:videos].each do |video|
+      #     puts "#{video[:title]} - #{video[:lengthText]}"
+      #   end
+      #
+      # @example Extract playlist ID from URL
+      #   # Given URL: https://www.youtube.com/playlist?list=PLrAXtmErZgOeiKm4sgNOknGvNjby9efdf
+      #   # The playlist_id is: PLrAXtmErZgOeiKm4sgNOknGvNjby9efdf
+      #   result = client.youtube.playlist(playlist_id: "PLrAXtmErZgOeiKm4sgNOknGvNjby9efdf")
+      #
+      # @example Access playlist owner information
+      #   result = client.youtube.playlist(playlist_id: "PLrAXtmErZgOeiKm4sgNOknGvNjby9efdf")
+      #   owner = result[:owner]
+      #   puts owner[:name]           # => "Lovely Tunes"
+      #   puts owner[:handle]         # => "lovelytunes7622"
+      #   puts owner[:url]            # => "https://www.youtube.com/@lovelytunes7622"
+      #
+      # @example Response structure
+      #   {
+      #     success: true,
+      #     credits_remaining: 99404,
+      #     title: "Songs with Lyrics 2025 - New Songs 2025 - Music 2025 New Songs",
+      #     owner: {
+      #       id: "UC0-wiBH12UgtWqLjo-EvpOw",
+      #       name: "Lovely Tunes",
+      #       url: "https://www.youtube.com/@lovelytunes7622",
+      #       handle: "lovelytunes7622"
+      #     },
+      #     totalVideos: 98,
+      #     videos: [
+      #       {
+      #         id: "AdBzzpq3xV4",
+      #         title: "Lady Gaga, Bruno Mars - Die With A Smile",
+      #         thumbnail: "https://i.ytimg.com/vi/AdBzzpq3xV4/hqdefault.jpg?...",
+      #         url: "https://www.youtube.com/watch?v=AdBzzpq3xV4",
+      #         lengthText: "4:15",
+      #         lengthSeconds: 255,
+      #         channel: {
+      #           title: "LatinHype",
+      #           url: "https://www.youtube.com/@LatinHype."
+      #         }
+      #       }
+      #     ]
+      #   }
+      def playlist(playlist_id:)
+        raise ArgumentError, "playlist_id is required" if playlist_id.nil? || playlist_id.to_s.strip.empty?
+
+        get("/v1/youtube/playlist", { playlist_id: playlist_id })
+      end
     end
   end
 end
