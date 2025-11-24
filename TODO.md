@@ -225,7 +225,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 
 ## Linkbio
 
-- [⏳] GET Linkbio page (`/v1/linkbio`)
+- [✅] GET Linkbio page (`/v1/linkbio`)
 
 ---
 
@@ -276,7 +276,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 - Linktree: 1/1 endpoints (100%)
 - Komi: 1/1 endpoints (100%)
 - Pillar: 1/1 endpoints (100%)
-- Linkbio: 0/1 endpoints (0%)
+- Linkbio: 1/1 endpoints (100%)
 - Amazon Shop: 0/1 endpoints (0%)
 - Age and Gender: 0/1 endpoints (0%)
 - Scrape Creators: 0/1 endpoints (0%)
