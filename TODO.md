@@ -195,7 +195,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 
 ## Kick
 
-- [⏳] GET Clip (`/v1/kick/clip`)
+- [✅] GET Clip (`/v1/kick/clip`)
 
 ---
 
@@ -271,7 +271,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 - Pinterest: 3/4 endpoints (75%)
 - Google: 1/1 endpoints (100%)
 - Twitch: 1/2 endpoints (50%)
-- Kick: 0/1 endpoints (0%)
+- Kick: 1/1 endpoints (100%)
 - Snapchat: 1/1 endpoints (100%)
 - Linktree: 1/1 endpoints (100%)
 - Komi: 0/1 endpoints (0%)
