@@ -1293,4 +1293,125 @@ describe ScrapeCreators::Resources::Youtube do
       end
     end
   end
+
+  describe "#community_post" do
+    describe "with url parameter" do
+      it "fetches community post details" do
+        VCR.use_cassette("youtube/community_post_basic") do
+          result = youtube.community_post(
+            url: "https://www.youtube.com/post/Ugkxvj2KoApYAXoqLWnKVr6zZe5JjeHrQeP8"
+          )
+
+          assert_kind_of Hash, result
+          assert result.key?(:success)
+          assert result.key?(:id)
+          assert result.key?(:content)
+        end
+      end
+
+      it "returns post with channel information" do
+        VCR.use_cassette("youtube/community_post_with_channel") do
+          result = youtube.community_post(
+            url: "https://www.youtube.com/post/Ugkxvj2KoApYAXoqLWnKVr6zZe5JjeHrQeP8"
+          )
+
+          assert_kind_of Hash, result
+          assert result.key?(:channel)
+
+          if result[:channel]
+            channel = result[:channel]
+
+            assert_kind_of Hash, channel
+            assert channel.key?(:id)
+            assert channel.key?(:title)
+            assert channel.key?(:url)
+            assert channel.key?(:handle)
+          end
+        end
+      end
+
+      it "returns post with images array" do
+        VCR.use_cassette("youtube/community_post_with_images") do
+          result = youtube.community_post(
+            url: "https://www.youtube.com/post/Ugkxvj2KoApYAXoqLWnKVr6zZe5JjeHrQeP8"
+          )
+
+          assert_kind_of Hash, result
+          assert result.key?(:images)
+          assert_kind_of Array, result[:images] if result[:images]
+        end
+      end
+
+      it "returns post with engagement metrics" do
+        VCR.use_cassette("youtube/community_post_with_engagement") do
+          result = youtube.community_post(
+            url: "https://www.youtube.com/post/Ugkxvj2KoApYAXoqLWnKVr6zZe5JjeHrQeP8"
+          )
+
+          assert_kind_of Hash, result
+          assert result.key?(:like_count)
+        end
+      end
+
+      it "returns post with publish date information" do
+        VCR.use_cassette("youtube/community_post_with_publish_date") do
+          result = youtube.community_post(
+            url: "https://www.youtube.com/post/Ugkxvj2KoApYAXoqLWnKVr6zZe5JjeHrQeP8"
+          )
+
+          assert_kind_of Hash, result
+          assert result.key?(:published_time_text) || result.key?(:published_time)
+        end
+      end
+
+      it "returns credits remaining" do
+        VCR.use_cassette("youtube/community_post_credits_remaining") do
+          result = youtube.community_post(
+            url: "https://www.youtube.com/post/Ugkxvj2KoApYAXoqLWnKVr6zZe5JjeHrQeP8"
+          )
+
+          assert_kind_of Hash, result
+          assert result.key?(:credits_remaining)
+        end
+      end
+    end
+
+    describe "parameter validation" do
+      it "raises ArgumentError when url is not provided" do
+        error = assert_raises(ArgumentError) do
+          youtube.community_post(url: nil)
+        end
+        assert_match(/url is required/, error.message)
+      end
+
+      it "raises ArgumentError when url is empty string" do
+        error = assert_raises(ArgumentError) do
+          youtube.community_post(url: "")
+        end
+        assert_match(/url is required/, error.message)
+      end
+
+      it "raises ArgumentError when url is whitespace only" do
+        error = assert_raises(ArgumentError) do
+          youtube.community_post(url: "   ")
+        end
+        assert_match(/url is required/, error.message)
+      end
+    end
+
+    describe "error handling" do
+      it "raises authentication error for invalid API key" do
+        VCR.use_cassette("youtube/community_post_unauthorized") do
+          invalid_client = ScrapeCreators::Client.new(api_key: "invalid_key")
+
+          # API may return UnauthorizedError or PaymentRequiredError for invalid credentials
+          assert_raises(ScrapeCreators::UnauthorizedError, ScrapeCreators::PaymentRequiredError) do
+            invalid_client.youtube.community_post(
+              url: "https://www.youtube.com/post/Ugkxvj2KoApYAXoqLWnKVr6zZe5JjeHrQeP8"
+            )
+          end
+        end
+      end
+    end
+  end
 end
