@@ -288,6 +288,48 @@ module ScrapeCreators
 
         get("/v1/threads/search", params)
       end
+
+      # Search for users by username
+      #
+      # Searches Threads for users matching the given username query.
+      #
+      # @param query [String] Username to search for
+      # @return [Hash] Search results including array of matching users
+      # @raise [ArgumentError] If the query parameter is nil or empty
+      # @raise [BadRequestError] If the query parameter is invalid
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Search for users by username
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   response = client.threads.search_users("shams")
+      #   puts response[:users].length
+      #   response[:users].each do |user|
+      #     puts user[:username]
+      #     puts user[:full_name]
+      #   end
+      #
+      # @example Response structure
+      #   {
+      #     success: true,
+      #     users: [
+      #       {
+      #         username: "shams",
+      #         pk: "5951152863",
+      #         is_active_on_text_post_app: true,
+      #         full_name: "Shams Charania",
+      #         profile_pic_url: "https://...",
+      #         is_verified: true,
+      #         has_onboarded_to_text_post_app: true,
+      #         id: "5951152863"
+      #       }
+      #     ]
+      #   }
+      def search_users(query)
+        raise ArgumentError, "query is required" if query.nil? || query.to_s.empty?
+
+        get("/v1/threads/search/users", query: query)
+      end
     end
   end
 end

@@ -358,4 +358,65 @@ describe ScrapeCreators::Resources::Threads do
       end
     end
   end
+
+  describe "#search_users" do
+    it "searches for users by username successfully" do
+      VCR.use_cassette("threads/search_users_success") do
+        response = threads.search_users("shams")
+
+        assert_kind_of Hash, response
+        assert response[:success]
+
+        # Verify users array
+        assert response.key?(:users)
+        assert_kind_of Array, response[:users]
+        refute_empty response[:users]
+
+        # Verify first user structure
+        user = response[:users].first
+
+        # Basic user identifiers
+        assert user.key?(:username)
+        assert user.key?(:pk)
+        assert user.key?(:id)
+
+        # Profile info
+        assert user.key?(:full_name)
+        assert user.key?(:profile_pic_url)
+
+        # Verification status
+        assert_includes [true, false], user[:is_verified]
+
+        # Threads-specific fields
+        assert_includes [true, false], user[:is_active_on_text_post_app]
+        assert_includes [true, false], user[:has_onboarded_to_text_post_app]
+      end
+    end
+
+    it "raises ArgumentError when query is nil" do
+      error = assert_raises(ArgumentError) do
+        threads.search_users(nil)
+      end
+      assert_match(/query is required/, error.message)
+    end
+
+    it "raises ArgumentError when query is empty" do
+      error = assert_raises(ArgumentError) do
+        threads.search_users("")
+      end
+      assert_match(/query is required/, error.message)
+    end
+
+    it "raises UnauthorizedError for invalid API key" do
+      VCR.use_cassette("threads/search_users_unauthorized") do
+        invalid_client = ScrapeCreators::Client.new(api_key: "invalid_key")
+
+        error = assert_raises(ScrapeCreators::UnauthorizedError) do
+          invalid_client.threads.search_users("shams")
+        end
+
+        assert_match(/invalid|unauthorized|api.?key/i, error.message)
+      end
+    end
+  end
 end
