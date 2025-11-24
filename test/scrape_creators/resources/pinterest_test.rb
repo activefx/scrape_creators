@@ -300,4 +300,132 @@ describe ScrapeCreators::Resources::Pinterest do
       end
     end
   end
+
+  describe "#user_boards" do
+    let(:handle) { "broadstbullycom" }
+
+    it "fetches user boards successfully" do
+      VCR.use_cassette("pinterest/user_boards_success") do
+        result = pinterest.user_boards(handle)
+
+        assert_kind_of Hash, result
+        assert result.key?(:success)
+        assert result[:success]
+        assert result.key?(:boards)
+        assert_kind_of Array, result[:boards]
+      end
+    end
+
+    it "returns boards with expected core fields" do
+      VCR.use_cassette("pinterest/user_boards_success") do
+        result = pinterest.user_boards(handle)
+
+        refute_empty result[:boards]
+        board = result[:boards].first
+
+        assert board.key?(:id)
+        assert board.key?(:name)
+        assert board.key?(:url)
+        assert board.key?(:pin_count)
+      end
+    end
+
+    it "returns board owner information" do
+      VCR.use_cassette("pinterest/user_boards_success") do
+        result = pinterest.user_boards(handle)
+
+        board = result[:boards].first
+
+        if board[:owner]
+          owner = board[:owner]
+
+          assert owner.key?(:username)
+          assert owner.key?(:full_name)
+          assert owner.key?(:id)
+        end
+      end
+    end
+
+    it "returns board metadata" do
+      VCR.use_cassette("pinterest/user_boards_success") do
+        result = pinterest.user_boards(handle)
+
+        board = result[:boards].first
+
+        assert board.key?(:follower_count)
+        assert board.key?(:privacy)
+        assert board.key?(:type)
+      end
+    end
+
+    it "returns board images when available" do
+      VCR.use_cassette("pinterest/user_boards_success") do
+        result = pinterest.user_boards(handle)
+
+        board = result[:boards].first
+
+        assert_kind_of Hash, board[:images] if board[:images]
+      end
+    end
+
+    it "returns cover images when available" do
+      VCR.use_cassette("pinterest/user_boards_success") do
+        result = pinterest.user_boards(handle)
+
+        board = result[:boards].first
+
+        assert_kind_of Hash, board[:cover_images] if board[:cover_images]
+
+        assert board.key?(:image_cover_url) || board.key?(:image_cover_hd_url)
+      end
+    end
+
+    it "includes pagination cursor in response" do
+      VCR.use_cassette("pinterest/user_boards_success") do
+        result = pinterest.user_boards(handle)
+
+        assert result.key?(:cursor)
+      end
+    end
+
+    it "fetches user boards with trim parameter" do
+      VCR.use_cassette("pinterest/user_boards_trimmed") do
+        result = pinterest.user_boards(handle, trim: true)
+
+        assert_kind_of Hash, result
+        assert result.key?(:success)
+        assert result.key?(:boards)
+      end
+    end
+
+    describe "argument validation" do
+      it "raises ArgumentError when handle is nil" do
+        error = assert_raises(ArgumentError) do
+          pinterest.user_boards(nil)
+        end
+        assert_match(/handle is required/, error.message)
+      end
+
+      it "raises ArgumentError when handle is empty" do
+        error = assert_raises(ArgumentError) do
+          pinterest.user_boards("")
+        end
+        assert_match(/handle is required/, error.message)
+      end
+    end
+
+    describe "error handling" do
+      it "raises PaymentRequiredError for invalid API key" do
+        VCR.use_cassette("pinterest/user_boards_unauthorized") do
+          invalid_client = ScrapeCreators::Client.new(api_key: "invalid_key")
+
+          error = assert_raises(ScrapeCreators::PaymentRequiredError) do
+            invalid_client.pinterest.user_boards(handle)
+          end
+
+          assert_match(/credits/i, error.message)
+        end
+      end
+    end
+  end
 end

@@ -274,4 +274,88 @@ describe ScrapeCreators::Resources::Threads do
       end
     end
   end
+
+  describe "#search" do
+    it "searches for posts by keyword successfully" do
+      VCR.use_cassette("threads/search_success") do
+        response = threads.search("basketball")
+
+        assert_kind_of Hash, response
+        assert response[:success]
+
+        # Verify posts array
+        assert response.key?(:posts)
+        assert_kind_of Array, response[:posts]
+        refute_empty response[:posts]
+
+        # Verify first post structure
+        post = response[:posts].first
+
+        # Basic post identifiers
+        assert post.key?(:id)
+        assert post.key?(:pk)
+        assert post.key?(:code)
+
+        # User info
+        assert post.key?(:user)
+        assert_kind_of Hash, post[:user]
+        assert post[:user].key?(:username)
+        assert post[:user].key?(:pk)
+
+        # Post content
+        assert post.key?(:caption)
+        assert_kind_of Hash, post[:caption]
+        assert post[:caption].key?(:text)
+
+        # Engagement metrics
+        assert post.key?(:like_count)
+        assert_kind_of Integer, post[:like_count]
+
+        # Media info
+        assert post.key?(:media_type)
+        assert post.key?(:taken_at)
+
+        # Threads-specific info
+        assert post.key?(:text_post_app_info)
+        assert_kind_of Hash, post[:text_post_app_info]
+      end
+    end
+
+    it "searches with trimmed response when trim option is true" do
+      VCR.use_cassette("threads/search_trimmed") do
+        response = threads.search("basketball", trim: true)
+
+        assert_kind_of Hash, response
+        assert response[:success]
+        assert response.key?(:posts)
+        assert_kind_of Array, response[:posts]
+      end
+    end
+
+    it "raises ArgumentError when query is nil" do
+      error = assert_raises(ArgumentError) do
+        threads.search(nil)
+      end
+      assert_match(/query is required/, error.message)
+    end
+
+    it "raises ArgumentError when query is empty" do
+      error = assert_raises(ArgumentError) do
+        threads.search("")
+      end
+      assert_match(/query is required/, error.message)
+    end
+
+    it "raises UnauthorizedError for invalid API key" do
+      VCR.use_cassette("threads/search_unauthorized") do
+        invalid_client = ScrapeCreators::Client.new(api_key: "invalid_key")
+
+        error = assert_raises(ScrapeCreators::UnauthorizedError) do
+          invalid_client.threads.search("basketball")
+        end
+
+        assert_match(/invalid|unauthorized|api.?key/i, error.message)
+      end
+    end
+  end
 end
