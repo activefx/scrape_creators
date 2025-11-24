@@ -993,7 +993,9 @@ describe ScrapeCreators::Resources::Youtube do
           result = youtube.search_hashtag(hashtag: "funny", type: "shorts")
 
           assert_kind_of Hash, result
-          assert result.key?(:videos)
+          # API returns results nested under :results key for type=shorts
+          assert result.key?(:results)
+          assert result[:results].key?(:shorts)
         end
       end
     end
