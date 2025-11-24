@@ -231,7 +231,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 
 ## Amazon Shop
 
-- [⏳] GET Amazon Shop page (`/v1/amazon/shop`)
+- [✅] GET Amazon Shop page (`/v1/amazon/shop`)
 
 ---
 
@@ -277,7 +277,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 - Komi: 1/1 endpoints (100%)
 - Pillar: 1/1 endpoints (100%)
 - Linkbio: 1/1 endpoints (100%)
-- Amazon Shop: 0/1 endpoints (0%)
+- Amazon Shop: 1/1 endpoints (100%)
 - Age and Gender: 0/1 endpoints (0%)
 - Scrape Creators: 0/1 endpoints (0%)
 
