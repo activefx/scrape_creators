@@ -73,7 +73,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 - [✅] GET Transcript (`/v1/youtube/video/transcript`)
 - [✅] GET Search (`/v1/youtube/search`)
 - [✅] GET Search by Hashtag (`/v1/youtube/search/hashtag`)
-- [⏳] GET Comments (`/v1/youtube/video/comments`)
+- [✅] GET Comments (`/v1/youtube/video/comments`)
 - [⏳] GET Trending Shorts (`/v1/youtube/shorts/trending`)
 - [⏳] GET Playlist (`/v1/youtube/playlist`)
 - [⏳] GET Community Post Details (`/v1/youtube/community-post`)
@@ -167,7 +167,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 
 - [✅] GET Profile (`/bluesky/profile`)
 - [✅] GET Posts (`/bluesky/user/posts`)
-- [⏳] GET Post (`/bluesky/post`)
+- [✅] GET Post (`/bluesky/post`)
 
 ---
 
@@ -175,7 +175,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 
 - [✅] GET Search (`/v1/pinterest/search`)
 - [✅] GET Pin (`/v1/pinterest/pin`)
-- [⏳] GET User Boards (`/v1/pinterest/user/boards`)
+- [✅] GET User Boards (`/v1/pinterest/user/boards`)
 - [⏳] GET Board (`/v1/pinterest/board`)
 
 ---
@@ -195,19 +195,19 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 
 ## Kick
 
-- [⏳] GET Clip (`/v1/kick/clip`)
+- [✅] GET Clip (`/v1/kick/clip`)
 
 ---
 
 ## Snapchat
 
-- [⏳] GET User Profile (`/v1/snapchat/profile`)
+- [✅] GET User Profile (`/v1/snapchat/profile`)
 
 ---
 
 ## Linktree
 
-- [⏳] GET Linktree page (`/v1/linktree`)
+- [✅] GET Linktree page (`/v1/linktree`)
 
 ---
 
@@ -257,7 +257,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 - TikTok: 18/18 endpoints (100%)
 - TikTok Shop: 3/3 endpoints (100%)
 - Instagram: 13/13 endpoints (100%)
-- YouTube: 8/12 endpoints (67%)
+- YouTube: 9/12 endpoints (75%)
 - LinkedIn: 3/3 endpoints (100%)
 - Facebook: 6/6 endpoints (100%)
 - Facebook Ad Library: 4/4 endpoints (100%)
@@ -267,13 +267,13 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 - Reddit: 6/6 endpoints (100%)
 - Truth Social: 3/3 endpoints (100%)
 - Threads: 5/5 endpoints (100%)
-- Bluesky: 2/3 endpoints (67%)
-- Pinterest: 2/4 endpoints (50%)
+- Bluesky: 3/3 endpoints (100%)
+- Pinterest: 3/4 endpoints (75%)
 - Google: 1/1 endpoints (100%)
 - Twitch: 1/2 endpoints (50%)
-- Kick: 0/1 endpoints (0%)
-- Snapchat: 0/1 endpoints (0%)
-- Linktree: 0/1 endpoints (0%)
+- Kick: 1/1 endpoints (100%)
+- Snapchat: 1/1 endpoints (100%)
+- Linktree: 1/1 endpoints (100%)
 - Komi: 0/1 endpoints (0%)
 - Pillar: 0/1 endpoints (0%)
 - Linkbio: 0/1 endpoints (0%)

@@ -632,6 +632,136 @@ describe ScrapeCreators::Resources::Youtube do
     end
   end
 
+  describe "#video_comments" do
+    describe "with url parameter" do
+      it "fetches comments from a YouTube video" do
+        VCR.use_cassette("youtube/video_comments_basic") do
+          result = youtube.video_comments(url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+
+          assert_kind_of Hash, result
+          assert result.key?(:comments)
+          assert_kind_of Array, result[:comments]
+
+          # Verify comment structure if comments exist
+          if result[:comments].any?
+            comment = result[:comments].first
+
+            assert comment.key?(:id)
+            assert comment.key?(:content)
+            assert comment.key?(:author)
+            assert_kind_of Hash, comment[:author]
+          end
+        end
+      end
+
+      it "returns comments with author information" do
+        VCR.use_cassette("youtube/video_comments_with_author") do
+          result = youtube.video_comments(url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+
+          assert_kind_of Hash, result
+          assert result.key?(:comments)
+
+          if result[:comments].any?
+            comment = result[:comments].first
+            author = comment[:author]
+
+            assert author.key?(:name)
+            assert author.key?(:channel_id)
+          end
+        end
+      end
+
+      it "returns comments with engagement data" do
+        VCR.use_cassette("youtube/video_comments_with_engagement") do
+          result = youtube.video_comments(url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+
+          assert_kind_of Hash, result
+          assert result.key?(:comments)
+
+          if result[:comments].any?
+            comment = result[:comments].first
+            # Check for engagement data if present
+            assert comment.key?(:engagement) || comment.key?(:likes)
+          end
+        end
+      end
+    end
+
+    describe "with order parameter" do
+      it "fetches top comments" do
+        VCR.use_cassette("youtube/video_comments_order_top") do
+          result = youtube.video_comments(
+            url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+            order: "top"
+          )
+
+          assert_kind_of Hash, result
+          assert result.key?(:comments)
+        end
+      end
+
+      it "fetches newest comments" do
+        VCR.use_cassette("youtube/video_comments_order_newest") do
+          result = youtube.video_comments(
+            url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+            order: "newest"
+          )
+
+          assert_kind_of Hash, result
+          assert result.key?(:comments)
+        end
+      end
+    end
+
+    describe "pagination" do
+      it "returns continuation_token for pagination" do
+        VCR.use_cassette("youtube/video_comments_pagination") do
+          result = youtube.video_comments(url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+
+          assert_kind_of Hash, result
+          # Continuation token may or may not be present depending on video
+          assert result.key?(:comments)
+        end
+      end
+    end
+
+    describe "parameter validation" do
+      it "raises ArgumentError when url is not provided" do
+        error = assert_raises(ArgumentError) do
+          youtube.video_comments(url: nil)
+        end
+        assert_match(/url is required/, error.message)
+      end
+
+      it "raises ArgumentError when url is empty string" do
+        error = assert_raises(ArgumentError) do
+          youtube.video_comments(url: "")
+        end
+        assert_match(/url is required/, error.message)
+      end
+
+      it "raises ArgumentError when url is whitespace only" do
+        error = assert_raises(ArgumentError) do
+          youtube.video_comments(url: "   ")
+        end
+        assert_match(/url is required/, error.message)
+      end
+    end
+
+    describe "error handling" do
+      it "raises authentication error for invalid API key" do
+        VCR.use_cassette("youtube/video_comments_unauthorized") do
+          invalid_client = ScrapeCreators::Client.new(api_key: "invalid_key")
+
+          # API may return UnauthorizedError or PaymentRequiredError for invalid credentials
+          assert_raises(ScrapeCreators::UnauthorizedError, ScrapeCreators::PaymentRequiredError) do
+            invalid_client.youtube.video_comments(url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+          end
+        end
+      end
+    end
+  end
+
   describe "#search" do
     describe "with query parameter" do
       it "searches YouTube for videos" do

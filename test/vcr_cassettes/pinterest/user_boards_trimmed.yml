@@ -1,0 +1,90 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/pinterest/user/boards?handle=broadstbullycom&trim=true
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 503
+      message: Service Unavailable
+    headers:
+      Content-Length:
+      - '216'
+      Content-Type:
+      - text/plain
+      Date:
+      - Sun, 23 Nov 2025 20:06:22 GMT
+    body:
+      encoding: UTF-8
+      string: 'upstream connect error or disconnect/reset before headers. reset reason:
+        remote connection failure, transport failure reason: TLS_error:|268435581:SSL
+        routines:OPENSSL_internal:CERTIFICATE_VERIFY_FAILED:TLS_error_end'
+  recorded_at: Sun, 23 Nov 2025 20:06:23 GMT
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/pinterest/user/boards?handle=broadstbullycom&trim=true
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 23 Nov 2025 20:06:25 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      Etag:
+      - W/"ed2-1gDyIJ1ms0wBzFkihfuqNODhZl4"
+      Rndr-Id:
+      - b8991f40-1956-4d71
+      Vary:
+      - Accept-Encoding
+      X-Powered-By:
+      - Express
+      X-Render-Origin-Server:
+      - Render
+      Cf-Cache-Status:
+      - DYNAMIC
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 9a3349709a23b266-ORD
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eyJzdWNjZXNzIjp0cnVlLCJjcmVkaXRzX3JlbWFpbmluZyI6MjQ2NDMsImJvYXJkcyI6W3siaWQiOiIyODI4MTIxMjAyODkzOTgwMTIiLCJ1cmwiOiJodHRwczovL3d3dy5waW50ZXJlc3QuY29tL2Jyb2Fkc3RidWxseWNvbS9waGlsYWRlbHBoaWEtcGhpbGxpZXMvIiwiZGVzY3JpcHRpb24iOiJUaGUgYmVzdCBQaGlsYWRlbHBoaWEgUGhpbGxpZXMgcGlucyBieSDwn5qoIEJTQiDwn5qoIiwiZm9sbG93ZXJfY291bnQiOjE5NzYsInBpbl9jb3VudCI6Mzg4LCJuYW1lIjoiUGhpbGFkZWxwaGlhIFBoaWxsaWVzIOKdpO+4j/CfpI0iLCJpbWFnZV9jb3Zlcl9oZF91cmwiOiJodHRwczovL2kucGluaW1nLmNvbS80NzR4L2M0L2Q2LzQyL2M0ZDY0MmE1OWVlYzUyZTRkMzQzNjg4MzhhYjNjOTA5LmpwZyIsImNyZWF0ZWRfYXQiOiJUaHUsIDIwIE9jdCAyMDIyIDE1OjUxOjAwICswMDAwIn0seyJpZCI6IjI4MjgxMjEyMDI4OTQyMzA0NCIsInVybCI6Imh0dHBzOi8vd3d3LnBpbnRlcmVzdC5jb20vYnJvYWRzdGJ1bGx5Y29tL2FudGhvbnktZWR3YXJkcy8iLCJkZXNjcmlwdGlvbiI6IlRoZSBiZXN0IEFudGhvbnkgRWR3YXJkcyBwaW5zIGJ5IPCfmqggQlNCIPCfmqgiLCJmb2xsb3dlcl9jb3VudCI6MTk3NSwicGluX2NvdW50IjozMTcsIm5hbWUiOiJBbnRob255IEVkd2FyZHMiLCJpbWFnZV9jb3Zlcl9oZF91cmwiOiJodHRwczovL2kucGluaW1nLmNvbS80NzR4LzNmL2M5L2ZmLzNmYzlmZmQzZWY0OGQxMWYyY2VhOWY0Y2ZmYzhlY2U5LmpwZyIsImNyZWF0ZWRfYXQiOiJUaHUsIDE4IEFwciAyMDI0IDIyOjU2OjMzICswMDAwIn0seyJpZCI6IjI4MjgxMjEyMDI4OTQyNDc3NCIsInVybCI6Imh0dHBzOi8vd3d3LnBpbnRlcmVzdC5jb20vYnJvYWRzdGJ1bGx5Y29tL2JyYW5kb24tbWFyc2gvIiwiZGVzY3JpcHRpb24iOiIiLCJmb2xsb3dlcl9jb3VudCI6MTk3MiwicGluX2NvdW50Ijo0MiwibmFtZSI6IkJyYW5kb24gTWFyc2gg4pq+8J+lsCIsImltYWdlX2NvdmVyX2hkX3VybCI6Imh0dHBzOi8vaS5waW5pbWcuY29tLzQ3NHgvMDkvNzgvNTcvMDk3ODU3N2Y2YzM4YTQzM2Y3MGQwMGIxYTgyYjdlOTcuanBnIiwiY3JlYXRlZF9hdCI6IkZyaSwgMzEgTWF5IDIwMjQgMjI6NDQ6MDkgKzAwMDAifSx7ImlkIjoiMjgyODEyMTIwMjg5NDIzNDM3IiwidXJsIjoiaHR0cHM6Ly93d3cucGludGVyZXN0LmNvbS9icm9hZHN0YnVsbHljb20vY29ubm9yLW1jZGF2aWQvIiwiZGVzY3JpcHRpb24iOiJUaGUgYmVzdCBDb25ub3IgTWNEYXZpZCBwaW5zIGJ5IPCfmqggQlNCIPCfmqgiLCJmb2xsb3dlcl9jb3VudCI6MTk3MiwicGluX2NvdW50IjozMiwibmFtZSI6IkNvbm5vciBNY0RhdmlkIiwiaW1hZ2VfY292ZXJfaGRfdXJsIjoiaHR0cHM6Ly9pLnBpbmltZy5jb20vNDc0eC9lOS9hOS81MS9lOWE5NTE0N2RmY2NmNjliYTZmOTgzODhhNjg0MTY5Yi5qcGciLCJjcmVhdGVkX2F0IjoiU2F0LCAyNyBBcHIgMjAyNCAxODo1OTo0NSArMDAwMCJ9LHsiaWQiOiIyODI4MTIxMjAyODk0MjQ2ODYiLCJ1cmwiOiJodHRwczovL3d3dy5waW50ZXJlc3QuY29tL2Jyb2Fkc3RidWxseWNvbS9jYWl0bGluLWNsYXJrLyIsImRlc2NyaXB0aW9uIjoiVGhlIGJlc3QgQ2FpdGxpbiBDbGFyayBwaW5zIGJ5IPCfmqggQlNCIPCfmqgiLCJmb2xsb3dlcl9jb3VudCI6MTk3NCwicGluX2NvdW50Ijo4MywibmFtZSI6IkNhaXRsaW4gQ2xhcmsg8J+PgPCfkqsiLCJpbWFnZV9jb3Zlcl9oZF91cmwiOiJodHRwczovL2kucGluaW1nLmNvbS80NzR4LzQ1L2U3LzMyLzQ1ZTczMmUxMzlkMWFiNmQ5MzQwMjIzMWRiZTM5MDZkLmpwZyIsImNyZWF0ZWRfYXQiOiJXZWQsIDI5IE1heSAyMDI0IDE0OjAxOjI5ICswMDAwIn0seyJpZCI6IjI4MjgxMjEyMDI4OTQyMjgyMiIsInVybCI6Imh0dHBzOi8vd3d3LnBpbnRlcmVzdC5jb20vYnJvYWRzdGJ1bGx5Y29tL25iYS1iYXNrZXRiYWxsLyIsImRlc2NyaXB0aW9uIjoiVGhlIGJlc3QgTkJBIGJhc2tldGJhbGwgcGlucyBieSDwn5qoIEJTQiDwn5qoIiwiZm9sbG93ZXJfY291bnQiOjE5NzMsInBpbl9jb3VudCI6NTM5LCJuYW1lIjoiTkJBIEJhc2tldGJhbGwg8J+PgCIsImltYWdlX2NvdmVyX2hkX3VybCI6Imh0dHBzOi8vaS5waW5pbWcuY29tLzQ3NHgvMjIvZGIvYzkvMjJkYmM5MTYxMzBmMzYzOTYwNWJlODJjNjliMDE3M2YuanBnIiwiY3JlYXRlZF9hdCI6IlNhdCwgMTMgQXByIDIwMjQgMTY6NTI6MzMgKzAwMDAifSx7ImlkIjoiMjgyODEyMTIwMjg5NDIzMTM4IiwidXJsIjoiaHR0cHM6Ly93d3cucGludGVyZXN0LmNvbS9icm9hZHN0YnVsbHljb20vZWxseS1kZS1sYS1jcnV6LyIsImRlc2NyaXB0aW9uIjoiVGhlIGJlc3QgRWxseSBEZSBsYSBDcnV6IHBpbnMgYnkg8J+aqCBCU0Ig8J+aqCIsImZvbGxvd2VyX2NvdW50IjoxOTcyLCJwaW5fY291bnQiOjI0LCJuYW1lIjoiRWxseSBEZSBMYSBDcnV6IiwiaW1hZ2VfY292ZXJfaGRfdXJsIjoiaHR0cHM6Ly9pLnBpbmltZy5jb20vNDc0eC80OS82Yy9hNC80OTZjYTQzNjk5ZWY1NDMwZGVlMjc0MjVjMTgwMzQzOC5qcGciLCJjcmVhdGVkX2F0IjoiU3VuLCAyMSBBcHIgMjAyNCAwMjowMjoyOCArMDAwMCJ9LHsiaWQiOiIyODI4MTIxMjAyODkzOTgxODciLCJ1cmwiOiJodHRwczovL3d3dy5waW50ZXJlc3QuY29tL2Jyb2Fkc3RidWxseWNvbS93bmJhLXN0YXJzLyIsImRlc2NyaXB0aW9uIjoiVGhlIGJlc3QgV05CQSBwaW5zIGJ5IPCfmqggQlNCIPCfmqgiLCJmb2xsb3dlcl9jb3VudCI6MTk3MiwicGluX2NvdW50IjoxMzgsIm5hbWUiOiJXTkJBIFN0YXJzIOKcqCIsImltYWdlX2NvdmVyX2hkX3VybCI6Imh0dHBzOi8vaS5waW5pbWcuY29tLzQ3NHgvYzQvMWQvMzgvYzQxZDM4MzEyNTVhMGE1ODQxMDRhYjcwMGRlZmI1OTUuanBnIiwiY3JlYXRlZF9hdCI6Ik1vbiwgMjQgT2N0IDIwMjIgMTA6NDk6MTkgKzAwMDAifSx7ImlkIjoiMjgyODEyMTIwMjg5NDIwODYxIiwidXJsIjoiaHR0cHM6Ly93d3cucGludGVyZXN0LmNvbS9icm9hZHN0YnVsbHljb20vbmhsLWhvY2tleS8iLCJkZXNjcmlwdGlvbiI6IlRoZSBiZXN0IE5ITCBob2NrZXkgcGlucyBieSDwn5qoIEJTQiDwn5qoIiwiZm9sbG93ZXJfY291bnQiOjE5NzMsInBpbl9jb3VudCI6Mzg5LCJuYW1lIjoiTkhMIEhvY2tleSIsImltYWdlX2NvdmVyX2hkX3VybCI6Imh0dHBzOi8vaS5waW5pbWcuY29tLzQ3NHgvNTYvNTQvZjkvNTY1NGY5MzMzZjc1MzY2ZTY3MGU1YWEzZDhhODQyOGIuanBnIiwiY3JlYXRlZF9hdCI6IkZyaSwgMDEgTWFyIDIwMjQgMDM6Mzk6MTQgKzAwMDAifSx7ImlkIjoiMjgyODEyMTIwMjg5NDIyODMzIiwidXJsIjoiaHR0cHM6Ly93d3cucGludGVyZXN0LmNvbS9icm9hZHN0YnVsbHljb20vZGV2aW4tYm9va2VyLyIsImRlc2NyaXB0aW9uIjoiVGhlIGJlc3QgRGV2aW4gQm9va2VyIHBpbnMgYnkg8J+aqCBCU0Ig8J+aqCIsImZvbGxvd2VyX2NvdW50IjoxOTcyLCJwaW5fY291bnQiOjQwLCJuYW1lIjoiRGV2aW4gQm9va2VyIiwiaW1hZ2VfY292ZXJfaGRfdXJsIjoiaHR0cHM6Ly9pLnBpbmltZy5jb20vNDc0eC9kMS82MC84MS9kMTYwODFkZmM0ZDk4N2ZmZTRmZWM3M2U4MmEwNTRmYy5qcGciLCJjcmVhdGVkX2F0IjoiU2F0LCAxMyBBcHIgMjAyNCAyMDoyODoxNSArMDAwMCJ9XSwiY3Vyc29yIjoiTFQ0eU9ESTRNVEl4TWpBeU9EazBNakk0TXpOOE1UQjhNelE1T0RBeE1ETXpPREl6TnprMk55cEhVVXdxZkdaaE9HVmhaVEJpWXpBNE56aGhNamRtTW1GbFpqUmpPVFEzTWpJMVlUY3lOalkxWldRek9ETmxaVFkyWVRJNU9Ua3hZVGN4TVRaa09EQmtNVFF6TnpOOFRrVlhmQT09In0=
+  recorded_at: Sun, 23 Nov 2025 20:06:25 GMT
+recorded_with: VCR 6.3.1
