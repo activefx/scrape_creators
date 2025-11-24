@@ -237,6 +237,94 @@ module ScrapeCreators
 
         get("/v1/pinterest/user/boards", params)
       end
+
+      # Get pins from a Pinterest board
+      #
+      # Fetches all pins from a specific Pinterest board including pin images,
+      # descriptions, pinner information, board details, and engagement statistics.
+      # Supports pagination for boards with many pins.
+      #
+      # @param url [String] The URL of the Pinterest board (required)
+      #   (e.g. "https://www.pinterest.com/lizmrodgers/moms-night/")
+      # @param cursor [String, nil] Pagination cursor from previous response to get more pins
+      # @param trim [Boolean, nil] Whether to return a trimmed response (default: false)
+      # @return [Hash] Board pins including success status, pins array, and pagination cursor
+      # @raise [ArgumentError] If the url parameter is nil or empty
+      # @raise [BadRequestError] If the request parameters are invalid
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      # @raise [NotFoundError] If the board is not found
+      #
+      # @example Get board pins
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   result = client.pinterest.board("https://www.pinterest.com/lizmrodgers/moms-night/")
+      #   result[:pins].each { |pin| puts pin[:description] }
+      #
+      # @example Paginate through board pins
+      #   first_page = client.pinterest.board("https://www.pinterest.com/user/board-name/")
+      #   if first_page[:cursor]
+      #     next_page = client.pinterest.board(
+      #       "https://www.pinterest.com/user/board-name/",
+      #       cursor: first_page[:cursor]
+      #     )
+      #   end
+      #
+      # @example Get trimmed response
+      #   result = client.pinterest.board("https://www.pinterest.com/user/board/", trim: true)
+      #
+      # @example Response structure
+      #   {
+      #     success: true,
+      #     pins: [
+      #       {
+      #         node_id: "UGluOjYzODk0ODg4NDcxNzM5NzAw",
+      #         id: "63894888471739700",
+      #         description: "Love the bun",
+      #         title: "",
+      #         type: "pin",
+      #         is_promoted: false,
+      #         is_repin: true,
+      #         domain: "Uploaded by user",
+      #         link: "https://www.example.com/...",
+      #         images: {
+      #           orig: {
+      #             width: 1080,
+      #             height: 1920,
+      #             url: "https://i.pinimg.com/originals/..."
+      #           }
+      #         },
+      #         board: {
+      #           node_id: "Qm9hcmQ6NjM4OTQ5NTcxNTI3MTg1MTk=",
+      #           name: "Moms night",
+      #           url: "/lizmrodgers/moms-night/",
+      #           owner: { username: "lizmrodgers", full_name: "Liz Rodgers" }
+      #         },
+      #         pinner: {
+      #           username: "lizmrodgers",
+      #           full_name: "Liz Rodgers - DIY | Home Decor"
+      #         },
+      #         native_creator: {
+      #           username: "mayajsanchez10",
+      #           full_name: "Maya Jade"
+      #         },
+      #         aggregated_pin_data: {
+      #           aggregated_stats: { saves: 149, done: 0 }
+      #         },
+      #         repin_count: 3,
+      #         favorite_user_count: 0
+      #       }
+      #     ],
+      #     cursor: "Y2JURlEwTWsxNlp6Vk..."
+      #   }
+      def board(url, cursor: nil, trim: nil)
+        raise ArgumentError, "url is required" if url.nil? || url.to_s.empty?
+
+        params = { url: url }
+        params[:cursor] = cursor unless cursor.nil?
+        params[:trim] = trim unless trim.nil?
+
+        get("/v1/pinterest/board", params)
+      end
     end
   end
 end

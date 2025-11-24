@@ -428,4 +428,167 @@ describe ScrapeCreators::Resources::Pinterest do
       end
     end
   end
+
+  describe "#board" do
+    let(:board_url) { "https://www.pinterest.com/lizmrodgers/moms-night/" }
+
+    it "fetches Pinterest board pins successfully" do
+      VCR.use_cassette("pinterest/board_success") do
+        result = pinterest.board(board_url)
+
+        assert_kind_of Hash, result
+        assert result.key?(:success)
+        assert result[:success]
+        assert result.key?(:pins)
+        assert_kind_of Array, result[:pins]
+      end
+    end
+
+    it "returns pins with expected core fields" do
+      VCR.use_cassette("pinterest/board_success") do
+        result = pinterest.board(board_url)
+
+        refute_empty result[:pins]
+        pin = result[:pins].first
+
+        assert pin.key?(:id)
+        assert pin.key?(:node_id)
+        assert pin.key?(:type)
+      end
+    end
+
+    it "returns pin images with expected structure" do
+      VCR.use_cassette("pinterest/board_success") do
+        result = pinterest.board(board_url)
+
+        pin = result[:pins].first
+
+        assert pin.key?(:images)
+
+        if pin[:images] && pin[:images][:orig]
+          assert pin[:images][:orig].key?(:url)
+          assert pin[:images][:orig].key?(:width)
+          assert pin[:images][:orig].key?(:height)
+        end
+      end
+    end
+
+    it "returns board information for each pin" do
+      VCR.use_cassette("pinterest/board_success") do
+        result = pinterest.board(board_url)
+
+        pin = result[:pins].first
+
+        if pin[:board]
+          board = pin[:board]
+
+          assert board.key?(:name)
+          assert board.key?(:url)
+        end
+      end
+    end
+
+    it "returns pinner information" do
+      VCR.use_cassette("pinterest/board_success") do
+        result = pinterest.board(board_url)
+
+        pin = result[:pins].first
+
+        if pin[:pinner]
+          pinner = pin[:pinner]
+
+          assert pinner.key?(:username)
+          assert pinner.key?(:full_name)
+        end
+      end
+    end
+
+    it "returns aggregated pin data when available" do
+      VCR.use_cassette("pinterest/board_success") do
+        result = pinterest.board(board_url)
+
+        pin = result[:pins].first
+
+        if pin[:aggregated_pin_data]
+          aggregated = pin[:aggregated_pin_data]
+
+          assert aggregated[:aggregated_stats].key?(:saves) if aggregated[:aggregated_stats]
+        end
+      end
+    end
+
+    it "includes pagination cursor in response" do
+      VCR.use_cassette("pinterest/board_success") do
+        result = pinterest.board(board_url)
+
+        assert result.key?(:cursor)
+      end
+    end
+
+    it "fetches board pins with cursor parameter" do
+      VCR.use_cassette("pinterest/board_with_cursor") do
+        result = pinterest.board(board_url, cursor: "Y2JURlEwTWsxNlp6Vk")
+
+        assert_kind_of Hash, result
+        assert result.key?(:success)
+        # End of pagination may not include pins array
+        assert_kind_of Array, result[:pins] if result.key?(:pins)
+      end
+    end
+
+    it "fetches board pins with trim parameter" do
+      VCR.use_cassette("pinterest/board_trimmed") do
+        result = pinterest.board(board_url, trim: true)
+
+        assert_kind_of Hash, result
+        assert result.key?(:success)
+        assert result.key?(:pins)
+      end
+    end
+
+    it "fetches board pins with all parameters" do
+      VCR.use_cassette("pinterest/board_all_params") do
+        result = pinterest.board(
+          board_url,
+          cursor: "Y2JURlEwTWsxNlp6Vk",
+          trim: true
+        )
+
+        assert_kind_of Hash, result
+        assert result.key?(:success)
+        # End of pagination may not include pins array
+        assert_kind_of Array, result[:pins] if result.key?(:pins)
+      end
+    end
+
+    describe "argument validation" do
+      it "raises ArgumentError when url is nil" do
+        error = assert_raises(ArgumentError) do
+          pinterest.board(nil)
+        end
+        assert_match(/url is required/, error.message)
+      end
+
+      it "raises ArgumentError when url is empty" do
+        error = assert_raises(ArgumentError) do
+          pinterest.board("")
+        end
+        assert_match(/url is required/, error.message)
+      end
+    end
+
+    describe "error handling" do
+      it "raises PaymentRequiredError for invalid API key" do
+        VCR.use_cassette("pinterest/board_unauthorized") do
+          invalid_client = ScrapeCreators::Client.new(api_key: "invalid_key")
+
+          error = assert_raises(ScrapeCreators::PaymentRequiredError) do
+            invalid_client.pinterest.board(board_url)
+          end
+
+          assert_match(/credits/i, error.message)
+        end
+      end
+    end
+  end
 end

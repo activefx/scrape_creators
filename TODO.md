@@ -176,7 +176,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 - [✅] GET Search (`/v1/pinterest/search`)
 - [✅] GET Pin (`/v1/pinterest/pin`)
 - [✅] GET User Boards (`/v1/pinterest/user/boards`)
-- [⏳] GET Board (`/v1/pinterest/board`)
+- [✅] GET Board (`/v1/pinterest/board`)
 
 ---
 
@@ -268,7 +268,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 - Truth Social: 3/3 endpoints (100%)
 - Threads: 5/5 endpoints (100%)
 - Bluesky: 3/3 endpoints (100%)
-- Pinterest: 3/4 endpoints (75%)
+- Pinterest: 4/4 endpoints (100%)
 - Google: 1/1 endpoints (100%)
 - Twitch: 1/2 endpoints (50%)
 - Kick: 1/1 endpoints (100%)
