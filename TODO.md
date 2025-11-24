@@ -219,7 +219,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 
 ## Pillar
 
-- [⏳] GET Pillar page (`/v1/pillar`)
+- [✅] GET Pillar page (`/v1/pillar`)
 
 ---
 
@@ -275,7 +275,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 - Snapchat: 1/1 endpoints (100%)
 - Linktree: 1/1 endpoints (100%)
 - Komi: 1/1 endpoints (100%)
-- Pillar: 0/1 endpoints (0%)
+- Pillar: 1/1 endpoints (100%)
 - Linkbio: 0/1 endpoints (0%)
 - Amazon Shop: 0/1 endpoints (0%)
 - Age and Gender: 0/1 endpoints (0%)
