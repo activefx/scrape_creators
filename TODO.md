@@ -74,7 +74,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 - [✅] GET Search (`/v1/youtube/search`)
 - [✅] GET Search by Hashtag (`/v1/youtube/search/hashtag`)
 - [✅] GET Comments (`/v1/youtube/video/comments`)
-- [⏳] GET Trending Shorts (`/v1/youtube/shorts/trending`)
+- [✅] GET Trending Shorts (`/v1/youtube/shorts/trending`)
 - [⏳] GET Playlist (`/v1/youtube/playlist`)
 - [⏳] GET Community Post Details (`/v1/youtube/community-post`)
 
@@ -189,7 +189,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 ## Twitch
 
 - [✅] GET Profile (`/v1/twitch/profile`)
-- [⏳] GET Clip (`/v1/twitch/clip`)
+- [✅] GET Clip (`/v1/twitch/clip`)
 
 ---
 
@@ -250,14 +250,14 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 ## Implementation Progress Summary
 
 **Total Endpoints:** 103
-**Completed:** 62
-**Remaining:** 41
+**Completed:** 96
+**Remaining:** 7
 
 ### Platform Completion Status
 - TikTok: 18/18 endpoints (100%)
 - TikTok Shop: 3/3 endpoints (100%)
 - Instagram: 13/13 endpoints (100%)
-- YouTube: 9/12 endpoints (75%)
+- YouTube: 10/12 endpoints (83%)
 - LinkedIn: 3/3 endpoints (100%)
 - Facebook: 6/6 endpoints (100%)
 - Facebook Ad Library: 4/4 endpoints (100%)
@@ -270,7 +270,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 - Bluesky: 3/3 endpoints (100%)
 - Pinterest: 4/4 endpoints (100%)
 - Google: 1/1 endpoints (100%)
-- Twitch: 1/2 endpoints (50%)
+- Twitch: 2/2 endpoints (100%)
 - Kick: 1/1 endpoints (100%)
 - Snapchat: 1/1 endpoints (100%)
 - Linktree: 1/1 endpoints (100%)

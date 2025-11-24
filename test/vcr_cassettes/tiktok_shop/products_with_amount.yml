@@ -1,0 +1,39 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/tiktok/shop/products?amount=10&url=https://www.tiktok.com/shop/store/goli-nutrition/7495794203056835079
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 23 Nov 2025 06:00:00 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Powered-By:
+      - Express
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"shopInfo":{"seller_id":"7495794203056835079","sold_count":3767605,"shop_name":"Goli Nutrition","shop_rating":"4.6","region":"US"},"products":[{"product_id":"1729527313880355335","title":"Goli Ashwagandha & Vitamin D Gummy","image":{"height":1500,"width":1500,"url_list":["https://example.com/image.webp"]},"product_price_info":{"currency_symbol":"$","sale_price_decimal":"14.96"},"rate_info":{"score":4.5,"review_count":"91316"},"sold_info":{"sold_count":1235089},"seller_info":{"seller_id":"7495794203056835079","shop_name":"Goli Nutrition"}}]}'
+  recorded_at: Sun, 23 Nov 2025 06:00:00 GMT
+recorded_with: VCR 6.3.1
