@@ -213,7 +213,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 
 ## Komi
 
-- [⏳] GET Komi page (`/v1/komi`)
+- [✅] GET Komi page (`/v1/komi`)
 
 ---
 
@@ -250,8 +250,8 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 ## Implementation Progress Summary
 
 **Total Endpoints:** 103
-**Completed:** 96
-**Remaining:** 7
+**Completed:** 97
+**Remaining:** 6
 
 ### Platform Completion Status
 - TikTok: 18/18 endpoints (100%)
@@ -274,7 +274,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 - Kick: 1/1 endpoints (100%)
 - Snapchat: 1/1 endpoints (100%)
 - Linktree: 1/1 endpoints (100%)
-- Komi: 0/1 endpoints (0%)
+- Komi: 1/1 endpoints (100%)
 - Pillar: 0/1 endpoints (0%)
 - Linkbio: 0/1 endpoints (0%)
 - Amazon Shop: 0/1 endpoints (0%)
