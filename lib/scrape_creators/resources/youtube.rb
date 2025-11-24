@@ -816,6 +816,67 @@ module ScrapeCreators
 
         get("/v1/youtube/playlist", { playlist_id: playlist_id })
       end
+
+      # Get YouTube community post details
+      #
+      # Retrieves detailed information about a YouTube community post including
+      # the post content, images, engagement metrics, and channel information.
+      #
+      # @param url [String] YouTube community post URL (required)
+      # @return [Hash] Community post data including content, images, and engagement metrics
+      # @raise [ArgumentError] If url is not provided
+      # @raise [BadRequestError] If the parameters are invalid
+      # @raise [NotFoundError] If the community post is not found
+      # @raise [UnauthorizedError] If the API key is invalid
+      # @raise [PaymentRequiredError] If credits are insufficient
+      #
+      # @example Get a community post
+      #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
+      #   post = client.youtube.community_post(
+      #     url: "https://www.youtube.com/post/Ugkxvj2KoApYAXoqLWnKVr6zZe5JjeHrQeP8"
+      #   )
+      #   puts post[:content]        # => "How to build something meaningful..."
+      #   puts post[:like_count]     # => 759
+      #   puts post[:channel][:title] # => "Starter Story"
+      #
+      # @example Access post images
+      #   post = client.youtube.community_post(url: "https://www.youtube.com/post/abc123")
+      #   post[:images].each do |image_url|
+      #     puts image_url
+      #   end
+      #
+      # @example Check if post has a video
+      #   post = client.youtube.community_post(url: "https://www.youtube.com/post/abc123")
+      #   if post[:video]
+      #     puts "Post includes video: #{post[:video][:title]}"
+      #   end
+      #
+      # @example Response structure
+      #   {
+      #     success: true,
+      #     credits_remaining: 9922899,
+      #     id: "Ugkxvj2KoApYAXoqLWnKVr6zZe5JjeHrQeP8",
+      #     channel: {
+      #       id: "UChhw6DlKKTQ9mYSpTfXUYqA",
+      #       title: "Starter Story",
+      #       url: "https://www.youtube.com/@starterstory",
+      #       handle: "starterstory"
+      #     },
+      #     content: "How to build something meaningful...",
+      #     images: [
+      #       "https://yt3.ggpht.com/...",
+      #       "https://yt3.ggpht.com/..."
+      #     ],
+      #     like_count: 759,
+      #     published_time_text: "5 days ago",
+      #     published_time: "2025-11-07T18:49:57.492Z",
+      #     video: nil
+      #   }
+      def community_post(url:)
+        raise ArgumentError, "url is required" if url.nil? || url.to_s.strip.empty?
+
+        get("/v1/youtube/community-post", { url: url })
+      end
     end
   end
 end
