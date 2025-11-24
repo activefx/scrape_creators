@@ -243,15 +243,15 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 
 ## Scrape Creators
 
-- [⏳] GET Get credit balance (`/v1/credit-balance`)
+- [✅] GET Get credit balance (`/v1/credit-balance`)
 
 ---
 
 ## Implementation Progress Summary
 
 **Total Endpoints:** 103
-**Completed:** 97
-**Remaining:** 6
+**Completed:** 98
+**Remaining:** 5
 
 ### Platform Completion Status
 - TikTok: 18/18 endpoints (100%)
@@ -279,7 +279,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 - Linkbio: 1/1 endpoints (100%)
 - Amazon Shop: 1/1 endpoints (100%)
 - Age and Gender: 0/1 endpoints (0%)
-- Scrape Creators: 0/1 endpoints (0%)
+- Scrape Creators: 1/1 endpoints (100%)
 
 ---
 
