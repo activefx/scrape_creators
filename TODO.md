@@ -243,7 +243,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 
 ## Scrape Creators
 
-- [⏳] GET Get credit balance (`/v1/credit-balance`)
+- [✅] GET Get credit balance (`/v1/credit-balance`)
 
 ---
 
@@ -279,7 +279,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 - Linkbio: 1/1 endpoints (100%)
 - Amazon Shop: 1/1 endpoints (100%)
 - Age and Gender: 1/1 endpoints (100%)
-- Scrape Creators: 0/1 endpoints (0%)
+- Scrape Creators: 1/1 endpoints (100%)
 
 ---
 
