@@ -76,7 +76,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 - [✅] GET Comments (`/v1/youtube/video/comments`)
 - [✅] GET Trending Shorts (`/v1/youtube/shorts/trending`)
 - [✅] GET Playlist (`/v1/youtube/playlist`)
-- [⏳] GET Community Post Details (`/v1/youtube/community-post`)
+- [✅] GET Community Post Details (`/v1/youtube/community-post`)
 
 ---
 
@@ -237,7 +237,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 
 ## Age and Gender
 
-- [⏳] GET Get Age and Gender (`/v1/detect-age-gender`)
+- [✅] GET Get Age and Gender (`/v1/detect-age-gender`)
 
 ---
 
@@ -257,7 +257,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 - TikTok: 18/18 endpoints (100%)
 - TikTok Shop: 3/3 endpoints (100%)
 - Instagram: 13/13 endpoints (100%)
-- YouTube: 11/12 endpoints (92%)
+- YouTube: 12/12 endpoints (100%)
 - LinkedIn: 3/3 endpoints (100%)
 - Facebook: 6/6 endpoints (100%)
 - Facebook Ad Library: 4/4 endpoints (100%)
@@ -278,7 +278,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 - Pillar: 1/1 endpoints (100%)
 - Linkbio: 1/1 endpoints (100%)
 - Amazon Shop: 1/1 endpoints (100%)
-- Age and Gender: 0/1 endpoints (0%)
+- Age and Gender: 1/1 endpoints (100%)
 - Scrape Creators: 1/1 endpoints (100%)
 
 ---
