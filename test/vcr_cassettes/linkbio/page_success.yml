@@ -1,0 +1,43 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/linkbio?url=https://lnk.bio/msjennafischer
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 24 Nov 2025 12:00:00 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Powered-By:
+      - Express
+      Cf-Cache-Status:
+      - DYNAMIC
+      Server:
+      - cloudflare
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"credits_remaining":24500,"handle":"msjennafischer","id":"-1154992","instagram":null,"email":null,"tiktok":null,"youtube":null,"twitter":null,"whatsapp":null,"website":null,"links":[{"url":"https://www.instagram.com/msjennafischer","text":"@msjennafischer"},{"url":"https://www.GoodmanTheatre.org/Ashland","text":"Ashland Avenue at The Goodman Theater"},{"url":"https://www.futureofpersonalhealth.com/campaign/cancer-care/","text":"From The Office to Cancer Survivor and Advocate"},{"url":"https://bit.ly/3STi9jN","text":"Future of Cancer Care Website"},{"url":"https://workingwithcancerpledge.com","text":"Screening Time Off Initiative"},{"url":"https://magview.com/ibis-risk-calculator/","text":"Breast Cancer Risk Assessment"},{"url":"https://officeladies.com/episodes","text":"Office Ladies Podcast"},{"url":"https://variety.com/2024/tv/news/jenna-fischer-angela-kinsey-office-podcast-office-ladies-6-0-second-drink-rewatch-1236207967/","text":"Office Ladies Variety Article"},{"url":"https://www.podswag.com/collections/office-ladies","text":"Office Ladies Merch"},{"url":"https://bestfriends.org/adopt-and-foster/foster-kittens","text":"Kitten Fostering"},{"url":"https://www.youtube.com/playlist?list=PLD7nPL1U-R5rmvJo2L49IK-vKu2qB-fvx","text":"Office Ladies Animated"},{"url":"https://miryslist.org/lists","text":"Mirys List Family Wishlists"}]}'
+  recorded_at: Sun, 24 Nov 2025 12:00:00 GMT
+recorded_with: VCR 6.3.1

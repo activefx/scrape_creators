@@ -1149,4 +1149,148 @@ describe ScrapeCreators::Resources::Youtube do
       end
     end
   end
+
+  describe "#playlist" do
+    describe "with playlist_id parameter" do
+      it "fetches videos from a YouTube playlist" do
+        VCR.use_cassette("youtube/playlist_basic") do
+          result = youtube.playlist(playlist_id: "PLrAXtmErZgOeiKm4sgNOknGvNjby9efdf")
+
+          assert_kind_of Hash, result
+          assert result.key?(:success)
+          assert result.key?(:title)
+          assert result.key?(:videos)
+          assert_kind_of Array, result[:videos]
+        end
+      end
+
+      it "returns playlist with owner information" do
+        VCR.use_cassette("youtube/playlist_with_owner") do
+          result = youtube.playlist(playlist_id: "PLrAXtmErZgOeiKm4sgNOknGvNjby9efdf")
+
+          assert_kind_of Hash, result
+          assert result.key?(:owner)
+
+          if result[:owner]
+            owner = result[:owner]
+
+            assert_kind_of Hash, owner
+            assert owner.key?(:id)
+            assert owner.key?(:name)
+            assert owner.key?(:url)
+            assert owner.key?(:handle)
+          end
+        end
+      end
+
+      it "returns playlist with total videos count" do
+        VCR.use_cassette("youtube/playlist_with_total_videos") do
+          result = youtube.playlist(playlist_id: "PLrAXtmErZgOeiKm4sgNOknGvNjby9efdf")
+
+          assert_kind_of Hash, result
+          assert result.key?(:total_videos)
+          assert_kind_of Integer, result[:total_videos]
+        end
+      end
+
+      it "returns videos with expected structure" do
+        VCR.use_cassette("youtube/playlist_video_structure") do
+          result = youtube.playlist(playlist_id: "PLrAXtmErZgOeiKm4sgNOknGvNjby9efdf")
+
+          assert_kind_of Hash, result
+          assert result.key?(:videos)
+
+          if result[:videos].any?
+            video = result[:videos].first
+
+            assert video.key?(:id)
+            assert video.key?(:title)
+            assert video.key?(:url)
+            assert video.key?(:thumbnail)
+            assert video.key?(:length_text)
+            assert video.key?(:length_seconds)
+          end
+        end
+      end
+
+      it "returns videos with channel information" do
+        VCR.use_cassette("youtube/playlist_videos_with_channel") do
+          result = youtube.playlist(playlist_id: "PLrAXtmErZgOeiKm4sgNOknGvNjby9efdf")
+
+          assert_kind_of Hash, result
+          assert result.key?(:videos)
+
+          if result[:videos].any?
+            video = result[:videos].first
+
+            assert video.key?(:channel)
+            assert_kind_of Hash, video[:channel] if video[:channel]
+
+            if video[:channel]
+              assert video[:channel].key?(:title)
+              assert video[:channel].key?(:url)
+            end
+          end
+        end
+      end
+
+      it "returns credits remaining" do
+        VCR.use_cassette("youtube/playlist_credits_remaining") do
+          result = youtube.playlist(playlist_id: "PLrAXtmErZgOeiKm4sgNOknGvNjby9efdf")
+
+          assert_kind_of Hash, result
+          assert result.key?(:credits_remaining)
+        end
+      end
+    end
+
+    describe "parameter validation" do
+      it "raises ArgumentError when playlist_id is not provided" do
+        error = assert_raises(ArgumentError) do
+          youtube.playlist(playlist_id: nil)
+        end
+        assert_match(/playlist_id is required/, error.message)
+      end
+
+      it "raises ArgumentError when playlist_id is empty string" do
+        error = assert_raises(ArgumentError) do
+          youtube.playlist(playlist_id: "")
+        end
+        assert_match(/playlist_id is required/, error.message)
+      end
+
+      it "raises ArgumentError when playlist_id is whitespace only" do
+        error = assert_raises(ArgumentError) do
+          youtube.playlist(playlist_id: "   ")
+        end
+        assert_match(/playlist_id is required/, error.message)
+      end
+    end
+
+    describe "error handling" do
+      it "returns minimal data for non-existent playlist" do
+        VCR.use_cassette("youtube/playlist_not_found") do
+          # API returns 200 with minimal data for non-existent playlists
+          result = youtube.playlist(playlist_id: "PLnonexistentplaylistid123456789xyz")
+
+          assert_kind_of Hash, result
+          assert result.key?(:success)
+          # Non-existent playlists have no title or videos array
+          refute result.key?(:title)
+          refute result.key?(:videos)
+        end
+      end
+
+      it "raises authentication error for invalid API key" do
+        VCR.use_cassette("youtube/playlist_unauthorized") do
+          invalid_client = ScrapeCreators::Client.new(api_key: "invalid_key")
+
+          # API may return UnauthorizedError or PaymentRequiredError for invalid credentials
+          assert_raises(ScrapeCreators::UnauthorizedError, ScrapeCreators::PaymentRequiredError) do
+            invalid_client.youtube.playlist(playlist_id: "PLrAXtmErZgOeiKm4sgNOknGvNjby9efdf")
+          end
+        end
+      end
+    end
+  end
 end
