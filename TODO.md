@@ -231,7 +231,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 
 ## Amazon Shop
 
-- [⏳] GET Amazon Shop page (`/v1/amazon/shop`)
+- [✅] GET Amazon Shop page (`/v1/amazon/shop`)
 
 ---
 
@@ -250,8 +250,8 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 ## Implementation Progress Summary
 
 **Total Endpoints:** 103
-**Completed:** 96
-**Remaining:** 7
+**Completed:** 97
+**Remaining:** 6
 
 ### Platform Completion Status
 - TikTok: 18/18 endpoints (100%)
@@ -277,7 +277,7 @@ This document tracks the implementation status of all ScrapeCreators API endpoin
 - Komi: 0/1 endpoints (0%)
 - Pillar: 0/1 endpoints (0%)
 - Linkbio: 0/1 endpoints (0%)
-- Amazon Shop: 0/1 endpoints (0%)
+- Amazon Shop: 1/1 endpoints (100%)
 - Age and Gender: 0/1 endpoints (0%)
 - Scrape Creators: 0/1 endpoints (0%)
 
