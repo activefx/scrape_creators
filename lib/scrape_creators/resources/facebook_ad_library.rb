@@ -12,24 +12,32 @@ module ScrapeCreators
       # Get details about a Facebook ad
       #
       # Retrieves detailed information about a specific ad from the Facebook Ad Library.
+      # You can identify the ad either by its ID or by passing the full Facebook Ad Library URL.
       # Be careful that if an ad has multiple versions, you'll want to get the title
       # from the 'cards' object in the snapshot.
       #
-      # @param id [String] The Facebook Ad ID (required)
+      # @param id [String, nil] The Facebook Ad ID. Can use this or url.
+      # @param url [String, nil] The Facebook Ad Library URL. Can use this or id.
       # @param get_transcript [Boolean, nil] Get the transcript of the ad. This is a new feature.
       # @param trim [Boolean, nil] Set to true for a trimmed down version of the response
       # @return [Hash] Response containing ad details including snapshot, targeting info, and metadata
-      # @raise [ArgumentError] If id is not provided
+      # @raise [ArgumentError] If neither id nor url is provided
       # @raise [BadRequestError] If the request parameters are invalid
       # @raise [UnauthorizedError] If the API key is invalid
       # @raise [PaymentRequiredError] If credits are insufficient
       # @raise [NotFoundError] If the ad is not found
       #
-      # @example Get ad details
+      # @example Get ad details by ID
       #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
       #   result = client.facebook_ad_library.ad(id: "702369045530963")
       #   puts result[:page_name]  # => "Porto Montenegro"
       #   puts result[:snapshot][:body]  # => Ad body text
+      #
+      # @example Get ad details by URL
+      #   result = client.facebook_ad_library.ad(
+      #     url: "https://www.facebook.com/ads/library/?id=702369045530963"
+      #   )
+      #   puts result[:page_name]  # => "Porto Montenegro"
       #
       # @example Get ad with transcript
       #   result = client.facebook_ad_library.ad(
@@ -73,10 +81,10 @@ module ScrapeCreators
       #       eu_total_reach: 1657
       #     }
       #   }
-      def ad(id:, get_transcript: nil, trim: nil)
-        validate_ad_params!(id)
+      def ad(id: nil, url: nil, get_transcript: nil, trim: nil)
+        validate_ad_params!(id, url)
 
-        params = build_ad_params(id, get_transcript, trim)
+        params = build_ad_params(id, url, get_transcript, trim)
         get("/v1/facebook/adLibrary/ad", params)
       end
 
@@ -330,8 +338,10 @@ module ScrapeCreators
 
       private
 
-      def validate_ad_params!(id)
-        raise ArgumentError, "id is required" if blank?(id)
+      def validate_ad_params!(id, url)
+        return unless blank?(id) && blank?(url)
+
+        raise ArgumentError, "Either id or url is required"
       end
 
       def validate_search_params!(query)
@@ -348,8 +358,10 @@ module ScrapeCreators
         raise ArgumentError, "query is required" if blank?(query)
       end
 
-      def build_ad_params(id, get_transcript, trim)
-        params = { id: id }
+      def build_ad_params(id, url, get_transcript, trim)
+        params = {}
+        params[:id] = id unless id.nil?
+        params[:url] = url unless url.nil?
         params[:get_transcript] = get_transcript unless get_transcript.nil?
         params[:trim] = trim unless trim.nil?
         params

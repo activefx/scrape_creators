@@ -40,6 +40,34 @@ describe ScrapeCreators::Resources::FacebookAdLibrary do
       end
     end
 
+    describe "with valid ad URL" do
+      it "fetches ad details by URL successfully" do
+        VCR.use_cassette("facebook_ad_library/ad_by_url_success") do
+          result = facebook_ad_library.ad(
+            url: "https://www.facebook.com/ads/library/?id=702369045530963"
+          )
+
+          assert_kind_of Hash, result
+          assert result.key?(:ad_archive_id)
+          assert result.key?(:page_name)
+          assert result.key?(:snapshot)
+          assert result.key?(:url)
+        end
+      end
+
+      it "returns ad snapshot data when fetching by URL" do
+        VCR.use_cassette("facebook_ad_library/ad_by_url_success") do
+          result = facebook_ad_library.ad(
+            url: "https://www.facebook.com/ads/library/?id=702369045530963"
+          )
+
+          assert_kind_of Hash, result[:snapshot]
+          assert result[:snapshot].key?(:body)
+          assert result[:snapshot].key?(:display_format)
+        end
+      end
+    end
+
     describe "with optional parameters" do
       it "accepts get_transcript parameter" do
         VCR.use_cassette("facebook_ad_library/ad_with_transcript") do
@@ -63,21 +91,51 @@ describe ScrapeCreators::Resources::FacebookAdLibrary do
           assert_kind_of Hash, result
         end
       end
+
+      it "accepts get_transcript with URL parameter" do
+        VCR.use_cassette("facebook_ad_library/ad_by_url_with_transcript") do
+          result = facebook_ad_library.ad(
+            url: "https://www.facebook.com/ads/library/?id=702369045530963",
+            get_transcript: true
+          )
+
+          assert_kind_of Hash, result
+          assert result.key?(:ad_archive_id)
+        end
+      end
+
+      it "accepts trim with URL parameter" do
+        VCR.use_cassette("facebook_ad_library/ad_by_url_trimmed") do
+          result = facebook_ad_library.ad(
+            url: "https://www.facebook.com/ads/library/?id=702369045530963",
+            trim: true
+          )
+
+          assert_kind_of Hash, result
+        end
+      end
     end
 
     describe "parameter validation" do
-      it "raises ArgumentError when id is nil" do
+      it "raises ArgumentError when both id and url are nil" do
         error = assert_raises(ArgumentError) do
-          facebook_ad_library.ad(id: nil)
+          facebook_ad_library.ad(id: nil, url: nil)
         end
-        assert_match(/id is required/, error.message)
+        assert_match(/Either id or url is required/, error.message)
       end
 
-      it "raises ArgumentError when id is empty string" do
+      it "raises ArgumentError when both id and url are empty strings" do
         error = assert_raises(ArgumentError) do
-          facebook_ad_library.ad(id: "")
+          facebook_ad_library.ad(id: "", url: "")
         end
-        assert_match(/id is required/, error.message)
+        assert_match(/Either id or url is required/, error.message)
+      end
+
+      it "raises ArgumentError when no parameters provided" do
+        error = assert_raises(ArgumentError) do
+          facebook_ad_library.ad
+        end
+        assert_match(/Either id or url is required/, error.message)
       end
     end
 

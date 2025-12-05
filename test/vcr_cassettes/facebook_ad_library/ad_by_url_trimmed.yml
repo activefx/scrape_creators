@@ -1,0 +1,66 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/facebook/adLibrary/ad?trim=true&url=https://www.facebook.com/ads/library/?id=702369045530963
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Fri, 05 Dec 2025 02:11:54 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      Etag:
+      - W/"1a67-TIvtjIH9yW+OjmDplZoDtfIhVSk"
+      Rndr-Id:
+      - 787dafb2-8828-4272
+      Vary:
+      - Accept-Encoding
+      X-Powered-By:
+      - Express
+      X-Render-Origin-Server:
+      - Render
+      Cf-Cache-Status:
+      - DYNAMIC
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 9a9003ac9e6b10d3-ORD
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"success":true,"credits_remaining":24560,"adArchiveID":702369045530963,"endDate":1747983600,"isAAAEligible":true,"isActive":false,"pageID":166258896830103,"pageName":"Porto
+        Montenegro","politicalCountries":[],"reachEstimate":null,"snapshot":{"ad_creative_id":1066536401993375,"cards":[],"body_translations":{},"byline":null,"caption":"www.portomontenegro.com","cta_text":"Learn
+        more","dynamic_item_flags":{},"dynamic_versions":null,"edited_snapshots":[],"effective_authorization_category":"NONE","event":[],"extra_images":[],"extra_links":[],"extra_texts":[],"extra_videos":[],"instagram_shopping_products":[],"display_format":"video","title":null,"link_description":null,"link_url":"https://www.portomontenegro.com/attractions-events/boka-place-grand-opening/","page_welcome_message":null,"images":[],"videos":[{"video_hd_url":"https://video.fphl1-1.fna.fbcdn.net/o1/v/t2/f2/m69/AQNcyjGmaajRuPJyLbta4Y3JmeqkjowHsT2vUipsmF1wKPiQGw3NBC7U5v1yBOu2TvvBS0EvxW4rnrP6wSMnrH5u.mp4?strext=1&_nc_cat=105&_nc_oc=AdnyKeP9G38C3l_l522aa7zvdZqshSWw8EQJ5WrZOfsao6B1rHBvdHz8fj8VFhuDOJ4&_nc_sid=8bf8fe&_nc_ht=video.fphl1-1.fna.fbcdn.net&_nc_ohc=Kyj0Miz2sSUQ7kNvwGhST-4&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuNzIwLmFzaWNfaHEyX2hkX3Byb2dyZXNzaXZlIiwieHB2X2Fzc2V0X2lkIjo3MzA1NTY5MDYxOTI3MDUsImFzc2V0X2FnZV9kYXlzIjowLCJ2aV91c2VjYXNlX2lkIjoxMDY4MCwiZHVyYXRpb25fcyI6NywidXJsZ2VuX3NvdXJjZSI6Ind3dyJ9&ccb=17-1&_nc_gid=ZTsgfBosqK4gnGHGWSVtTw&_nc_zt=28&oh=00_AfkFZjdLx4VwKzRPvkB8tjDzWmIenev3T-Ie_uorQUu18g&oe=693801F5","video_sd_url":"https://video.fphl1-1.fna.fbcdn.net/o1/v/t2/f2/m69/AQPLIZiLtDs-J3D33Z0kljTea6E7ntX6JMIYQxWjzjkS1p3O4YEOlnSnGgGxpdM3HIbL866SgVK7VYrYaCXi7RQE.mp4?strext=1&_nc_cat=107&_nc_oc=AdlYw3mdT0W5_Yz_fu8iKs7N9ZWSTMwcToYhAcHXWEx1ooVScTEiGsWma4aYXy_Q4bc&_nc_sid=8bf8fe&_nc_ht=video.fphl1-1.fna.fbcdn.net&_nc_ohc=05T1YZeSbeYQ7kNvwESFaJQ&efg=eyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5WSV9VU0VDQVNFX1BST0RVQ1RfVFlQRS4uQzMuMzYwLmFzaWNfaHExX3NkX3Byb2dyZXNzaXZlIiwieHB2X2Fzc2V0X2lkIjo3MzA1NTY5MDYxOTI3MDUsImFzc2V0X2FnZV9kYXlzIjowLCJ2aV91c2VjYXNlX2lkIjoxMDY4MCwiZHVyYXRpb25fcyI6NywidXJsZ2VuX3NvdXJjZSI6Ind3dyJ9&ccb=17-1&_nc_gid=ZTsgfBosqK4gnGHGWSVtTw&_nc_zt=28&oh=00_AfkmGFRG_XlsYC6csBd1zfvhx5DMRqAlfR1zoLeOFUB5ZA&oe=693828AB","watermarked_video_sd_url":"","watermarked_video_hd_url":"","video_preview_image_url":"https://scontent.fphl1-1.fna.fbcdn.net/v/t39.35426-6/499149696_1837810423819060_5242520759436861939_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=9oQRDVPzVKYQ7kNvwHaI5sw&_nc_oc=Adk_k5Xtb4JFyPytIfwZj4lNxnyUIwlNPiQfoHrHx9WxznuuwOaNEL_Hhqxh1UomnYM&_nc_zt=14&_nc_ht=scontent.fphl1-1.fna&_nc_gid=ZTsgfBosqK4gnGHGWSVtTw&oh=00_AfmNw6KHTrKj6RocoYVIM2flqRKV-7wOdi_aU59YL8BxRg&oe=69380FFA"}],"creation_time":1764832260,"page_id":598631456674530,"page_name":"Porto
+        Montenegro Experience","page_profile_picture_url":"https://scontent.fphl1-1.fna.fbcdn.net/v/t39.35426-6/498588182_739875508369121_8639482247199838788_n.jpg?stp=dst-jpg_s60x60_tt6&_nc_cat=110&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=u4x2V71BMKIQ7kNvwEdAOXC&_nc_oc=Adkiyn8d67jZKlJ7lwz6Tl9TAmhDX-C0-zH-V58J0vJtwTBbPx8IssWveteLtOki8hk&_nc_zt=14&_nc_ht=scontent.fphl1-1.fna&_nc_gid=ZTsgfBosqK4gnGHGWSVtTw&oh=00_Afmeu3pFBIT19Wp4CpMUEB5fUZw4N7KI09tAcwlb-DJPmA&oe=69382184","page_categories":{"197251360301109":"Marina"},"page_entity_type":"person_profile","page_is_profile_page":false,"instagram_actor_name":"Porto
+        Montenegro Experience","instagram_profile_pic_url":"https://scontent.fphl1-1.fna.fbcdn.net/v/t39.35426-6/499922917_1078294804160843_5583552140592065526_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=vZl8L0HJMLAQ7kNvwFmTNpf&_nc_oc=Adm-DhryW2lz1iqr-pBnKoaL3TcKN_ncXQ4GmnJQ28IDY8-TRAKVK6rmfwmugsXrqww&_nc_zt=14&_nc_ht=scontent.fphl1-1.fna&_nc_gid=ZTsgfBosqK4gnGHGWSVtTw&oh=00_Afkt6YFBfLqIaSO6ZFZW3fp8HwZ1688Jn6YiKrVABf-_VQ&oe=6937F943","instagram_url":"","instagram_handle":"","is_reshared":false,"version":3,"body":"Reflections
+        ripple, light gathers,<br /> and tomorrow brings a new rhythm to the square.
+        <br /> <br /> One day until the Grand Opening of Boka Place.","brazil_tax_id":null,"branded_content":{"page_id":166258896830103,"page_name":"Porto
+        Montenegro","page_profile_picture_url":"https://scontent.fphl1-1.fna.fbcdn.net/v/t39.35426-6/499920502_2382687582132053_334434608727983440_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=c53f8f&_nc_ohc=j2tQaOSYdyEQ7kNvwGFC7uT&_nc_oc=AdlCT-4W2wkJT2FNRnpOpMW3X-WZ6zmKalqLdfaaaDSGo2XSJRX1oKhwHAq_40K2TPQ&_nc_zt=14&_nc_ht=scontent.fphl1-1.fna&_nc_gid=ZTsgfBosqK4gnGHGWSVtTw&oh=00_AflnTdh5yxXOd0Wb31GOoD3rs20pzwaGQncld0OmmKOf1Q&oe=69381955","page_categories":{"197251360301109":"Marina"},"current_page_name":"Porto
+        Montenegro","page_profile_uri":"https://www.facebook.com/portomontenegrotivat/","page_is_deleted":false},"current_page_name":"Porto
+        Montenegro Experience","disclaimer_label":null,"page_like_count":2,"page_profile_uri":"https://www.facebook.com/61575286107814/","page_is_deleted":false,"root_reshared_post":null,"cta_type":"LEARN_MORE","additional_info":null,"ec_certificates":null,"country_iso_code":null,"instagram_branded_content":{"instagram_bc_sponsor_id":"17841400741682419","instagram_bc_sponsor_name":"porto_montenegro"},"final_url":null},"totalActiveTime":41782,"spend":null,"startDate":1747897200,"publisherPlatform":["facebook","instagram","audience_network"],"url":"https://www.facebook.com/ads/library?id=702369045530963","startDateString":"2025-05-22T07:00:00.000Z","endDateString":"2025-05-23T07:00:00.000Z","aaa_info":{"targets_eu":true,"location_audience":[{"name":"Dubrovnik,
+        Croatia","num_obfuscated":0,"type":"CITY","excluded":false}],"gender_audience":"All","age_audience":{"min":18,"max":65},"eu_total_reach":1657,"age_country_gender_reach_breakdown":[{"country":"HR","age_gender_breakdowns":[{"age_range":"45-54","male":101,"female":77,"unknown":4},{"age_range":"55-64","male":55,"female":55,"unknown":1},{"age_range":"65+","male":37,"female":29,"unknown":null},{"age_range":"18-24","male":161,"female":152,"unknown":7},{"age_range":"25-34","male":374,"female":238,"unknown":8},{"age_range":"35-44","male":196,"female":133,"unknown":5}]}]},"eu_transparency":{"targets_eu":true,"location_audience":[{"name":"Dubrovnik,
+        Croatia","num_obfuscated":0,"type":"CITY","excluded":false}],"gender_audience":"All","age_audience":{"min":18,"max":65},"eu_total_reach":1657,"age_country_gender_reach_breakdown":[{"country":"HR","age_gender_breakdowns":[{"age_range":"45-54","male":101,"female":77,"unknown":4},{"age_range":"55-64","male":55,"female":55,"unknown":1},{"age_range":"65+","male":37,"female":29,"unknown":null},{"age_range":"18-24","male":161,"female":152,"unknown":7},{"age_range":"25-34","male":374,"female":238,"unknown":8},{"age_range":"35-44","male":196,"female":133,"unknown":5}]}]}}'
+  recorded_at: Fri, 05 Dec 2025 02:11:54 GMT
+recorded_with: VCR 6.3.1
