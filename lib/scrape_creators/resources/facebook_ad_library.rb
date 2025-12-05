@@ -191,6 +191,9 @@ module ScrapeCreators
       # @param status [String, nil] Ad status: "ALL", "ACTIVE", or "INACTIVE". Defaults to ACTIVE
       # @param media_type [String, nil] Media type: "ALL", "IMAGE", "VIDEO", "MEME",
       #   "IMAGE_AND_MEME", or "NONE". Defaults to ALL. Note: MEME refers to ads with image and text
+      # @param language [String, nil] Two-letter language code to filter ads (e.g., "EN", "ES", "FR")
+      # @param start_date [String, nil] Start date to search for in YYYY-MM-DD format
+      # @param end_date [String, nil] End date to search for in YYYY-MM-DD format
       # @param cursor [String, nil] Cursor to paginate through results
       # @param trim [Boolean, nil] Set to true for a trimmed down version of the response
       # @return [Hash] Response containing results array and cursor for pagination
@@ -215,6 +218,14 @@ module ScrapeCreators
       #     country: "US",
       #     status: "ACTIVE",
       #     media_type: "VIDEO"
+      #   )
+      #
+      # @example Get company ads with date and language filters
+      #   result = client.facebook_ad_library.company_ads(
+      #     page_id: "367152833370567",
+      #     language: "EN",
+      #     start_date: "2025-01-01",
+      #     end_date: "2025-12-31"
       #   )
       #
       # @example Paginate through results
@@ -248,22 +259,28 @@ module ScrapeCreators
       #     ],
       #     cursor: "AQHRBUAxNmFlxBVMFL6uTb1ICFsV65O4..."
       #   }
+      # rubocop:disable Metrics/ParameterLists
       def company_ads(
         page_id: nil,
         company_name: nil,
         country: nil,
         status: nil,
         media_type: nil,
+        language: nil,
+        start_date: nil,
+        end_date: nil,
         cursor: nil,
         trim: nil
       )
         validate_company_ads_params!(page_id, company_name)
 
         params = build_company_ads_params(
-          page_id, company_name, country, status, media_type, cursor, trim
+          page_id, company_name, country, status, media_type,
+          language, start_date, end_date, cursor, trim
         )
         get("/v1/facebook/adLibrary/company/ads", params)
       end
+      # rubocop:enable Metrics/ParameterLists
 
       # Search for companies by name in the Facebook Ad Library
       #
@@ -357,17 +374,25 @@ module ScrapeCreators
       end
       # rubocop:enable Metrics/ParameterLists
 
-      def build_company_ads_params(page_id, company_name, country, status, media_type, cursor, trim)
+      # rubocop:disable Metrics/ParameterLists
+      def build_company_ads_params(
+        page_id, company_name, country, status, media_type,
+        language, start_date, end_date, cursor, trim
+      )
         params = {}
         params[:pageId] = page_id unless page_id.nil?
         params[:companyName] = company_name unless company_name.nil?
         params[:country] = country unless country.nil?
         params[:status] = status unless status.nil?
         params[:media_type] = media_type unless media_type.nil?
+        params[:language] = language unless language.nil?
+        params[:start_date] = start_date unless start_date.nil?
+        params[:end_date] = end_date unless end_date.nil?
         params[:cursor] = cursor unless cursor.nil?
         params[:trim] = trim unless trim.nil?
         params
       end
+      # rubocop:enable Metrics/ParameterLists
 
       def blank?(value)
         value.nil? || value.to_s.empty?
