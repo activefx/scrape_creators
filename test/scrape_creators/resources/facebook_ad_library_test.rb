@@ -365,6 +365,56 @@ describe ScrapeCreators::Resources::FacebookAdLibrary do
           assert result.key?(:results)
         end
       end
+
+      it "accepts language filter" do
+        VCR.use_cassette("facebook_ad_library/company_ads_with_language") do
+          result = facebook_ad_library.company_ads(
+            page_id: "367152833370567",
+            language: "EN"
+          )
+
+          assert_kind_of Hash, result
+          assert result.key?(:results)
+        end
+      end
+
+      it "accepts start_date filter" do
+        VCR.use_cassette("facebook_ad_library/company_ads_with_start_date") do
+          result = facebook_ad_library.company_ads(
+            page_id: "367152833370567",
+            start_date: "2025-01-01"
+          )
+
+          assert_kind_of Hash, result
+          assert result.key?(:results)
+        end
+      end
+
+      it "accepts end_date filter" do
+        VCR.use_cassette("facebook_ad_library/company_ads_with_end_date") do
+          result = facebook_ad_library.company_ads(
+            page_id: "367152833370567",
+            end_date: "2025-12-31"
+          )
+
+          assert_kind_of Hash, result
+          assert result.key?(:results)
+        end
+      end
+
+      it "accepts date range and language filters together" do
+        VCR.use_cassette("facebook_ad_library/company_ads_with_date_range_and_language") do
+          result = facebook_ad_library.company_ads(
+            page_id: "367152833370567",
+            language: "ES",
+            start_date: "2025-01-01",
+            end_date: "2025-12-31"
+          )
+
+          assert_kind_of Hash, result
+          assert result.key?(:results)
+        end
+      end
     end
 
     describe "parameter validation" do
