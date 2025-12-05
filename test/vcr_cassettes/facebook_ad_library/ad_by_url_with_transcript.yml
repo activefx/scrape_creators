@@ -1,0 +1,39 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.scrapecreators.com/v1/facebook/adLibrary/ad?get_transcript=true&url=https://www.facebook.com/ads/library/?id=702369045530963
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      X-Api-Key:
+      - "<API_KEY>"
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Fri, 05 Dec 2025 02:11:33 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Powered-By:
+      - Express
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"adid":0,"adArchiveID":702369045530963,"archiveTypes":[],"categories":[0],"containsDigitallyCreatedMedia":false,"containsSensitiveContent":false,"collationCount":null,"collationID":null,"currency":"","endDate":1747983600,"entityType":"person_profile","gatedType":"eligible","hasUserReported":false,"hiddenSafetyData":false,"hideDataStatus":"NONE","isAAAEligible":true,"isAdAccountActioned":false,"isActive":false,"isProfilePage":false,"pageID":166258896830103,"pageIsDeleted":false,"pageName":"Porto Montenegro","snapshot":{"ad_creative_id":1066536401993375,"cards":[],"caption":"www.portomontenegro.com","cta_text":"Learn more","display_format":"video","title":null,"link_url":"https://www.portomontenegro.com/attractions-events/boka-place-grand-opening/","images":[],"videos":[{"video_hd_url":"https://video-lga3-1.xx.fbcdn.net/v/t42.1790-2/491479560_702369072197627_5775200790449116407_n.mp4","video_sd_url":"https://video-lga3-1.xx.fbcdn.net/v/t42.1790-2/499448662_702369075530960_5981246750517589666_n.mp4"}],"creation_time":1747908203,"page_id":598631456674530,"page_name":"Porto Montenegro Experience","body":"Reflections ripple, light gathers,<br /> and tomorrow brings a new rhythm to the square.","cta_type":"LEARN_MORE"},"startDate":1747897200,"publisherPlatform":["facebook","instagram","audience_network"],"url":"https://www.facebook.com/ads/library?id=702369045530963","startDateString":"2025-05-22T07:00:00.000Z","endDateString":"2025-05-23T07:00:00.000Z","transcript":"Welcome to Porto Montenegro. Reflections ripple, light gathers, and tomorrow brings a new rhythm to the square."}'
+  recorded_at: Fri, 05 Dec 2025 02:11:33 GMT
+recorded_with: VCR 6.3.1
