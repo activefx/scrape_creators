@@ -311,8 +311,10 @@ module ScrapeCreators
       # Useful for extracting spoken content from videos.
       #
       # @param url [String] TikTok video URL
-      # @param language [String, nil] Language code for transcript (e.g., "en", "es")
-      # @return [Hash] Transcript data
+      # @param language [String, nil] Language code for transcript (2 letter code like en, es, fr, de, it, ja, ko, zh)
+      # @param use_ai_as_fallback [Boolean, nil] Set to true to use AI as a fallback to get the transcript
+      #   if the transcript is not found. Costs 10 credits to use this feature.
+      # @return [Hash] Transcript data including id, url, and transcript in WEBVTT format
       # @raise [BadRequestError] If the url parameter is missing or invalid
       # @raise [NotFoundError] If the video is not found or has no transcript
       # @raise [UnauthorizedError] If the API key is invalid
@@ -321,18 +323,33 @@ module ScrapeCreators
       # @example Get video transcript
       #   client = ScrapeCreators::Client.new(api_key: "your_api_key")
       #   transcript = client.tiktok.video_transcript("https://www.tiktok.com/@user/video/1234567890")
-      #   puts transcript[:text]
+      #   puts transcript[:transcript]
       #
       # @example Get transcript in specific language
       #   transcript = client.tiktok.video_transcript(
       #     "https://www.tiktok.com/@user/video/1234567890",
       #     language: "es"
       #   )
-      def video_transcript(url, language: nil)
+      #
+      # @example Get transcript with AI fallback
+      #   transcript = client.tiktok.video_transcript(
+      #     "https://www.tiktok.com/@user/video/1234567890",
+      #     use_ai_as_fallback: true
+      #   )
+      #   puts transcript[:transcript]  # WEBVTT format transcript
+      #
+      # @example Response structure
+      #   {
+      #     id: "7499229683859426602",
+      #     url: "https://www.tiktok.com/@stoolpresidente/video/7499229683859426602",
+      #     transcript: "WEBVTT\n\n\n00:00:00.120 --> 00:00:01.840\nAlright, pizza review time.\n\n..."
+      #   }
+      def video_transcript(url, language: nil, use_ai_as_fallback: nil)
         raise ArgumentError, "url is required" if url.nil? || url.to_s.empty?
 
         params = { url: url }
         params[:language] = language if language
+        params[:use_ai_as_fallback] = use_ai_as_fallback unless use_ai_as_fallback.nil?
 
         get("/v1/tiktok/video/transcript", params)
       end
