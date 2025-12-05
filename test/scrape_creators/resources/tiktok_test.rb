@@ -225,6 +225,18 @@ describe ScrapeCreators::Resources::Tiktok do
       end
     end
 
+    it "fetches video transcript with use_ai_as_fallback parameter" do
+      VCR.use_cassette("tiktok/video_transcript_with_ai_fallback") do
+        transcript = tiktok.video_transcript(
+          "https://www.tiktok.com/@stoolpresidente/video/7499229683859426602",
+          use_ai_as_fallback: true
+        )
+
+        assert_kind_of Hash, transcript
+        assert transcript.key?(:id) || transcript.key?(:transcript)
+      end
+    end
+
     it "raises ArgumentError when url is nil" do
       error = assert_raises(ArgumentError) do
         tiktok.video_transcript(nil)
